@@ -7,21 +7,84 @@
 	$.datepicker.setDefaults($.datepicker.regional[ "{{ app.request.locale }}" ]);
 
 	$(function() {
-		$( "#datepicker" ).datepicker({
+		$("#dateByHour").datepicker({
 			dateFormat: 		"dd MM yy",
 			defaultDate: 		+2,
 			minDate: 			+2,
+		});
+		$("#dateByDaySD").datepicker({
+			dateFormat: 		"dd MM yy",
+			defaultDate: 		+2,
+			minDate: 			+2,
+			onClose: function(selectedDate) {
+				$("#dateByDayED").datepicker("option", "minDate", selectedDate );
+			}
+		});
+		$("#dateByDayED").datepicker({
+			dateFormat: 		"dd MM yy",
+			defaultDate: 		+3,
+			minDate: 			+3,
+			onClose: function(selectedDate) {
+				$( "#dateByDaySD" ).datepicker( "option", "maxDate", selectedDate );
+			}
+		});
+
+		$("#byHour").click(function() {
+			$("#byHourDiv").show("slow");
+			$("#byDayDiv").hide("slow");
+		});
+
+		$("#byDay").click(function() {
+			$("#byHourDiv").hide("slow");
+			$("#byDayDiv").show("slow");
 		});
 	});
 </script>
 
 <div class="col-md-4 column mainContent">
 	<form action="#" method="POST">
-		<label>Nombre</label>
+		<label>{% trans %}Nombre{% endtrans %}</label>
 		<input class="thisInput" type="text" name="name">
 
-		<label>Fecha</label>
-		<input class="thisInput" type="text" id="datepicker">
+		<label>{% trans %}Alquilar por{% endtrans %}</label><br/>
+		&nbsp;&nbsp;<input id="byHour" type="radio" name="type" value="hora" checked>{% trans %}Hora{% endtrans %}&nbsp;&nbsp;<input id="byDay" type="radio" name="type" value="dia">{% trans %}Día{% endtrans %}
+
+		<div id="byHourDiv">
+			<table class="dateHourTable">
+					<th><label>{% trans %}Fecha{% endtrans %}</label></th>
+					<th><label style="float: right;">{% trans %}Hora{% endtrans %}</label></th>
+				</tr>
+				<tr>
+					<td>
+						<input class="thisInput" type="text" id="dateByHour">
+					</td>
+					<td>
+						<select>
+							<option value="09">09:00</option>
+							<option value="10">10:00</option>
+							<option value="11">11:00</option>
+							<option value="12">12:00</option>
+							<option value="13">13:00</option>
+							<option value="14">14:00</option>
+							<option value="15">15:00</option>
+							<option value="16">16:00</option>
+							<option value="17">17:00</option>
+							<option value="18">18:00</option>
+							<option value="19">19:00</option>
+							<option value="20">20:00</option>
+							<option value="21">21:00</option>
+							<option value="22">22:00</option>
+						</select>
+					<td>
+				</tr>
+			</table>
+		</div>
+		<div id="byDayDiv">
+			<label>{% trans %}Entrada{% endtrans %}</label>
+			<input class="thisInput" type="text" id="dateByDaySD">
+			<label>{% trans %}Salida{% endtrans %}</label>
+			<input class="thisInput" type="text" id="dateByDayED">
+		</div>
 
 		<div class="text-center">
 			<button value="Send" class="btn btn-success" type="submit"><i class="glyphicon glyphicon-search"></i>&nbsp;{% trans %}Buscar{% endtrans %}</button>

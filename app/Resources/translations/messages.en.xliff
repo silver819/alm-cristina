@@ -50,6 +50,30 @@
                 <source>Modificar datos</source>
                 <target>Modify personal data</target>
             </trans-unit>
+            <trans-unit id="13">
+                <source>Nombre</source>
+                <target>Name</target>
+            </trans-unit>
+            <trans-unit id="14">
+                <source>Fecha</source>
+                <target>Date</target>
+            </trans-unit>
+            <trans-unit id="15">
+                <source>Buscar</source>
+                <target>Search</target>
+            </trans-unit>
+            <trans-unit id="16">
+                <source>Alquilar por</source>
+                <target>Rent by</target>
+            </trans-unit>
+            <trans-unit id="17">
+                <source>Hora</source>
+                <target>Hour</target>
+            </trans-unit>
+            <trans-unit id="18">
+                <source>Día</source>
+                <target>Day</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>
