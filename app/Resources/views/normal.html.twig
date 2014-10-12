@@ -12,6 +12,8 @@
 			defaultDate: 		+2,
 			minDate: 			+2,
 		});
+		$("#dateByHour").datepicker( "setDate", 2);
+
 		$("#dateByDaySD").datepicker({
 			dateFormat: 		"dd MM yy",
 			defaultDate: 		+2,
@@ -20,6 +22,8 @@
 				$("#dateByDayED").datepicker("option", "minDate", selectedDate );
 			}
 		});
+		$("#dateByDaySD").datepicker( "setDate", 2);
+
 		$("#dateByDayED").datepicker({
 			dateFormat: 		"dd MM yy",
 			defaultDate: 		+3,
@@ -28,6 +32,7 @@
 				$( "#dateByDaySD" ).datepicker( "option", "maxDate", selectedDate );
 			}
 		});
+		$("#dateByDayED").datepicker( "setDate", 30);
 
 		$("#byHour").click(function() {
 			$("#byHourDiv").show("slow");
