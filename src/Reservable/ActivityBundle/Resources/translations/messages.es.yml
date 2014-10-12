@@ -1,0 +1,9 @@
+registerActivity:
+    labels:
+        name: Nombre
+        price: Precio
+        type: Alquiler por
+        address: Dirección
+        description: Descripción
+        hour: Hora
+        day: Día

@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+    <file source-language="en" datatype="plaintext" original="file.ext">
+        <body>
+            <trans-unit id="1">
+                <source>Mi cuenta</source>
+                <target>My account</target>
+            </trans-unit>
+            <trans-unit id="2">
+                <source>Iniciar sesión</source>
+                <target>Sign in</target>
+            </trans-unit>
+            <trans-unit id="3">
+                <source>Registrar</source>
+                <target>Register</target>
+            </trans-unit>
+            <trans-unit id="4">
+                <source>¡Bienvenid@!</source>
+                <target>Welcome</target>
+            </trans-unit>
+            <trans-unit id="5">
+                <source>Almacen</source>
+                <target>Warehouse</target>
+            </trans-unit>
+            <trans-unit id="6">
+                <source>Ver perfil</source>
+                <target>Profile</target>
+            </trans-unit>
+            <trans-unit id="7">
+                <source>Modificar perfil</source>
+                <target>Modify profile</target>
+            </trans-unit>
+            <trans-unit id="8">
+                <source>Salir</source>
+                <target>Log out</target>
+            </trans-unit>
+            <trans-unit id="9">
+                <source>Proyecto Fín de Carrera Ingeniería Informática</source>
+                <target>Final Project in Computer Science</target>
+            </trans-unit>
+            <trans-unit id="10">
+                <source>Universidad de Cádiz</source>
+                <target>Cadiz University (Spain)</target>
+            </trans-unit>
+            <trans-unit id="11">
+                <source>Modificar contraseña</source>
+                <target>Modify password</target>
+            </trans-unit>
+            <trans-unit id="12">
+                <source>Modificar datos</source>
+                <target>Modify personal data</target>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>

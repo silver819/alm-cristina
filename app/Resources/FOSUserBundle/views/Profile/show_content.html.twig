@@ -1,0 +1,27 @@
+{% trans_default_domain 'FOSUserBundle' %}
+
+{% block fos_user_content %}
+<div class="container">
+	<div class="row clearfix">
+		<div class="col-md-2 column"></div>
+
+		<div class="col-md-8 column text-center borderBox">
+			<div class="fos_user_user_show">
+			    <p><b>{{ 'profile.show.username'|trans }}</b>: {{ user.username }}</p>
+			    <p><b>{{ 'profile.show.email'|trans }}</b>: {{ user.email }}</p>
+			    <p><b>{{ 'profile.show.name'|trans }}</b>: {{ user.name }}</p>
+			    <p><b>{{ 'profile.show.surname'|trans }}</b>: {{ user.surname }}</p>
+			    <p><b>{% trans %}Teléfono{% endtrans %}</b>: {{ user.phoneNumber }}</p>
+			    <p><b>{% trans %}Movil{% endtrans %}</b>: {{ user.mobileNumber }}</p>
+			</div>
+
+			<br/>
+			
+			<a href="{{ path('fos_user_change_password') }}"><button class="btn btn-primary" type="button">{% trans %}Modificar contraseña{% endtrans %}</button></a>
+			<a href="{{ path('fos_user_profile_edit') }}"><button class="btn btn-primary" type="button"><em class="glyphicon glyphicon-pencil"></em>{% trans %}Modificar datos{% endtrans %}</button></a>
+		</div>
+		
+		<div class="col-md-2 column"></div>
+	</div>
+</div>
+{% endblock fos_user_content %}

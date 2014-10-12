@@ -1,0 +1,59 @@
+{% extends '::base.html.twig' %}
+
+{% block section %}
+
+{# Buscador #}
+ <script>
+	$(function() {
+		$( "#datepicker" ).datepicker({
+			dateFormat: 		"dd MM yy",
+			defaultDate: 		+2,
+			minDate: 			+2,
+		});
+
+		$( "#datepicker" ).datepicker( $.datepicker.regional[ "es" ] );
+	});
+</script>
+
+<div class="col-md-4 column mainContent">
+	<form action="#" method="POST">
+		<label>Nombre</label>
+		<input class="thisInput" type="text" name="name">
+
+		<label>Fecha</label>
+		<input class="thisInput" type="text" id="datepicker">
+
+		<div class="text-center">
+			<button value="Send" class="btn btn-success" type="submit"><i class="glyphicon glyphicon-search"></i>&nbsp;{% trans %}Buscar{% endtrans %}</button>
+		</div>
+	</form>
+</div>
+
+{# Resultados #}
+<div class="col-md-8 column">
+	<ul class="pagination">
+		<li>
+			<a href="#">Prev</a>
+		</li>
+		<li>
+			<a href="#">1</a>
+		</li>
+		<li>
+			<a href="#">2</a>
+		</li>
+		<li>
+			<a href="#">3</a>
+		</li>
+		<li>
+			<a href="#">4</a>
+		</li>
+		<li>
+			<a href="#">5</a>
+		</li>
+		<li>
+			<a href="#">Next</a>
+		</li>
+	</ul>
+</div>
+
+{% endblock %}

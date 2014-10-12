@@ -1,0 +1,13 @@
+{% extends '::admin.html.twig' %}
+
+{% block workspace %}
+
+	<h2>{% trans %}Añadir propiedad{% endtrans %}</h2>
+	<hr/>
+
+	<div class="alert alert-success text-center">
+	<h4>{% trans %}¡La propiedad ha sido registrada con exito!{% endtrans %}</h4>
+	<p><a class="alertAnchor" href="{{ path('view_activities') }}">{% trans %}Ver todas las instalaciones{% endtrans %}</a></p>
+	</div>
+
+{% endblock %}

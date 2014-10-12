@@ -1,0 +1,118 @@
+{% extends '::admin.html.twig' %}
+
+{% block workspace %}
+
+	<style>
+		#map_canvas{
+			width:80%;
+			height:300px;
+			border: 1px solid #DDDDDD;
+			margin: 20px auto;
+		}
+		#activity_typeRent_hour_div, #activity_typeRent_day_div{
+			display:none;
+		}
+	</style>
+
+	<script>
+		$(document).ready(function()
+		{
+			$('#activity_typeRent_hour').click(function(){
+				$('#activity_typeRent_hour_div').show('slow');
+				$('#activity_typeRent_day_div').hide('slow');
+				document.getElementById('priceSpan').innerHTML = ' € por hora ';
+			});
+			$('#activity_typeRent_day').click(function(){
+				$('#activity_typeRent_hour_div').hide('slow');
+				$('#activity_typeRent_day_div').show('slow');
+				document.getElementById('priceSpan').innerHTML = ' € por día ';
+			});
+
+			var mapOptions = {
+				center: new google.maps.LatLng(36.421421, -6.144711),
+				zoom: 14,
+				scrollwheel: false,
+				mapTypeId: google.maps.MapTypeId.ROADMAP,
+				disableDoubleClickZoom: true
+			};
+			var map = new google.maps.Map(document.getElementById("map_canvas"),mapOptions);
+			map.setOptions({scrollwheel:false});
+			var marker;
+		});
+
+		function toggleBounce() {
+			if (marker.getAnimation() != null) {
+				marker.setAnimation(null);
+			} else {
+				marker.setAnimation(google.maps.Animation.BOUNCE);
+			}
+		}
+
+		function codeAddress() {
+			var address = document.getElementById('activity_address').value;
+			var geocoder = new google.maps.Geocoder();
+			geocoder.geocode( { 'address': address}, function(results, status) {
+				if (status == google.maps.GeocoderStatus.OK) {
+					var lat = results[0].geometry.location.lat();
+					var long = results[0].geometry.location.lng();
+					var newLatLng	= new google.maps.LatLng(lat, long);
+					var mapOptions = {
+						center: newLatLng,
+						zoom: 14,
+						scrollwheel: false,
+						mapTypeId: google.maps.MapTypeId.ROADMAP,
+						disableDoubleClickZoom: true
+					};
+					var map = new google.maps.Map(document.getElementById("map_canvas"),mapOptions);
+					map.setOptions({scrollwheel:false});
+					var marker = new google.maps.Marker({
+						map:map,
+					    draggable:true,
+					    animation: google.maps.Animation.DROP,
+						position: newLatLng,
+					});
+					document.getElementById("activity_lat").value	= lat;
+					document.getElementById("activity_lng").value	= long;
+				}
+			});
+			google.maps.event.addListener(marker, 'click', toggleBounce);
+		}
+	</script>
+
+	<h2>{% trans %}Añadir propiedad{% endtrans %}</h2>
+	<hr/>
+
+	<form action="{{ path('register_activity') }}" method="POST" {{ form_enctype(form) }}>
+	    
+		{{ bootstrap_set_style('horizontal') }}
+		{{ form_errors(form) }}
+
+		{{ form_row(form.name) }}
+		
+		<div style="clear: both; height: 10px;"></div>
+		{{ form_row(form.price) }}
+		
+		<div style="clear: both; height: 10px;"></div>
+		{{ form_row(form.typeRent) }}
+
+		<div style="clear: both; height: 10px;"></div>
+		{{ form_row(form.description) }}
+
+		<div style="clear: both; height: 10px;"></div>
+		{{ form_row(form.address) }}
+
+		<div style="clear: both; height: 10px;"></div>
+
+		<div class="text-center">
+	    	<button type="button" value="Buscar" class="btn btn-primary" onclick="codeAddress()"><i class="glyphicon glyphicon-chevron-down"></i>&nbsp;{% trans %}Buscar dirección en el mapa{% endtrans %}&nbsp;<i class="glyphicon glyphicon-chevron-down"></i></button>
+	    </div>
+		<div id="map_canvas"></div>	    
+
+		{{ form_rest(form) }}
+
+	    <div class="text-center">
+			<button value="Send" class="btn btn-success" type="submit"><i class="glyphicon glyphicon-inbox"></i>&nbsp;{% trans %}Registrar propiedad{% endtrans %}</button>
+		</div>
+	</form>
+
+{% endblock %}

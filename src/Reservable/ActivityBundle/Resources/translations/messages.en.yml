@@ -1,0 +1,9 @@
+registerActivity:
+    labels:
+        name: Name
+        price: Price
+        type: Rent by
+        address: Address
+        description: Description
+        hour: Hour
+        day: Day

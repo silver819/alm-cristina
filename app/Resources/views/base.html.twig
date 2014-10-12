@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>PFC</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Bootstrap -->
+    <link href="{{ asset('css/bootstrap.css') }}" rel="stylesheet" media="screen">
+    <link href="{{ asset('css/main.css') }}" filter="cssrewrite" type="text/css" rel="stylesheet">
+    <link href="{{ asset('js/jquery-ui-1.11.1.custom/jquery-ui.css') }}" type="text/css" rel="stylesheet">
+
+    <!-- HTML5 Shim and Respond.js add IE8 support of HTML5 elements and media queries -->
+    {% include 'BraincraftedBootstrapBundle::ie8-support.html.twig' %}
+</head>
+
+<body>
+    <!-- jQuery (necessary for Bootstraps JavaScript plugins) -->
+    <script src="{{ asset('js/jquery.js') }}"></script>
+    <!-- Include all JavaScripts, compiled by Assetic -->
+    <script src="{{ asset('js/bootstrap.js') }}"></script>
+    <script src="{{ asset('js/jquery-ui-1.11.1.custom/jquery-ui.js') }}" ></script>
+    
+    <script src="{{ asset('js/jquery-ui-1.11.1.custom/datepicker-es.js') }}" ></script>
+    <!-- Google Maps API v3 -->
+    <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDLL5P2RZQGKixWd_9s2X1PAUyxrL7O8Qo&sensor=false&language={{ app.request.locale }}"></script>
+
+    <header class="navbar navbar-default " role="navigation">
+        <div class="container">
+            <a class="navbar-brand" href="{{ path('homepage') }}">{% trans %}Almacen{% endtrans %}</a>
+
+            <ul class="nav navbar-nav navbar-right">
+                {# Nombre de usuario #}
+                <li><a href="{{ path('fos_user_profile_show') }}">{{ app.user.username }}</a></li>
+
+                {# Idioma #}
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                    {% if app.request.locale == 'en' %}
+                        <img src="{{ asset('images/flags/GB.png') }}" alt="English" title="English">
+                    {% else %}
+                        <img src="{{ asset('images/flags/ES.png') }}" alt="Español" title="Español">
+                    {% endif %}
+                    &nbsp;<strong class="caret"></strong></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="{{ path('homepage', {'_locale':'es'}) }}"><img src="{{ asset('images/flags/ES.png') }}" alt="Español" title="Español">&nbsp;&nbsp;Español</a></li>
+                        <li><a href="{{ path('homepage', {'_locale':'en'}) }}"><img src="{{ asset('images/flags/GB.png') }}" alt="English" title="English">&nbsp;&nbsp;English</a></li>
+                    </ul>
+                </li>
+
+                {# Perfil #}
+                <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">{% trans %}Mi cuenta{% endtrans %}&nbsp;<strong class="caret"></strong></a>
+                    {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="{{ path('view_activities') }}"><span class="glyphicon glyphicon-th-list"></span>&nbsp;&nbsp;{% trans %}Menu{% endtrans %}</a>
+                            </li>
+                            <li>
+                                <a href="{{ path('fos_user_profile_show') }}"><span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp;{% trans %}Ver perfil{% endtrans %}</a>
+                            </li>
+                            <li>
+                                <a href="{{ path('fos_user_profile_edit') }}"><span class="glyphicon glyphicon-pencil"></span>&nbsp;&nbsp;{% trans %}Modificar perfil{% endtrans %}</a>
+                            </li>
+                            <li class="divider"></li>
+                            <li>
+                                <a href="{{ path('fos_user_security_logout') }}"><span class="glyphicon glyphicon-off" style="color:red;"></span>&nbsp;&nbsp;{% trans %}Salir{% endtrans %}</a>
+                            </li>
+                        </ul>
+                    {% else %}
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="{{ path('fos_user_security_login') }}"><span class="glyphicon glyphicon-log-in"></span>&nbsp;&nbsp;{% trans %}Iniciar sesión{% endtrans %}</a>
+                            </li>
+                            <li>
+                                <a href="{{ path('fos_user_registration_register') }}"><span class="glyphicon glyphicon-plus"></span>&nbsp;&nbsp;{% trans %}Registrar{% endtrans %}</a>
+                            </li>
+                        </ul>
+                    {% endif %}
+                </li>
+            </ul>
+        </div>
+    </header>
+    <section class="mediaSection">
+        <div class="container">
+            <div class="row clearfix">
+                <div class="col-md-12 column">
+                    {% block section %}
+
+                    {% endblock %}
+                </div>
+            </div>
+        </div>
+    </section>
+    <footer>
+        <div class="wrapper-widget-block-footerlinks row-fluid span9 mediaFooter">
+            <div class="container">
+                <p>
+                    Cristina Sánchez García © 2014 - 2015<br/>
+                    {% trans %}Proyecto Fín de Carrera Ingeniería Informática{% endtrans %}<br/>
+                    {% trans %}Universidad de Cádiz{% endtrans %}
+                </p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

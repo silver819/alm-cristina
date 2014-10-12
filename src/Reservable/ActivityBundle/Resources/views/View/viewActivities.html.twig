@@ -1,0 +1,145 @@
+{% extends '::admin.html.twig' %}
+
+{% block workspace %}
+
+	<h2>{% trans %}Ver propiedades{% endtrans %}</h2>
+	<hr/>
+
+	{% if properties is empty %}
+		<div class="alert alert-danger text-center">
+			<h4>¡No tienes instalaciones registradas!</h4>
+			<p><a class="alertAnchor" href="{{ path('new_activity') }}">Registar aquí alguna instalación</a></p>
+		</div>
+	{% else %}
+		{% for oneProperty in properties %}
+		<span class="modifyDiv">
+			{% if oneProperty.active %}
+				<a id="modal-link-deactive-{{ oneProperty.id }}" href="#modal-deactive-{{ oneProperty.id }}" role="button" class="btn" data-toggle="modal">
+				<i style="color:green;" class="glyphicon glyphicon-eye-open" title="{% trans %}Activo{% endtrans %}"></i>
+				</a>
+			{% else %}
+				<a id="modal-link-active-{{ oneProperty.id }}" href="#modal-active-{{ oneProperty.id }}" role="button" class="btn" data-toggle="modal">
+				<i style="color:grey;" class="glyphicon glyphicon-eye-close" title="{% trans %}Desactivo{% endtrans %}"></i>
+				</a>
+			{% endif %}
+			<br/>
+			<a id="modal-link-details-{{ oneProperty.id }}" href="#modal-details-{{ oneProperty.id }}" role="button" class="btn" data-toggle="modal">
+			<i style="color:blue;" class="glyphicon glyphicon-edit" title="{% trans %}Modificar propiedad{% endtrans %}"></i>
+			</a>
+			<br/>
+			<a id="modal-link-delete-{{ oneProperty.id }}" href="#modal-delete-{{ oneProperty.id }}" role="button" class="btn" data-toggle="modal">
+			<i style="color:red;" class="glyphicon glyphicon-trash" title="{% trans %}Eliminar propiedad{% endtrans %}"></i>
+			</a>
+		</span>
+
+		<div class="alert alert-warning">
+			<h4><strong>{{ oneProperty.name }}</strong></h4>
+			<p>{{ oneProperty.price }} &euro;/ {{ oneProperty.typeRent }}</p>
+			<p>{{ oneProperty.description }}</p>
+			<div style="clear:both;"></div>
+		</div>
+
+		{# Modal activar #}
+		<div class="modal fade" id="modal-active-{{ oneProperty.id }}" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+						<h4 class="modal-title" id="myModalLabel">{% trans %}Activar{% endtrans %} {{ oneProperty.name }}</h4>
+						</div>
+						<div class="modal-body">
+						<form action="{{ path('active_property') }}" method="post">
+							<input type="hidden" name="productID" class="productID" value="{{ oneProperty.id }}">
+							{% trans %}¿Realmente desea activar{% endtrans %} {{ oneProperty.name }}?
+							<br/>
+							{% trans %}Si activa esta propiedad, saldrá en las búsquedas y será reservable por cualquier usuario.{% endtrans %}
+							<br/>
+							<div style="margin: 20px auto 0px;text-align: center;">
+							<button value="Send" class="btn btn-success" type="submit"><i class="glyphicon glyphicon-ok"></i>&nbsp;{% trans %}Activar{% endtrans %}</button>
+							<button type="button" class="btn btn-danger"><i class="glyphicon glyphicon-remove"></i>&nbsp;{% trans %}Cancelar{% endtrans %}</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		{# Modal desactivar #}
+		<div class="modal fade" id="modal-deactive-{{ oneProperty.id }}" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+						<h4 class="modal-title" id="myModalLabel">{% trans %}Desactivar{% endtrans %} {{ oneProperty.name }}</h4>
+					</div>
+					<div class="modal-body">
+						<form action="{{ path('deactive_property') }}" method="post">
+							<input type="hidden" name="productID" class="productID" value="{{ oneProperty.id }}">
+							{% trans %}¿Realmente desea desactivar{% endtrans %} {{ oneProperty.name }}?
+							<br/>
+							{% trans %}Si desactiva esta propiedad, no saldrá en las búsquedas y no podrá ser reservado.{% endtrans %}
+							<br/>
+							<div style="margin: 20px auto 0px;text-align: center;">
+							<button value="Send" class="btn btn-success" type="submit"><i class="glyphicon glyphicon-ok"></i>&nbsp;{% trans %}Desactivar{% endtrans %}</button>
+							<button type="button" class="btn btn-danger"><i class="glyphicon glyphicon-remove"></i>&nbsp;{% trans %}Cancelar{% endtrans %}</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		{# Modal modificar #}
+		<div class="modal fade" id="modal-details-{{ oneProperty.id }}" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+						<h4 class="modal-title" id="myModalLabel">{% trans %}Características{% endtrans %} {{ oneProperty.name }}</h4>
+						</div>
+						<div class="modal-body">
+						<form action="{{ path('modify_property') }}" method="post">
+							<input type="hidden" name="productID" class="productID" value="{{ oneProperty.id }}">
+							<table style="width: 100%;">
+							<tr><td>{% trans %}Nombre{% endtrans %}:</td><td><input type="text" name="name" value="{{ oneProperty.name }}" style="width: 100%;"></td></tr>
+							<tr><td>{% trans %}Precio{% endtrans %}:</td><td><input type="text" name="price" value="{{ oneProperty.price }}" style="width: 100%;"></td></tr>
+							<tr><td>{% trans %}Descripciín{% endtrans %}:</td><td><textarea rows="3" name="description" style="width: 100%;">{{ oneProperty.description }}</textarea></td></tr>
+							<tr><td>{% trans %}Dirección{% endtrans %}:</td><td><input type="text" name="address" value="{{ oneProperty.address }}" style="width: 100%;"></td></tr>
+							</table>
+							<div style="margin: 20px auto 0px;text-align: center;">
+							<button value="Send" class="btn btn-success" type="submit"><i class="glyphicon glyphicon-save"></i>&nbsp;{% trans %}Actualizar{% endtrans %}</button>
+							<button type="button" class="btn btn-danger"><i class="glyphicon glyphicon-remove"></i>&nbsp;{% trans %}Cancelar{% endtrans %}</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		{# Modal eliminar #}
+		<div class="modal fade" id="modal-delete-{{ oneProperty.id }}" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+						<h4 class="modal-title" id="myModalLabel">{% trans %}Eliminar{% endtrans %} {{ oneProperty.name }}</h4>
+						</div>
+						<div class="modal-body">
+						<form action="{{ path('delete_property') }}" method="post">
+							<input type="hidden" name="productID" class="productID" value="{{ oneProperty.id }}">
+							{% trans %}¿Realmente desea eliminar{% endtrans %} {{ oneProperty.name }} {% trans %}de su lista?{% endtrans %}
+							<br/>
+							<div style="margin: 20px auto 0px;text-align: center;">
+							<button value="Send" class="btn btn-success" type="submit"><i class="glyphicon glyphicon-ok"></i>&nbsp;{% trans %}Eliminar{% endtrans %}</button>
+							<button type="button" class="btn btn-danger"><i class="glyphicon glyphicon-remove"></i>&nbsp;{% trans %}Cancelar{% endtrans %}</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+		{% endfor %}
+	{% endif %}
+
+
+{% endblock %}

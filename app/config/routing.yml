@@ -1,0 +1,12 @@
+user_user:
+    resource: "@UserUserBundle/Controller/"
+    type:     annotation
+    prefix:   /{_locale}/
+
+reservable_activity:
+    resource: "@ReservableActivityBundle/Resources/config/routing.yml"
+    prefix:   /{_locale}/
+
+fos_user:
+    resource: "@FOSUserBundle/Resources/config/routing/all.xml"
+    prefix:   /{_locale}/

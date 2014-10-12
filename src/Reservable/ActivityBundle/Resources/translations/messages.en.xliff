@@ -1,0 +1,123 @@
+<?xml version="1.0"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+    <file source-language="en" datatype="plaintext" original="file.ext">
+        <body>
+            <trans-unit id="1">
+                <source>Propiedades</source>
+                <target>Properties</target>
+            </trans-unit>
+            <trans-unit id="2">
+                <source>Ver propiedades</source>
+                <target>View properties</target>
+            </trans-unit>
+            <trans-unit id="3">
+                <source>Añadir propiedad</source>
+                <target>Add property</target>
+            </trans-unit>
+            <trans-unit id="4">
+                <source>Ver reservas</source>
+                <target>View bookings</target>
+            </trans-unit>
+            <trans-unit id="5">
+                <source>Reservas</source>
+                <target>Bookings</target>
+            </trans-unit>
+            <trans-unit id="6">
+                <source>Buscar dirección en el mapa</source>
+                <target>Set address in map</target>
+            </trans-unit>
+            <trans-unit id="7">
+                <source>Registrar propiedad</source>
+                <target>Submit property</target>
+            </trans-unit>
+            <trans-unit id="8">
+                <source>Activo</source>
+                <target>Active</target>
+            </trans-unit>
+            <trans-unit id="9">
+                <source>Inactivo</source>
+                <target>Inactive</target>
+            </trans-unit>
+            <trans-unit id="10">
+                <source>Modificar propiedad</source>
+                <target>Modify property</target>
+            </trans-unit>
+            <trans-unit id="11">
+                <source>Eliminar propiedad</source>
+                <target>Delete property</target>
+            </trans-unit>
+            <trans-unit id="12">
+                <source>Activar</source>
+                <target>Activate</target>
+            </trans-unit>
+            <trans-unit id="13">
+                <source>Desactivar</source>
+                <target>Deactivate</target>
+            </trans-unit>
+            <trans-unit id="14">
+                <source>¿Realmente desea activar</source>
+                <target>Are you sure to activate </target>
+            </trans-unit>
+            <trans-unit id="15">
+                <source>Si activa esta propiedad, saldrá en las búsquedas y será reservable por cualquier usuario.</source>
+                <target>If this property is active, it will appear in searches ands could be booked from users.</target>
+            </trans-unit>
+            <trans-unit id="16">
+                <source>Cancelar</source>
+                <target>Cancell</target>
+            </trans-unit>
+            <trans-unit id="17">
+                <source>¿Realmente desea desactivar</source>
+                <target>Are you sure to deactivate </target>
+            </trans-unit>
+            <trans-unit id="18">
+                <source>Si desactiva esta propiedad, no saldrá en las búsquedas y no podrá ser reservado.</source>
+                <target>If this property is not active, it will not appear in searches ands could not be booked from users.</target>
+            </trans-unit>
+            <trans-unit id="19">
+                <source>Nombre</source>
+                <target>Name</target>
+            </trans-unit>
+            <trans-unit id="20">
+                <source>Precio</source>
+                <target>Price</target>
+            </trans-unit>
+            <trans-unit id="21">
+                <source>Descripción</source>
+                <target>Description</target>
+            </trans-unit>
+            <trans-unit id="22">
+                <source>Dirección</source>
+                <target>Address</target>
+            </trans-unit>
+            <trans-unit id="23">
+                <source>Características</source>
+                <target>Properties</target>
+            </trans-unit>
+            <trans-unit id="24">
+                <source>Actualizar</source>
+                <target>Update</target>
+            </trans-unit>
+            <trans-unit id="25">
+                <source>Eliminar</source>
+                <target>Delete</target>
+            </trans-unit>
+            <trans-unit id="26">
+                <source>¿Realmente desea eliminar</source>
+                <target>Are you sure to delete </target>
+            </trans-unit>
+            <trans-unit id="27">
+                <source>de su lista?</source>
+                <target>from your list?</target>
+            </trans-unit>
+            <trans-unit id="28">
+                <source>¡La propiedad ha sido registrada con exito!</source>
+                <target>The property has been registered successfully</target>
+            </trans-unit>
+            <trans-unit id="29">
+                <source>Ver todas las instalaciones</source>
+                <target>View all properties</target>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>

@@ -1,0 +1,35 @@
+homepage:
+    path: /
+    defaults: { _controller: ReservableActivityBundle:Default:homepage }
+
+new_activity:
+    path: /new-property
+    defaults: { _controller: ReservableActivityBundle:Registration:new }
+
+register_activity:
+    path: /register-property
+    defaults: { _controller: ReservableActivityBundle:Registration:registerActivity }
+
+activityRegistered:
+    path: /property-registered
+    defaults: { _controller: ReservableActivityBundle:Registration:registeredActivity }
+
+view_activities:
+    path: /view-properties
+    defaults: { _controller: ReservableActivityBundle:View:view }
+
+modify_property:
+    path: /modify-property
+    defaults: { _controller: ReservableActivityBundle:View:modifyProperty }
+
+active_property:
+    path: /active-property
+    defaults: { _controller: ReservableActivityBundle:View:activeProperty }
+
+deactive_property:
+    path: /deactive-property
+    defaults: { _controller: ReservableActivityBundle:View:deactiveProperty }
+
+delete_property:
+    path: /delete-property
+    defaults: { _controller: ReservableActivityBundle:View:deleteProperty }
