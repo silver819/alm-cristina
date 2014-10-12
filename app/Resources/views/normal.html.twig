@@ -3,15 +3,15 @@
 {% block section %}
 
 {# Buscador #}
- <script>
+<script>
+	$.datepicker.setDefaults($.datepicker.regional[ "{{ app.request.locale }}" ]);
+
 	$(function() {
 		$( "#datepicker" ).datepicker({
 			dateFormat: 		"dd MM yy",
 			defaultDate: 		+2,
 			minDate: 			+2,
 		});
-
-		$( "#datepicker" ).datepicker( $.datepicker.regional[ "es" ] );
 	});
 </script>
 
