@@ -1,0 +1,43 @@
+{% extends '::normal.html.twig' %}
+
+{% block results %}
+
+	<div class="col-md-8 column">
+		<ul class="pagination">
+			<li><a href="#">Prev</a></li>
+			<li><a href="#">1</a></li>
+			<li><a href="#">2</a></li>
+			<li><a href="#">3</a></li>
+			<li><a href="#">4</a></li>
+			<li><a href="#">5</a></li>
+			<li><a href="#">Next</a></li>
+		</ul>
+
+		{% if results is empty %}
+			<div class="alert alert-danger text-center">
+				<h4>¡No hemos encontrado ninguna propiedad que se ajuste a tu búsqueda!</h4>
+				<p>Intentalo de nuevo usando el buscador</p>
+			</div>
+		{% else %}
+			{% for oneResult in results %}
+				<div class="oneResultDiv">
+					<div class="priceDiv">
+						{{ oneResult.price }} €
+					</div>
+					<div class="nameDiv">
+						{{ oneResult.name }}
+					</div>
+					<div>
+						<p>{{ oneResult.address }}<p>
+						{{ oneResult.lat }}
+						{{ oneResult.lng }}
+						<p>{{ oneResult.description }}</p>
+					</div>
+				</div>
+				<hr class="style-six">
+			{% endfor %}
+		{% endif %}
+
+	</div>
+
+{% endblock %}

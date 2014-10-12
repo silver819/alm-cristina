@@ -22,15 +22,15 @@ class ActivityRepository extends EntityRepository
 	}
 
 	function activeProperty($propertyID){
-		return$this->getEntityManager()
-            	   ->createQuery('UPDATE ReservableActivityBundle:Activity p
+		return $this->getEntityManager()
+            	    ->createQuery('UPDATE ReservableActivityBundle:Activity p
             	   				  SET p.active = 1
                 				  WHERE p.id = ' . $propertyID)
             		->getResult();
 	}
 
 	function deactiveProperty($propertyID){
-		return$this->getEntityManager()
+		return $this->getEntityManager()
             	   ->createQuery('UPDATE ReservableActivityBundle:Activity p
             	   				  SET p.active = 0
                 				  WHERE p.id = ' . $propertyID)
@@ -38,17 +38,25 @@ class ActivityRepository extends EntityRepository
 	}
 
 	function deleteProperty($propertyID){
-		return$this->getEntityManager()
-            	   ->createQuery('DELETE FROM ReservableActivityBundle:Activity p
+		return $this->getEntityManager()
+            	    ->createQuery('DELETE FROM ReservableActivityBundle:Activity p
                 				  WHERE p.id = ' . $propertyID)
             		->getResult();
 	}
 
 	function setValues($propertyID, $setValues){
-		return$this->getEntityManager()
-            	   ->createQuery('UPDATE ReservableActivityBundle:Activity p
+		return $this->getEntityManager()
+            	    ->createQuery('UPDATE ReservableActivityBundle:Activity p
             	   				  SET ' . $setValues . ' 
             	   				  WHERE p.id = ' . $propertyID)
             		->getResult();
 	}
+
+    function getPropertiesWhere($where){
+        return $this->getEntityManager()
+                    ->createQuery('SELECT p
+                                  FROM ReservableActivityBundle:Activity p
+                                  WHERE ' . $where . ' AND p.active=1')
+                    ->getResult();
+    }
 }

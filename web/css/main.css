@@ -61,6 +61,13 @@ hr {
 	background-image: -o-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,0.5), rgba(0,0,0,0));
 }
 
+hr.style-six {
+    border: 0;
+    height: 0;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+}
+
 h2{
 	color: #555555;
 }
@@ -103,4 +110,13 @@ h2{
 
 #byDayDiv{
     display:none;
+}
+
+.nameDiv{
+    font-size: 1.75em;
+}
+
+.priceDiv{
+    font-size: 1.5em;
+    float: right;
 }

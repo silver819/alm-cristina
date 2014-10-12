@@ -33,3 +33,7 @@ deactive_property:
 delete_property:
     path: /delete-property
     defaults: { _controller: ReservableActivityBundle:View:deleteProperty }
+
+search:
+    path: /search
+    defaults: { _controller: ReservableActivityBundle:Searcher:search }
