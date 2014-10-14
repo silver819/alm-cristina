@@ -15,7 +15,27 @@ class ViewController extends Controller
 						   ->getRepository('ReservableActivityBundle:Activity')
 						   ->findAllByOwnerID($ownerID);
 
-		return $this->render('ReservableActivityBundle:View:viewActivities.html.twig', array('properties' => $properties));
+		$arrayPictures = array();
+		if(!empty($properties)){
+			$propertiesIDs = '';
+			foreach($properties as $oneProperty){
+				$propertiesIDs .= $oneProperty->getId() . ',';
+			}
+			$propertiesIDs = substr($propertiesIDs, 0, -1);
+
+			$pictures = $this->getDoctrine()
+							 ->getRepository('ReservableActivityBundle:Picture')
+						     ->findAllIn($propertiesIDs);
+
+			if(!empty($pictures)){
+				foreach($pictures as $onePicture){
+					$arrayPictures[$onePicture->getActivityID()] = $onePicture->getWebPath();
+				}
+			}
+		}
+
+		return $this->render('ReservableActivityBundle:View:viewActivities.html.twig', 
+			array('properties' => $properties, 'pictures' => $arrayPictures));
 
     }
 

@@ -12,4 +12,12 @@ use Doctrine\ORM\EntityRepository;
  */
 class PictureRepository extends EntityRepository
 {
+	function findAllIn($picturesIDs){
+		
+		return $this->getEntityManager()
+            		->createQuery('SELECT p 
+                				   FROM ReservableActivityBundle:Picture p
+                				   WHERE p.activityID IN (' . $picturesIDs . ')')
+            		->getResult();
+	}
 }

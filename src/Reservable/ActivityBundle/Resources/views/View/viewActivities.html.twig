@@ -12,30 +12,40 @@
 		</div>
 	{% else %}
 		{% for oneProperty in properties %}
-		<span class="modifyDiv">
-			{% if oneProperty.active %}
-				<a id="modal-link-deactive-{{ oneProperty.id }}" href="#modal-deactive-{{ oneProperty.id }}" role="button" class="btn" data-toggle="modal">
-				<i style="color:green;" class="glyphicon glyphicon-eye-open" title="{% trans %}Activo{% endtrans %}"></i>
-				</a>
-			{% else %}
-				<a id="modal-link-active-{{ oneProperty.id }}" href="#modal-active-{{ oneProperty.id }}" role="button" class="btn" data-toggle="modal">
-				<i style="color:grey;" class="glyphicon glyphicon-eye-close" title="{% trans %}Desactivo{% endtrans %}"></i>
-				</a>
-			{% endif %}
-			<br/>
-			<a id="modal-link-details-{{ oneProperty.id }}" href="#modal-details-{{ oneProperty.id }}" role="button" class="btn" data-toggle="modal">
-			<i style="color:blue;" class="glyphicon glyphicon-edit" title="{% trans %}Modificar propiedad{% endtrans %}"></i>
-			</a>
-			<br/>
-			<a id="modal-link-delete-{{ oneProperty.id }}" href="#modal-delete-{{ oneProperty.id }}" role="button" class="btn" data-toggle="modal">
-			<i style="color:red;" class="glyphicon glyphicon-trash" title="{% trans %}Eliminar propiedad{% endtrans %}"></i>
-			</a>
-		</span>
+		
 
 		<div class="alert alert-warning">
-			<h4><strong>{{ oneProperty.name }}</strong></h4>
-			<p>{{ oneProperty.price }} &euro;/ {{ oneProperty.typeRent }}</p>
-			<p>{{ oneProperty.description }}</p>
+			{% if pictures[oneProperty.id] is defined %}
+				<span class="imageSpan">
+				<img src="{{ asset(pictures[oneProperty.id]) }}" width="100">
+				</span>
+			{% endif %}
+
+			<span class="modifyDiv">
+				{% if oneProperty.active %}
+					<a id="modal-link-deactive-{{ oneProperty.id }}" href="#modal-deactive-{{ oneProperty.id }}" role="button" class="btn" data-toggle="modal">
+					<i style="color:green;" class="glyphicon glyphicon-eye-open" title="{% trans %}Activo{% endtrans %}"></i>
+					</a>
+				{% else %}
+					<a id="modal-link-active-{{ oneProperty.id }}" href="#modal-active-{{ oneProperty.id }}" role="button" class="btn" data-toggle="modal">
+					<i style="color:grey;" class="glyphicon glyphicon-eye-close" title="{% trans %}Desactivo{% endtrans %}"></i>
+					</a>
+				{% endif %}
+				<br/>
+				<a id="modal-link-details-{{ oneProperty.id }}" href="#modal-details-{{ oneProperty.id }}" role="button" class="btn" data-toggle="modal">
+				<i style="color:blue;" class="glyphicon glyphicon-edit" title="{% trans %}Modificar propiedad{% endtrans %}"></i>
+				</a>
+				<br/>
+				<a id="modal-link-delete-{{ oneProperty.id }}" href="#modal-delete-{{ oneProperty.id }}" role="button" class="btn" data-toggle="modal">
+				<i style="color:red;" class="glyphicon glyphicon-trash" title="{% trans %}Eliminar propiedad{% endtrans %}"></i>
+				</a>
+			</span>
+
+			<span class="contentSpan">
+				<h4><strong>{{ oneProperty.name }}</strong></h4>
+				<p>{{ oneProperty.price }} &euro;/ {{ oneProperty.typeRent }}</p>
+				<p>{{ oneProperty.description }}</p>
+			</span>
 			<div style="clear:both;"></div>
 		</div>
 

@@ -49,7 +49,7 @@ class Picture
     {
         return null === $this->path
             ? null
-            : $this->getUploadDir().'/'.$this->path;
+            : $this->getUploadDir().$this->path;
     }
 
     protected function getUploadRootDir()
