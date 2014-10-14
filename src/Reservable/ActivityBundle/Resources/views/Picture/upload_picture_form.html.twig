@@ -1,0 +1,15 @@
+{% extends '::admin.html.twig' %}
+
+{% block workspace %}
+	<form action="{{ path('registerPicture')}}" method="post" {{ form_enctype(form) }}>
+		{{ form_errors(form) }}
+		{{ form_row(form.file) }}
+		{{ form_row(form.activityID) }}
+		{{ form_rest(form) }}
+
+		<div class="text-center">
+			<button value="Send" class="btn btn-success" type="submit"><i class="glyphicon glyphicon-inbox"></i>&nbsp;Subir foto</button>
+		</div>
+
+	</form>
+{% endblock %}
