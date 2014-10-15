@@ -11,12 +11,12 @@ class SearcherController extends Controller
 
 		$where = "1=1";
 		$relevantFields = array("name", "type");
-
+print_r($_POST);
 		foreach($_POST as $field => $value){
 			if($value != '' && in_array($field, $relevantFields)){
 				switch ($field){
 					case "name":
-						$where .= " AND p.name LIKE '%" . $value . "'%";
+						$where .= " AND p.name LIKE '%" . $value . "%'";
 						break;
 
 					case "type":
@@ -30,6 +30,7 @@ class SearcherController extends Controller
 						->getRepository('ReservableActivityBundle:Activity')
 						->getPropertiesWhere($where);
 
-		return $this->render('ReservableActivityBundle:Search:displayResults.html.twig', array("results" => $results));
+		return $this->render('ReservableActivityBundle:Search:displayResults.html.twig', 
+			array("selection" => $_POST, "results" => $results));
 	}
 }
