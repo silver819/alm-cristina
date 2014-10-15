@@ -33,9 +33,9 @@ class Picture
 
 
     /**
-    * @ORM\Column(name="activityID", type="integer")
-    * @Assert\NotBlank(message="Actividad no encontrada.")
-    */
+    * @ORM\ManyToOne(targetEntity="Activity", inversedBy="pictures")
+    * @ORM\JoinColumn(name="activityID", referencedColumnName="id")
+    **/
     protected $activityID;
 
     public function getAbsolutePath()

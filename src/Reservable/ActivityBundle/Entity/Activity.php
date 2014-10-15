@@ -3,6 +3,7 @@
 namespace Reservable\ActivityBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Activity
@@ -84,6 +85,15 @@ class Activity
      */
     private $active;
 
+    /**
+     * @ORM\OneToMany(targetEntity="Picture", mappedBy="activityID", cascade={"persist", "remove"})
+     **/
+    private $pictures;
+
+    public function __construct()
+    {
+        $this->pictures = new ArrayCollection();
+    }
 
     /**
      * Get id
@@ -300,5 +310,15 @@ class Activity
     public function getActive()
     {
         return $this->active;
+    }
+
+    public function getPictures()
+    {
+        return $this->pictures;
+    }
+
+    public function setPictures(ArrayCollection $pictures)
+    {
+        $this->pictures = $pictures;
     }
 }

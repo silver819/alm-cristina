@@ -17,6 +17,11 @@ class ActivityType extends AbstractType
         									 'choices' => array('hour' => 'registerActivity.labels.hour', 'day' => 'registerActivity.labels.day')]);
         $builder->add('address', 'text', ['label' => 'registerActivity.labels.address']);
         $builder->add('description', 'textarea', ['label' => 'registerActivity.labels.description']);
+
+		$builder->add('pictures', 'collection', ['type' => new PictureType(), 
+												 'allow_add'    => true,
+        										 'by_reference' => false]);
+
         $builder->add('ownerID','hidden');
         $builder->add('lat','hidden');
         $builder->add('lng','hidden');
