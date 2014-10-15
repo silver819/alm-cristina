@@ -16,7 +16,7 @@ class Activity
     /**
      * @var integer
      *
-     * @ORM\Column(name="id", type="integer")
+     * @ORM\Column(name="id", type="integer", unique=true)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
@@ -86,7 +86,7 @@ class Activity
     private $active;
 
     /**
-     * @ORM\OneToMany(targetEntity="Picture", mappedBy="activityID", cascade={"persist", "remove"})
+     * @var pictures[]
      **/
     private $pictures;
 

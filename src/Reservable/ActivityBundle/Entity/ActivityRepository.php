@@ -59,4 +59,11 @@ class ActivityRepository extends EntityRepository
                                   WHERE ' . $where . ' AND p.active=1')
                     ->getResult();
     }
+
+    function getLastActivityID(){
+        return $this->getEntityManager()
+                    ->createQuery('SELECT MAX(p.id)
+                                  FROM ReservableActivityBundle:Activity p')
+                    ->getResult();
+    }
 }

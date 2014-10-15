@@ -28,19 +28,25 @@ class RegistrationController extends Controller
     }
 
     public function registerActivityAction(){
+
         $dm = $this->getDoctrine()->getManager();
         $activity = new Activity();
         $form = $this->createForm(new ActivityType(), $activity);
         $form->bind($this->getRequest());
-       
+
         if ($form->isValid()) {
             $property = $form->getData();
             $dm->persist($property);
-            $dm->flush();
+
+            $lastActivityID = $this->getDoctrine()
+                                   ->getRepository('ReservableActivityBundle:Activity')
+                                   ->getLastActivityID();
+
+            $thisActivityID = $lastActivityID[0][1] + 1;
 
             $images = $property->getPictures();
             foreach($images as $oneImage){
-                $oneImage->setActivityID($property);
+                $oneImage->setActivityID($thisActivityID);
                 $oneImage->upload();
                 $dm->persist($oneImage);
             }

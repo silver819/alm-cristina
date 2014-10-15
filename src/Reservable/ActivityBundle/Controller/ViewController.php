@@ -15,6 +15,13 @@ class ViewController extends Controller
 						   ->getRepository('ReservableActivityBundle:Activity')
 						   ->findAllByOwnerID($ownerID);
 
+
+		/*foreach($properties as $oneProperty){
+			foreach($oneProperty->getPictures() as $onePicture){
+				print_r($onePicture);die();
+			}
+		}*/
+
 		$arrayPictures = array();
 		if(!empty($properties)){
 			$propertiesIDs = '';
@@ -33,7 +40,6 @@ class ViewController extends Controller
 				}
 			}
 		}
-
 		return $this->render('ReservableActivityBundle:View:viewActivities.html.twig', 
 			array('properties' => $properties, 'pictures' => $arrayPictures));
 

@@ -33,7 +33,8 @@ class Picture
 
 
     /**
-    * @ORM\ManyToOne(targetEntity="Activity", inversedBy="pictures")
+    * @ORM\Column(type="integer")
+    * @ORM\ManyToOne(targetEntity="Activity")
     * @ORM\JoinColumn(name="activityID", referencedColumnName="id")
     **/
     protected $activityID;
