@@ -105,6 +105,10 @@ class ViewController extends Controller
 			if($this->getDoctrine()
 					->getRepository('ReservableActivityBundle:Activity')
 					->deleteProperty($_POST['productID'])){
+
+				$this->getDoctrine()
+					->getRepository('ReservableActivityBundle:Picture')
+					->deleteAllByPropertyID($_POST['productID']);
 				
 				return $this->redirect('view-properties');
 			}

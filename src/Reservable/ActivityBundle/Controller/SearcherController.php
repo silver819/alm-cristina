@@ -11,7 +11,7 @@ class SearcherController extends Controller
 
 		$where = "1=1";
 		$relevantFields = array("name", "type");
-print_r($_POST);
+		
 		foreach($_POST as $field => $value){
 			if($value != '' && in_array($field, $relevantFields)){
 				switch ($field){

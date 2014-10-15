@@ -20,4 +20,11 @@ class PictureRepository extends EntityRepository
                 				   WHERE p.activityID IN (' . $picturesIDs . ')')
             		->getResult();
 	}
+
+	function deleteAllByPropertyID($propertyID){
+        return $this->getEntityManager()
+               	    ->createQuery('DELETE FROM ReservableActivityBundle:Picture p
+                                   WHERE p.activityID = ' . $propertyID)
+                    ->getResult();
+	}
 }
