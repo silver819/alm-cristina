@@ -22,7 +22,10 @@ class ActivityType extends AbstractType
 		$builder->add('pictures',		'collection',	['label' 		=> 'registerActivity.labels.picture',
 												 		 'type' 		=> new PictureType(), 
 												 		 'allow_add'    => true,
-        												 'by_reference' => false]);
+        												 'by_reference' => false,
+        												 'allow_delete' => true,
+                    									 'prototype' 	=> true,
+                    									 'options' 		=> array('label' => false)]);
 
         $builder->add('ownerID','hidden');
         $builder->add('lat','hidden');

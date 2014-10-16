@@ -10,7 +10,7 @@ class PictureType extends AbstractType
 {
 	public function buildForm(FormBuilderInterface $builder, array $options)
 	{
-		$builder->add('file', 		'file', ['label' 		=> 'registerActivity.labels.file',
+		$builder->add('file', 		'file', ['label' 		=> false,
 									   		 'required' 	=> false]);
 		$builder->add('activityID', 'hidden');
 	}

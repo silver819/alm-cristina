@@ -106,7 +106,14 @@
 		<div class="text-center">
 	    	<button type="button" value="Buscar" class="btn btn-primary" onclick="codeAddress()"><i class="glyphicon glyphicon-chevron-down"></i>&nbsp;{% trans %}Buscar dirección en el mapa{% endtrans %}&nbsp;<i class="glyphicon glyphicon-chevron-down"></i></button>
 	    </div>
-		<div id="map_canvas"></div>	    
+		<div id="map_canvas"></div>
+
+		<div style="clear: both; height: 10px;"></div>
+		{{ form_label(form.pictures) }}
+		<span class="noteSpan">Estos campos no son obligatorios, pero si lo desea puede añadir hasta seis imágenes de su pripiedad</span>
+		{{ form_widget(form.pictures) }}
+		<div style="clear: both; height: 10px;"></div>
+
 
 		{{ form_rest(form) }}
 
