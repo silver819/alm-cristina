@@ -110,7 +110,8 @@
 
 		<div style="clear: both; height: 10px;"></div>
 		{{ form_label(form.pictures) }}
-		<span class="noteSpan">Estos campos no son obligatorios, pero si lo desea puede añadir hasta seis imágenes de su pripiedad</span>
+		<span class="noteSpan">
+		{% trans %}Estos campos no son obligatorios, pero si lo desea puede añadir hasta seis imágenes de su propiedad{% endtrans %}</span>
 		{{ form_widget(form.pictures) }}
 		<div style="clear: both; height: 10px;"></div>
 

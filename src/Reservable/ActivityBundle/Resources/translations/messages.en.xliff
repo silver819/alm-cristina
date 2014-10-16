@@ -118,6 +118,10 @@
                 <source>Ver todas las instalaciones</source>
                 <target>View all properties</target>
             </trans-unit>
+            <trans-unit id="30">
+                <source>Estos campos no son obligatorios, pero si lo desea puede añadir hasta seis imágenes de su propiedad</source>
+                <target>Uploading images are not required, however you could upload up to six images if wished</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>
