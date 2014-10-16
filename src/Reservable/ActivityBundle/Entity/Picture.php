@@ -53,6 +53,10 @@ class Picture
             : $this->getUploadDir().$this->path;
     }
 
+    public function getPath(){
+        return $this->path;
+    }
+
     protected function getUploadRootDir()
     {
         // the absolute directory path where uploaded
@@ -87,25 +91,29 @@ class Picture
         return $this->file;
     }
 
-    public function upload()
+    public function upload($fileName)
     {
         // the file property can be empty if the field is not required
         if (null === $this->getFile()) {
             return;
         }
 
+        $extension = $this->getFile()->guessExtension();
+        if (!$extension) {
+            $extension = 'bin';
+        }
+        $fileName .= "." . $extension;
+
         // use the original file name here but you should
         // sanitize it at least to avoid any security issues
 
         // move takes the target directory and then the
         // target filename to move to
-        $this->getFile()->move(
-            $this->getUploadRootDir(),
-            $this->getFile()->getClientOriginalName()
-        );
+        $this->getFile()->move($this->getUploadRootDir(), $fileName);
 
         // set the path property to the filename where you've saved the file
-        $this->path = $this->getFile()->getClientOriginalName();
+        // $this->path = $this->getFile()->getClientOriginalName();
+        $this->path = $fileName;
 
         // clean up the file property as you won't need it anymore
         $this->file = null;

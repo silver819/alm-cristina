@@ -7,3 +7,5 @@ registerActivity:
         description: Descripción
         hour: Hora
         day: Día
+        picture: Imagenes
+        file: Fichero

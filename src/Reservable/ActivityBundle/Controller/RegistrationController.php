@@ -18,7 +18,17 @@ class RegistrationController extends Controller
         $activity->setActive(1);
 
         $picture1 = new Picture();
+        $picture2 = new Picture();
+        $picture3 = new Picture();
+        $picture4 = new Picture();
+        $picture5 = new Picture();
+        $picture6 = new Picture();
         $activity->getPictures()->add($picture1);
+        $activity->getPictures()->add($picture2);
+        $activity->getPictures()->add($picture3);
+        $activity->getPictures()->add($picture4);
+        $activity->getPictures()->add($picture5);
+        $activity->getPictures()->add($picture6);
 
         $form = $this->createForm(new ActivityType(), $activity);
 
@@ -45,10 +55,17 @@ class RegistrationController extends Controller
             $thisActivityID = $lastActivityID[0][1] + 1;
 
             $images = $property->getPictures();
-            foreach($images as $oneImage){
-                $oneImage->setActivityID($thisActivityID);
-                $oneImage->upload();
-                $dm->persist($oneImage);
+            if(!empty($images)){
+                $cont = 0;
+                foreach($images as $oneImage){
+                    $fileName = $thisActivityID . "_" . $cont;
+                    $oneImage->setActivityID($thisActivityID);
+                    $oneImage->upload($fileName);
+                    if($oneImage->getPath()){
+                        $dm->persist($oneImage);
+                        $cont++;
+                    }
+                }
             }
 
             $dm->flush();

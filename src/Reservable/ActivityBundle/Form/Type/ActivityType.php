@@ -11,16 +11,18 @@ class ActivityType extends AbstractType
 {
 	public function buildForm(FormBuilderInterface $builder, array $options)
 	{
-		$builder->add('name', 'text', ['label' => 'registerActivity.labels.name']);
-        $builder->add('price', 'money', ['label' => 'registerActivity.labels.price']);
-        $builder->add('typeRent', 'choice', ['label' => 'registerActivity.labels.type',
-        									 'choices' => array('hour' => 'registerActivity.labels.hour', 'day' => 'registerActivity.labels.day')]);
-        $builder->add('address', 'text', ['label' => 'registerActivity.labels.address']);
-        $builder->add('description', 'textarea', ['label' => 'registerActivity.labels.description']);
+		$builder->add('name', 			'text', 		['label' 		=> 'registerActivity.labels.name']);
+        $builder->add('price', 			'money', 		['label' 		=> 'registerActivity.labels.price']);
+        $builder->add('typeRent', 		'choice', 		['label' 		=> 'registerActivity.labels.type',
+        									 			 'choices' 		=> array('hour'	=> 'registerActivity.labels.hour', 
+        									 			 					     'day' 	=> 'registerActivity.labels.day')]);
+        $builder->add('address', 		'text', 		['label' 		=> 'registerActivity.labels.address']);
+        $builder->add('description',	'textarea', 	['label' 		=> 'registerActivity.labels.description']);
 
-		$builder->add('pictures', 'collection', ['type' => new PictureType(), 
-												 'allow_add'    => true,
-        										 'by_reference' => false]);
+		$builder->add('pictures',		'collection',	['label' 		=> 'registerActivity.labels.picture',
+												 		 'type' 		=> new PictureType(), 
+												 		 'allow_add'    => true,
+        												 'by_reference' => false]);
 
         $builder->add('ownerID','hidden');
         $builder->add('lat','hidden');
