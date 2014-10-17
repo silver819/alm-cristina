@@ -130,6 +130,10 @@
                 <source>día</source>
                 <target>day</target>
             </trans-unit>
+            <trans-unit id="33">
+                <source>Reservar</source>
+                <target>Book</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>
