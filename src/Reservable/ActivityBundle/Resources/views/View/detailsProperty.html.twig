@@ -21,11 +21,11 @@
 					<div class="carousel-inner">
 						{% for onePicture in pictures %}
 							{% if loop.index0 == 0 %}
-								<div class="item active">
+								<div class="item active imageCarouselDetails">
 									<img alt="" src="/images/properties/{{ onePicture }}" />
 								</div>
 							{% else %}
-								<div class="item">
+								<div class="item imageCarouselDetails">
 									<img alt="" src="/images/properties/{{ onePicture }}" />
 								</div>
 							{% endif %}
@@ -36,10 +36,6 @@
 				</div>
 			{% endif %}
 			
-
-			
-
-
 			<div class="priceDiv">
 				{{ details.price }} &euro;/{% if details.typeRent == 'hour' %}{% trans %}hora{% endtrans %}{% else %}{% trans %}día{% endtrans %}{% endif %}
 			</div>

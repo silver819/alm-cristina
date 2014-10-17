@@ -142,3 +142,9 @@ h2{
 .carousel-inner > .item > img {
     margin: 0 auto;
 }
+
+.imageCarouselDetails img {
+    width: auto;
+    height: 250px;
+    max-height: 250px;
+}
