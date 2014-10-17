@@ -127,7 +127,7 @@ class ViewController extends Controller
 						->getRepository('ReservableActivityBundle:Activity')
 						->findByPropertyID($property);
 
-print_r($details);
+		$details = $details[0];
 
 		return $this->render('ReservableActivityBundle:View:detailsProperty.html.twig', 
 			array('details' => $details));

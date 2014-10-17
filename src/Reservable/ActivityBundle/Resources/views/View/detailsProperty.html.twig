@@ -2,6 +2,19 @@
 
 {% block results %}
 
-	***************
+	<div class="col-md-8 column">
+
+		<div class="mainContent">
+			<h2>{{ details.name }}</h2>
+			<hr/>
+			<div class="priceDiv">
+				{{ details.price }} &euro;/{% if details.typeRent == 'hour' %}{% trans %}hora{% endtrans %}{% else %}{% trans %}día{% endtrans %}{% endif %}
+			</div>
+			<p>
+				<i class="fa fa-quote-left fa-3x pull-left fa-border"></i><p>{{ details.description }}</p>
+			</p>
+			<div class="clear"></div>
+		</div>
+	</div>
 
 {% endblock %}
