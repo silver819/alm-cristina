@@ -122,6 +122,14 @@
                 <source>Dirección disponible en mapa</source>
                 <target>Address available in map</target>
             </trans-unit>
+            <trans-unit id="31">
+                <source>hora</source>
+                <target>hour</target>
+            </trans-unit>
+            <trans-unit id="32">
+                <source>día</source>
+                <target>day</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>
