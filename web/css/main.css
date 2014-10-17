@@ -139,6 +139,10 @@ h2{
     clear:both;
 }
 
+.margin{
+    margin-bottom: 20px;
+}
+
 .carousel-inner > .item > img {
     margin: 0 auto;
 }

@@ -7,6 +7,12 @@
 		<div class="mainContent">
 			<h2>{{ details.name }}</h2>
 			<hr/>
+
+			<div class="priceDiv">
+				{{ details.price }} &euro;/{% if details.typeRent == 'hour' %}{% trans %}hora{% endtrans %}{% else %}{% trans %}día{% endtrans %}{% endif %}
+			</div>
+			<div class="clear margin"></div>
+
 			{% if pictures is not empty %}
 				<div class="carousel slide" id="carousel-details">
 					<ol class="carousel-indicators">
@@ -35,10 +41,8 @@
 					<a class="right carousel-control" href="#carousel-details" data-slide="next"><span class="glyphicon glyphicon-chevron-right"></span></a>
 				</div>
 			{% endif %}
+			<div class="clear margin"></div>
 			
-			<div class="priceDiv">
-				{{ details.price }} &euro;/{% if details.typeRent == 'hour' %}{% trans %}hora{% endtrans %}{% else %}{% trans %}día{% endtrans %}{% endif %}
-			</div>
 			<p>
 				<i class="fa fa-quote-left fa-3x pull-left fa-border"></i><p>{{ details.description }}</p>
 			</p>
