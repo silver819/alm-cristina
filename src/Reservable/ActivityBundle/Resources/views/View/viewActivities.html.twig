@@ -43,9 +43,9 @@
 
 			<span class="contentSpan">
 				<h4><strong>{{ oneProperty.name }}</strong></h4>
-				<p>{{ oneProperty.price }} &euro;/ {{ oneProperty.typeRent }}</p>
-				<p><i class="fa fa-location-arrow"></i>&nbsp;{{ oneProperty.address }}</p>
-				<p>{{ oneProperty.description }}</p>
+				<p><i class="fa fa-eur" title="{% trans %}Precio{% endtrans %}"></i>&nbsp;{{ oneProperty.price }} &euro;/ {{ oneProperty.typeRent }}</p>
+				<p>{% if (oneProperty.lat != null) and (oneProperty.lng != null) %}<i class="fa fa-map-marker" title="{% trans %}Dirección disponible en mapa{% endtrans %}"></i>{% else  %}<i class="fa fa-location-arrow" title="{% trans %}Dirección{% endtrans %}"></i>{% endif %}&nbsp;{{ oneProperty.address }}</p>
+				<p><i class="fa fa-file-text" title="{% trans %}Descripción{% endtrans %}"></i>&nbsp;{{ oneProperty.description }}</p>
 			</span>
 			<div style="clear:both;"></div>
 		</div>
