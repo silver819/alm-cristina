@@ -27,4 +27,13 @@ class PictureRepository extends EntityRepository
                                    WHERE p.activityID = ' . $propertyID)
                     ->getResult();
 	}
+
+  function findAllByPropertyID($propertyID){
+        return $this->getEntityManager()
+                    ->createQuery('SELECT p.path
+                                   FROM ReservableActivityBundle:Picture p
+                                   WHERE p.activityID = ' . $propertyID)
+                    ->getResult();
+  }
+  
 }

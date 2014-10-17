@@ -129,7 +129,16 @@ class ViewController extends Controller
 
 		$details = $details[0];
 
+		$pictures = $this->getDoctrine()
+						 ->getRepository('ReservableActivityBundle:Picture')
+					     ->findAllByPropertyID($property);
+
+		$arrayPictures = array();
+		foreach($pictures as $onePicture){
+			$arrayPictures[] = $onePicture['path'];
+		}
+
 		return $this->render('ReservableActivityBundle:View:detailsProperty.html.twig', 
-			array('details' => $details));
+			array('details' => $details, 'pictures' => $arrayPictures));
 	}
 }
