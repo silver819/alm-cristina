@@ -120,4 +120,16 @@ class ViewController extends Controller
 			die("No se ha encontrado la propiedad " . $_POST['productID']);
 		}
 	}
+
+	public function viewDetailsAction($property){
+
+		$details = $this->getDoctrine()
+						->getRepository('ReservableActivityBundle:Activity')
+						->findByPropertyID($property);
+
+print_r($details);
+
+		return $this->render('ReservableActivityBundle:View:detailsProperty.html.twig', 
+			array('details' => $details));
+	}
 }
