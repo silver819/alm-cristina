@@ -8,6 +8,9 @@
 			<h2>{{ details.name }}</h2>
 			<hr/>
 
+			<div class="backDiv">
+				<a href="javascript:history.go(-1);"><i class="fa fa-reply"></i>&nbsp;&nbsp;{% trans %}Volver a los resultados{% endtrans %}</a>
+			</div>
 			<div class="priceDiv">
 				{{ details.price }} &euro;/{% if details.typeRent == 'hour' %}{% trans %}hora{% endtrans %}{% else %}{% trans %}día{% endtrans %}{% endif %}
 			</div>

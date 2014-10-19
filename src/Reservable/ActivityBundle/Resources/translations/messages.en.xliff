@@ -134,6 +134,10 @@
                 <source>Reservar</source>
                 <target>Book</target>
             </trans-unit>
+            <trans-unit id="34">
+                <source>Volver a los resultados</source>
+                <target>Back to results</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>
