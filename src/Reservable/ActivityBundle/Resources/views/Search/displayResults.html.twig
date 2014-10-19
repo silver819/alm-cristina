@@ -21,6 +21,11 @@
 		{% else %}
 			{% for oneResult in results %}
 				<div class="oneResultDiv">
+					{% if images[oneResult.id] is defined %}
+						<span class="imageSpan">
+						<img src="/images/properties/{{images[oneResult.id]}}" width="100">
+						</span>
+					{% endif %}
 					<div class="priceDiv">
 						{{ oneResult.price }} &euro;/{% if oneResult.typeRent == 'hour' %}{% trans %}hora{% endtrans %}{% else %}{% trans %}día{% endtrans %}{% endif %}
 					</div>

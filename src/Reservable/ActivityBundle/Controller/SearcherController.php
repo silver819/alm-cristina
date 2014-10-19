@@ -30,7 +30,20 @@ class SearcherController extends Controller
 						->getRepository('ReservableActivityBundle:Activity')
 						->getPropertiesWhere($where);
 
+		$images = array();
+		if(!empty($results)){
+			foreach($results as $oneResult){
+				$firstImage = $this->getDoctrine()
+								   ->getRepository('ReservableActivityBundle:Picture')
+								   ->findAllByPropertyID($oneResult->getId());
+
+				if(!empty($firstImage[0]['path'])){
+					$images[$oneResult->getId()] = $firstImage[0]['path'];
+				}
+			}
+		}
+
 		return $this->render('ReservableActivityBundle:Search:displayResults.html.twig', 
-			array("selection" => $_POST, "results" => $results));
+			array("selection" => $_POST, "results" => $results, 'images' => $images));
 	}
 }
