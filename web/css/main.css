@@ -152,3 +152,9 @@ h2{
     height: 250px;
     max-height: 250px;
 }
+
+.nameDiv a{
+    color: #555;
+    font-style: italic;
+    text-decoration: none;
+}
