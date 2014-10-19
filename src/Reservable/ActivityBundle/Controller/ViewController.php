@@ -15,31 +15,20 @@ class ViewController extends Controller
 						   ->getRepository('ReservableActivityBundle:Activity')
 						   ->findAllByOwnerID($ownerID);
 
-
-		/*foreach($properties as $oneProperty){
-			foreach($oneProperty->getPictures() as $onePicture){
-				print_r($onePicture);die();
-			}
-		}*/
-
 		$arrayPictures = array();
 		if(!empty($properties)){
-			$propertiesIDs = '';
-			foreach($properties as $oneProperty){
-				$propertiesIDs .= $oneProperty->getId() . ',';
-			}
-			$propertiesIDs = substr($propertiesIDs, 0, -1);
+			foreach($properties as $oneResult){
+				$firstImage = $this->getDoctrine()
+								   ->getRepository('ReservableActivityBundle:Picture')
+								   ->findAllByPropertyID($oneResult->getId());
 
-			$pictures = $this->getDoctrine()
-							 ->getRepository('ReservableActivityBundle:Picture')
-						     ->findAllIn($propertiesIDs);
-
-			if(!empty($pictures)){
-				foreach($pictures as $onePicture){
-					$arrayPictures[$onePicture->getActivityID()] = $onePicture->getWebPath();
+				if(!empty($firstImage[0]['path'])){
+					$arrayPictures[$oneResult->getId()] = $firstImage[0]['path'];
 				}
 			}
 		}
+
+
 		return $this->render('ReservableActivityBundle:View:viewActivities.html.twig', 
 			array('properties' => $properties, 'pictures' => $arrayPictures));
 
