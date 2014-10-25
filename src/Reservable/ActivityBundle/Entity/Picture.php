@@ -19,17 +19,17 @@ class Picture
      * @ORM\Column(type="integer", name="id")
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    public $id;
+    protected $id;
 
     /**
      * @ORM\Column(name="path", type="string", length=255, nullable=true)
      */
-    public $path;
+    protected $path;
 
     /**
      * @Assert\File(maxSize="6000000")
      */
-    private $file;
+    protected $file;
 
 
     /**
@@ -139,5 +139,27 @@ class Picture
     public function getActivityID()
     {
         return $this->activityID;
+    }
+
+    /**
+    * Set id
+    *
+    * @param string $id
+    * @return self
+    */
+    public function setId($id)
+    {
+        $this->id = $id;
+        return $this;
+    }
+
+    /**
+    * Get id
+    *
+    * @return string $id
+    */
+    public function getId()
+    {
+        return $this->id;
     }
 }
