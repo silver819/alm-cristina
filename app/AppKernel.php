@@ -20,6 +20,7 @@ class AppKernel extends Kernel
             new Braincrafted\Bundle\BootstrapBundle\BraincraftedBootstrapBundle(),
             new FOS\UserBundle\FOSUserBundle(),
             new User\UserBundle\UserUserBundle(),
+            new Bookings\BookingBundle\BookingsBookingBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

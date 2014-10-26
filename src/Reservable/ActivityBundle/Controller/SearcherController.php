@@ -4,6 +4,8 @@ namespace Reservable\ActivityBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Reservable\ActivityBundle\Entity\Activity;
+use Bookings\BookingBundle\Entity\Booking;
+use Bookings\BookingBundle\Entity\DisponibilityBooking;
 
 class SearcherController extends Controller
 {
@@ -47,21 +49,34 @@ class SearcherController extends Controller
 			}
 		}
 
-		$results = $this->getDoctrine()
+		$resultsAux = $this->getDoctrine()
 						->getRepository('ReservableActivityBundle:Activity')
 						->getPropertiesWhere($where);
+		$results = array();
 
 		$images = array();
-		if(!empty($results)){
-			foreach($results as $oneResult){
-				// Buscamos dispo
+		if(!empty($resultsAux)){
+			foreach($resultsAux as $oneResult){
+				// Buscamos disponibilidad
+				$bookings = $this->getDoctrine()
+								 ->getRepository('BookingsBookingBundle:Booking')
+								 ->findBookingsFromPropertyID($oneResult->getId());
 
-				$firstImage = $this->getDoctrine()
-								   ->getRepository('ReservableActivityBundle:Picture')
-								   ->findAllByPropertyID($oneResult->getId());
+				$dispo = $this->getDoctrine()
+							  ->getRepository('BookingsBookingBundle:DisponibilityBooking')
+							  ->findDispoInThisRange($bookings, $thisRange);
 
-				if(!empty($firstImage[0]['path'])){
-					$images[$oneResult->getId()] = $firstImage[0]['path'];
+				// Tenemos disponibilidad
+				if(empty($dispo)){
+					$results[] = $oneResult;
+
+					$firstImage = $this->getDoctrine()
+									   ->getRepository('ReservableActivityBundle:Picture')
+									   ->findAllByPropertyID($oneResult->getId());
+
+					if(!empty($firstImage[0]['path'])){
+						$images[$oneResult->getId()] = $firstImage[0]['path'];
+					}
 				}
 			}
 		}

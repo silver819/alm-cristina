@@ -12,4 +12,11 @@ use Doctrine\ORM\EntityRepository;
  */
 class BookingRepository extends EntityRepository
 {
+	function findBookingsFromPropertyID($propertyID){
+		return $this->getEntityManager()
+            	    ->createQuery('SELECT b
+            	   				   FROM BookingsBookingBundle:Booking b
+                				   WHERE b.activityID = ' . $propertyID)
+            		->getResult();
+	}
 }
