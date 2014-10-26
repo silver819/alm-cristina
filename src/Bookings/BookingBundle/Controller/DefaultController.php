@@ -6,8 +6,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 class DefaultController extends Controller
 {
-    public function indexAction($name)
+    public function bookAction()
     {
-        return $this->render('BookingsBookingBundle:Default:index.html.twig', array('name' => $name));
+        return $this->render('BookingsBookingBundle:Default:book.html.twig');
     }
 }

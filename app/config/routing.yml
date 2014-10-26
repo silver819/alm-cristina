@@ -10,3 +10,7 @@ reservable_activity:
 fos_user:
     resource: "@FOSUserBundle/Resources/config/routing/all.xml"
     prefix:   /{_locale}/
+
+bookings_booking:
+    resource: "@BookingsBookingBundle/Resources/config/routing.yml"
+    prefix:   /{_locale}/

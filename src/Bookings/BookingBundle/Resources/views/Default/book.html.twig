@@ -1,0 +1,23 @@
+{% extends '::base.html.twig' %}
+
+{% block section %}
+
+	{% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+
+		Resumen:
+		Nombre: {{ app.user.username }}
+		Apellidos: {{ app.user.surname }}
+		Email: {{ app.user.email }}
+		Telefono: {{ app.user.telephone }} / {{ app.user.mobile }}
+		Propiedad:
+		Dia/hora:
+
+		Confirmar
+
+	{% else %}
+
+		redireccionar login
+
+	{% endif %}
+
+{% endblock %}
