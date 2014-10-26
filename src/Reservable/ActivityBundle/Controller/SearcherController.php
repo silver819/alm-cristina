@@ -11,7 +11,7 @@ class SearcherController extends Controller
 
 		$where = "1=1";
 		$relevantFields = array("name", "type");
-		
+
 		foreach($_POST as $field => $value){
 			if($value != '' && in_array($field, $relevantFields)){
 				switch ($field){
@@ -21,6 +21,27 @@ class SearcherController extends Controller
 
 					case "type":
 						$where .= " AND p.typeRent LIKE '" . $value . "'";
+
+						$thisRange = array();
+						if($value == 'hour'){
+							list($day, $month, $year) = explode('/', $_POST['date']);
+							$thisRange[] = $year.$month.$day.$_POST['hour'];
+						}
+						else{
+							list($SDday, $SDmonth, $SDyear) = explode('/', $_POST['StartDate']);
+							list($EDday, $EDmonth, $EDyear) = explode('/', $_POST['EndDate']);
+
+							$thisDate = $SDyear.$SDmonth.$SDday.'00';
+							$lastDate = $EDyear.$EDmonth.$EDday.'00';
+							while($thisDate != $lastDate){
+								$thisRange[] = $thisDate;
+								$thisYear	 = substr($thisDate, 0, 4);
+								$thisMonth	 = substr($thisDate, 4, 2);
+								$thisDay 	 = substr($thisDate, 6, 2);
+								$thisDate 	 = date('Ymd', mktime(0,0,0,$thisMonth,$thisDay+1,$thisYear)).'00';
+							}
+						}
+
 						break;
 				}
 			}
@@ -33,6 +54,8 @@ class SearcherController extends Controller
 		$images = array();
 		if(!empty($results)){
 			foreach($results as $oneResult){
+				// Buscamos dispo
+
 				$firstImage = $this->getDoctrine()
 								   ->getRepository('ReservableActivityBundle:Picture')
 								   ->findAllByPropertyID($oneResult->getId());

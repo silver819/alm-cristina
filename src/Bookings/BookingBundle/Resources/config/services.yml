@@ -1,0 +1,7 @@
+parameters:
+#    bookings_booking.example.class: Bookings\BookingBundle\Example
+
+services:
+#    bookings_booking.example:
+#        class: %bookings_booking.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]
