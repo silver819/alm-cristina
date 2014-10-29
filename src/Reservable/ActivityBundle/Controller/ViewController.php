@@ -8,11 +8,11 @@ use Reservable\ActivityBundle\Entity\Activity;
 
 class ViewController extends Controller
 {
-    public function viewAction()
+	public function viewAction()
 	{
-		if (!$this->get('security.context')->isGranted('ROLE_USER')) {
-	        throw new AccessDeniedException();
-	    }
+		if(!$this->get('security.context')->isGranted('ROLE_USER')) {
+			throw new AccessDeniedException();
+		}
 
 		$ownerID = $this->get('security.context')->getToken()->getUser()->getId();	
 

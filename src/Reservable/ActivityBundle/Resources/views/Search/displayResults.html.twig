@@ -20,26 +20,28 @@
 			</div>
 		{% else %}
 			{% for oneResult in results %}
-				<div class="oneResultDiv">
-					{% if images[oneResult.id] is defined %}
-						<span class="imageSpan">
-						<img src="/images/properties/{{images[oneResult.id]}}" width="100">
-						</span>
-					{% endif %}
-					<div class="priceDiv">
-						{{ oneResult.price }} &euro;/{% if oneResult.typeRent == 'hour' %}{% trans %}hora{% endtrans %}{% else %}{% trans %}día{% endtrans %}{% endif %}
+				<form method="POST" action="{{ path('book') }}">
+					<div class="oneResultDiv">
+						{% if images[oneResult.id] is defined %}
+							<span class="imageSpan">
+							<img src="/images/properties/{{images[oneResult.id]}}" width="100">
+							</span>
+						{% endif %}
+						<div class="priceDiv">
+							{{ oneResult.price }} &euro;/{% if oneResult.typeRent == 'hour' %}{% trans %}hora{% endtrans %}{% else %}{% trans %}día{% endtrans %}{% endif %}
+						</div>
+						<div class="nameDiv">
+							<strong><a href="view-details/{{ oneResult.id }}">{{ oneResult.name }}</a></strong>
+						</div>
+						<div class="bookingButton">
+							<button type="submit" class="btn btn-primary" value="Send">{% trans %}Reservar{% endtrans %}</button>
+						</div>
+						<div>
+							<p>{% if (oneResult.lat != null) and (oneResult.lng != null) %}<i class="fa fa-map-marker" title="{% trans %}Dirección disponible en mapa{% endtrans %}"></i>{% else  %}<i class="fa fa-location-arrow" title="{% trans %}Dirección{% endtrans %}"></i>{% endif %}&nbsp;{{ oneResult.address }}</p>
+							<p><i class="fa fa-file-text" title="{% trans %}Descripción{% endtrans %}"></i>&nbsp;{{ oneResult.description }}</p>
+						</div>
 					</div>
-					<div class="nameDiv">
-						<strong><a href="view-details/{{ oneResult.id }}">{{ oneResult.name }}</a></strong>
-					</div>
-					<div class="bookingButton">
-						<button type="submit" class="btn btn-primary" value="Send">{% trans %}Reservar{% endtrans %}</button>
-					</div>
-					<div>
-						<p>{% if (oneResult.lat != null) and (oneResult.lng != null) %}<i class="fa fa-map-marker" title="{% trans %}Dirección disponible en mapa{% endtrans %}"></i>{% else  %}<i class="fa fa-location-arrow" title="{% trans %}Dirección{% endtrans %}"></i>{% endif %}&nbsp;{{ oneResult.address }}</p>
-						<p><i class="fa fa-file-text" title="{% trans %}Descripción{% endtrans %}"></i>&nbsp;{{ oneResult.description }}</p>
-					</div>
-				</div>
+				</form>
 				<div class="clear"></div>
 				<hr class="style-six">
 			{% endfor %}
