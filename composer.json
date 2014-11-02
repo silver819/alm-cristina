@@ -37,7 +37,8 @@
         "braincrafted/bootstrap-bundle": "~2.0",
         "twbs/bootstrap": "3.0.*",
         "jquery/jquery":  "1.10.*",
-        "friendsofsymfony/jsrouting-bundle": "@stable"
+        "friendsofsymfony/jsrouting-bundle": "@stable",
+        "raulfraile/ladybug": "~1.0"
     },
     "scripts": {
         "post-install-cmd": [

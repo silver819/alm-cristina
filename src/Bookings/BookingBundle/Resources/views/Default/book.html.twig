@@ -2,22 +2,36 @@
 
 {% block section %}
 
-	{% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+	<div class="col-md-2 column"></div>
+	<div class="col-md-8 column mainContent">
+		<h2>{% trans %}Resumen{% endtrans %}</h2>
+		<hr/>
 
-		Resumen:
-		Nombre: {{ app.user.username }}
-		Apellidos: {{ app.user.surname }}
-		Email: {{ app.user.email }}
-		Telefono: {{ app.user.telephone }} / {{ app.user.mobile }}
-		Propiedad:
-		Dia/hora:
+		<div class="col-md-5 column">
+			{% trans %}Nombre{% endtrans %}: {{ app.user.username }}
+			<br/>
+			{% trans %}Apellidos{% endtrans %}: {{ app.user.surname }}
+			<br/>
+			{% trans %}Email{% endtrans %}: {{ app.user.email }}
+			<br/>
+			{% trans %}Telefono{% endtrans %}: {{ app.user.telephone }} / {{ app.user.mobile }}
+		</div>
+		<div class="col-md-2 column text-center" style="font-size: 3em;">
+			<i class="fa fa-angle-double-right"></i>
+		</div>
+		<div class="col-md-5 column">
+			{% trans %}Propiedad{% endtrans %}:
+			<br/>
+			{% trans %}Desde{% endtrans %}:
+			<br/>
+			{% trans %}Hasta{% endtrans %}:
+		</div>
+		<div style="clear:both;"></div>
 
-		Confirmar
-
-	{% else %}
-
-		redireccionar login
-
-	{% endif %}
+		<div class="text-center">
+			<button type="submit" class="btn btn-success" value="Send">{% trans %}Confirmar{% endtrans %}</button>
+		</div>
+	</div>
+	<div class="col-md-2 column"></div>
 
 {% endblock %}
