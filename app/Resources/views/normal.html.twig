@@ -7,12 +7,49 @@
 	$.datepicker.setDefaults($.datepicker.regional[ "{{ app.request.locale }}" ]);
 
 	$(function() {
+		/* Fecha por hora */
+		var dateDay 	= {{ selection.dateDay|json_encode() }};
+		var dateMonth	= {{ selection.dateMonth|json_encode() }};
+		var dateYear 	= {{ selection.dateYear|json_encode() }};
+
+		if(!dateDay && !dateMonth && !dateYear){
+			var today 	= new Date();
+			dateYear 	= today.getFullYear();
+			dateMonth 	= today.getMonth();
+			dateDay 	= today.getDay() + 2;
+			if(dateDay < 10)	{dateDay 	= '0' + dateDay;	}
+			if(dateMonth < 10)	{dateMonth	= '0' + dateMonth;	}
+		}
+
 		$("#dateByHour").datepicker({
 			dateFormat: 		"dd/mm/yy",
 			defaultDate: 		+2,
 			minDate: 			+2,
 		});
-		$("#dateByHour").datepicker( "setDate", 2);
+		$("#dateByHour").datepicker( "setDate", new Date(dateYear, dateMonth, dateDay));
+
+		/* Fechas por días */
+		var StartDateDay 	= {{ selection.StartDateDay|json_encode() }};
+		var StartDateMonth	= {{ selection.StartDateYear|json_encode() }};
+		var StartDateYear 	= {{ selection.StartDateYear|json_encode() }};
+		var EndDateDay 		= {{ selection.EndDateDay|json_encode() }};
+		var EndDateMonth	= {{ selection.EndDateYear|json_encode() }};
+		var EndDateYear 	= {{ selection.EndDateYear|json_encode() }};
+
+		if(!StartDateDay && !StartDateMonth && !StartDateYear && !EndDateDay && !EndDateMonth && !EndDateYear){
+			var today 	= new Date();
+			StartDateYear 	= today.getFullYear();
+			StartDateMonth 	= today.getMonth();
+			StartDateDay 	= today.getDay() + 2;
+			if(StartDateDay < 10)	{StartDateDay 	= '0' + StartDateDay;	}
+			if(StartDateMonth < 10)	{StartDateMonth	= '0' + StartDateMonth;	}
+
+			StartDateYear 	= today.getFullYear();
+			EndDateMonth 	= today.getMonth();
+			EndDateDay 		= today.getDay() + 3;
+			if(EndDateMonth < 10)	{EndDateMonth 	= '0' + EndDateMonth;	}
+			if(EndDateDay < 10)	{EndDateDay	= '0' + EndDateDay;	}
+		}
 
 		$("#dateByDaySD").datepicker({
 			dateFormat: 		"dd/mm/yy",
@@ -22,7 +59,7 @@
 				$("#dateByDayED").datepicker("option", "minDate", selectedDate );
 			}
 		});
-		$("#dateByDaySD").datepicker( "setDate", 2);
+		$("#dateByDaySD").datepicker( "setDate", new Date(StartDateYear, StartDateMonth, StartDateDay));
 
 		$("#dateByDayED").datepicker({
 			dateFormat: 		"dd/mm/yy",
@@ -32,7 +69,7 @@
 				$( "#dateByDaySD" ).datepicker( "option", "maxDate", selectedDate );
 			}
 		});
-		$("#dateByDayED").datepicker( "setDate", 3);
+		$("#dateByDayED").datepicker( "setDate", new Date(EndDateYear, EndDateMonth, EndDateDay));
 
 		$("#byHour").click(function() {
 			$("#byHourDiv").show("slow");

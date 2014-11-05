@@ -14,6 +14,9 @@ class DefaultController extends Controller
 			throw new AccessDeniedException();
 		}
 
+		ladybug_dump($_POST);
+		ladybug_dump($_SESSION);
+
 		return $this->render('BookingsBookingBundle:Default:book.html.twig');
 	}
 }
