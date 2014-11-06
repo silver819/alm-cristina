@@ -131,10 +131,14 @@
                 <target>day</target>
             </trans-unit>
             <trans-unit id="33">
+                <source>dias</source>
+                <target>days</target>
+            </trans-unit>
+            <trans-unit id="34">
                 <source>Reservar</source>
                 <target>Book</target>
             </trans-unit>
-            <trans-unit id="34">
+            <trans-unit id="35">
                 <source>Volver a los resultados</source>
                 <target>Back to results</target>
             </trans-unit>

@@ -28,7 +28,11 @@
 							</span>
 						{% endif %}
 						<div class="priceDiv">
-							{{ oneResult.price }} &euro;/{% if oneResult.typeRent == 'hour' %}{% trans %}hora{% endtrans %}{% else %}{% trans %}día{% endtrans %}{% endif %}
+							{% if oneResult.typeRent == 'hour' %}
+								{{ oneResult.price }} &euro; / {% trans %}hora{% endtrans %}
+							{% else %}
+								{{ oneResult.price * app.session.get('searchTotalDays') }} &euro; / {{ app.session.get('searchTotalDays') }} {% if app.session.get('searchTotalDays') == 1 %}{% trans %}día{% endtrans %}{% else %}{% trans %}dias{% endtrans %}{% endif %}
+							{% endif %}
 						</div>
 						<div class="nameDiv">
 							<strong><a href="view-details/{{ oneResult.id }}">{{ oneResult.name }}</a></strong>

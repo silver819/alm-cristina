@@ -72,6 +72,9 @@ class SearcherController extends Controller
 								$thisDay 	 = substr($thisDate, 6, 2);
 								$thisDate 	 = date('Ymd', mktime(0,0,0,$thisMonth,$thisDay+1,$thisYear)).'00';
 							}
+
+							// Días completos
+							$session->set('searchTotalDays', count($thisRange));
 						}
 
 						break;

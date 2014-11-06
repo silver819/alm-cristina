@@ -13,10 +13,7 @@ class DefaultController extends Controller
 		if(!$this->get('security.context')->isGranted('ROLE_USER')) {
 			throw new AccessDeniedException();
 		}
-
-		ladybug_dump($_POST);
-		ladybug_dump($_SESSION);
-
+ladybug_dump($_POST);
 		return $this->render('BookingsBookingBundle:Default:book.html.twig');
 	}
 }
