@@ -5,6 +5,7 @@ namespace Reservable\ActivityBundle\Controller;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Reservable\ActivityBundle\Entity\Activity;
+use Symfony\Component\HttpFoundation\Request;
 
 class ViewController extends Controller
 {
@@ -115,7 +116,9 @@ class ViewController extends Controller
 		}
 	}
 
-	public function viewDetailsAction($property){
+	public function viewDetailsAction($property, Request $request){
+
+		$session = $request->getSession();
 
 		$details = $this->getDoctrine()
 						->getRepository('ReservableActivityBundle:Activity')

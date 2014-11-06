@@ -8,9 +8,9 @@
 
 	$(function() {
 		/* Fecha por hora */
-		var dateDay 	= {{ selection.dateDay|json_encode() }};
-		var dateMonth	= {{ selection.dateMonth|json_encode() }};
-		var dateYear 	= {{ selection.dateYear|json_encode() }};
+		var dateDay 	= {{ app.session.get('searchdateDay')|json_encode() }};
+		var dateMonth	= {{ app.session.get('searchdateMonth')|json_encode() }};
+		var dateYear 	= {{ app.session.get('searchdateYear')|json_encode() }};
 
 		if(!dateDay && !dateMonth && !dateYear){
 			var today 	= new Date();
@@ -29,12 +29,12 @@
 		$("#dateByHour").datepicker( "setDate", new Date(dateYear, dateMonth, dateDay));
 
 		/* Fechas por días */
-		var StartDateDay 	= {{ selection.StartDateDay|json_encode() }};
-		var StartDateMonth	= {{ selection.StartDateYear|json_encode() }};
-		var StartDateYear 	= {{ selection.StartDateYear|json_encode() }};
-		var EndDateDay 		= {{ selection.EndDateDay|json_encode() }};
-		var EndDateMonth	= {{ selection.EndDateYear|json_encode() }};
-		var EndDateYear 	= {{ selection.EndDateYear|json_encode() }};
+		var StartDateDay 	= {{ app.session.get('searchStartDateDay')|json_encode() }};
+		var StartDateMonth	= {{ app.session.get('searchStartDateYear')|json_encode() }};
+		var StartDateYear 	= {{ app.session.get('searchStartDateYear')|json_encode() }};
+		var EndDateDay 		= {{ app.session.get('searchEndDateDay')|json_encode() }};
+		var EndDateMonth	= {{ app.session.get('searchEndDateYear')|json_encode() }};
+		var EndDateYear 	= {{ app.session.get('searchEndDateYear')|json_encode() }};
 
 		if(!StartDateDay && !StartDateMonth && !StartDateYear && !EndDateDay && !EndDateMonth && !EndDateYear){
 			var today 	= new Date();
@@ -86,10 +86,10 @@
 <div class="col-md-4 column mainContent">
 	<form action="{{ path('search') }}" method="POST">
 		<label>{% trans %}Nombre{% endtrans %}</label>
-		<input class="thisInput" type="text" name="name" value="{{ selection['name'] }}">
+		<input class="thisInput" type="text" name="name" value="{{ app.session.get('searchName') }}">
 
 		<label>{% trans %}Alquilar por{% endtrans %}</label><br/>
-		{% if selection['type'] == 'day' %}
+		{% if app.session.get('searchType') == 'day' %}
 			&nbsp;&nbsp;<input id="byHour" type="radio" name="type" value="hour">{% trans %}Hora{% endtrans %}&nbsp;&nbsp;<input id="byDay" type="radio" name="type" value="day" checked>{% trans %}Día{% endtrans %}
 
 			<div id="byHourDiv" style="display:none">
@@ -99,7 +99,7 @@
 				</tr>
 				<tr>
 					<td>
-						<input class="thisInput" name="date" type="text" id="dateByHour" value="{{ selection['date'] }}">
+						<input class="thisInput" name="date" type="text" id="dateByHour" value="{{ app.session.get('searchDate') }}">
 					</td>
 					<td>
 						<select name="hour">
@@ -117,9 +117,9 @@
 		</div>
 		<div id="byDayDiv">
 			<label>{% trans %}Entrada{% endtrans %}</label>
-			<input class="thisInput" name="StartDate" type="text" id="dateByDaySD" value="{{ selection['StartDate'] }}">
+			<input class="thisInput" name="StartDate" type="text" id="dateByDaySD" value="{{ app.session.get('searchStartDate') }}">
 			<label>{% trans %}Salida{% endtrans %}</label>
-			<input class="thisInput" name="EndDate" type="text" id="dateByDayED" value="{{ selection['EndDate'] }}">
+			<input class="thisInput" name="EndDate" type="text" id="dateByDayED" value="{{ app.session.get('searchEndDate') }}">
 		</div>
 		{% else %}
 			&nbsp;&nbsp;<input id="byHour" type="radio" name="type" value="hour" checked>{% trans %}Hora{% endtrans %}&nbsp;&nbsp;<input id="byDay" type="radio" name="type" value="day">{% trans %}Día{% endtrans %}
@@ -135,20 +135,20 @@
 					</td>
 					<td>
 						<select name="hour">
-							{% if selection['hour'] == 09 %}<option value="09" selected>09:00</option>{% else %}<option value="09">09:00</option>{% endif %}
-							{% if selection['hour'] == 10 %}<option value="10" selected>10:00</option>{% else %}<option value="10">10:00</option>{% endif %}
-							{% if selection['hour'] == 11 %}<option value="11" selected>11:00</option>{% else %}<option value="11">11:00</option>{% endif %}
-							{% if selection['hour'] == 12 %}<option value="12" selected>12:00</option>{% else %}<option value="12">12:00</option>{% endif %}
-							{% if selection['hour'] == 13 %}<option value="13" selected>13:00</option>{% else %}<option value="13">13:00</option>{% endif %}
-							{% if selection['hour'] == 14 %}<option value="14" selected>14:00</option>{% else %}<option value="14">14:00</option>{% endif %}
-							{% if selection['hour'] == 15 %}<option value="15" selected>15:00</option>{% else %}<option value="15">15:00</option>{% endif %}
-							{% if selection['hour'] == 16 %}<option value="16" selected>16:00</option>{% else %}<option value="16">16:00</option>{% endif %}
-							{% if selection['hour'] == 17 %}<option value="17" selected>17:00</option>{% else %}<option value="17">17:00</option>{% endif %}
-							{% if selection['hour'] == 18 %}<option value="18" selected>18:00</option>{% else %}<option value="18">18:00</option>{% endif %}
-							{% if selection['hour'] == 19 %}<option value="19" selected>19:00</option>{% else %}<option value="19">19:00</option>{% endif %}
-							{% if selection['hour'] == 20 %}<option value="20" selected>20:00</option>{% else %}<option value="20">20:00</option>{% endif %}
-							{% if selection['hour'] == 21 %}<option value="21" selected>21:00</option>{% else %}<option value="21">21:00</option>{% endif %}
-							{% if selection['hour'] == 22 %}<option value="22" selected>22:00</option>{% else %}<option value="22">22:00</option>{% endif %}
+							{% if app.session.get('searchHour') == 09 %}<option value="09" selected>09:00</option>{% else %}<option value="09">09:00</option>{% endif %}
+							{% if app.session.get('searchHour') == 10 %}<option value="10" selected>10:00</option>{% else %}<option value="10">10:00</option>{% endif %}
+							{% if app.session.get('searchHour') == 11 %}<option value="11" selected>11:00</option>{% else %}<option value="11">11:00</option>{% endif %}
+							{% if app.session.get('searchHour') == 12 %}<option value="12" selected>12:00</option>{% else %}<option value="12">12:00</option>{% endif %}
+							{% if app.session.get('searchHour') == 13 %}<option value="13" selected>13:00</option>{% else %}<option value="13">13:00</option>{% endif %}
+							{% if app.session.get('searchHour') == 14 %}<option value="14" selected>14:00</option>{% else %}<option value="14">14:00</option>{% endif %}
+							{% if app.session.get('searchHour') == 15 %}<option value="15" selected>15:00</option>{% else %}<option value="15">15:00</option>{% endif %}
+							{% if app.session.get('searchHour') == 16 %}<option value="16" selected>16:00</option>{% else %}<option value="16">16:00</option>{% endif %}
+							{% if app.session.get('searchHour') == 17 %}<option value="17" selected>17:00</option>{% else %}<option value="17">17:00</option>{% endif %}
+							{% if app.session.get('searchHour') == 18 %}<option value="18" selected>18:00</option>{% else %}<option value="18">18:00</option>{% endif %}
+							{% if app.session.get('searchHour') == 19 %}<option value="19" selected>19:00</option>{% else %}<option value="19">19:00</option>{% endif %}
+							{% if app.session.get('searchHour') == 20 %}<option value="20" selected>20:00</option>{% else %}<option value="20">20:00</option>{% endif %}
+							{% if app.session.get('searchHour') == 21 %}<option value="21" selected>21:00</option>{% else %}<option value="21">21:00</option>{% endif %}
+							{% if app.session.get('searchHour') == 22 %}<option value="22" selected>22:00</option>{% else %}<option value="22">22:00</option>{% endif %}
 						</select>
 					<td>
 				</tr>

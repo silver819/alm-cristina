@@ -6,10 +6,14 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Reservable\ActivityBundle\Entity\Activity;
 use Bookings\BookingBundle\Entity\Booking;
 use Bookings\BookingBundle\Entity\DisponibilityBooking;
+use Symfony\Component\HttpFoundation\Request;
 
 class SearcherController extends Controller
 {
-	public function searchAction(){
+	public function searchAction(Request $request){
+
+		$session = $request->getSession();
+
 
 		$where = "1=1";
 		$relevantFields = array("name", "type");
@@ -19,25 +23,25 @@ class SearcherController extends Controller
 				switch ($field){
 					case "name":
 						$where .= " AND p.name LIKE '%" . $value . "%'";
-						$_SESSION['search']['name'] = $value;
+						$session->set('searchName', $value);
 
 						break;
 
 					case "type":
 						$where .= " AND p.typeRent LIKE '" . $value . "'";
-						$_SESSION['search']['type'] = $value;
+						$session->set('searchType', $value);
 
 						$thisRange = array();
 						if($value == 'hour'){
 							list($day, $month, $year) = explode('/', $_POST['date']);
 							$thisRange[] = $year.$month.$day.$_POST['hour'];
 
-							$_SESSION['search']['date']					= $_POST['date'];
-							$_SESSION['search']['dateDay']				= (int)$day;
-							$_SESSION['search']['dateMonth']			= (int)$month - 1;
-							$_SESSION['search']['dateYear']				= (int)$year;
-							$_SESSION['search']['StartDateComplete']	= $year.$month.$day.$_POST['hour'];
-							$_SESSION['search']['EndDateComplete'] 		= '';
+							$session->set('searchDate', 				$_POST['date']);
+							$session->set('searchdateDay', 				(int)$day);
+							$session->set('searchdateMonth', 			(int)$month - 1);
+							$session->set('searchdateYear', 			(int)$year);
+							$session->set('searchStartDateComplete',	$year.$month.$day.$_POST['hour']);
+							$session->set('searchEndDateComplete', 		'');
 
 						}
 						else{
@@ -46,16 +50,16 @@ class SearcherController extends Controller
 
 							$thisDate = $SDyear.$SDmonth.$SDday.'00';
 							$lastDate = $EDyear.$EDmonth.$EDday.'00';
-							$_SESSION['search']['StartDateComplete']	= $thisDate;
-							$_SESSION['search']['EndDateComplete'] 		= $lastDate;
-							$_SESSION['search']['StartDate'] 			= $_POST['StartDate'];
-							$_SESSION['search']['StartDateDay']			= (int)$SDday;
-							$_SESSION['search']['StartDateMonth']		= (int)$SDmonth;
-							$_SESSION['search']['StartDateYear']		= (int)$SDyear;
-							$_SESSION['search']['EndDate'] 				= $_POST['EndDate'];
-							$_SESSION['search']['EndDateDay']			= (int)$EDday;
-							$_SESSION['search']['EndDateMonth']			= (int)$EDmonth;
-							$_SESSION['search']['EndDateYear']			= (int)$EDyear;
+							$session->set('searchStartDateComplete',	$thisDate);
+							$session->set('searchEndDateComplete', 		$lastDate);
+							$session->set('searchStartDate', 			$_POST['StartDate']);
+							$session->set('searchStartDateDay', 		(int)$SDday);
+							$session->set('searchStartDateMonth', 		(int)$SDmonth);
+							$session->set('searchStartDateYear', 		(int)$SDyear);
+							$session->set('searchEndDate', 				$_POST['EndDate']);
+							$session->set('searchEndDateDay', 			(int)$EDday);
+							$session->set('searchEndDateMonth', 		(int)$EDmonth);
+							$session->set('searchEndDateYear', 			(int)$EDyear);
 							while($thisDate != $lastDate){
 								$thisRange[] = $thisDate;
 								$thisYear	 = substr($thisDate, 0, 4);
@@ -103,6 +107,6 @@ class SearcherController extends Controller
 		}
 
 		return $this->render('ReservableActivityBundle:Search:displayResults.html.twig', 
-			array("selection" => $_SESSION['search'], "results" => $results, 'images' => $images));
+			array("results" => $results, 'images' => $images));
 	}
 }
