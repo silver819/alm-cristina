@@ -16,7 +16,7 @@ class SearcherController extends Controller
 
 
 		$where = "1=1";
-		$relevantFields = array("name", "type");
+		$relevantFields = array("name", "type", "hour");
 
 		foreach($_POST as $field => $value){
 			if($value != '' && in_array($field, $relevantFields)){
@@ -24,6 +24,11 @@ class SearcherController extends Controller
 					case "name":
 						$where .= " AND p.name LIKE '%" . $value . "%'";
 						$session->set('searchName', $value);
+
+						break;
+
+					case "hour":
+						$session->set('searchHour', $value);
 
 						break;
 
