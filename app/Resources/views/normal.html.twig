@@ -12,7 +12,7 @@
 		var dateMonth	= {{ app.session.get('searchdateMonth')|json_encode() }};
 		var dateYear 	= {{ app.session.get('searchdateYear')|json_encode() }};
 
-		if(!dateDay && !dateMonth && !dateYear){
+		if(!dateDay || !dateMonth || !dateYear){
 			var today 	= new Date();
 			dateYear 	= today.getFullYear();
 			dateMonth 	= today.getMonth();

@@ -41,6 +41,7 @@ class SearcherController extends Controller
 							list($day, $month, $year) = explode('/', $_POST['date']);
 							$thisRange[] = $year.$month.$day.$_POST['hour'];
 
+							$session->set('searchType', 				'hour');
 							$session->set('searchDate', 				$_POST['date']);
 							$session->set('searchdateDay', 				(int)$day);
 							$session->set('searchdateMonth', 			(int)$month - 1);
@@ -55,6 +56,7 @@ class SearcherController extends Controller
 
 							$thisDate = $SDyear.$SDmonth.$SDday.'00';
 							$lastDate = $EDyear.$EDmonth.$EDday.'00';
+							$session->set('searchType', 				'day');
 							$session->set('searchStartDateComplete',	$thisDate);
 							$session->set('searchEndDateComplete', 		$lastDate);
 							$session->set('searchStartDate', 			$_POST['StartDate']);

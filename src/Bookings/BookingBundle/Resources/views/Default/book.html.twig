@@ -13,18 +13,32 @@
 			{% trans %}Apellidos{% endtrans %}: {{ app.user.surname }}
 			<br/>
 			{% trans %}Email{% endtrans %}: {{ app.user.email }}
-			<br/>
-			{% trans %}Telefono{% endtrans %}: {{ app.user.telephone }} / {{ app.user.mobile }}
+			{% if app.user.telephone is not empty %}
+				<br/>
+				{% trans %}Telefono{% endtrans %}: {{ app.user.telephone }}
+			{% endif %}
+			{% if app.user.mobile is not empty %}
+				<br/>
+				{% trans %}Movil{% endtrans %}: {{ app.user.mobile }}
+			{% endif %}
 		</div>
 		<div class="col-md-2 column text-center" style="font-size: 3em;">
 			<i class="fa fa-angle-double-right"></i>
 		</div>
 		<div class="col-md-5 column">
-			{% trans %}Propiedad{% endtrans %}:
+			{% trans %}Propiedad{% endtrans %}: {{ propertyData.propertyName }}
 			<br/>
-			{% trans %}Desde{% endtrans %}:
+			{% if app.session.get('searchType') == 'hour' %}
+				{% trans %}Día{% endtrans %}: {{ app.session.get('searchDate') }}
+				<br/>
+				{% trans %}De{% endtrans %} {{ app.session.get('searchHour') }}:00 {% trans %}a{% endtrans %} {{ app.session.get('searchHour') + 1 }}:00
+			{% else %}
+				{% trans %}Desde{% endtrans %}: {{ app.session.get('searchStartDate') }}
+				<br/>
+				{% trans %}Hasta{% endtrans %}: {{ app.session.get('searchEndDate') }}
+			{% endif %}
 			<br/>
-			{% trans %}Hasta{% endtrans %}:
+			{% trans %}Precio{% endtrans %}: {{ propertyData.totalPrice }} &euro;
 		</div>
 		<div style="clear:both;"></div>
 
