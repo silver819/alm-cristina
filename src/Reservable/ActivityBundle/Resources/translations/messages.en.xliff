@@ -142,6 +142,34 @@
                 <source>Volver a los resultados</source>
                 <target>Back to results</target>
             </trans-unit>
+            <trans-unit id="36">
+                <source>Resumen</source>
+                <target>Summary</target>
+            </trans-unit>
+            <trans-unit id="37">
+                <source>Apellidos</source>
+                <target>Surname</target>
+            </trans-unit>
+            <trans-unit id="38">
+                <source>Propiedad</source>
+                <target>Property</target>
+            </trans-unit>
+            <trans-unit id="39">
+                <source>Desde</source>
+                <target>Check in</target>
+            </trans-unit>
+            <trans-unit id="40">
+                <source>Hasta</source>
+                <target>Check out</target>
+            </trans-unit>
+            <trans-unit id="41">
+                <source>De</source>
+                <target>From</target>
+            </trans-unit>
+            <trans-unit id="42">
+                <source>a</source>
+                <target>to</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>
