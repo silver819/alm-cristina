@@ -36,7 +36,7 @@
 		var EndDateDay 		= {{ app.session.get('searchEndDateDay')|json_encode() }};
 		var EndDateMonth	= {{ app.session.get('searchEndDateMonth')|json_encode() - 1 }};
 		var EndDateYear 	= {{ app.session.get('searchEndDateYear')|json_encode() }};
-alert(StartDateDay + '-' + StartDateMonth + '-' + StartDateYear + '   ' + EndDateDay + '-' + EndDateMonth + '-' + EndDateYear);
+
 		if(!StartDateDay || !StartDateMonth || !StartDateYear || !EndDateDay || !EndDateMonth || !EndDateYear){
 			var today 	= new Date();
 			StartDateYear 	= today.getFullYear();
