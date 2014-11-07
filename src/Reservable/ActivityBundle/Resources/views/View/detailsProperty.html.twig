@@ -21,10 +21,10 @@
 						{{ details.price * app.session.get('searchTotalDays') }} &euro; / {{ app.session.get('searchTotalDays') }} {% if app.session.get('searchTotalDays') == 1 %}{% trans %}día{% endtrans %}{% else %}{% trans %}dias{% endtrans %}{% endif %}
 					{% endif %}
 					<br/>
-					<form method="POST" action="{{ path('book') }}">
+					<div class="text-right">
 						<input type="hidden" name="itemID" value="{{ details.id }}">
 						<button type="submit" class="btn btn-primary" value="Send">{% trans %}Reservar{% endtrans %}</button>
-					</form>
+					</div>
 				</div>
 			</form>
 			<div class="clear margin"></div>
