@@ -49,6 +49,7 @@ class SearcherController extends Controller
 							$session->set('searchStartDateComplete',	$year.$month.$day.$_POST['hour']);
 							$session->set('searchEndDateComplete', 		'');
 
+
 						}
 						else{
 							list($SDday, $SDmonth, $SDyear) = explode('/', $_POST['StartDate']);
@@ -76,6 +77,7 @@ class SearcherController extends Controller
 							}
 
 							// Días completos
+							$session->set('searchDays', $thisRange);
 							$session->set('searchTotalDays', count($thisRange));
 						}
 

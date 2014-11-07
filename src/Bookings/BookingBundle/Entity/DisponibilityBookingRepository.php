@@ -13,9 +13,15 @@ use Doctrine\ORM\EntityRepository;
 class DisponibilityBookingRepository extends EntityRepository
 {
 	function findDispoInThisRange($arrayBooking, $arrayDates){
+		
 		if(!empty($arrayDates) && !empty($arrayBooking)){
-			$dates = implode(',', $arrayDates);
-			$bookings = implode(',', $arrayBooking);
+			$dates 		= implode(',', $arrayDates);
+			
+			$arrayBookingsIDs = array();
+			foreach($arrayBooking as $oneBooking){
+				$arrayBookingsIDs[] = $oneBooking->getId();
+			}
+			$bookings 	= implode(',', $arrayBookingsIDs);
 			
 			return $this->getEntityManager()
             	    	->createQuery('SELECT d

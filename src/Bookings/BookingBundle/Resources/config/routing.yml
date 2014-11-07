@@ -1,3 +1,7 @@
 book:
     path:     /book/
     defaults: { _controller: BookingsBookingBundle:Default:book }
+
+confirmBooking:
+    path:     /booking-confirmed/
+    defaults: { _controller: BookingsBookingBundle:Default:confirmBooking }
