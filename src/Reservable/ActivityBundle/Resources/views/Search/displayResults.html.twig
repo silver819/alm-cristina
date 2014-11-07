@@ -42,7 +42,11 @@
 						</div>
 						<div class="bookingButton">
 							<input type="hidden" name="itemID" value="{{ oneResult.id }}">
-							<button type="submit" class="btn btn-primary" value="Send">{% trans %}Reservar{% endtrans %}</button>
+							{% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+								<button type="submit" class="btn btn-primary" value="Send">{% trans %}Reservar{% endtrans %}</button>
+							{% else %}
+								<button class="btn btn-success" value="Send">{% trans %}Iniciar sesión{% endtrans %}</button>
+							{% endif %}
 						</div>
 						<div>
 							<p>{% if (oneResult.lat != null) and (oneResult.lng != null) %}<i class="fa fa-map-marker" title="{% trans %}Dirección disponible en mapa{% endtrans %}"></i>{% else  %}<i class="fa fa-location-arrow" title="{% trans %}Dirección{% endtrans %}"></i>{% endif %}&nbsp;{{ oneResult.address }}</p>
