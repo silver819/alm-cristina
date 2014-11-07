@@ -3,22 +3,30 @@
 {% block results %}
 
 	<div class="col-md-8 column">
+		<form method="POST" action="{{ path('book') }}">
+			<div class="mainContent">
+				<h2>{{ details.name }}</h2>
+				<input type="hidden" name="propertyName" value="{{ details.name }}">
+				<hr/>
 
-		<div class="mainContent">
-			<h2>{{ details.name }}</h2>
-			<hr/>
-
-			<div class="backDiv">
-				<a href="javascript:history.go(-1);"><i class="fa fa-reply"></i>&nbsp;&nbsp;{% trans %}Volver a los resultados{% endtrans %}</a>
-			</div>
-			<div class="priceDiv">
-				{{ details.price }} &euro;/{% if details.typeRent == 'hour' %}{% trans %}hora{% endtrans %}{% else %}{% trans %}día{% endtrans %}{% endif %}
-				<br/>
-				<form method="POST" action="{{ path('book') }}">
-					<input type="hidden" name="itemID" value="{{ details.id }}">
-					<button type="submit" class="btn btn-primary" value="Send">{% trans %}Reservar{% endtrans %}</button>
-				</form>
-			</div>
+				<div class="backDiv">
+					<a href="javascript:history.go(-1);"><i class="fa fa-reply"></i>&nbsp;&nbsp;{% trans %}Volver a los resultados{% endtrans %}</a>
+				</div>
+				<div class="priceDiv">
+					{% if details.typeRent == 'hour' %}
+						<input type="hidden" name="totalPrice" value="{{ details.price }}">
+						{{ details.price }} &euro; / {% trans %}hora{% endtrans %}
+					{% else %}
+						<input type="hidden" name="totalPrice" value="{{ details.price * app.session.get('searchTotalDays') }}">
+						{{ details.price * app.session.get('searchTotalDays') }} &euro; / {{ app.session.get('searchTotalDays') }} {% if app.session.get('searchTotalDays') == 1 %}{% trans %}día{% endtrans %}{% else %}{% trans %}dias{% endtrans %}{% endif %}
+					{% endif %}
+					<br/>
+					<form method="POST" action="{{ path('book') }}">
+						<input type="hidden" name="itemID" value="{{ details.id }}">
+						<button type="submit" class="btn btn-primary" value="Send">{% trans %}Reservar{% endtrans %}</button>
+					</form>
+				</div>
+			</form>
 			<div class="clear margin"></div>
 
 			{% if pictures is not empty %}
