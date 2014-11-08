@@ -170,6 +170,18 @@
                 <source>a</source>
                 <target>to</target>
             </trans-unit>
+            <trans-unit id="43">
+                <source>Reserva gestionada</source>
+                <target>Booking managed</target>
+            </trans-unit>
+            <trans-unit id="44">
+                <source>Su reserva ha sido gestionada correctamente</source>
+                <target>Your booking has been managed correctly</target>
+            </trans-unit>
+            <trans-unit id="45">
+                <source>En breve recibirá un email con toda la información sobre ella. Recuerde que para poder disfrutar de esta instalación, el propietario se pondrá en contacto con usted lo antes posible.</source>
+                <target>On a few moments you will receive all information on your email. Do not forget the owner have to contact you before you could use this property.</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

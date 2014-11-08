@@ -19,4 +19,11 @@ class BookingRepository extends EntityRepository
                 				   WHERE b.activityID = ' . $propertyID)
             		->getResult();
 	}
+
+	function getLastBookingID(){
+		return $this->getEntityManager()
+            	    ->createQuery('SELECT MAX(b.id)
+            	   				   FROM BookingsBookingBundle:Booking b')
+            		->getResult();
+	}
 }

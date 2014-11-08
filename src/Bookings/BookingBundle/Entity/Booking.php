@@ -50,6 +50,13 @@ class Booking
     private $endDate;
 
     /**
+     * @var float
+     *
+     * @ORM\Column(name="price", type="float")
+     */
+    private $price;
+
+    /**
      * @var boolean
      *
      * @ORM\Column(name="status", type="boolean")
@@ -171,6 +178,29 @@ class Booking
     public function getEndDate()
     {
         return $this->endDate;
+    }
+
+    /**
+     * Set price
+     *
+     * @param float $price
+     * @return Booking
+     */
+    public function setPrice($price)
+    {
+        $this->price = $price;
+    
+        return $this;
+    }
+
+    /**
+     * Get price
+     *
+     * @return float 
+     */
+    public function getPrice()
+    {
+        return $this->price;
     }
 
     /**

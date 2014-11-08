@@ -48,7 +48,7 @@ class SearcherController extends Controller
 							$session->set('searchdateYear', 			(int)$year);
 							$session->set('searchStartDateComplete',	$year.$month.$day.$_POST['hour']);
 							$session->set('searchEndDateComplete', 		'');
-
+							$session->set('searchDays', 				$thisRange);
 
 						}
 						else{

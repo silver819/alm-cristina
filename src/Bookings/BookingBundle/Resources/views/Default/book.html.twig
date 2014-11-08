@@ -39,6 +39,7 @@
 					{% trans %}Hasta{% endtrans %}: {{ app.session.get('searchEndDate') }}
 				{% endif %}
 				<br/>
+				<input type="hidden" name="price" value="{{ propertyData.totalPrice }}">
 				{% trans %}Precio{% endtrans %}: {{ propertyData.totalPrice }} &euro;
 			</div>
 			<div style="clear:both;"></div>
