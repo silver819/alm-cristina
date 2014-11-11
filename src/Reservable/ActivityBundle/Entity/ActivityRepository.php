@@ -68,11 +68,17 @@ class ActivityRepository extends EntityRepository
     }
 
     function findByPropertyID($propertyID){
-        return $this->getEntityManager()
+        $property = new Activity();
+
+        $result = $this->getEntityManager()
                     ->createQuery('SELECT p
                                   FROM ReservableActivityBundle:Activity p
                                   WHERE p.id = ' . $propertyID)
                     ->getResult();
+
+        if($result[0]) $property = $result[0];
+
+        return $property;
     }
     
 }
