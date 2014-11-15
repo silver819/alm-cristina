@@ -5,3 +5,7 @@ book:
 confirmBooking:
     path:     /booking-confirmed/
     defaults: { _controller: BookingsBookingBundle:Default:confirmBooking }
+
+consultBookings:
+    path:     /consult-bookings/
+    defaults: { _controller: BookingsBookingBundle:ConsultBookings:consultBookings }

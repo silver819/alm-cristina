@@ -3,6 +3,7 @@
 namespace Bookings\BookingBundle\Entity;
 
 use Doctrine\ORM\EntityRepository;
+use Reservable\ActivityBundle\Entity\Activity;
 
 /**
  * BookingRepository
@@ -26,4 +27,12 @@ class BookingRepository extends EntityRepository
             	   				   FROM BookingsBookingBundle:Booking b')
             		->getResult();
 	}
+
+    function getBookingsFromProperties($arrayProperties){
+        return $this->getEntityManager()
+                    ->createQuery('SELECT b
+                                   FROM BookingsBookingBundle:Booking b
+                                   WHERE b.activityID IN (' . implode(',', $arrayProperties) . ')')
+                    ->getResult();
+    }
 }
