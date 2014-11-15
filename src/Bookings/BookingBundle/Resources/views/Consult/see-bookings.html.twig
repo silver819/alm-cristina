@@ -1,5 +1,36 @@
-{% extends '::base.html.twig' %}
+{% extends '::admin.html.twig' %}
 
-{% block section %}
-***************
+{% block workspace %}
+
+	<h2>{% trans %}Ver reservas{% endtrans %}</h2>
+	<hr/>
+
+	{% if bookings is empty %}
+		<div class="alert alert-danger text-center">
+			<h4>{% trans %}No tiene reservas{% endtrans %}</h4>
+		</div>
+	{% else %}
+		{% for oneBooking in bookings %}
+			<div class="alert alert-warning">
+				{{ oneBooking.startDateDay }}
+				{{ oneBooking.startDateMonth }}
+				{{ oneBooking.startDateYear }}
+				{{ oneBooking.endDateDay }}
+				{{ oneBooking.endDateMonth }}
+				{{ oneBooking.endDateYear }}
+				{{ oneBooking.propertyName }}
+				{{ oneBooking.clientName }}
+				{{ oneBooking.clientSurname }}
+				{{ oneBooking.clientEmail }}
+
+				<span class="contentSpan">
+					<div class="nameDiv">
+						<h4><strong><a href="view-details/{{ oneBooking.propertyID }}">{{ oneBooking.propertyName }}</a></strong></h4>
+					</div>
+					<p>{% trans %}Precio{% endtrans %}: &nbsp;{{ oneBooking.price }} &euro;</p>
+				</span>
+			<div style="clear:both;"></div>
+			</div>
+		{% endfor %}
+	{% endif %}
 {% endblock %}

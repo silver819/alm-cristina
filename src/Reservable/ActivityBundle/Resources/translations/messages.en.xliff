@@ -182,6 +182,10 @@
                 <source>En breve recibirá un email con toda la información sobre ella. Recuerde que para poder disfrutar de esta instalación, el propietario se pondrá en contacto con usted lo antes posible.</source>
                 <target>On a few moments you will receive all information on your email. Do not forget the owner have to contact you before you could use this property.</target>
             </trans-unit>
+            <trans-unit id="46">
+                <source>No tiene reservas</source>
+                <target>No bookings</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>
