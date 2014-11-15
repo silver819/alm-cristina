@@ -25,9 +25,16 @@
 
 				<span class="contentSpan">
 					<div class="nameDiv">
-						<h4><strong><a href="view-details/{{ oneBooking.propertyID }}">{{ oneBooking.propertyName }}</a></strong></h4>
+						<h4><strong>{{ oneBooking.propertyName }}</strong></h4>
 					</div>
 					<p>{% trans %}Precio{% endtrans %}: &nbsp;{{ oneBooking.price }} &euro;</p>
+					{% if oneBooking.type == 'hour' %}
+						<p>{% trans %}Día{% endtrans %} &nbsp;{{ oneBooking.startDateDay }}/{{ oneBooking.startDateMonth }}/{{ oneBooking.startDateYear }} {% trans %}a las{% endtrans %} {{ oneBooking.startDateHour }}</p>
+					{% else %}
+						<p>{% trans %}Entrada{% endtrans %}: &nbsp;{{ oneBooking.startDateDay }}/{{ oneBooking.startDateMonth }}/{{ oneBooking.startDateYear }} </p>
+						<p>{% trans %}Salida{% endtrans %}: &nbsp;{{ oneBooking.endDateDay }}/{{ oneBooking.endDateMonth }}/{{ oneBooking.endDateYear }}</p>
+					{% endif %}
+
 				</span>
 			<div style="clear:both;"></div>
 			</div>
