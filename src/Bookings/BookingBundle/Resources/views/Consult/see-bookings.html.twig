@@ -12,17 +12,6 @@
 	{% else %}
 		{% for oneBooking in bookings %}
 			<div class="alert alert-warning">
-				{{ oneBooking.startDateDay }}
-				{{ oneBooking.startDateMonth }}
-				{{ oneBooking.startDateYear }}
-				{{ oneBooking.endDateDay }}
-				{{ oneBooking.endDateMonth }}
-				{{ oneBooking.endDateYear }}
-				{{ oneBooking.propertyName }}
-				{{ oneBooking.clientName }}
-				{{ oneBooking.clientSurname }}
-				{{ oneBooking.clientEmail }}
-
 				<span class="contentSpan">
 					<div class="nameDiv">
 						<h4><strong>{{ oneBooking.propertyName }}</strong></h4>
@@ -34,6 +23,9 @@
 						<p>{% trans %}Entrada{% endtrans %}: &nbsp;{{ oneBooking.startDateDay }}/{{ oneBooking.startDateMonth }}/{{ oneBooking.startDateYear }} </p>
 						<p>{% trans %}Salida{% endtrans %}: &nbsp;{{ oneBooking.endDateDay }}/{{ oneBooking.endDateMonth }}/{{ oneBooking.endDateYear }}</p>
 					{% endif %}
+
+					<p>{% trans %}Cliente{% endtrans %}: {{ oneBooking.clientName }} {{ oneBooking.clientSurname }}</p>
+					<p>{% trans %}Email{% endtrans %}: {{ oneBooking.clientEmail }}</p>
 
 				</span>
 			<div style="clear:both;"></div>
