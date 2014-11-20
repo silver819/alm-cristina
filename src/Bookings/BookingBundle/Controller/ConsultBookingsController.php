@@ -39,6 +39,7 @@ class ConsultBookingsController extends Controller
                        			->getRepository('UserUserBundle:Users')
                        			->getUserByUserID($oneBooking->getClientID());
 
+            $aux['bookingID']       = $oneBooking->getId();
             $aux['propertyID'] 		= $oneBooking->getActivityID();
             $aux['clientID'] 		= $oneBooking->getClientID();
             $aux['price'] 			= $oneBooking->getPrice();
@@ -87,7 +88,20 @@ class ConsultBookingsController extends Controller
     }
 
     public function cancelBookingAction(){
-
+        if($_POST['bookingID']){
+            if($this->getDoctrine()
+                    ->getRepository('BookingsBookingBundle:Booking')
+                    ->cancelBooking($_POST['bookingID'])){
+                
+                return $this->redirect('consult-bookings');
+            }
+            else{
+                die("No se ha podido aceptar la reserva " . $_POST['bookingID']);
+            }
+        }
+        else{
+            die("No se ha encontrado la reserva " . $_POST['bookingID']);
+        }
     }
 
     private function numDayOfWeek($day,$month,$year){
