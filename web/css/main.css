@@ -167,3 +167,34 @@ h2{
     color: #555;
     text-decoration: none;
 }
+
+.bookingCalendar{
+    float: right;
+    border: 1px solid #faebcc;
+    background-color: #fff;
+    padding: 10px;
+    border-radius: 4px;
+}
+
+.bookingData{
+    float: left;
+}
+
+.titleCalendar{
+    width: 100%;
+    font-weight: bold;
+    text-align: center;
+}
+
+.dayCalendar{
+    width:14%;
+    font-weight: bold;
+}
+
+.bookingButtons{
+    text-align: center;
+}
+
+.btnMargin{
+    margin: 10px;
+}

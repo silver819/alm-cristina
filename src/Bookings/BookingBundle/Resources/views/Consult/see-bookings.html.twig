@@ -13,20 +13,28 @@
 		{% for oneBooking in bookings %}
 			<div class="alert alert-warning">
 				<span class="contentSpan">
-					<div class="nameDiv">
+					<div class="nameDiv col-md-12 column">
 						<h4><strong>{{ oneBooking.propertyName }}</strong></h4>
 					</div>
-					<p>{% trans %}Precio{% endtrans %}: &nbsp;{{ oneBooking.price }} &euro;</p>
-					{% if oneBooking.type == 'hour' %}
-						<p>{% trans %}Día{% endtrans %} &nbsp;{{ oneBooking.startDateDay }}/{{ oneBooking.startDateMonth }}/{{ oneBooking.startDateYear }} {% trans %}a las{% endtrans %} {{ oneBooking.startDateHour }}</p>
-					{% else %}
-						<p>{% trans %}Entrada{% endtrans %}: &nbsp;{{ oneBooking.startDateDay }}/{{ oneBooking.startDateMonth }}/{{ oneBooking.startDateYear }} </p>
-						<p>{% trans %}Salida{% endtrans %}: &nbsp;{{ oneBooking.endDateDay }}/{{ oneBooking.endDateMonth }}/{{ oneBooking.endDateYear }}</p>
-					{% endif %}
+					<div class="bookingData col-md-8 column">
+						<p><b>{% trans %}Precio{% endtrans %}</b>: &nbsp;{{ oneBooking.price }} &euro;</p>
+						{% if oneBooking.type == 'hour' %}
+							<p><b>{% trans %}Día{% endtrans %}</b> &nbsp;{{ oneBooking.startDateDay }}/{{ oneBooking.startDateMonth }}/{{ oneBooking.startDateYear }} <b>{% trans %}a las{% endtrans %}</b> {{ oneBooking.startDateHour }}</p>
+						{% else %}
+							<p><b>{% trans %}Entrada{% endtrans %}</b>: &nbsp;{{ oneBooking.startDateDay }}/{{ oneBooking.startDateMonth }}/{{ oneBooking.startDateYear }} </p>
+							<p><b>{% trans %}Salida{% endtrans %}</b>: &nbsp;{{ oneBooking.endDateDay }}/{{ oneBooking.endDateMonth }}/{{ oneBooking.endDateYear }}</p>
+						{% endif %}
 
-					<p>{% trans %}Cliente{% endtrans %}: {{ oneBooking.clientName }} {{ oneBooking.clientSurname }}</p>
-					<p>{% trans %}Email{% endtrans %}: {{ oneBooking.clientEmail }}</p>
-
+						<p><b>{% trans %}Cliente{% endtrans %}</b>: {{ oneBooking.clientName }} {{ oneBooking.clientSurname }}</p>
+						<p><b>{% trans %}Email{% endtrans %}</b>: {{ oneBooking.clientEmail }}</p>
+					</div>
+					<div class="col-md-4 column">
+						<div class="bookingCalendar">{{ oneBooking.calendar | raw }}</div>
+					</div>
+					<div class="col-md-12 column">
+						<a class="btn btn-success btnMargin" href="#">Aceptar</a>
+						<a class="btn btn-danger btnMargin" href="#">Cancelar</a>
+					</div>
 				</span>
 			<div style="clear:both;"></div>
 			</div>
