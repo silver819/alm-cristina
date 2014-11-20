@@ -198,3 +198,8 @@ h2{
 .btnMargin{
     margin: 10px;
 }
+
+.selectedDay{
+    font-weight: bold;
+    color: #D2322D;
+}

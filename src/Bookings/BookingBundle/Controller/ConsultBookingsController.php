@@ -60,7 +60,7 @@ class ConsultBookingsController extends Controller
             $aux['clientSurname'] 	= $clientData->getSurname();
             $aux['clientEmail'] 	= $clientData->getEmail();
 
-            $aux['calendar']        = $this->showCalendar($aux['startDateMonth'], $aux['startDateYear']);
+            $aux['calendar']        = $this->showCalendar($aux['startDate'], $aux['endDate']);
 
             $results[] = $aux;
         }
@@ -97,7 +97,21 @@ class ConsultBookingsController extends Controller
         return $nameMonths[$month-1];
     }
 
-    private function showCalendar($month,$year){
+    private function showCalendar($since, $to = 0){
+
+        $SDday    = substr($since, 6, 2);
+        $SDmonth  = substr($since, 4, 2);
+        $SDyear   = substr($since, 0, 4);
+
+        if($to != 0){
+            $EDday    = substr($to, 6, 2);
+            $EDmonth  = substr($to, 4, 2);
+            $EDyear   = substr($to, 0, 4);
+        }
+
+        if($SDmonth == $EDmonth) $month = $SDmonth;
+        if($SDyear  == $EDyear)  $year  = $SDyear;
+
         $stringCalendar = '';
         
         // Tabla general
@@ -128,7 +142,10 @@ class ConsultBookingsController extends Controller
             if ($i < $numDayWeek){
                 $stringCalendar .= '<td><span></span></td>';
             } else {
-                $stringCalendar .= '<td><span>' . $currentDay . '</span></td>';
+                if($SDday <= $currentDay && $currentDay < $EDday)
+                    $stringCalendar .= '<td><span class="selectedDay">' . $currentDay . '</span></td>';
+                else
+                    $stringCalendar .= '<td><span>' . $currentDay . '</span></td>';
                 $currentDay++;
             }
         }
@@ -139,7 +156,11 @@ class ConsultBookingsController extends Controller
         while ($currentDay <= $lastDayOfMonth){
             if ($numDayWeek == 0)   $stringCalendar .= "<tr>";
 
-            $stringCalendar .= '<td><span>' . $currentDay . '</span></td>';
+            if($SDday <= $currentDay && $currentDay < $EDday)
+                $stringCalendar .= '<td><span class="selectedDay">' . $currentDay . '</span></td>';
+            else
+                $stringCalendar .= '<td><span>' . $currentDay . '</span></td>';
+            
             $currentDay++;
             $numDayWeek++;
 
