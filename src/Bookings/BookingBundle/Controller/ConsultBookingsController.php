@@ -69,6 +69,27 @@ class ConsultBookingsController extends Controller
 			array('bookings' => $results));
 	}
 
+    public function acceptBookingAction(){
+        if($_POST['bookingID']){
+            if($this->getDoctrine()
+                    ->getRepository('BookingsBookingBundle:Booking')
+                    ->acceptBooking($_POST['bookingID'])){
+                
+                return $this->redirect('consult-bookings');
+            }
+            else{
+                die("No se ha podido aceptar la reserva " . $_POST['bookingID']);
+            }
+        }
+        else{
+            die("No se ha encontrado la reserva " . $_POST['bookingID']);
+        }
+    }
+
+    public function cancelBookingAction(){
+
+    }
+
     private function numDayOfWeek($day,$month,$year){
         $numDayWeek = date('w', mktime(0,0,0,$month,$day,$year));
 
@@ -160,7 +181,7 @@ class ConsultBookingsController extends Controller
                 $stringCalendar .= '<td><span class="selectedDay">' . $currentDay . '</span></td>';
             else
                 $stringCalendar .= '<td><span>' . $currentDay . '</span></td>';
-            
+
             $currentDay++;
             $numDayWeek++;
 

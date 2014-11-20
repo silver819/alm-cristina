@@ -9,3 +9,11 @@ confirmBooking:
 consultBookings:
     path:     /consult-bookings/
     defaults: { _controller: BookingsBookingBundle:ConsultBookings:consultBookings }
+
+acceptBooking:
+    path:     /accept-booking/
+    defaults: { _controller: BookingsBookingBundle:ConsultBookings:acceptBooking }
+
+cancelBooking:
+    path:     /cancel-booking/
+    defaults: { _controller: BookingsBookingBundle:ConsultBookings:cancelBooking }

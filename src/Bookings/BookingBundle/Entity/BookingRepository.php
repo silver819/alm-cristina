@@ -35,4 +35,20 @@ class BookingRepository extends EntityRepository
                                    WHERE b.activityID IN (' . implode(',', $arrayProperties) . ')')
                     ->getResult();
     }
+
+    function acceptBooking($bookingID){
+        return $this->getEntityManager()
+                    ->createQuery('UPDATE BookingsBookingBundle:Booking b
+                                  SET b.ownerConfirm = 1
+                                  WHERE b.id = ' . $bookingID)
+                    ->getResult();
+    }
+
+    function cancelBooking($bookingID){
+        return $this->getEntityManager()
+                    ->createQuery('UPDATE BookingsBookingBundle:Booking b
+                                  SET b.ownerConfirm = -1
+                                  WHERE b.id = ' . $bookingID)
+                    ->getResult();
+    }
 }
