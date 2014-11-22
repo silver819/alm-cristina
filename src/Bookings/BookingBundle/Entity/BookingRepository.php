@@ -37,6 +37,14 @@ class BookingRepository extends EntityRepository
                     ->getResult();
     }
 
+    function getBookingsFromPropertiesHistory($arrayProperties){
+      return $this->getEntityManager()
+                    ->createQuery('SELECT b
+                                   FROM BookingsBookingBundle:Booking b
+                                   WHERE b.activityID IN (' . implode(',', $arrayProperties) . ')')
+                    ->getResult();
+    }
+
     function acceptBooking($bookingID){
         return $this->getEntityManager()
                     ->createQuery('UPDATE BookingsBookingBundle:Booking b

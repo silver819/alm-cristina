@@ -1,0 +1,51 @@
+{% extends '::admin.html.twig' %}
+
+{% block workspace %}
+
+	<h2>{% trans %}Ver reservas{% endtrans %}</h2>
+	<hr/>
+
+	{% if bookings is empty %}
+		<div class="alert alert-danger text-center">
+			<h4>{% trans %}No tiene reservas{% endtrans %}</h4>
+		</div>
+	{% else %}
+		{% for oneBooking in bookings %}
+			{% if oneBooking.ownerConfirm == 1 %}
+				<div class="alert alert-success">
+			{% elseif oneBooking.ownerConfirm == -1 %}
+				<div class="alert alert-danger">
+			{% else %}
+				<div class="alert alert-warning">
+			{% endif %}
+
+				{# Titulo de la propiedad #}
+				<div class="row clearfix">
+					<div class="nameDiv col-md-12 column">
+						<h4><strong>{{ oneBooking.propertyName }}</strong></h4>
+					</div>
+				</div>
+
+				{# Informacion de la reserva y calendario #}
+				<div class="row clearfix">
+					<div class="bookingData col-md-8 column">
+						<p><b>{% trans %}Precio{% endtrans %}</b>: &nbsp;{{ oneBooking.price }} &euro;</p>
+						{% if oneBooking.type == 'hour' %}
+							<p><b>{% trans %}Día{% endtrans %}</b> &nbsp;{{ oneBooking.startDateDay }}/{{ oneBooking.startDateMonth }}/{{ oneBooking.startDateYear }} <b>{% trans %}a las{% endtrans %}</b> {{ oneBooking.startDateHour }}</p>
+						{% else %}
+							<p><b>{% trans %}Entrada{% endtrans %}</b>: &nbsp;{{ oneBooking.startDateDay }}/{{ oneBooking.startDateMonth }}/{{ oneBooking.startDateYear }} </p>
+							<p><b>{% trans %}Salida{% endtrans %}</b>: &nbsp;{{ oneBooking.endDateDay }}/{{ oneBooking.endDateMonth }}/{{ oneBooking.endDateYear }}</p>
+						{% endif %}
+
+							<p><b>{% trans %}Cliente{% endtrans %}</b>: {{ oneBooking.clientName }} {{ oneBooking.clientSurname }}</p>
+						<p><b>{% trans %}Email{% endtrans %}</b>: {{ oneBooking.clientEmail }}</p>
+					</div>
+
+					<div class="col-md-4 column">
+						<div class="bookingCalendar">{{ oneBooking.calendar | raw }}</div>
+					</div>
+				</div>
+			</div>
+		{% endfor %}
+	{% endif %}
+{% endblock %}

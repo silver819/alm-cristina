@@ -18,11 +18,19 @@
 			&nbsp;&nbsp;&nbsp;<span class="glyphicon glyphicon-plus"></span>&nbsp;{% trans %}Añadir propiedad{% endtrans %}</div>
 		</a>
 		<div class="panel-heading menu-header">
-			<h3 class="panel-title">Reservas</h3>
+			<h3 class="panel-title">{% trans %}Reservas{% endtrans %}</h3>
 		</div>
+		<a class="anchor-menu" href="#">
+			<div class="panel-body liner-bottom">
+			&nbsp;&nbsp;&nbsp;<span class="fa-calendar"></span>&nbsp;{% trans %}Calendario{% endtrans %}</div>
+		</a>
 		<a class="anchor-menu" href="{{ path('consultBookings') }}">
+			<div class="panel-body liner-bottom">
+			&nbsp;&nbsp;&nbsp;<span class="glyphicon glyphicon-check"></span>&nbsp;{% trans %}Gestionar reservas{% endtrans %}</div>
+		</a>
+		<a class="anchor-menu" href="{{ path('historyBookings') }}">
 			<div class="panel-body">
-			&nbsp;&nbsp;&nbsp;<span class="glyphicon glyphicon-eye-open"></span>&nbsp;{% trans %}Ver reservas{% endtrans %}</div>
+			&nbsp;&nbsp;&nbsp;<span class="glyphicon glyphicon-eye-open"></span>&nbsp;{% trans %}Historial de reservas{% endtrans %}</div>
 		</a>
 	</div>
 </div>

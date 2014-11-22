@@ -64,16 +64,16 @@ class Booking
     private $status;
 
     /**
-     * @var boolean
+     * @var integer
      *
-     * @ORM\Column(name="ownerBooking", type="boolean")
+     * @ORM\Column(name="ownerBooking", type="integer")
      */
     private $ownerBooking;
 
     /**
-     * @var boolean
+     * @var integer
      *
-     * @ORM\Column(name="ownerConfirm", type="boolean")
+     * @ORM\Column(name="ownerConfirm", type="integer")
      */
     private $ownerConfirm;
 
@@ -252,7 +252,7 @@ class Booking
     /**
      * Set ownerConfirm
      *
-     * @param boolean $ownerConfirm
+     * @param integer $ownerConfirm
      * @return Booking
      */
     public function setOwnerConfirm($ownerConfirm)
@@ -265,10 +265,11 @@ class Booking
     /**
      * Get ownerConfirm
      *
-     * @return boolean 
+     * @return integer 
      */
     public function getOwnerConfirm()
     {
+        echo "---> " . $this->ownerConfirm;
         return $this->ownerConfirm;
     }
 }

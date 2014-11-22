@@ -15,8 +15,16 @@
                 <target>Add property</target>
             </trans-unit>
             <trans-unit id="4">
-                <source>Ver reservas</source>
-                <target>View bookings</target>
+                <source>Reservas</source>
+                <target>Bookings</target>
+            </trans-unit>
+            <trans-unit>
+                <source>Gestionar reservas</source>
+                <target>Manage bookings</target>
+            </trans-unit>
+            <trans-unit>
+                <source>Historial de reservas</source>
+                <target>Bookings history</target>
             </trans-unit>
             <trans-unit id="5">
                 <source>Reservas</source>
