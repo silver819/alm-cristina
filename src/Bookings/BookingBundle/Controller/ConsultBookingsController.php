@@ -76,7 +76,7 @@ class ConsultBookingsController extends Controller
                     ->getRepository('BookingsBookingBundle:Booking')
                     ->acceptBooking($_POST['bookingID'])){
                 
-                return $this->redirect('consult-bookings');
+                return $this->redirect('../consult-bookings');
             }
             else{
                 die("No se ha podido aceptar la reserva " . $_POST['bookingID']);
@@ -93,7 +93,7 @@ class ConsultBookingsController extends Controller
                     ->getRepository('BookingsBookingBundle:Booking')
                     ->cancelBooking($_POST['bookingID'])){
                 
-                return $this->redirect('consult-bookings');
+                return $this->redirect('../consult-bookings');
             }
             else{
                 die("No se ha podido aceptar la reserva " . $_POST['bookingID']);

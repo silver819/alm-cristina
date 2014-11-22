@@ -12,10 +12,16 @@
 	{% else %}
 		{% for oneBooking in bookings %}
 			<div class="alert alert-warning">
-				<span class="contentSpan">
+
+				{# Titulo de la propiedad #}
+				<div class="row clearfix">
 					<div class="nameDiv col-md-12 column">
 						<h4><strong>{{ oneBooking.propertyName }}</strong></h4>
 					</div>
+				</div>
+
+				{# Informacion de la reserva y calendario #}
+				<div class="row clearfix">
 					<div class="bookingData col-md-8 column">
 						<p><b>{% trans %}Precio{% endtrans %}</b>: &nbsp;{{ oneBooking.price }} &euro;</p>
 						{% if oneBooking.type == 'hour' %}
@@ -25,28 +31,36 @@
 							<p><b>{% trans %}Salida{% endtrans %}</b>: &nbsp;{{ oneBooking.endDateDay }}/{{ oneBooking.endDateMonth }}/{{ oneBooking.endDateYear }}</p>
 						{% endif %}
 
-						<p><b>{% trans %}Cliente{% endtrans %}</b>: {{ oneBooking.clientName }} {{ oneBooking.clientSurname }}</p>
+							<p><b>{% trans %}Cliente{% endtrans %}</b>: {{ oneBooking.clientName }} {{ oneBooking.clientSurname }}</p>
 						<p><b>{% trans %}Email{% endtrans %}</b>: {{ oneBooking.clientEmail }}</p>
 					</div>
+
 					<div class="col-md-4 column">
 						<div class="bookingCalendar">{{ oneBooking.calendar | raw }}</div>
 					</div>
+				</div>
+
+				{# Botones de accion #}
+				<div class="row clearfix">
 					<div class="col-md-12 column">
-						<form action={{ path('acceptBooking') }} method=POST>
-							<input type="hidden" name="bookingID" value="{{ oneBooking.bookingID }}">
-							<button value="Send" class="btn btn-success btnMargin" type="submit">
-								<i class="glyphicon glyphicon-ok"></i>&nbsp;{% trans %}Aceptar{% endtrans %}
-							</button>
-						</form>
-						<form action={{ path('cancelBooking') }} method=POST>
-							<input type="hidden" name="bookingID" value="{{ oneBooking.bookingID }}">
-							<button value="Send" class="btn btn-danger btnMargin" type="submit">
-								<i class="glyphicon glyphicon-ok"></i>&nbsp;{% trans %}Cancelar{% endtrans %}
-							</button>
-						</form>
+						<div class="col-md-6 column">
+							<form action={{ path('acceptBooking') }} method=POST>
+								<input type="hidden" name="bookingID" value="{{ oneBooking.bookingID }}">
+								<button value="Send" class="btn btn-success btnMargin pull-right" type="submit">
+									<i class="glyphicon glyphicon-ok"></i>&nbsp;{% trans %}Aceptar{% endtrans %}
+								</button>
+							</form>
+						</div>
+						<div class="col-md-6 column">
+							<form action={{ path('cancelBooking') }} method=POST>
+								<input type="hidden" name="bookingID" value="{{ oneBooking.bookingID }}">
+								<button value="Send" class="btn btn-danger btnMargin pull-left" type="submit">
+									<i class="glyphicon glyphicon-ok"></i>&nbsp;{% trans %}Cancelar{% endtrans %}
+								</button>
+							</form>
+						</div>
 					</div>
-				</span>
-			<div style="clear:both;"></div>
+				</div>
 			</div>
 		{% endfor %}
 	{% endif %}
