@@ -14,6 +14,10 @@ historyBookings:
     path:     /history-bookings/
     defaults: { _controller: BookingsBookingBundle:ConsultBookings:historyBookings }
 
+calendarBookings:
+    path:     /calendar/
+    defaults: { _controller: BookingsBookingBundle:ConsultBookings:calendarBookings }
+
 acceptBooking:
     path:     /accept-booking/
     defaults: { _controller: BookingsBookingBundle:ConsultBookings:acceptBooking }

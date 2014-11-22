@@ -18,14 +18,6 @@
                 <source>Reservas</source>
                 <target>Bookings</target>
             </trans-unit>
-            <trans-unit>
-                <source>Gestionar reservas</source>
-                <target>Manage bookings</target>
-            </trans-unit>
-            <trans-unit>
-                <source>Historial de reservas</source>
-                <target>Bookings history</target>
-            </trans-unit>
             <trans-unit id="5">
                 <source>Reservas</source>
                 <target>Bookings</target>
@@ -193,6 +185,22 @@
             <trans-unit id="46">
                 <source>No tiene reservas</source>
                 <target>No bookings</target>
+            </trans-unit>
+            <trans-unit id="47">
+                <source>Gestionar reservas</source>
+                <target>Manage bookings</target>
+            </trans-unit>
+            <trans-unit id="48">
+                <source>Historial de reservas</source>
+                <target>Bookings history</target>
+            </trans-unit>
+            <trans-unit id="49">
+                <source>Aceptar</source>
+                <target>Accept</target>
+            </trans-unit>
+            <trans-unit id="50">
+                <source>Calendario</source>
+                <target>Calendar</target>
             </trans-unit>
         </body>
     </file>

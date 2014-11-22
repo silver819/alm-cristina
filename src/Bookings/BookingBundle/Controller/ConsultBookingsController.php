@@ -130,6 +130,31 @@ class ConsultBookingsController extends Controller
             array('bookings' => $results));
     }
 
+    public function calendarBookingsAction(){
+
+        $todayMonth = date("m");
+        $todayYear  = date("Y");
+        
+        $first      = $this->showCalendar($todayYear . $todayMonth . "0100");
+        $second     = $this->showCalendar(date("Ymd", mktime(0, 0, 0, $todayMonth+1, 1, $todayYear)));
+        $third      = $this->showCalendar(date("Ymd", mktime(0, 0, 0, $todayMonth+2, 1, $todayYear)));
+        $fourth     = $this->showCalendar(date("Ymd", mktime(0, 0, 0, $todayMonth+3, 1, $todayYear)));
+        $fifth      = $this->showCalendar(date("Ymd", mktime(0, 0, 0, $todayMonth+4, 1, $todayYear)));
+        $sixth      = $this->showCalendar(date("Ymd", mktime(0, 0, 0, $todayMonth+5, 1, $todayYear)));
+        $seventh    = $this->showCalendar(date("Ymd", mktime(0, 0, 0, $todayMonth+6, 1, $todayYear)));
+        $eighth     = $this->showCalendar(date("Ymd", mktime(0, 0, 0, $todayMonth+7, 1, $todayYear)));
+        $ninth      = $this->showCalendar(date("Ymd", mktime(0, 0, 0, $todayMonth+8, 1, $todayYear)));
+        $tenth      = $this->showCalendar(date("Ymd", mktime(0, 0, 0, $todayMonth+9, 1, $todayYear)));
+        $eleventh   = $this->showCalendar(date("Ymd", mktime(0, 0, 0, $todayMonth+10, 1, $todayYear)));
+        $twelfth    = $this->showCalendar(date("Ymd", mktime(0, 0, 0, $todayMonth+11, 1, $todayYear)));
+
+        return $this->render('BookingsBookingBundle:Consult:calendar-bookings.html.twig',
+            array(  'first' => $first,      'second' => $second,        'third' => $third, 
+                    'fourth' => $fourth,    'fifth' => $fifth,          'sixth' => $sixth,
+                    'seventh' => $seventh,  'eighth' => $eighth,        'ninth' => $ninth,
+                    'tenth' => $tenth,      'eleventh' => $eleventh,    'twelfth' => $twelfth));
+    }
+
     public function acceptBookingAction(){
         if($_POST['bookingID']){
             if($this->getDoctrine()
@@ -194,18 +219,20 @@ class ConsultBookingsController extends Controller
 
     private function showCalendar($since, $to = 0){
 
-        $SDday    = substr($since, 6, 2);
-        $SDmonth  = substr($since, 4, 2);
-        $SDyear   = substr($since, 0, 4);
+        $showPeriod = false;
+        $SDday      = substr($since, 6, 2);
+        $SDmonth    = substr($since, 4, 2);
+        $SDyear     = substr($since, 0, 4);
 
         if($to != 0){
-            $EDday    = substr($to, 6, 2);
-            $EDmonth  = substr($to, 4, 2);
-            $EDyear   = substr($to, 0, 4);
+            $showPeriod = true;
+            $EDday      = substr($to, 6, 2);
+            $EDmonth    = substr($to, 4, 2);
+            $EDyear     = substr($to, 0, 4);
         }
 
-        if($SDmonth == $EDmonth) $month = $SDmonth;
-        if($SDyear  == $EDyear)  $year  = $SDyear;
+         $month = $SDmonth;
+         $year  = $SDyear;
 
         $stringCalendar = '';
         
@@ -237,7 +264,7 @@ class ConsultBookingsController extends Controller
             if ($i < $numDayWeek){
                 $stringCalendar .= '<td><span></span></td>';
             } else {
-                if($SDday <= $currentDay && $currentDay < $EDday)
+                if($showPeriod && $SDday <= $currentDay && $currentDay < $EDday)
                     $stringCalendar .= '<td><span class="selectedDay">' . $currentDay . '</span></td>';
                 else
                     $stringCalendar .= '<td><span>' . $currentDay . '</span></td>';
@@ -251,7 +278,7 @@ class ConsultBookingsController extends Controller
         while ($currentDay <= $lastDayOfMonth){
             if ($numDayWeek == 0)   $stringCalendar .= "<tr>";
 
-            if($SDday <= $currentDay && $currentDay < $EDday)
+            if($showPeriod && $SDday <= $currentDay && $currentDay < $EDday)
                 $stringCalendar .= '<td><span class="selectedDay">' . $currentDay . '</span></td>';
             else
                 $stringCalendar .= '<td><span>' . $currentDay . '</span></td>';

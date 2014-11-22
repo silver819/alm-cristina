@@ -2,7 +2,7 @@
 
 {% block workspace %}
 
-	<h2>{% trans %}Ver reservas{% endtrans %}</h2>
+	<h2>{% trans %}Gestionar reservas{% endtrans %}</h2>
 	<hr/>
 
 	{% if bookings is empty %}
@@ -55,7 +55,7 @@
 							<form action={{ path('cancelBooking') }} method=POST>
 								<input type="hidden" name="bookingID" value="{{ oneBooking.bookingID }}">
 								<button value="Send" class="btn btn-danger btnMargin pull-left" type="submit">
-									<i class="glyphicon glyphicon-ok"></i>&nbsp;{% trans %}Cancelar{% endtrans %}
+									<i class="glyphicon glyphicon-remove"></i>&nbsp;{% trans %}Cancelar{% endtrans %}
 								</button>
 							</form>
 						</div>
