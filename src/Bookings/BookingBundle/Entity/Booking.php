@@ -269,7 +269,6 @@ class Booking
      */
     public function getOwnerConfirm()
     {
-        echo "---> " . $this->ownerConfirm;
         return $this->ownerConfirm;
     }
 }
