@@ -10,7 +10,7 @@ use Bookings\BookingBundle\Entity\DisponibilityBooking;
 
 class ConsultBookingsController extends Controller
 {
-	public function consultBookingsAction()
+	public function consultBookingsAction(Request $request)
 	{
 		if(!$this->get('security.context')->isGranted('ROLE_USER')) {
 			throw new AccessDeniedException();
@@ -61,7 +61,7 @@ class ConsultBookingsController extends Controller
             $aux['clientSurname'] 	= $clientData->getSurname();
             $aux['clientEmail'] 	= $clientData->getEmail();
 
-            $aux['calendar']        = $this->showCalendar($aux['startDate'], $aux['endDate']);
+            $aux['calendar']        = $this->showCalendar($aux['startDate'], $aux['endDate'], $request->getLocale());
 
             $results[] = $aux;
         }
@@ -70,7 +70,7 @@ class ConsultBookingsController extends Controller
 			array('bookings' => $results));
 	}
 
-    public function historyBookingsAction(){
+    public function historyBookingsAction(Request $request){
         if(!$this->get('security.context')->isGranted('ROLE_USER')) {
             throw new AccessDeniedException();
         }
@@ -121,7 +121,7 @@ class ConsultBookingsController extends Controller
             $aux['clientSurname']   = $clientData->getSurname();
             $aux['clientEmail']     = $clientData->getEmail();
 
-            $aux['calendar']        = $this->showCalendar($aux['startDate'], $aux['endDate']);
+            $aux['calendar']        = $this->showCalendar($aux['startDate'], $aux['endDate'], $request->getLocale());
 
             $results[] = $aux;
         }
@@ -130,23 +130,23 @@ class ConsultBookingsController extends Controller
             array('bookings' => $results));
     }
 
-    public function calendarBookingsAction(){
+    public function calendarBookingsAction(Request $request){
 
         $todayMonth = date("m");
         $todayYear  = date("Y");
-        
-        $first      = $this->showCalendar($todayYear . $todayMonth . "0100");
-        $second     = $this->showCalendar(date("Ymd", mktime(0, 0, 0, $todayMonth+1, 1, $todayYear)));
-        $third      = $this->showCalendar(date("Ymd", mktime(0, 0, 0, $todayMonth+2, 1, $todayYear)));
-        $fourth     = $this->showCalendar(date("Ymd", mktime(0, 0, 0, $todayMonth+3, 1, $todayYear)));
-        $fifth      = $this->showCalendar(date("Ymd", mktime(0, 0, 0, $todayMonth+4, 1, $todayYear)));
-        $sixth      = $this->showCalendar(date("Ymd", mktime(0, 0, 0, $todayMonth+5, 1, $todayYear)));
-        $seventh    = $this->showCalendar(date("Ymd", mktime(0, 0, 0, $todayMonth+6, 1, $todayYear)));
-        $eighth     = $this->showCalendar(date("Ymd", mktime(0, 0, 0, $todayMonth+7, 1, $todayYear)));
-        $ninth      = $this->showCalendar(date("Ymd", mktime(0, 0, 0, $todayMonth+8, 1, $todayYear)));
-        $tenth      = $this->showCalendar(date("Ymd", mktime(0, 0, 0, $todayMonth+9, 1, $todayYear)));
-        $eleventh   = $this->showCalendar(date("Ymd", mktime(0, 0, 0, $todayMonth+10, 1, $todayYear)));
-        $twelfth    = $this->showCalendar(date("Ymd", mktime(0, 0, 0, $todayMonth+11, 1, $todayYear)));
+
+        $first      = $this->showCalendar($todayYear . $todayMonth . "0100", false, $request->getLocale());
+        $second     = $this->showCalendar(date("Ymd", mktime(0, 0, 0, $todayMonth+1, 1, $todayYear)), false, $request->getLocale());
+        $third      = $this->showCalendar(date("Ymd", mktime(0, 0, 0, $todayMonth+2, 1, $todayYear)), false, $request->getLocale());
+        $fourth     = $this->showCalendar(date("Ymd", mktime(0, 0, 0, $todayMonth+3, 1, $todayYear)), false, $request->getLocale());
+        $fifth      = $this->showCalendar(date("Ymd", mktime(0, 0, 0, $todayMonth+4, 1, $todayYear)), false, $request->getLocale());
+        $sixth      = $this->showCalendar(date("Ymd", mktime(0, 0, 0, $todayMonth+5, 1, $todayYear)), false, $request->getLocale());
+        $seventh    = $this->showCalendar(date("Ymd", mktime(0, 0, 0, $todayMonth+6, 1, $todayYear)), false, $request->getLocale());
+        $eighth     = $this->showCalendar(date("Ymd", mktime(0, 0, 0, $todayMonth+7, 1, $todayYear)), false, $request->getLocale());
+        $ninth      = $this->showCalendar(date("Ymd", mktime(0, 0, 0, $todayMonth+8, 1, $todayYear)), false, $request->getLocale());
+        $tenth      = $this->showCalendar(date("Ymd", mktime(0, 0, 0, $todayMonth+9, 1, $todayYear)), false, $request->getLocale());
+        $eleventh   = $this->showCalendar(date("Ymd", mktime(0, 0, 0, $todayMonth+10, 1, $todayYear)), false, $request->getLocale());
+        $twelfth    = $this->showCalendar(date("Ymd", mktime(0, 0, 0, $todayMonth+11, 1, $todayYear)), false, $request->getLocale());
 
         return $this->render('BookingsBookingBundle:Consult:calendar-bookings.html.twig',
             array(  'first' => $first,      'second' => $second,        'third' => $third, 
@@ -208,16 +208,20 @@ class ConsultBookingsController extends Controller
         return $lastDay;
     }
 
-    private function nameMonths($month){
+    private function nameMonths($month, $Lang = 'es'){
 
-        $nameMonths = array("Enero",        "Febrero",  "Marzo",        "Abril", 
-                            "Mayo",         "Junio",    "Julio",        "Agosto", 
-                            "Septiembre",   "Octubre",  "Noviembre",    "Diciembre");
+        $nameMonths['es']   = array("Enero",        "Febrero",  "Marzo",        "Abril", 
+                                    "Mayo",         "Junio",    "Julio",        "Agosto", 
+                                    "Septiembre",   "Octubre",  "Noviembre",    "Diciembre");
 
-        return $nameMonths[$month-1];
+        $nameMonths['en']   = array("January",      "February", "March",        "April", 
+                                    "May",          "June",     "July",         "August", 
+                                    "September",    "October",  "November",     "December");
+
+        return $nameMonths[$Lang][$month-1];
     }
 
-    private function showCalendar($since, $to = 0){
+    private function showCalendar($since, $to = 0, $Lang = 'es'){
 
         $showPeriod = false;
         $SDday      = substr($since, 6, 2);
@@ -257,17 +261,23 @@ class ConsultBookingsController extends Controller
         $stringCalendar .= '<tr><td colspan="7">';
 
         // Cabecera
-        $stringCalendar .= '<table class="titleCalendar"><tr><td>' . $this->nameMonths($month) . " " . $year . '</td></tr></table>';
+        $stringCalendar .= '<table class="titleCalendar"><tr><td>' . $this->nameMonths($month, $Lang) . " " . $year . '</td></tr></table>';
 
         $stringCalendar .= '</td></tr>';
+
+        $nameDayShort = array(
+                            'es' => array('L','M','X','J','V','S','D'),
+                            'en' => array('M','T','W','T','F','S','S')
+                        );
+
         $stringCalendar .= '<tr>
-                                <td class="dayCalendar"><span>L</span></td>
-                                <td class="dayCalendar"><span>M</span></td>
-                                <td class="dayCalendar"><span>X</span></td>
-                                <td class="dayCalendar"><span>J</span></td>
-                                <td class="dayCalendar"><span>V</span></td>
-                                <td class="dayCalendar"><span>S</span></td>
-                                <td class="dayCalendar"><span>D</span></td>
+                                <td class="dayCalendar"><span>' . $nameDayShort[$Lang][0] . '</span></td>
+                                <td class="dayCalendar"><span>' . $nameDayShort[$Lang][1] . '</span></td>
+                                <td class="dayCalendar"><span>' . $nameDayShort[$Lang][2] . '</span></td>
+                                <td class="dayCalendar"><span>' . $nameDayShort[$Lang][3] . '</span></td>
+                                <td class="dayCalendar"><span>' . $nameDayShort[$Lang][4] . '</span></td>
+                                <td class="dayCalendar"><span>' . $nameDayShort[$Lang][5] . '</span></td>
+                                <td class="dayCalendar"><span>' . $nameDayShort[$Lang][6] . '</span></td>
                             </tr>';
         
         $currentDay         = 1;
