@@ -201,7 +201,11 @@ h2{
 
 .selectedDay{
     font-weight: bold;
-    color: #D2322D;
+    background-color: #d9edf7;
+    border-color: #bce8f1;
+    color: #31708f;
+    margin: -3px;
+    padding: 3px;
 }
 
 .bookedDay{
