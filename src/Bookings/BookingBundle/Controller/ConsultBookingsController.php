@@ -231,8 +231,24 @@ class ConsultBookingsController extends Controller
             $EDyear     = substr($to, 0, 4);
         }
 
-         $month = $SDmonth;
-         $year  = $SDyear;
+        $month = $SDmonth;
+        $year  = $SDyear;
+
+        // Seleccionamos las reservas de este mes para marcarlas en el calendario
+        $ownerID        = $this->get('security.context')->getToken()->getUser()->getId();
+        $fromThisDate   = $SDyear . $SDmonth . '0100';
+        $toThisDate     = date('Ymd', mktime(0, 0, 0, $SDmonth + 1, 1, $SDyear)) . '00';
+        
+        $ownerProperties = $this->getDoctrine()
+                           ->getRepository('ReservableActivityBundle:Activity')
+                           ->findAllByOwnerID($ownerID);
+
+        $arrayProperties = array();
+        foreach($ownerProperties as $oneResult){$arrayProperties[] = $oneResult->getId();}
+
+        $bookings       = $this->getDoctrine()
+                               ->getRepository('BookingsBookingBundle:Booking')
+                               ->getBookingsInPeriod($fromThisDate, $toThisDate, $arrayProperties);
 
         $stringCalendar = '';
         
@@ -280,8 +296,17 @@ class ConsultBookingsController extends Controller
 
             if($showPeriod && $SDday <= $currentDay && $currentDay < $EDday)
                 $stringCalendar .= '<td><span class="selectedDay">' . $currentDay . '</span></td>';
-            else
-                $stringCalendar .= '<td><span>' . $currentDay . '</span></td>';
+            else{
+                $printDay = true;
+                foreach($bookings as $oneBooking){
+                    if($oneBooking['from'] <= $currentDay && $currentDay < $oneBooking['to']){
+                        $printDay = false;
+                        $stringCalendar .= '<td><span title="' . $oneBooking['bookingID'] . '" class="bookedDay">' . $currentDay . '</span></td>';
+                    }
+                }
+
+                if($printDay) $stringCalendar .= '<td><span>' . $currentDay . '</span></td>';
+            }
 
             $currentDay++;
             $numDayWeek++;

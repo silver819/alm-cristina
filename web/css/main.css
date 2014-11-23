@@ -203,3 +203,12 @@ h2{
     font-weight: bold;
     color: #D2322D;
 }
+
+.bookedDay{
+    font-weight: bold;
+    background-color: #dff0d8;
+    border-color: #d6e9c6;
+    color: #3c763d;
+    margin: -3px;
+    padding: 3px;
+}

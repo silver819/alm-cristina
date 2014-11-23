@@ -60,4 +60,27 @@ class BookingRepository extends EntityRepository
                                   WHERE b.id = ' . $bookingID)
                     ->getResult();
     }
+
+    function getBookingsInPeriod($from, $to, $arrayProperties){
+      $bookings = $this ->getEntityManager()
+                        ->createQuery('SELECT b.id, b.startDate, b.endDate
+                                        FROM BookingsBookingBundle:Booking b
+                                        WHERE b.activityID IN (' . implode(',', $arrayProperties) . ')
+                                        AND b.startDate >= ' . $from . ' 
+                                        AND b.startDate < ' . $to . '
+                                        AND b.ownerConfirm = 1')
+                        ->getResult();
+
+      $results = array();
+      foreach($bookings as $oneBooking){
+        $aux['bookingID'] = $oneBooking['id'];
+        $aux['from']      = substr($oneBooking['startDate'], 6, 2);
+        $monthStart       = substr($oneBooking['startDate'], 4, 2);
+        $monthEnd         = substr($oneBooking['endDate'], 4, 2);
+        $aux['to']        = ($monthEnd == $monthStart)?substr($oneBooking['endDate'], 6, 2):50;
+        $results[] = $aux;
+      }
+
+      return $results;
+    }
 }
