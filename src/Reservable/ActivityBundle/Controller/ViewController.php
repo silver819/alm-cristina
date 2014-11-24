@@ -124,8 +124,6 @@ class ViewController extends Controller
 						->getRepository('ReservableActivityBundle:Activity')
 						->findByPropertyID($property);
 
-		$details = $details[0];
-
 		$pictures = $this->getDoctrine()
 						 ->getRepository('ReservableActivityBundle:Picture')
 					     ->findAllByPropertyID($property);
