@@ -131,6 +131,28 @@ class ConsultBookingsController extends Controller
     }
 
     public function calendarBookingsAction(Request $request){
+/*
+$client = new \Google_Client();
+$client->setApplicationName("Almacen");
+
+$auth = new \Google_Auth_AppIdentity($client);
+
+$token = $auth->authenticateForScope(\Google_Service_Storage::DEVSTORAGE_READ_ONLY);
+ladybug_dump($auth);die();
+if (!$token) {
+  die("Could not authenticate to AppIdentity service");
+}
+$client->setAuth($auth);
+$service = new Google_Service_Storage($client);
+$results = $service->buckets->listBuckets(str_replace("s~", "", $_SERVER['APPLICATION_ID']));
+echo "<h3>Results Of Call:</h3>";
+echo "<pre>";
+var_dump($results);
+echo "</pre>";
+echo pageFooter(__FILE__);
+
+echo "<br/>---------------------------------------------------------------------------<br/>";
+*/
 
         $todayMonth = date("m");
         $todayYear  = date("Y");

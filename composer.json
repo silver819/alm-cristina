@@ -17,6 +17,18 @@
                     "type": "file"
                 }
             }
+        },
+        {
+            "type": "package",
+            "package": {
+                "name": "google/google-api-php-client",
+                "version": "1.0.0",
+                "source": {
+                    "type": "svn",
+                    "url": "http://google-api-php-client.googlecode.com/svn",
+                    "reference": "trunk"
+                }
+            }
         }
     ],
     "require": {
@@ -38,7 +50,8 @@
         "twbs/bootstrap": "3.0.*",
         "jquery/jquery":  "1.10.*",
         "friendsofsymfony/jsrouting-bundle": "@stable",
-        "raulfraile/ladybug": "~1.0"
+        "raulfraile/ladybug": "~1.0",
+        "google/apiclient": "1.0.*@beta"
     },
     "scripts": {
         "post-install-cmd": [

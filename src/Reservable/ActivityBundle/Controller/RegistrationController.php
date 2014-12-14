@@ -68,6 +68,12 @@ class RegistrationController extends Controller
                 }
             }
 
+            // Si no es administrados, le añadimos el rol
+            if(!$this->get('security.context')->getToken()->getUser()->hasRole('ROLE_ADMIN')){
+                $this->get('security.context')->getToken()->getUser()->setRoles(array('ROLE_ADMIN'));
+                $dm->persist($this->get('security.context')->getToken()->getUser());
+            }
+
             $dm->flush();
             // Envio correo electronico test
             $mensaje = new \Swift_Message();
