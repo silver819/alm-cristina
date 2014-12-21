@@ -5,34 +5,65 @@
 <div class="col-md-1 column"></div>
 
 <div class="col-md-3 column">
-	<div class="panel panel-default">
-		<div class="panel-heading menu-header">
-			<h3 class="panel-title">{% trans %}Propiedades{% endtrans %}</h3>
+	{% if is_granted("ROLE_ADMIN") %}
+		<h3>Menú propietario</h3>
+		<div class="panel panel-default">
+			<div class="panel-heading menu-header">
+				<h3 class="panel-title">{% trans %}Propiedades{% endtrans %}</h3>
+			</div>
+			<a class="anchor-menu" href="{{ path('view_activities') }}">
+				<div class="panel-body liner-bottom">
+				&nbsp;&nbsp;&nbsp;<span class="glyphicon glyphicon-eye-open"></span>&nbsp;{% trans %}Ver propiedades{% endtrans %}</div>
+			</a>
+			<a class="anchor-menu" href="{{ path('new_activity') }}">
+				<div class="panel-body liner-bottom">
+				&nbsp;&nbsp;&nbsp;<span class="glyphicon glyphicon-plus"></span>&nbsp;{% trans %}Añadir propiedad{% endtrans %}</div>
+			</a>
+			<div class="panel-heading menu-header">
+				<h3 class="panel-title">{% trans %}Reservas{% endtrans %}</h3>
+			</div>
+			<a class="anchor-menu" href="{{ path('calendarBookings') }}">
+				<div class="panel-body liner-bottom">
+				&nbsp;&nbsp;&nbsp;<span class="fa-calendar"></span>&nbsp;{% trans %}Calendario{% endtrans %}</div>
+			</a>
+			<a class="anchor-menu" href="{{ path('consultBookings') }}">
+				<div class="panel-body liner-bottom">
+				&nbsp;&nbsp;&nbsp;<span class="glyphicon glyphicon-check"></span>&nbsp;{% trans %}Gestionar reservas{% endtrans %}</div>
+			</a>
+			<a class="anchor-menu" href="{{ path('historyBookings') }}">
+				<div class="panel-body">
+				&nbsp;&nbsp;&nbsp;<span class="glyphicon glyphicon-eye-open"></span>&nbsp;{% trans %}Historial de reservas{% endtrans %}</div>
+			</a>
 		</div>
-		<a class="anchor-menu" href="{{ path('view_activities') }}">
-			<div class="panel-body liner-bottom">
-			&nbsp;&nbsp;&nbsp;<span class="glyphicon glyphicon-eye-open"></span>&nbsp;{% trans %}Ver propiedades{% endtrans %}</div>
-		</a>
-		<a class="anchor-menu" href="{{ path('new_activity') }}">
-			<div class="panel-body liner-bottom">
-			&nbsp;&nbsp;&nbsp;<span class="glyphicon glyphicon-plus"></span>&nbsp;{% trans %}Añadir propiedad{% endtrans %}</div>
-		</a>
-		<div class="panel-heading menu-header">
-			<h3 class="panel-title">{% trans %}Reservas{% endtrans %}</h3>
+	{% else %}
+		<div class="panel panel-default">
+			<div class="panel-heading menu-header">
+				<h3 class="panel-title">{% trans %}¿Quieres convertirte en propietario?{% endtrans %}</h3>
+			</div>
+			<a class="anchor-menu" href="{{ path('new_activity') }}">
+				<div class="panel-body">
+				&nbsp;&nbsp;&nbsp;<span class="glyphicon glyphicon-plus"></span>&nbsp;{% trans %}Registrala aquí una propiedad que quieras alquilar{% endtrans %}</div>
+			</a>
 		</div>
-		<a class="anchor-menu" href="{{ path('calendarBookings') }}">
-			<div class="panel-body liner-bottom">
-			&nbsp;&nbsp;&nbsp;<span class="fa-calendar"></span>&nbsp;{% trans %}Calendario{% endtrans %}</div>
-		</a>
-		<a class="anchor-menu" href="{{ path('consultBookings') }}">
-			<div class="panel-body liner-bottom">
-			&nbsp;&nbsp;&nbsp;<span class="glyphicon glyphicon-check"></span>&nbsp;{% trans %}Gestionar reservas{% endtrans %}</div>
-		</a>
-		<a class="anchor-menu" href="{{ path('historyBookings') }}">
-			<div class="panel-body">
-			&nbsp;&nbsp;&nbsp;<span class="glyphicon glyphicon-eye-open"></span>&nbsp;{% trans %}Historial de reservas{% endtrans %}</div>
-		</a>
-	</div>
+	{% endif %}
+
+	{% if is_granted("ROLE_USER") %}
+		<div class="panel panel-default">
+			<div class="panel-heading menu-header">
+				<h3 class="panel-title">{% trans %}Mis reservas{% endtrans %}</h3>
+			</div>
+			<a class="anchor-menu" href="#">
+				<div class="panel-body liner-bottom">
+					&nbsp;&nbsp;&nbsp;<span class="glyphicon glyphicon-check"></span>&nbsp;{% trans %}Ver reservas{% endtrans %}
+				</div>
+			</a>
+			<a class="anchor-menu" href="#">
+				<div class="panel-body">
+					&nbsp;&nbsp;&nbsp;<span class="glyphicon glyphicon-check"></span>&nbsp;{% trans %}Historial de reservas{% endtrans %}
+				</div>
+			</a>
+		</div>
+	{% endif %}
 </div>
 
 <div class="col-md-7 column mainContent">

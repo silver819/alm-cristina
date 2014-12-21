@@ -52,7 +52,7 @@
                     {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
                         <ul class="dropdown-menu">
                             <li>
-                                <a href="{{ path('view_activities') }}"><span class="glyphicon glyphicon-th-list"></span>&nbsp;&nbsp;{% trans %}Menu{% endtrans %}</a>
+                                <a href="{{ path('consultBookings') }}"><span class="glyphicon glyphicon-th-list"></span>&nbsp;&nbsp;{% trans %}Menu{% endtrans %}</a>
                             </li>
                             <li>
                                 <a href="{{ path('fos_user_profile_show') }}"><span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp;{% trans %}Ver perfil{% endtrans %}</a>
