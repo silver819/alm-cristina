@@ -25,45 +25,49 @@ class ConsultBookingsController extends Controller
         $arrayProperties = array();
         foreach($ownerProperties as $oneResult){$arrayProperties[] = $oneResult->getId();}
 
-		$allBookings = $this->getDoctrine()
-                            ->getRepository('BookingsBookingBundle:Booking')
-                            ->getBookingsFromProperties($arrayProperties);
-
         $results = array();
-        foreach($allBookings as $oneBooking){
-        	$propertyData 	= $this->getDoctrine()
-                            	->getRepository('ReservableActivityBundle:Activity')
-                            	->findByPropertyID($oneBooking->getActivityID());
 
-            $clientData 	= $this->getDoctrine()
-                       			->getRepository('UserUserBundle:Users')
-                       			->getUserByUserID($oneBooking->getClientID());
+        if(!empty($arrayProperties)){
 
-            $aux['bookingID']       = $oneBooking->getId();
-            $aux['propertyID'] 		= $oneBooking->getActivityID();
-            $aux['clientID'] 		= $oneBooking->getClientID();
-            $aux['price'] 			= $oneBooking->getPrice();
-            $aux['startDate'] 		= $oneBooking->getStartDate();
-            $aux['startDateDay'] 	= substr($oneBooking->getStartDate(), 6, 2);
-            $aux['startDateMonth']	= substr($oneBooking->getStartDate(), 4, 2);
-            $aux['startDateYear'] 	= substr($oneBooking->getStartDate(), 0, 4);
-            $aux['startDateHour'] 	= substr($oneBooking->getStartDate(), 8, 2);
-            $aux['endDate'] 		= $oneBooking->getEndDate();
-            $aux['endDateDay'] 		= substr($oneBooking->getEndDate(), 6, 2);
-            $aux['endDateMonth']	= substr($oneBooking->getEndDate(), 4, 2);
-            $aux['endDateYear'] 	= substr($oneBooking->getEndDate(), 0, 4);
-            $aux['endDateHour'] 	= substr($oneBooking->getEndDate(), 8, 2);
+            $allBookings = $this->getDoctrine()
+                                ->getRepository('BookingsBookingBundle:Booking')
+                                ->getBookingsFromProperties($arrayProperties);
 
-            $aux['type'] 			= $propertyData->getTypeRent();
-            $aux['propertyName'] 	= $propertyData->getName();
+            foreach($allBookings as $oneBooking){
+            	$propertyData 	= $this->getDoctrine()
+                                	->getRepository('ReservableActivityBundle:Activity')
+                                	->findByPropertyID($oneBooking->getActivityID());
 
-            $aux['clientName'] 		= $clientData->getName();
-            $aux['clientSurname'] 	= $clientData->getSurname();
-            $aux['clientEmail'] 	= $clientData->getEmail();
+                $clientData 	= $this->getDoctrine()
+                           			->getRepository('UserUserBundle:Users')
+                           			->getUserByUserID($oneBooking->getClientID());
 
-            $aux['calendar']        = $this->showCalendar($aux['startDate'], $aux['endDate'], $request->getLocale());
+                $aux['bookingID']       = $oneBooking->getId();
+                $aux['propertyID'] 		= $oneBooking->getActivityID();
+                $aux['clientID'] 		= $oneBooking->getClientID();
+                $aux['price'] 			= $oneBooking->getPrice();
+                $aux['startDate'] 		= $oneBooking->getStartDate();
+                $aux['startDateDay'] 	= substr($oneBooking->getStartDate(), 6, 2);
+                $aux['startDateMonth']	= substr($oneBooking->getStartDate(), 4, 2);
+                $aux['startDateYear'] 	= substr($oneBooking->getStartDate(), 0, 4);
+                $aux['startDateHour'] 	= substr($oneBooking->getStartDate(), 8, 2);
+                $aux['endDate'] 		= $oneBooking->getEndDate();
+                $aux['endDateDay'] 		= substr($oneBooking->getEndDate(), 6, 2);
+                $aux['endDateMonth']	= substr($oneBooking->getEndDate(), 4, 2);
+                $aux['endDateYear'] 	= substr($oneBooking->getEndDate(), 0, 4);
+                $aux['endDateHour'] 	= substr($oneBooking->getEndDate(), 8, 2);
 
-            $results[] = $aux;
+                $aux['type'] 			= $propertyData->getTypeRent();
+                $aux['propertyName'] 	= $propertyData->getName();
+
+                $aux['clientName'] 		= $clientData->getName();
+                $aux['clientSurname'] 	= $clientData->getSurname();
+                $aux['clientEmail'] 	= $clientData->getEmail();
+
+                $aux['calendar']        = $this->showCalendar($aux['startDate'], $aux['endDate'], $request->getLocale());
+
+                $results[] = $aux;
+            }
         }
 
 		return $this->render('BookingsBookingBundle:Consult:see-bookings.html.twig', 
