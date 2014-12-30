@@ -21,6 +21,13 @@ class ActivityRepository extends EntityRepository
             		->getResult();
 	}
 
+    function findAll(){
+        return $this->getEntityManager()
+                    ->createQuery('SELECT p 
+                                   FROM ReservableActivityBundle:Activity p')
+                    ->getResult();
+    }
+
 	function activeProperty($propertyID){
 		return $this->getEntityManager()
             	    ->createQuery('UPDATE ReservableActivityBundle:Activity p

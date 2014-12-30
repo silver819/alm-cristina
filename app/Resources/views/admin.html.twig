@@ -9,7 +9,7 @@
 		<h3>{% trans %}Menú administrador{% endtrans %}</h3>
 
 		<div class="panel panel-default">
-			<a class="anchor-menu" href="#">
+			<a class="anchor-menu" href="{{ path('view_activities') }}">
 				<div class="panel-heading menu-header liner-bottom">
 					<h3 class="panel-title"><span style="font-style:normal;" class="fa-building-o"></span>&nbsp;{% trans %}Propiedades{% endtrans %}</h3>
 				</div>
@@ -29,33 +29,41 @@
 
 	{% if is_granted("ROLE_ADMIN") %}
 		<h3>{% trans %}Menú propietario{% endtrans %}</h3>
-		<div class="panel panel-default">
-			<div class="panel-heading menu-header">
-				<h3 class="panel-title">{% trans %}Propiedades{% endtrans %}</h3>
+		<div class="panel-group" id="panel-activities-role-user">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<a class="panel-title collapsed" data-toggle="collapse" data-parent="#panel-activities-role-user" href="#panel-element-activities-role-user">{% trans %}Propiedades{% endtrans %}</a>
+				</div>
+				<div id="panel-element-activities-role-user" class="panel-collapse collapse">
+					<div class="panel-body">
+						<a class="anchor-menu" href="{{ path('view_activities') }}">
+							<div class="panel-body">&nbsp;&nbsp;&nbsp;<span class="glyphicon glyphicon-eye-open"></span>&nbsp;{% trans %}Ver propiedades{% endtrans %}</div>
+						</a>
+						<a class="anchor-menu" href="{{ path('new_activity') }}">
+							<div class="panel-body">&nbsp;&nbsp;&nbsp;<span class="glyphicon glyphicon-plus"></span>&nbsp;{% trans %}Añadir propiedad{% endtrans %}</div>
+						</a>
+					</div>
+				</div>
 			</div>
-			<a class="anchor-menu" href="{{ path('view_activities') }}">
-				<div class="panel-body liner-bottom">
-				&nbsp;&nbsp;&nbsp;<span class="glyphicon glyphicon-eye-open"></span>&nbsp;{% trans %}Ver propiedades{% endtrans %}</div>
-			</a>
-			<a class="anchor-menu" href="{{ path('new_activity') }}">
-				<div class="panel-body liner-bottom">
-				&nbsp;&nbsp;&nbsp;<span class="glyphicon glyphicon-plus"></span>&nbsp;{% trans %}Añadir propiedad{% endtrans %}</div>
-			</a>
-			<div class="panel-heading menu-header">
-				<h3 class="panel-title">{% trans %}Reservas{% endtrans %}</h3>
+
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<a class="panel-title collapsed" data-toggle="collapse" data-parent="#panel-bookings-role-user" href="#panel-element-bookings-role-user">{% trans %}Reservas{% endtrans %}</a>
+				</div>
+				<div id="panel-element-bookings-role-user" class="panel-collapse collapse">
+					<div class="panel-body">
+						<a class="anchor-menu" href="{{ path('calendarBookings') }}">
+						<div class="panel-body">&nbsp;&nbsp;&nbsp;<span class="fa-calendar"></span>&nbsp;{% trans %}Calendario{% endtrans %}</div>
+						</a>
+						<a class="anchor-menu" href="{{ path('consultBookings') }}">
+							<div class="panel-body">&nbsp;&nbsp;&nbsp;<span class="glyphicon glyphicon-check"></span>&nbsp;{% trans %}Gestionar reservas{% endtrans %}</div>
+						</a>
+						<a class="anchor-menu" href="{{ path('historyBookings') }}">
+							<div class="panel-body">&nbsp;&nbsp;&nbsp;<span class="glyphicon glyphicon-eye-open"></span>&nbsp;{% trans %}Historial de reservas{% endtrans %}</div>
+						</a>
+					</div>
+				</div>
 			</div>
-			<a class="anchor-menu" href="{{ path('calendarBookings') }}">
-				<div class="panel-body liner-bottom">
-				&nbsp;&nbsp;&nbsp;<span class="fa-calendar"></span>&nbsp;{% trans %}Calendario{% endtrans %}</div>
-			</a>
-			<a class="anchor-menu" href="{{ path('consultBookings') }}">
-				<div class="panel-body liner-bottom">
-				&nbsp;&nbsp;&nbsp;<span class="glyphicon glyphicon-check"></span>&nbsp;{% trans %}Gestionar reservas{% endtrans %}</div>
-			</a>
-			<a class="anchor-menu" href="{{ path('historyBookings') }}">
-				<div class="panel-body">
-				&nbsp;&nbsp;&nbsp;<span class="glyphicon glyphicon-eye-open"></span>&nbsp;{% trans %}Historial de reservas{% endtrans %}</div>
-			</a>
 		</div>
 		<h3>{% trans %}Menú usuario{% endtrans %}</h3>
 	{% else %}
@@ -64,28 +72,27 @@
 				<h3 class="panel-title">{% trans %}¿Quieres convertirte en propietario?{% endtrans %}</h3>
 			</div>
 			<a class="anchor-menu" href="{{ path('new_activity') }}">
-				<div class="panel-body">
-				&nbsp;&nbsp;&nbsp;<span class="glyphicon glyphicon-plus"></span>&nbsp;{% trans %}Registrala aquí una propiedad que quieras alquilar{% endtrans %}</div>
+				<div class="panel-body">&nbsp;&nbsp;&nbsp;<span class="glyphicon glyphicon-plus"></span>&nbsp;{% trans %}Registrala aquí una propiedad que quieras alquilar{% endtrans %}</div>
 			</a>
 		</div>
 	{% endif %}
 
 	{% if is_granted("ROLE_USER") %}
-		<div class="panel panel-default">
-			<div class="panel-heading menu-header">
-				<h3 class="panel-title">{% trans %}Mis reservas{% endtrans %}</h3>
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<a class="panel-title collapsed" data-toggle="collapse" data-parent="#panel-my-bookings" href="#panel-element-my-bookings">{% trans %}Mis reservas{% endtrans %}</a>
+				</div>
+				<div id="panel-element-my-bookings" class="panel-collapse collapse">
+					<div class="panel-body">
+						<a class="anchor-menu" href="#">
+							<div class="panel-body">&nbsp;&nbsp;&nbsp;<span class="glyphicon glyphicon-check"></span>&nbsp;{% trans %}Ver reservas{% endtrans %}</div>
+						</a>
+						<a class="anchor-menu" href="#">
+							<div class="panel-body">&nbsp;&nbsp;&nbsp;<span class="glyphicon glyphicon-check"></span>&nbsp;{% trans %}Historial de reservas{% endtrans %}</div>
+						</a>
+					</div>
+				</div>
 			</div>
-			<a class="anchor-menu" href="#">
-				<div class="panel-body liner-bottom">
-					&nbsp;&nbsp;&nbsp;<span class="glyphicon glyphicon-check"></span>&nbsp;{% trans %}Ver reservas{% endtrans %}
-				</div>
-			</a>
-			<a class="anchor-menu" href="#">
-				<div class="panel-body">
-					&nbsp;&nbsp;&nbsp;<span class="glyphicon glyphicon-check"></span>&nbsp;{% trans %}Historial de reservas{% endtrans %}
-				</div>
-			</a>
-		</div>
 	{% endif %}
 </div>
 

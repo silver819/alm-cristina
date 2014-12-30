@@ -15,11 +15,19 @@ class ViewController extends Controller
 			throw new AccessDeniedException();
 		}
 
-		$ownerID = $this->get('security.context')->getToken()->getUser()->getId();	
+		if($this->get('security.context')->isGranted('ROLE_SUPER_ADMIN')){
 
-		$properties = $this->getDoctrine()
-						   ->getRepository('ReservableActivityBundle:Activity')
-						   ->findAllByOwnerID($ownerID);
+			$properties = $this->getDoctrine()
+							   ->getRepository('ReservableActivityBundle:Activity')
+							   ->findAll();
+		}
+		else{
+			$ownerID = $this->get('security.context')->getToken()->getUser()->getId();	
+
+			$properties = $this->getDoctrine()
+							   ->getRepository('ReservableActivityBundle:Activity')
+							   ->findAllByOwnerID($ownerID);
+		}
 
 		$arrayPictures = array();
 		if(!empty($properties)){

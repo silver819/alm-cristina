@@ -56,9 +56,9 @@ hr {
 	border: 0;
 	height: 1px;
 	background-image: -webkit-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,0.5), rgba(0,0,0,0));
-	background-image: -moz-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,0.5), rgba(0,0,0,0));
-	background-image: -ms-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,0.5), rgba(0,0,0,0));
-	background-image: -o-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,0.5), rgba(0,0,0,0));
+	background-image: -moz-linear-gradient(   left, rgba(0,0,0,0), rgba(0,0,0,0.5), rgba(0,0,0,0));
+	background-image: -ms-linear-gradient(    left, rgba(0,0,0,0), rgba(0,0,0,0.5), rgba(0,0,0,0));
+	background-image: -o-linear-gradient(     left, rgba(0,0,0,0), rgba(0,0,0,0.5), rgba(0,0,0,0));
 }
 
 hr.style-six {
@@ -215,4 +215,46 @@ h2{
     color: #3c763d;
     margin: -3px;
     padding: 3px;
+}
+
+@media (max-width: 300px) {
+    .nameDiv {
+        width: 100%;
+    }
+    .priceDiv{
+        width: 100%;
+        text-align: center;
+    }
+    .imageSpan{
+        width: 100%;
+        text-align: center;
+    }
+    .bookingButton, .backDiv, .desc-icon{
+        display: none;
+    }
+}
+
+@media (max-width: 600px) {
+    .nameDiv {
+        width: 100%;
+    }
+    .priceDiv{
+        width: 100%;
+        text-align: center;
+    }
+    .imageSpan{
+        width: 100%;
+        text-align: center;
+    }
+    .bookingButton, .backDiv, .desc-icon{
+        display: none;
+    }
+
+    .headerUserName{
+        display: none !important;
+    }
+
+    .headerLists{
+        float:right;
+    }
 }
