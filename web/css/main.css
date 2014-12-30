@@ -258,3 +258,14 @@ h2{
         float:right;
     }
 }
+
+    @media (max-width: 750px) {
+        .headerUserName{
+            display: none !important;
+        }
+
+        .headerLists{
+            float:right;
+        }
+    }
+}
