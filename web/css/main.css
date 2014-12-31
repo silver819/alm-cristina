@@ -217,6 +217,11 @@ h2{
     padding: 3px;
 }
 
+.ownerFilter{
+    text-align: right;
+    margin: 20px;
+}
+
 @media (max-width: 300px) {
     .nameDiv {
         width: 100%;

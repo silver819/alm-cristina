@@ -5,6 +5,17 @@
 	<h2>{% trans %}Ver propiedades{% endtrans %}</h2>
 	<hr/>
 
+	{% if is_granted("ROLE_SUPER_ADMIN") %}
+		<div class="ownerFilter">
+				{%trans%}Ver{%endtrans%} <select name="filterByOwner" id="filterByOwner">
+					<option value="0">{% trans %}todos los propietarios{% endtrans %}</option>
+					{% for oneEmail in allOwners %}
+						<option value="{{ oneEmail.ownerID }}">{{ oneEmail.email }}</option>
+					{% endfor %}
+				</select> 
+		</div>
+	{% endif %}
+
 	{% if properties is empty %}
 		<div class="alert alert-danger text-center">
 			<h4>¡No tienes instalaciones registradas!</h4>
@@ -14,7 +25,7 @@
 		{% for oneProperty in properties %}
 		
 
-		<div class="alert alert-warning">
+		<div class="alert alert-warning ownerEmail {{ oneProperty.ownerID }}">
 			{% if pictures[oneProperty.id] is defined %}
 				<span class="imageSpan">
 				<img src="/images/properties/{{pictures[oneProperty.id]}}" width="100">
@@ -46,6 +57,9 @@
 					<h4><strong><a href="view-details/{{ oneProperty.id }}">{{ oneProperty.name }}</a></strong></h4>
 				</div>
 				<p><i class="fa fa-eur" title="{% trans %}Precio{% endtrans %}"></i>&nbsp;{{ oneProperty.price }} &euro;/ {% if oneProperty.typeRent == 'hour' %} {% trans %}hora{% endtrans %} {% else %} {% trans %}día{% endtrans %} {% endif %}</p>
+				{% if is_granted("ROLE_SUPER_ADMIN") %}
+					<p><i class="fa fa-user" title="{% trans %}Propietario{% endtrans %}"></i>&nbsp;{{ allOwners[oneProperty.ownerID].email }}</p>
+				{% endif %}
 				<p>{% if (oneProperty.lat != null) and (oneProperty.lng != null) %}<i class="fa fa-map-marker" title="{% trans %}Dirección disponible en mapa{% endtrans %}"></i>{% else  %}<i class="fa fa-location-arrow" title="{% trans %}Dirección{% endtrans %}"></i>{% endif %}&nbsp;{{ oneProperty.address }}</p>
 				<p><i class="fa fa-file-text" title="{% trans %}Descripción{% endtrans %}"></i>&nbsp;{{ oneProperty.description }}</p>
 			</span>
@@ -152,7 +166,23 @@
 			</div>
 		</div>
 		{% endfor %}
+
 	{% endif %}
 
+	<script>
+		var filterByOwner = document.getElementById("filterByOwner");
+
+		filterByOwner.onchange = function(){
+			var ownerID = filterByOwner.options[filterByOwner.selectedIndex].value;
+
+			if(ownerID == 0){
+				$('.ownerEmail').show('slow');
+			}
+			else{
+				$('.ownerEmail').hide('slow');
+ 				$('.'+ ownerID).show('slow');
+ 			}
+  		}
+	</script>
 
 {% endblock %}

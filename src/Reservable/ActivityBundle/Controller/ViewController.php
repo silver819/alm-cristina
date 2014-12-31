@@ -15,11 +15,27 @@ class ViewController extends Controller
 			throw new AccessDeniedException();
 		}
 
+		$allOwners = array();
+
 		if($this->get('security.context')->isGranted('ROLE_SUPER_ADMIN')){
 
 			$properties = $this->getDoctrine()
 							   ->getRepository('ReservableActivityBundle:Activity')
 							   ->findAll();
+
+			$result = $this->getDoctrine()
+						   ->getManager()
+						   ->createQuery('SELECT u.email, u.id
+										  FROM ReservableActivityBundle:Activity a
+										  INNER JOIN UserUserBundle:Users u 
+										  WHERE u.id = a.ownerID
+										  GROUP BY u.id')
+						   ->getResult();
+
+			foreach($result as $oneResult){
+				$allOwners[$oneResult['id']]['email'] = $oneResult['email'];
+				$allOwners[$oneResult['id']]['ownerID'] = $oneResult['id'];
+			}
 		}
 		else{
 			$ownerID = $this->get('security.context')->getToken()->getUser()->getId();	
@@ -42,9 +58,8 @@ class ViewController extends Controller
 			}
 		}
 
-
 		return $this->render('ReservableActivityBundle:View:viewActivities.html.twig', 
-			array('properties' => $properties, 'pictures' => $arrayPictures));
+			array('properties' => $properties, 'pictures' => $arrayPictures, 'allOwners' => $allOwners));
 
     }
 
