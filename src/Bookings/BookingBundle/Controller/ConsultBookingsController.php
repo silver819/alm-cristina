@@ -16,14 +16,39 @@ class ConsultBookingsController extends Controller
 			throw new AccessDeniedException();
 		}
 
-		$ownerID = $this->get('security.context')->getToken()->getUser()->getId();
+        $arrayProperties    = array();
+        $allOwners          = array();
 
-		$ownerProperties = $this->getDoctrine()
-                           ->getRepository('ReservableActivityBundle:Activity')
-                           ->findAllByOwnerID($ownerID);
+        if($this->get('security.context')->isGranted('ROLE_SUPER_ADMIN')){
+            $allProperties = $this->getDoctrine()
+                               ->getRepository('ReservableActivityBundle:Activity')
+                               ->findAll();
 
-        $arrayProperties = array();
-        foreach($ownerProperties as $oneResult){$arrayProperties[] = $oneResult->getId();}
+            foreach($allProperties as $oneResult){$arrayProperties[] = $oneResult->getId();}
+
+            $resultOwners = $this->getDoctrine()
+                                 ->getManager()
+                                 ->createQuery('SELECT u.email, u.id
+                                                FROM ReservableActivityBundle:Activity a
+                                                INNER JOIN UserUserBundle:Users u 
+                                                WHERE u.id = a.ownerID
+                                                GROUP BY u.id')
+                                 ->getResult();
+
+            foreach($resultOwners as $oneResult){
+                $allOwners[$oneResult['id']]['email'] = $oneResult['email'];
+                $allOwners[$oneResult['id']]['ownerID'] = $oneResult['id'];
+            }
+        }
+        else{
+    		$ownerID = $this->get('security.context')->getToken()->getUser()->getId();
+
+    		$ownerProperties = $this->getDoctrine()
+                               ->getRepository('ReservableActivityBundle:Activity')
+                               ->findAllByOwnerID($ownerID);
+            
+            foreach($ownerProperties as $oneResult){$arrayProperties[] = $oneResult->getId();}
+        }
 
         $results = array();
 
@@ -64,6 +89,11 @@ class ConsultBookingsController extends Controller
                 $aux['clientSurname'] 	= $clientData->getSurname();
                 $aux['clientEmail'] 	= $clientData->getEmail();
 
+                $aux['ownerID']         = $propertyData->getOwnerID();
+                $aux['ownerEmail']      = $this->getDoctrine()
+                                               ->getRepository('UserUserBundle:Users')
+                                               ->getEmail($propertyData->getOwnerID());
+
                 $aux['calendar']        = $this->showCalendar($aux['startDate'], $aux['endDate'], $request->getLocale());
 
                 $results[] = $aux;
@@ -71,7 +101,7 @@ class ConsultBookingsController extends Controller
         }
 
 		return $this->render('BookingsBookingBundle:Consult:see-bookings.html.twig', 
-			array('bookings' => $results));
+			array('bookings' => $results, 'allOwners' => $allOwners));
 	}
 
     public function historyBookingsAction(Request $request){

@@ -217,7 +217,7 @@ h2{
     padding: 3px;
 }
 
-.ownerFilter{
+.ownerFilter, .bookingsFilter{
     text-align: right;
     margin: 20px;
 }

@@ -5,13 +5,25 @@
 	<h2>{% trans %}Gestionar reservas{% endtrans %}</h2>
 	<hr/>
 
+	{% if is_granted("ROLE_SUPER_ADMIN") %}
+		<div class="bookingsFilter">
+				{% trans %}Nº reserva{% endtrans %} <input name="reservationID" type="text" size="5" maxlength="6">
+				{%trans%}Ver{%endtrans%} <select name="filterByOwner" id="filterByOwner">
+					<option value="0">{% trans %}todos los propietarios{% endtrans %}</option>
+					{% for oneEmail in allOwners %}
+						<option value="{{ oneEmail.ownerID }}">{{ oneEmail.email }}</option>
+					{% endfor %}
+				</select> 
+		</div>
+	{% endif %}
+
 	{% if bookings is empty %}
 		<div class="alert alert-danger text-center">
 			<h4>{% trans %}No tiene reservas{% endtrans %}</h4>
 		</div>
 	{% else %}
 		{% for oneBooking in bookings %}
-			<div class="alert alert-warning">
+			<div class="alert alert-warning ownerEmail {{ oneBooking.ownerID }}">
 
 				{# Titulo de la propiedad #}
 				<div class="row clearfix">
@@ -23,6 +35,10 @@
 				{# Informacion de la reserva y calendario #}
 				<div class="row clearfix">
 					<div class="bookingData col-md-8 column">
+						{% if is_granted("ROLE_SUPER_ADMIN") %}
+							<p><b>{% trans %}Propietario{% endtrans %}</b>: {{ oneBooking.ownerEmail }}</p>
+						{% endif %}
+
 						<p><b>{% trans %}Precio{% endtrans %}</b>: &nbsp;{{ oneBooking.price }} &euro;</p>
 						{% if oneBooking.type == 'hour' %}
 							<p><b>{% trans %}Día{% endtrans %}</b> &nbsp;{{ oneBooking.startDateDay }}/{{ oneBooking.startDateMonth }}/{{ oneBooking.startDateYear }} <b>{% trans %}a las{% endtrans %}</b> {{ oneBooking.startDateHour }}</p>
@@ -31,7 +47,7 @@
 							<p><b>{% trans %}Salida{% endtrans %}</b>: &nbsp;{{ oneBooking.endDateDay }}/{{ oneBooking.endDateMonth }}/{{ oneBooking.endDateYear }}</p>
 						{% endif %}
 
-							<p><b>{% trans %}Cliente{% endtrans %}</b>: {{ oneBooking.clientName }} {{ oneBooking.clientSurname }}</p>
+						<p><b>{% trans %}Cliente{% endtrans %}</b>: {{ oneBooking.clientName }} {{ oneBooking.clientSurname }}</p>
 						<p><b>{% trans %}Email{% endtrans %}</b>: {{ oneBooking.clientEmail }}</p>
 					</div>
 
@@ -64,4 +80,21 @@
 			</div>
 		{% endfor %}
 	{% endif %}
+
+	<script>
+		var filterByOwner = document.getElementById("filterByOwner");
+
+		filterByOwner.onchange = function(){
+			var ownerID = filterByOwner.options[filterByOwner.selectedIndex].value;
+
+			if(ownerID == 0){
+				$('.ownerEmail').show('slow');
+			}
+			else{
+				$('.ownerEmail').hide('slow');
+ 				$('.'+ ownerID).show('slow');
+ 			}
+  		}
+	</script>
+
 {% endblock %}
