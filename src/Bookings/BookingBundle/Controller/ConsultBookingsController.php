@@ -54,9 +54,16 @@ class ConsultBookingsController extends Controller
 
         if(!empty($arrayProperties)){
 
-            $allBookings = $this->getDoctrine()
-                                ->getRepository('BookingsBookingBundle:Booking')
-                                ->getBookingsFromProperties($arrayProperties);
+            if($this->get('security.context')->isGranted('ROLE_SUPER_ADMIN') && isset($_POST['reservationID']) && !empty($_POST['reservationID'])){
+                $allBookings = $this->getDoctrine()
+                                    ->getRepository('BookingsBookingBundle:Booking')
+                                    ->getBookingID($_POST['reservationID']);
+            }
+            else{
+                $allBookings = $this->getDoctrine()
+                                    ->getRepository('BookingsBookingBundle:Booking')
+                                    ->getBookingsFromProperties($arrayProperties);
+            }
 
             foreach($allBookings as $oneBooking){
             	$propertyData 	= $this->getDoctrine()

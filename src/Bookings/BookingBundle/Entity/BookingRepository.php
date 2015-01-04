@@ -37,6 +37,14 @@ class BookingRepository extends EntityRepository
                     ->getResult();
     }
 
+    function getBookingID($bookingID){
+      return $this->getEntityManager()
+                    ->createQuery('SELECT b
+                                   FROM BookingsBookingBundle:Booking b
+                                   WHERE b.id = ' . $bookingID)
+                    ->getResult();
+    }
+
     function getBookingsFromPropertiesHistory($arrayProperties){
       return $this->getEntityManager()
                     ->createQuery('SELECT b

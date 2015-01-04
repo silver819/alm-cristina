@@ -7,13 +7,24 @@
 
 	{% if is_granted("ROLE_SUPER_ADMIN") %}
 		<div class="bookingsFilter">
-				{% trans %}Nº reserva{% endtrans %} <input name="reservationID" type="text" size="5" maxlength="6">
-				{%trans%}Ver{%endtrans%} <select name="filterByOwner" id="filterByOwner">
-					<option value="0">{% trans %}todos los propietarios{% endtrans %}</option>
-					{% for oneEmail in allOwners %}
-						<option value="{{ oneEmail.ownerID }}">{{ oneEmail.email }}</option>
-					{% endfor %}
-				</select> 
+			<table style="align:right;">
+				<tr>
+					<td>
+						<form method="POST">
+							{% trans %}Nº reserva{% endtrans %} <input name="reservationID" type="text" size="5" maxlength="6">
+							<button type="submit" class="btn" value="Send">OK</button>
+						</form>
+					</td>
+					<td>
+						{%trans%}Ver{%endtrans%} <select name="filterByOwner" id="filterByOwner">
+							<option value="0">{% trans %}todos los propietarios{% endtrans %}</option>
+							{% for oneEmail in allOwners %}
+								<option value="{{ oneEmail.ownerID }}">{{ oneEmail.email }}</option>
+							{% endfor %}
+						</select> 
+					</td>
+				</tr>
+			</table>
 		</div>
 	{% endif %}
 
@@ -35,6 +46,8 @@
 				{# Informacion de la reserva y calendario #}
 				<div class="row clearfix">
 					<div class="bookingData col-md-8 column">
+						<p><b>{% trans %}Nº reserva{% endtrans %}</b>: &nbsp;{{ oneBooking.bookingID }}</p>
+
 						{% if is_granted("ROLE_SUPER_ADMIN") %}
 							<p><b>{% trans %}Propietario{% endtrans %}</b>: {{ oneBooking.ownerEmail }}</p>
 						{% endif %}
