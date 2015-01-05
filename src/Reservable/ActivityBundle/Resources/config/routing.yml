@@ -49,3 +49,7 @@ registerPicture:
 details:
     path: /view-details/{property}
     defaults: { _controller: ReservableActivityBundle:View:viewDetails }
+
+view_users:
+    path: /view-users
+    defaults: { _controller: UserUserBundle:Consult:viewUsers }

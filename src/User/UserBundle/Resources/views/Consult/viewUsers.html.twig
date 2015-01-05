@@ -1,0 +1,62 @@
+{% extends '::admin.html.twig' %}
+
+{% block workspace %}
+
+	<h2>{% trans %}Ver usuarios{% endtrans %}</h2>
+	<hr/>
+
+	<div class="userFilter">
+			{%trans%}Filtrar{%endtrans%} <select name="filterByUser" id="filterByUser">
+				<option value="0">{% trans %}todos los usuarios{% endtrans %}</option>
+				{% for oneEmail in allEmails %}
+					<option value="{{ oneEmail.ownerID }}">{{ oneEmail.email }}</option>
+				{% endfor %}
+			</select> 
+	</div>
+
+	{% for oneUser in allUsers %}
+
+		{% set role = 'Desconcido' %}
+
+		{% if oneUser.role == "ROLE_SUPER_ADMIN" %}
+			{% set role = 'Administrador' %}
+			{% set class = 'alert-danger' %}
+		{% elseif oneUser.role == "ROLE_ADMIN" %}
+			{% set role = 'Propietario' %}
+			{% set class = 'alert-warning' %}
+		{% elseif oneUser.role == "ROLE_USER" %}
+			{% set role = 'Usuario' %}
+			{% set class = 'alert-success' %}
+		{% endif %}
+		
+		<div class="alert {{ class }} userDiv {{ oneUser.userID }}">
+
+			<span class="contentSpan">
+				<div class="nameDiv">
+					<h4><strong>{{ oneUser.name }} {{ oneUser.surname }}</a></strong></h4>
+				</div>
+				
+				<p>{{ role }}</p>
+			</span>
+
+		</div>
+
+	{% endfor %}
+
+	<script>
+		var filterByUser = document.getElementById("filterByUser");
+
+		filterByUser.onchange = function(){
+			var userID = filterByUser.options[filterByUser.selectedIndex].value;
+
+			if(userID == 0){
+				$('.userDiv').show('slow');
+			}
+			else{
+				$('.userDiv').hide('slow');
+ 				$('.'+ userID).show('slow');
+ 			}
+  		}
+	</script>
+
+{% endblock %}

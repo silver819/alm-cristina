@@ -168,4 +168,9 @@ class Users extends BaseUser
     {
         return $this->mobileNumber;
     }
+
+    public function getRole()
+    {
+        return $this->roles;
+    }
 }
