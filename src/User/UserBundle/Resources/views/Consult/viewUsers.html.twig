@@ -6,11 +6,18 @@
 	<hr/>
 
 	<div class="userFilter">
-			{%trans%}Filtrar{%endtrans%} <select name="filterByUser" id="filterByUser">
-				<option value="0">{% trans %}todos los usuarios{% endtrans %}</option>
+			{%trans%}Filtrar por email{%endtrans%} <select name="filterByUser" id="filterByUser">
+				<option value="0">{% trans %}todos{% endtrans %}</option>
 				{% for oneEmail in allEmails %}
 					<option value="{{ oneEmail.ownerID }}">{{ oneEmail.email }}</option>
 				{% endfor %}
+			</select> 
+			</br>
+			{%trans%}Filtrar por tipo de usuario{%endtrans%} <select name="filterByRole" id="filterByRole">
+				<option value="all">{% trans %}todos{% endtrans %}</option>
+				<option value="Admin">{% trans %}administradores{% endtrans %}</option>
+				<option value="Owner">{% trans %}propietarios{% endtrans %}</option>
+				<option value="User">{% trans %}usuarios{% endtrans %}</option>
 			</select> 
 	</div>
 
@@ -56,6 +63,32 @@
 				$('.userDiv').hide('slow');
  				$('.'+ userID).show('slow');
  			}
+  		}
+
+		var filterByRole = document.getElementById("filterByRole");
+
+		filterByRole.onchange = function(){
+			var selectedRole = filterByRole.options[filterByRole.selectedIndex].value;
+
+			switch(selectedRole) {
+				case 'Admin':
+					$('.userDiv').hide('slow');
+ 					$('.alert-danger').show('slow');
+					break;
+
+				case 'Owner':
+					$('.userDiv').hide('slow');
+ 					$('.alert-warning').show('slow');
+					break;
+
+				case 'User':
+					$('.userDiv').hide('slow');
+ 					$('.alert-success').show('slow');
+					break;
+
+				default:
+					$('.userDiv').show('slow');
+			}
   		}
 	</script>
 
