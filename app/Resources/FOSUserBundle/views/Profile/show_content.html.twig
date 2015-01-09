@@ -6,7 +6,35 @@
 		<div class="col-md-2 column"></div>
 
 		<div class="col-md-8 column text-center borderBox">
-			<div class="fos_user_user_show">
+			<div class="col-md-4 column text-center pictureDiv">
+				<a id="modal-uploadPicture" href="#modal-container-uploadPicture" role="button" class="btn" data-toggle="modal">
+					<i class="fa fa-user borderBox uploadPicture"></i>
+				</a>
+			</div>
+			
+			<div class="modal fade" id="modal-container-uploadPicture" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+							<h4 class="modal-title" id="myModalLabel">
+								{% trans %}Actualizar foto de perfil{% endtrans %}
+							</h4>
+						</div>
+						<form action="#">
+							<div class="modal-body">
+									<input type="file" name="pic">
+							</div>
+							<div class="modal-footer">
+								 <button type="button" class="btn btn-default" data-dismiss="modal">{% trans %}Cerrar{% endtrans %}</button>
+								 <button type="submit" class="btn btn-primary">{% trans %}Actualizar{% endtrans %}</button>
+							</div>
+						</form> 
+					</div>
+				</div>
+			</div>
+
+			<div class="col-md-8 column text-left fos_user_user_show innerBox">
 			    <p><b>{{ 'profile.show.username'|trans }}</b>: {{ user.username }}</p>
 			    <p><b>{{ 'profile.show.email'|trans }}</b>: {{ user.email }}</p>
 			    <p><b>{{ 'profile.show.name'|trans }}</b>: {{ user.name }}</p>
@@ -15,10 +43,10 @@
 			    <p><b>{% trans %}Movil{% endtrans %}</b>: {{ user.mobileNumber }}</p>
 			</div>
 
-			<br/>
-			
-			<a href="{{ path('fos_user_change_password') }}"><button class="btn btn-primary" type="button">{% trans %}Modificar contraseña{% endtrans %}</button></a>
-			<a href="{{ path('fos_user_profile_edit') }}"><button class="btn btn-primary" type="button"><em class="glyphicon glyphicon-pencil"></em>{% trans %}Modificar datos{% endtrans %}</button></a>
+			<div class="col-md-12 column text-center innerBox">
+				<a href="{{ path('fos_user_change_password') }}"><button class="btn btn-primary" type="button">{% trans %}Modificar contraseña{% endtrans %}</button></a>
+				<a href="{{ path('fos_user_profile_edit') }}"><button class="btn btn-primary" type="button"><em class="glyphicon glyphicon-pencil"></em>{% trans %}Modificar datos{% endtrans %}</button></a>
+			</div>
 		</div>
 		
 		<div class="col-md-2 column"></div>
