@@ -39,6 +39,72 @@
 			    <button class="btn btn-primary" id="_submit" name="_submit" type="submit"><span class="glyphicon glyphicon-log-in"></span>&nbsp;&nbsp;{{ 'security.login.submit'|trans }}</button>
 			</form>
 
+			{# Iniciar sesion  / Desconectar Google #}
+			<br/>
+			<span id="signinButton">
+				<span
+					class="g-signin"
+					data-callback="signinCallback"
+					data-clientid="235460544836-ilsujvd2b0ndogsg7fc0oo9ghs19t8gj.apps.googleusercontent.com"
+					data-cookiepolicy="single_host_origin"
+					data-requestvisibleactions="http://schemas.google.com/AddActivity"
+					data-scope="https://www.googleapis.com/auth/plus.login https://www.googleapis.com/auth/userinfo.email">
+				</span>
+			</span>
+
+			<br/>
+
+			<button class="btn" id="revokeButton" name="googleDisconect" type="submit" style="background-color:#DD4B39;color:white;height: 31px;padding-top: 1px;font-weight:bold;">
+				<span class="fa fa-google-plus" style="border-right: 1px solid #d43f3a;;font-size: 1.5em;padding-right: 4px;padding-top: 3px;"></span>&nbsp;&nbsp;{% trans %}Desconectar{% endtrans %}
+			</button>
+
+			{# Fin Iniciar sesion  / Desconectar Google #}
+
+			<script type="text/javascript">
+				function signinCallback(authResult) {
+					if (authResult['access_token']) {
+						// Autorizado correctamente
+						// Oculta el botón de inicio de sesión ahora que el usuario está autorizado, por ejemplo:
+						//document.getElementById('signinButton').setAttribute('style', 'display: hidden');
+
+						//alert(authResult['access_token']);
+					} else if (authResult['error']) {
+						// Se ha producido un error.
+						// Posibles códigos de error:
+						//   "access_denied": el usuario ha denegado el acceso a la aplicación.
+						//   "immediate_failed": no se ha podido dar acceso al usuario de forma automática.
+						// console.log('There was an error: ' + authResult['error']);
+					}
+				}
+
+				function disconnectUser(access_token) {
+					var revokeUrl = 'https://accounts.google.com/o/oauth2/revoke?token=' +
+					access_token;
+
+					// Realiza una solicitud GET asíncrona.
+					$.ajax({
+						type: 'GET',
+						url: revokeUrl,
+						async: false,
+						contentType: "application/json",
+						dataType: 'jsonp',
+						success: function(nullResponse) {
+							// aqui
+						},
+						error: function(e) {
+							alert("mal");
+							// Gestiona el error
+							// console.log(e);
+							// Puedes indicar a los usuarios que se desconecten de forma manual si se produce un error
+							// https://plus.google.com/apps
+						}
+					});
+				}
+				// Se puede activar la desconexión haciendo clic en un botón
+				$('#revokeButton').click(disconnectUser);
+			</script>
+
+
 		</div>
 		
 		<div class="col-md-4 column"></div>

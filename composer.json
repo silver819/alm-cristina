@@ -51,7 +51,8 @@
         "jquery/jquery":  "1.10.*",
         "friendsofsymfony/jsrouting-bundle": "@stable",
         "raulfraile/ladybug": "~1.0",
-        "google/apiclient": "1.0.*@beta"
+        "google/apiclient": "1.0.*@beta",
+        "hwi/oauth-bundle": "0.4.*@dev"
     },
     "scripts": {
         "post-install-cmd": [
