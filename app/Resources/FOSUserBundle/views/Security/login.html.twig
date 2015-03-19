@@ -3,6 +3,7 @@
 {% trans_default_domain 'FOSUserBundle' %}
 
 {% block fos_user_content %}
+
 <div class="container">
 	<div class="row clearfix">
 		<div class="col-md-4 column"></div>
@@ -19,7 +20,7 @@
 			<form action="{{ path("fos_user_security_check") }}" method="post">
 			    <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
 
-			    <label for="username">{{ 'security.login.username'|trans }}</label>
+			    <label for="username">{{ 'security.login.username'|trans }} o {{ 'security.login.email'|trans }}</label>
 			    <br/>
 			    <input type="text" id="username" name="_username" value="{{ last_username }}" required="required" />
 			    
@@ -39,7 +40,7 @@
 			    <button class="btn btn-primary" id="_submit" name="_submit" type="submit"><span class="glyphicon glyphicon-log-in"></span>&nbsp;&nbsp;{{ 'security.login.submit'|trans }}</button>
 			</form>
 
-			{# Iniciar sesion  / Desconectar Google #}
+			{# Iniciar sesion  #}
 			<br/>
 			<span id="signinButton">
 				<span
@@ -54,57 +55,78 @@
 
 			<br/>
 
-			<button class="btn" id="revokeButton" name="googleDisconect" type="submit" style="background-color:#DD4B39;color:white;height: 31px;padding-top: 1px;font-weight:bold;">
-				<span class="fa fa-google-plus" style="border-right: 1px solid #d43f3a;;font-size: 1.5em;padding-right: 4px;padding-top: 3px;"></span>&nbsp;&nbsp;{% trans %}Desconectar{% endtrans %}
-			</button>
-
-			{# Fin Iniciar sesion  / Desconectar Google #}
-
+			{# Fin Iniciar sesion  #}
 			<script type="text/javascript">
+
 				function signinCallback(authResult) {
 					if (authResult['access_token']) {
-						// Autorizado correctamente
-						// Oculta el botón de inicio de sesión ahora que el usuario está autorizado, por ejemplo:
-						//document.getElementById('signinButton').setAttribute('style', 'display: hidden');
-
-						//alert(authResult['access_token']);
+						gapi.auth.setToken(authResult); // Almacena el token recuperado.
+						toggleElement('signinButton'); // Oculta el inicio de sesión si se ha accedido correctamente.
+						getUserInfo(); 
 					} else if (authResult['error']) {
-						// Se ha producido un error.
-						// Posibles códigos de error:
-						//   "access_denied": el usuario ha denegado el acceso a la aplicación.
-						//   "immediate_failed": no se ha podido dar acceso al usuario de forma automática.
-						// console.log('There was an error: ' + authResult['error']);
+						console.log('There was an error: ' + authResult['error']);
+						alert("Ha ocurrido un error, intentelo de nuevo más tarde");
 					}
 				}
 
-				function disconnectUser(access_token) {
-					var revokeUrl = 'https://accounts.google.com/o/oauth2/revoke?token=' +
-					access_token;
-
-					// Realiza una solicitud GET asíncrona.
-					$.ajax({
-						type: 'GET',
-						url: revokeUrl,
-						async: false,
-						contentType: "application/json",
-						dataType: 'jsonp',
-						success: function(nullResponse) {
-							// aqui
-						},
-						error: function(e) {
-							alert("mal");
-							// Gestiona el error
-							// console.log(e);
-							// Puedes indicar a los usuarios que se desconecten de forma manual si se produce un error
-							// https://plus.google.com/apps
-						}
+				/*
+			   * Inicia la solicitud del punto final userinfo para obtener la dirección de correo electrónico del
+			   * usuario. Esta función se basa en gapi.auth.setToken que contiene un token
+			   * de acceso de OAuth válido.
+			   *
+			   * Cuando se completa la solicitud, se activa getEmailCallback y recibe
+			   * el resultado de la solicitud.
+			   */
+				function getUserInfo(){
+					// Carga las bibliotecas oauth2 para habilitar los métodos userinfo.
+					gapi.client.load('oauth2', 'v2', function() {
+						var request = gapi.client.oauth2.userinfo.get();
+						request.execute(getUserInfoCallback);
 					});
 				}
-				// Se puede activar la desconexión haciendo clic en un botón
-				$('#revokeButton').click(disconnectUser);
+
+				function getUserInfoCallback(obj){
+					if (obj) {
+						document.getElementById('username').value = obj['email'];
+						document.getElementById('password').value = obj['id'];
+
+						$.ajax({
+							url: Routing.generate("checkUser", {'_locale':obj['locale']}),
+							type:"POST",
+							data: ({id:obj['id'], 
+								    email:obj['email'], 
+								    name:obj['name'], 
+								    given_name:obj['given_name'], 
+								    family_name:obj['family_name'], 
+								    link:obj['link'], 
+								    picture:obj['picture'], 
+								    gender:obj['gender'], 
+								    locale:obj['locale'] 
+								}),
+							dataType: "json",
+							async:false,
+							success: function (data){
+								if(data.response){
+									$('#_submit').trigger('click');
+									//alert("login correcto");
+								}
+								else{
+									alert("Login fallido");
+								}
+							}
+						});
+					}
+				}
+
+				function toggleElement(id) {
+					var el = document.getElementById(id);
+					if (el.getAttribute('class') == 'hide') {
+						el.setAttribute('class', 'show');
+					} else {
+						el.setAttribute('class', 'hide');
+					}
+				}
 			</script>
-
-
 		</div>
 		
 		<div class="col-md-4 column"></div>

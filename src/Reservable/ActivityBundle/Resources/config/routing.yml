@@ -53,3 +53,11 @@ details:
 view_users:
     path: /view-users
     defaults: { _controller: UserUserBundle:Consult:viewUsers }
+
+checkUser:
+    pattern: /checkUser
+    defaults: { _controller: UserUserBundle:Consult:checkUser }
+    requirements:
+        _method:  GET|POST
+    options:
+        expose: true

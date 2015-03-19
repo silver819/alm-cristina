@@ -22,7 +22,11 @@
     
     <script src="{{ asset('js/jquery-ui-1.11.1.custom/jquery.ui.datepicker-es.js') }}" ></script>
     <!-- Google Maps API v3 -->
-    <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDLL5P2RZQGKixWd_9s2X1PAUyxrL7O8Qo&sensor=false&language={{ app.request.locale }}"></script>
+    <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyBlq3zbtFHWFL2PWZWFl9k2XfbmTICCvV0&sensor=false&language={{ app.request.locale }}"></script>
+
+    <!-- FOSjsRoutingBundle -->
+    <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+    <script src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
 
     <header class="navbar navbar-default " role="navigation">
         <div class="container">

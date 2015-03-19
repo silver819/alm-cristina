@@ -49,7 +49,7 @@
         "braincrafted/bootstrap-bundle": "~2.0",
         "twbs/bootstrap": "3.0.*",
         "jquery/jquery":  "1.10.*",
-        "friendsofsymfony/jsrouting-bundle": "@stable",
+        "friendsofsymfony/jsrouting-bundle": "~1.5",
         "raulfraile/ladybug": "~1.0",
         "google/apiclient": "1.0.*@beta",
         "hwi/oauth-bundle": "0.4.*@dev"

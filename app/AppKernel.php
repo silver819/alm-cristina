@@ -19,6 +19,7 @@ class AppKernel extends Kernel
             new Reservable\ActivityBundle\ReservableActivityBundle(),
             new Braincrafted\Bundle\BootstrapBundle\BraincraftedBootstrapBundle(),
             new FOS\UserBundle\FOSUserBundle(),
+            new FOS\JsRoutingBundle\FOSJsRoutingBundle(),
             new User\UserBundle\UserUserBundle(),
             new Bookings\BookingBundle\BookingsBookingBundle(),
             new HWI\Bundle\OAuthBundle\HWIOAuthBundle(),

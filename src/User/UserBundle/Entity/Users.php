@@ -173,4 +173,82 @@ class Users extends BaseUser
     {
         return $this->roles;
     }
+
+    /**
+     * Set salt
+     *
+     * @param string $salt
+     * @return Users
+     */
+    public function setSalt($salt)
+    {
+        $this->salt = $salt;
+    
+        return $this;
+    }
+
+    /**
+     * Set role
+     *
+     * @param string $role
+     * @return Users
+     */
+    public function setRole($role)
+    {
+        $this->role = $role;
+    
+        return $this;
+    }
+
+    /**
+     * Set username
+     *
+     * @param string $username
+     * @return Users
+     */
+    public function setUsername($username)
+    {
+        $this->username = $username;
+    
+        return $this;
+    }
+
+    /**
+     * Set usernameCanonical
+     *
+     * @param string $usernameCanonical
+     * @return Users
+     */
+    public function setUsernameCanonical($usernameCanonical)
+    {
+        $this->usernameCanonical = $usernameCanonical;
+    
+        return $this;
+    }
+
+    /**
+     * Set email
+     *
+     * @param string $email
+     * @return Users
+     */
+    public function setEmail($email)
+    {
+        $this->email = $email;
+    
+        return $this;
+    }
+
+    /**
+     * Set enabled
+     *
+     * @param string $enabled
+     * @return Users
+     */
+    public function setEnabled($enabled)
+    {
+        $this->enabled = $enabled;
+    
+        return $this;
+    }
 }
