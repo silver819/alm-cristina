@@ -101,7 +101,10 @@
                 <div class="text-center">
                     <button class="btn btn-primary" type="submit">{{ 'registration.submit'|trans({}, 'FOSUserBundle') }}</button>
                 </div>
-            {{ form_end(form) }}
+
+                {{ form_rest(form) }}
+
+            </form>
 
         </div>
         

@@ -9,6 +9,8 @@ security:
     providers:
         fos_userbundle:
             id: fos_user.user_provider.username_email
+        hwi:
+            id: hwi_oauth.user.provider
         in_memory:
             memory:
                 users:
@@ -23,7 +25,20 @@ security:
                 check_path: fos_user_security_check
                 provider: fos_userbundle
                 csrf_provider: form.csrf_provider
-                default_target_path: homepage
+                default_target_path: /es/consult-bookings
+            logout:
+                path: fos_user_security_logout
+                target: homepage
+            anonymous:    true
+        secured_area:
+            oauth:
+                resource_owners:
+                    facebook:      /login_facebook
+                    google:        /login_google
+                login_path:        /es/consult-bookings
+                failure_path:      /login
+                oauth_user_provider:
+                    service: my_user_provider
             logout:
                 path: fos_user_security_logout
                 target: homepage

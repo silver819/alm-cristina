@@ -38,7 +38,8 @@
 			    
 			    <button class="btn btn-primary" id="_submit" name="_submit" type="submit"><span class="glyphicon glyphicon-log-in"></span>&nbsp;&nbsp;{{ 'security.login.submit'|trans }}</button>
 			</form>
-
+            <br/><br/>
+            {% render(controller('HWIOAuthBundle:Connect:connect')) %}
 		</div>
 		
 		<div class="col-md-4 column"></div>

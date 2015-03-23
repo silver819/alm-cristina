@@ -1,3 +1,29 @@
+## FosUserBundle Routes
+fos_user:
+    resource: "@FOSUserBundle/Resources/config/routing/all.xml"
+    prefix:   /{_locale}/
+
+## HWIOAuthBundle routes
+hwi_oauth_redirect:
+    resource: "@HWIOAuthBundle/Resources/config/routing/redirect.xml"
+    prefix:   /connect
+
+
+hwi_oauth_security:
+    resource: "@HWIOAuthBundle/Resources/config/routing/login.xml"
+    prefix:   /connect
+
+hwi_oauth_connect:
+    resource: "@HWIOAuthBundle/Resources/config/routing/connect.xml"
+    prefix:   /connect
+
+facebook_login:
+    pattern: /facebook
+
+google_login:
+    pattern: /google
+
+## My own bundles
 user_user:
     resource: "@UserUserBundle/Controller/"
     type:     annotation
@@ -5,10 +31,6 @@ user_user:
 
 reservable_activity:
     resource: "@ReservableActivityBundle/Resources/config/routing.yml"
-    prefix:   /{_locale}/
-
-fos_user:
-    resource: "@FOSUserBundle/Resources/config/routing/all.xml"
     prefix:   /{_locale}/
 
 bookings_booking:
