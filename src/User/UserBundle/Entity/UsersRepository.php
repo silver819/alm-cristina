@@ -43,4 +43,14 @@ class UsersRepository extends EntityRepository
                                       FROM UserUserBundle:Users u')
                        ->getResult();
     }
+
+    function findByEmail($email){
+        $result = $this->getEntityManager()
+                       ->createQuery('SELECT u
+                                      FROM UserUserBundle:Users u
+                                      WHERE u.email = \'' . $email . '\'')
+                       ->getResult();
+
+        return (!empty($result)) ? $result[0] : false ;
+    }
 }

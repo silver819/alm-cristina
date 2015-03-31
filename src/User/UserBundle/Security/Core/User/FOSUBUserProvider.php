@@ -13,9 +13,6 @@ class FOSUBUserProvider extends BaseClass
      */
     public function connect(UserInterface $user, UserResponseInterface $response)
     {
-
-die("*******************");
-
         $property = $this->getProperty($response);
         $username = $response->getUsername();
 
@@ -46,7 +43,6 @@ die("*******************");
     public function loadUserByOAuthUserResponse(UserResponseInterface $response)
     {
 
-die("11111111111111111");
 
         $username = $response->getUsername();
         $user = $this->userManager->findUserBy(array($this->getProperty($response) => $username));
@@ -68,7 +64,6 @@ die("11111111111111111");
             $user->setPassword($username);
             $user->setEnabled(true);
             $this->userManager->updateUser($user);
-
             return $user;
         }
 

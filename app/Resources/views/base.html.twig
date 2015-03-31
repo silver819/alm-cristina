@@ -24,6 +24,10 @@
     <!-- Google Maps API v3 -->
     <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyBlq3zbtFHWFL2PWZWFl9k2XfbmTICCvV0&sensor=false&language={{ app.request.locale }}"></script>
 
+    <!-- FOSjsRoutingBundle -->
+    <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+    <script src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
+
     <header class="navbar navbar-default " role="navigation">
         <div class="container">
             <a class="navbar-brand brandClass" href="{{ path('homepage') }}">{% trans %}Almacen{% endtrans %}</a>
@@ -101,5 +105,16 @@
             </div>
         </div>
     </footer>
+
+    <!-- Coloca este JavaScript asíncrono justo delante de la etiqueta </body> -->
+    <script type="text/javascript">
+      (function() {
+       var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+       po.src = 'https://apis.google.com/js/client:plusone.js';
+       var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+     })();
+    </script>
+
+
 </body>
 </html>

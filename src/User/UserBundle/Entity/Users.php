@@ -195,7 +195,6 @@ class Users extends BaseUser
     public function setFacebookId($id)
     {
         $this->facebook_id = $id;
-
         return $this;
     }
 
@@ -218,7 +217,6 @@ class Users extends BaseUser
     public function setFacebookAccessToken($token)
     {
         $this->facebook_access_token = $token;
-
         return $this;
     }
 
@@ -241,7 +239,6 @@ class Users extends BaseUser
     public function setGoogleId($id)
     {
         $this->google_id = $id;
-
         return $this;
     }
 
@@ -264,7 +261,6 @@ class Users extends BaseUser
     public function setGoogleAccessToken($token)
     {
         $this->google_access_token = $token;
-
         return $this;
     }
 
