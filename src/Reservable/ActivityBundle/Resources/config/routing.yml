@@ -15,7 +15,7 @@ activityRegistered:
     defaults: { _controller: ReservableActivityBundle:Registration:registeredActivity }
 
 view_activities:
-    path: /view-properties
+    path: /admin/view-properties
     defaults: { _controller: ReservableActivityBundle:View:view }
 
 modify_property:
@@ -49,6 +49,14 @@ registerPicture:
 details:
     path: /view-details/{property}
     defaults: { _controller: ReservableActivityBundle:View:viewDetails }
+
+adminDetails:
+    path: /admin/view-details/{property}
+    defaults: { _controller: ReservableActivityBundle:Admin:viewDetails }
+
+adminDetailsModif:
+    path: /admin/view-details/{property}/modif
+    defaults: { _controller: ReservableActivityBundle:Admin:modifDetails }
 
 view_users:
     path: /view-users
