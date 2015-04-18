@@ -1,6 +1,8 @@
 homepage:
-    path: /
+    pattern: /
     defaults: { _controller: ReservableActivityBundle:Default:homepage }
+    requirements:
+            _method:  GET
 
 new_activity:
     path: /new-property
@@ -57,6 +59,22 @@ adminDetails:
 adminDetailsModif:
     path: /admin/view-details/{property}/modif
     defaults: { _controller: ReservableActivityBundle:Admin:modifDetails }
+
+activeModif:
+    path: /admin/view-details/{property}/active
+    defaults: { _controller: ReservableActivityBundle:Admin:modifActive }
+
+deleteModif:
+    path: /admin/view-details/{property}/delete
+    defaults: { _controller: ReservableActivityBundle:Admin:modifDelete }
+
+deactiveModif:
+    path: /admin/view-details/{property}/deactive
+    defaults: { _controller: ReservableActivityBundle:Admin:modifDeactive }
+
+modifDetailsProperty:
+    path: /admin/view-details/{property}/modif/save
+    defaults: { _controller: ReservableActivityBundle:Admin:saveModifDetails }
 
 view_users:
     path: /view-users

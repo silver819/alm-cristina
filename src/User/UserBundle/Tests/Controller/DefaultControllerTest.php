@@ -45,7 +45,7 @@ class DefaultControllerTest extends WebTestCase
 
         // tearDown
 
-        $this->assertTrue($crawler->filter('html:contains("Nombre de usuario:")')->count() > 0);
+        $this->assertTrue($crawler->filter('html:contains("Entrar")')->count() > 0);
     }
 
     // Registrar usuario
@@ -75,7 +75,7 @@ class DefaultControllerTest extends WebTestCase
     // Modificar usuario
     public function testModifyUser()
     {
-        fwrite(STDOUT, "*** TEST Login WRONG ***\n");
+        fwrite(STDOUT, "*** TEST Modify User ***\n");
         $client             = static::createClient();
         $client->followRedirects(true);
         $crawler            = $client->request('GET', '/es/login');

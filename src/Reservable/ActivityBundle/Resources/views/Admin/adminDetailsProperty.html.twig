@@ -4,19 +4,26 @@
 		<div class="clear margin"></div>
 
             <span style="float:right;">
-                <a id="modify-{{ details.id }}" href="{{ details.id }}/modif" role="button" class="btn" data-toggle="modal">
+
+                {% if app.environment == "dev" %}
+                    {% set baseUrl = "/app_dev.php/" ~ app.request.locale ~ "/admin/view-details/" ~ details.id  %}
+                {% else %}
+                    {% set baseUrl = "/" ~ app.request.locale ~ "/admin/view-details/" ~ details.id  %}
+                {% endif %}
+
+                <a id="modify" href="{{ baseUrl }}/modif">{% trans %}Modificar{% endtrans %}
                     <i style="color:blue;" class="glyphicon glyphicon-edit" title="{% trans %}Modificar propiedad{% endtrans %}"></i>
                 </a>
                 {% if details.active %}
-                    <a id="modal-link-deactive-{{ details.id }}" href="#modal-deactive-{{ details.id }}" role="button" class="btn" data-toggle="modal">
+                    <a id="deactive" href="{{ baseUrl }}/deactive">{% trans %}Desactivar{% endtrans %}
                         <i style="color:green;" class="glyphicon glyphicon-eye-open" title="{% trans %}Activo{% endtrans %}"></i>
                     </a>
                 {% else %}
-                    <a id="modal-link-active-{{ details.id }}" href="#modal-active-{{ details.id }}" role="button" class="btn" data-toggle="modal">
+                    <a id="active" href="{{ baseUrl }}/active">{% trans %}Activar{% endtrans %}
                         <i style="color:grey;" class="glyphicon glyphicon-eye-close" title="{% trans %}Desactivo{% endtrans %}"></i>
                     </a>
                 {% endif %}
-                <a id="modal-link-delete-{{ details.id }}" href="#modal-delete-{{ details.id }}" role="button" class="btn" data-toggle="modal">
+                <a id="delete" href="{{ baseUrl }}/delete">{% trans %}Eliminar{% endtrans %}
                     <i style="color:red;" class="glyphicon glyphicon-trash" title="{% trans %}Eliminar propiedad{% endtrans %}"></i>
                 </a>
             </span>

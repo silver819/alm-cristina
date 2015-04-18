@@ -1,60 +1,53 @@
 {% extends '::admin.html.twig' %}
 
 {% block workspace %}
-		<div class="clear margin"></div>
+    <form action="modif/save" method="post">
 
-            <span style="float:right;">
-                <a id="modify-{{ details.id }}" href="{{ details.id }}/modif" role="button" class="btn" data-toggle="modal">
-                    <i style="color:blue;" class="glyphicon glyphicon-edit" title="{% trans %}Modificar propiedad{% endtrans %}"></i>
-                </a>
-                {% if details.active %}
-                    <a id="modal-link-deactive-{{ details.id }}" href="#modal-deactive-{{ details.id }}" role="button" class="btn" data-toggle="modal">
-                        <i style="color:green;" class="glyphicon glyphicon-eye-open" title="{% trans %}Activo{% endtrans %}"></i>
-                    </a>
-                {% else %}
-                    <a id="modal-link-active-{{ details.id }}" href="#modal-active-{{ details.id }}" role="button" class="btn" data-toggle="modal">
-                        <i style="color:grey;" class="glyphicon glyphicon-eye-close" title="{% trans %}Desactivo{% endtrans %}"></i>
-                    </a>
-                {% endif %}
-                <a id="modal-link-delete-{{ details.id }}" href="#modal-delete-{{ details.id }}" role="button" class="btn" data-toggle="modal">
-                    <i style="color:red;" class="glyphicon glyphicon-trash" title="{% trans %}Eliminar propiedad{% endtrans %}"></i>
-                </a>
-            </span>
-            <div class="clear"></div>
-			{% if pictures is not empty %}
-                <div class="carousel slide" id="carousel-details">
-                    <ol class="carousel-indicators">
-                        {% for onePicture in pictures %}
-                            {% if loop.index0 == 0 %}
-                                <li class="active" data-slide-to="0" data-target="#carousel-details"></li>
-                            {% else %}
-                                <li data-slide-to="{{ loop.index0 }}" data-target="#carousel-details"></li>
-                            {% endif %}
-                        {% endfor %}
-                    </ol>
-                    <div class="carousel-inner">
-                        {% for onePicture in pictures %}
-                            {% if loop.index0 == 0 %}
-                                <div class="item active imageCarouselDetails">
-                                    <img alt="" src="/images/properties/{{ onePicture }}" />
-                                </div>
-                            {% else %}
-                                <div class="item imageCarouselDetails">
-                                    <img alt="" src="/images/properties/{{ onePicture }}" />
-                                </div>
-                            {% endif %}
-                        {% endfor %}
+        {% if pictures is not empty %}
+            <div class="col-md-3 column">
+                {% for onePicture in pictures %}
+                    <div class="item">
+                        <img alt="" width="100" src="/images/properties/{{ onePicture }}" />
                     </div>
-                    <a class="left carousel-control" href="#carousel-details" data-slide="prev"><span class="glyphicon glyphicon-chevron-left"></span></a>
-                    <a class="right carousel-control" href="#carousel-details" data-slide="next"><span class="glyphicon glyphicon-chevron-right"></span></a>
-                </div>
-            {% endif %}
-			<div class="clear margin"></div>
+                {% endfor %}
+            </div>
+        {% endif %}
 
-			<p class="desc-icon">
-				<i class="fa fa-quote-left fa-3x pull-left fa-border"></i><p>{{ details.description }}</p>
-			</p>
-			<div class="clear"></div>
-		</div>
+        <div class="col-md-9 column">
+            <input type="hidden" name="productID" class="productID" value="{{ details.id }}">
+            <h2><input type="text" name="name" style="width:100%;color: #8a6d3b;" value="{{ details.name }}"></h2>
 
+            <div class="clear"></div>
+
+            <div style="float:right;">
+                <input type="number" name="price" value="{{ details.price }}"> {{ details.typeRent }}
+            </div>
+
+            <div class="clear"></div>
+
+            <div class="clear"></div>
+
+            <p class="desc-icon">
+                <i class="fa fa-quote-left fa-1x pull-left fa-border"></i> {% trans %}Descripción{% endtrans %}
+                <textarea style="width:100%;">
+                    {{ details.description | trim }}
+                </textarea>
+            </p>
+
+            <div class="clear"></div>
+
+            <div>
+                <input type="text" name="address" value="{{ details.address }}">
+
+                mapa
+            </div>
+
+            <div class="clear"></div>
+
+            <div style="margin:auto;">
+                <button name="submit" value="Send" class="btn btn-success" type="submit"><i class="glyphicon glyphicon-ok"></i>&nbsp;{% trans %}Guardar{% endtrans %}</button>
+                <button type="button" class="btn btn-danger"><i class="glyphicon glyphicon-remove"></i>&nbsp;{% trans %}Cancelar{% endtrans %}</button>
+            </div>
+        </div>
+    </form>
 {% endblock %}

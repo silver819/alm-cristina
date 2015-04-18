@@ -53,9 +53,48 @@ class DefaultControllerTest extends WebTestCase
         fwrite(STDOUT, "\t- User logged\n");
 
         // Ir a la página de actividades
-        $crawler            = $client->request('GET', '/es/view-properties');
+        $crawler            = $client->request('GET', '/es/admin/view-properties');
         fwrite(STDOUT, "\t- Clicked on the link to view the lodging\n");
+
+        // Selección de una propiedad
+        $link = $crawler->selectLink('Automatic lodging')->link();
+        $crawler = $client->click($link);
+        $this->assertTrue($crawler->filter('html:contains("Propiedad dada de alta automaticamente")')->count() > 0);
+
+        // Modificar
+        $link = $crawler->selectLink('Modificar')->link();
+        $crawler = $client->click($link);
+        fwrite(STDOUT, "\t- Clicked on the modify link\n");
+        $this->assertTrue($crawler->filter('html:contains("Guardar")')->count() > 0);
+        $form               = $crawler->selectButton('submit')->form();
+        $form['name']       = 'Automatic lodging 2';
+        $crawler            = $client->submit($form);
+        $this->assertTrue($crawler->filter('html:contains("Modificar")')->count() > 0);
+        fwrite(STDOUT, "\t- Correct modification\n");
+
+        // Desactivar
+        $crawler            = $client->request('GET', '/es/admin/view-properties');
+        $link = $crawler->selectLink('Automatic lodging')->link();
+        $crawler = $client->click($link);
+        $link = $crawler->selectLink('Desactivar')->link();
+        $crawler = $client->click($link);
+        fwrite(STDOUT, "\t- Clicked on the deactive link\n");
+        $this->assertTrue($crawler->filter('html:contains("Activar")')->count() > 0);
+        fwrite(STDOUT, "\t- Correct deactivation\n");
+
+        // Activar
+        $link = $crawler->selectLink('Activar')->link();
+        $crawler = $client->click($link);
+        fwrite(STDOUT, "\t- Clicked on the active link\n");
+        $this->assertTrue($crawler->filter('html:contains("Desactivar")')->count() > 0);
+        fwrite(STDOUT, "\t- Correct activarion\n");
+
+        // Eliminar
+        $link = $crawler->selectLink('Eliminar')->link();
+        $crawler = $client->click($link);
+        fwrite(STDOUT, "\t- Clicked on the delete link\n");
         $this->assertTrue($crawler->filter('html:contains("Ver propiedades")')->count() > 0);
+        fwrite(STDOUT, "\t- Correct deletion\n");
 
         // tearDown
     }
