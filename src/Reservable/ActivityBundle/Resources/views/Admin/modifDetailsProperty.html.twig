@@ -1,6 +1,12 @@
 {% extends '::admin.html.twig' %}
 
 {% block workspace %}
+    {% if app.environment == "dev" %}
+        {% set baseUrl = "/app_dev.php/" ~ app.request.locale ~ "/admin/view-details/" ~ details.id  %}
+    {% else %}
+        {% set baseUrl = "/" ~ app.request.locale ~ "/admin/view-details/" ~ details.id  %}
+    {% endif %}
+
     <form action="modif/save" method="post">
 
         {% if pictures is not empty %}
@@ -46,7 +52,7 @@
 
             <div style="margin:auto;">
                 <button name="submit" value="Send" class="btn btn-success" type="submit"><i class="glyphicon glyphicon-ok"></i>&nbsp;{% trans %}Guardar{% endtrans %}</button>
-                <button type="button" class="btn btn-danger"><i class="glyphicon glyphicon-remove"></i>&nbsp;{% trans %}Cancelar{% endtrans %}</button>
+                <a href="{{ baseUrl }}"><button type="button" class="btn btn-danger"><i class="glyphicon glyphicon-remove"></i>&nbsp;{% trans %}Cancelar{% endtrans %}</button></a>
             </div>
         </div>
     </form>
