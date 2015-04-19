@@ -49,7 +49,7 @@ class DefaultControllerTest extends WebTestCase
     }
 
     // Registrar usuario
-    /*public function testNewUser()
+    public function testNewUser()
     {
         fwrite(STDOUT, "*** TEST Register user ***\n");
 
@@ -70,7 +70,7 @@ class DefaultControllerTest extends WebTestCase
         fwrite(STDOUT, "\t- Form sended\n");
         fwrite(STDOUT, "\t- User registered\n");
         $this->assertTrue($crawler->filter('html:contains("Solo queda un paso...")')->count() > 0);
-    }*/
+    }
 
     // Modificar usuario
     public function testModifyUser()
@@ -104,5 +104,35 @@ class DefaultControllerTest extends WebTestCase
         $crawler            = $client->submit($form);
         fwrite(STDOUT, "\t- Form sended\n");
         $this->assertTrue($crawler->filter('html:contains("Cristina")')->count() > 0);
+    }
+
+    // Eliminar usuario
+    public function testDeleteUser()
+    {
+        fwrite(STDOUT, "*** TEST Delete user ***\n");
+        $client             = static::createClient();
+        $client->followRedirects(true);
+        $crawler            = $client->request('GET', '/es/login');
+
+        $form               = $crawler->selectButton('_submit')->form();
+        $form['_username']  = 'admin';
+        $form['_password']  = 'admin';
+
+        fwrite(STDOUT, "\t- User admin logged\n");
+        $crawler            = $client->submit($form);
+        $this->assertTrue($crawler->filter('html:contains("Gestionar reservas")')->count() > 0);
+
+        $crawler            = $client->request('GET', '/es/view-users');
+        fwrite(STDOUT, "\t- Click on the link to admin users\n");
+
+        $link = $crawler->selectLink('Cristina Test')->link();
+        $crawler = $client->click($link);
+        fwrite(STDOUT, "\t- Click on the user to delete\n");
+
+        $link = $crawler->selectLink('Eliminar')->link();
+        $crawler = $client->click($link);
+        fwrite(STDOUT, "\t- Clicked on the delete user link\n");
+        $this->assertTrue($crawler->filter('html:contains("Ver usuarios")')->count() > 0);
+        fwrite(STDOUT, "\t- Correct deletion\n");
     }
 }

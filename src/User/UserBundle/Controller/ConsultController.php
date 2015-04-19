@@ -42,6 +42,70 @@ class ConsultController extends Controller
 
 	}
 
+    public function viewUsersModifAction($userId){
+        if(!$this->get('security.context')->isGranted('ROLE_USER')) {
+            throw new AccessDeniedException();
+        }
+
+        $thisUser = $this->getDoctrine()
+            ->getRepository('UserUserBundle:Users')
+            ->getUserByUserID($userId);
+
+        $thisUserData = array();
+        $thisUserData['name']       = $thisUser->getName();
+        $thisUserData['email']      = $thisUser->getEmail();
+        $thisUserData['id']         = $thisUser->getId();
+        $thisUserData['role']       = $thisUser->getRole();
+        $thisUserData['surname']    = $thisUser->getSurname();
+
+        return $this->render('UserUserBundle:Consult:viewUsersModif.html.twig',
+            array('oneUser' => $thisUserData));
+    }
+
+    public function deleteUserAction($userId){
+        if(!$this->get('security.context')->isGranted('ROLE_USER')) {
+            throw new AccessDeniedException();
+        }
+
+        // Eliminar usuario
+        $adminId = $this->get('security.context')->getToken()->getUser()->getId();
+
+        $changeOwner = $this->getDoctrine()
+            ->getManager()
+            ->createQuery("UPDATE ReservableActivityBundle:Activity a
+                           SET   a.ownerID = " . $adminId . ", a.active = 0
+                           WHERE a.ownerID = " . $userId)
+            ->getResult();
+
+        $deleteOwner = $this->getDoctrine()->getManager()
+            ->createQuery("DELETE FROM UserUserBundle:Users u WHERE u.id = " . $userId)
+            ->getResult();
+
+        // Datos para plantilla twig
+        $allUsers = array();
+
+        $users = $this->getDoctrine()
+            ->getRepository('UserUserBundle:Users')
+            ->findAllUsers();
+
+        foreach($users as $oneUser){
+            $aux['userID']		= ucwords($oneUser->getID());
+            $aux['name']		= ucwords($oneUser->getName());
+            $aux['surname']		= ucwords($oneUser->getSurname());
+            $role				= $oneUser->getRole();
+            $aux['role']		= $role[0];
+
+            $allUsers[] = $aux;
+
+            $auxEmail['ownerID']	= $oneUser->getID();
+            $auxEmail['email']		= $oneUser->getEmail();
+            $allEmails[] 			= $auxEmail;
+        }
+
+        return $this->render('UserUserBundle:Consult:viewUsers.html.twig',
+            array('allUsers' => $allUsers, 'allEmails' => $allEmails));
+    }
+
 	public function checkUserAction(){
 		$request = $this->getRequest();
 

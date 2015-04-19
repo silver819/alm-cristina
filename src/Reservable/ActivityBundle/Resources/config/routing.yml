@@ -80,6 +80,14 @@ view_users:
     path: /view-users
     defaults: { _controller: UserUserBundle:Consult:viewUsers }
 
+view_users_modif:
+    path: /view-users/{userId}
+    defaults: { _controller: UserUserBundle:Consult:viewUsersModif }
+
+view_users_delete:
+    path: /view-users/{userId}/delete
+    defaults: { _controller: UserUserBundle:Consult:deleteUser }
+
 checkUser:
     pattern: /checkUser
     defaults: { _controller: UserUserBundle:Consult:checkUser }

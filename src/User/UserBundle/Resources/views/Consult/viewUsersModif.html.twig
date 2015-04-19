@@ -1,0 +1,39 @@
+{% extends '::admin.html.twig' %}
+
+{% block workspace %}
+
+    <h2>{% trans %}Ver usuarios{% endtrans %}</h2>
+    <hr/>
+
+    {% if app.environment == "dev" %}
+        {% set baseUrl = "/app_dev.php/" ~ app.request.locale ~ "/view-users/" ~ oneUser.id %}
+    {% else %}
+        {% set baseUrl = "/" ~ app.request.locale ~ "/view-users/" ~ oneUser.id %}
+    {% endif %}
+
+    {% set role = 'Desconcido' %}
+    {% if oneUser.role == "ROLE_SUPER_ADMIN" %}
+        {% set role = 'Administrador' %}
+        {% set class = 'alert-danger' %}
+    {% elseif oneUser.role == "ROLE_ADMIN" %}
+        {% set role = 'Propietario' %}
+        {% set class = 'alert-warning' %}
+    {% elseif oneUser.role == "ROLE_USER" %}
+        {% set role = 'Usuario' %}
+        {% set class = 'alert-success' %}
+    {% endif %}
+
+    <div class="alert {{ class }} userDiv {{ oneUser.userID }}">
+
+        <div style="float:right">
+            <a href="{{ baseUrl }}/delete">{% trans %}Eliminar{% endtrans %}</a>
+        </div>
+
+        <span class="contentSpan">
+			<div class="nameDiv">
+                <h4><strong>{{ oneUser.name }} {{ oneUser.surname }}</strong></h4>
+            </div>
+			<p>{{ role }}</p>
+		</span>
+    </div>
+{% endblock %}
