@@ -62,8 +62,14 @@
                                     .adminLI a:hover{background-color: #E78A37 !important;}
                                 </style>
 
+                                {% if app.environment == "dev" %}
+                                    {% set adminUrl = "/app_dev.php/" ~ app.request.locale ~ "/superUserAdmin"  %}
+                                {% else %}
+                                    {% set adminUrl = "/" ~ app.request.locale ~ "/superUserAdmin"  %}
+                                {% endif %}
+
                                 <li class="adminLI">
-                                    <a href="superUserAdmin" target="_blank">
+                                    <a href="{{ adminUrl }}" target="_blank">
                                         <span class="glyphicon glyphicon-wrench"></span>
                                         &nbsp;&nbsp;{% trans %}Administración{% endtrans %}
                                     </a>
