@@ -55,6 +55,21 @@
                 <li class="dropdown menuDropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">{% trans %}Mi cuenta{% endtrans %}&nbsp;<strong class="caret"></strong></a>
                     {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
                         <ul class="dropdown-menu">
+                            {% if is_granted("ROLE_SUPER_ADMIN") %}
+                                <style>
+                                    .adminLI{background-color: #E78A37;padding-bottom: 5px;padding-top:5px;}
+                                    .adminLI a{color: #FFFFFF !important;}
+                                    .adminLI a:hover{background-color: #E78A37 !important;}
+                                </style>
+
+                                <li class="adminLI">
+                                    <a href="superUserAdmin" target="_blank">
+                                        <span class="glyphicon glyphicon-wrench"></span>
+                                        &nbsp;&nbsp;{% trans %}Administración{% endtrans %}
+                                    </a>
+                                </li>
+                                <li class="divider"></li>
+                            {% endif %}
                             <li>
                                 <a href="{{ path('consultBookings') }}"><span class="glyphicon glyphicon-th-list"></span>&nbsp;&nbsp;{% trans %}Menu{% endtrans %}</a>
                             </li>

@@ -23,6 +23,7 @@ class AppKernel extends Kernel
             new User\UserBundle\UserUserBundle(),
             new Bookings\BookingBundle\BookingsBookingBundle(),
             new HWI\Bundle\OAuthBundle\HWIOAuthBundle(),
+            new JavierEguiluz\Bundle\EasyAdminBundle\EasyAdminBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

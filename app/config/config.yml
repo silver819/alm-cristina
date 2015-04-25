@@ -139,3 +139,53 @@ fos_user:
 services:
     hwi_oauth.user.provider.entity:
         class: HWI\Bundle\OAuthBundle\Security\Core\User\OAuthUserProvider
+
+## EasyAdminBundle
+easy_admin:
+    site_name: 'ADMIN PANEL'
+    entities:
+        Usuarios:
+            class: User\UserBundle\Entity\Users
+            list:
+                title: 'Usuarios'
+                fields:
+                    - { property: 'name',         label: 'Nombre' }
+                    - { property: 'surname',      label: 'Apellido'}
+                    - { property: 'email',        label: 'Email'}
+                    - { property: 'phoneNumber',  label: 'Teléfono fijo'}
+                    - { property: 'mobileNumber', label: 'Teléfono movil'}
+                    - { property: 'username',     label: 'Nombre de usuario'}
+                    - { property: 'enabled',      label: 'Activo' }
+                    - { property: 'last_login',   label: 'Ultimo acceso' }
+                    - { property: 'locked',       label: 'Bloqueado' }
+                    - { property: 'roles',        label: 'Tipo de usuario'}
+            show:
+                title: 'Usuarios'
+                fields:
+                    - { property: 'name',         label: 'Nombre' }
+                    - { property: 'surname',      label: 'Apellido'}
+                    - { property: 'email',        label: 'Email'}
+                    - { property: 'phoneNumber',  label: 'Teléfono fijo'}
+                    - { property: 'mobileNumber', label: 'Teléfono movil'}
+                    - { property: 'username',     label: 'Nombre de usuario'}
+                    - { property: 'enabled',      label: 'Activo' }
+                    - { property: 'last_login',   label: 'Ultimo acceso' }
+                    - { property: 'locked',       label: 'Bloqueado' }
+                    - { property: 'roles',        label: 'Tipo de usuario'}
+            edit:
+                title: 'Editar usuario'
+                fields:
+                    - { property: 'name',         label: 'Nombre' }
+                    - { property: 'surname',      label: 'Apellido'}
+                    - { property: 'phoneNumber',  label: 'Teléfono fijo',     type: 'number' }
+                    - { property: 'mobileNumber', label: 'Teléfono movil',    type: 'number' }
+                    - { property: 'username',     label: 'Nombre de usuario', help: 'Alfanuméricos' }
+                    - { property: 'enabled',      label: 'Activo' }
+                    - { property: 'locked',       label: 'Bloqueado' }
+                    - { property: 'roles',        label: 'Tipo de usuario',   help: 'ROLE_USER, ROLE_ADMIN, ROLE_SUPER_ADMIN' }
+        Propiedades:
+            class: Reservable\ActivityBundle\Entity\Activity
+        Imagenes:
+            class: Reservable\ActivityBundle\Entity\Picture
+        Reservas:
+            class: Bookings\BookingBundle\Entity\Booking

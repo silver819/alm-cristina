@@ -23,6 +23,12 @@ facebook_login:
 google_login:
     pattern: /google
 
+## EasyAdminBundle
+easy_admin_bundle:
+    resource: "@EasyAdminBundle/Controller/"
+    type:     annotation
+    prefix:   /{_locale}/superUserAdmin
+
 ## My own bundles
 user_user:
     resource: "@UserUserBundle/Controller/"
@@ -39,3 +45,5 @@ bookings_booking:
 
 fos_js_routing:
     resource: "@FOSJsRoutingBundle/Resources/config/routing/routing.xml"
+
+

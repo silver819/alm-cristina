@@ -5,27 +5,29 @@
 <div class="col-md-1 column"></div>
 
 <div class="col-md-3 column">
-	{% if is_granted("ROLE_SUPER_ADMIN") %}
-		<h3>{% trans %}Menú administrador{% endtrans %}</h3>
+    {#
+    {% if is_granted("ROLE_SUPER_ADMIN") %}
+        <h3>{% trans %}Menú administrador{% endtrans %}</h3>
 
-		<div class="panel panel-default">
-			<a class="anchor-menu" href="{{ path('view_activities') }}">
-				<div class="panel-heading menu-header liner-bottom">
-					<h3 class="panel-title"><span style="font-style:normal;" class="fa-building-o"></span>&nbsp;{% trans %}Propiedades{% endtrans %}</h3>
-				</div>
-			</a>
-			<a class="anchor-menu" href="{{ path('consultBookings') }}">
-				<div class="panel-heading menu-header liner-bottom">
-					<h3 class="panel-title"><span style="font-style:normal;" class="fa-check-square-o"></span>&nbsp;{% trans %}Reservas{% endtrans %}</h3>
-				</div>
-			</a>
-			<a class="anchor-menu" href="{{ path('view_users') }}">
-				<div class="panel-heading menu-header liner-bottom">
-					<h3 class="panel-title"><span style="font-style:normal;" class="fa-users"></span>&nbsp;{% trans %}Usuarios{% endtrans %}</h3>
-				</div>
-			</a>
-		</div>
-	{% endif %}
+        <div class="panel panel-default">
+            <a class="anchor-menu" href="{{ path('view_activities') }}">
+                <div class="panel-heading menu-header liner-bottom">
+                    <h3 class="panel-title"><span style="font-style:normal;" class="fa-building-o"></span>&nbsp;{% trans %}Propiedades{% endtrans %}</h3>
+                </div>
+            </a>
+            <a class="anchor-menu" href="{{ path('consultBookings') }}">
+                <div class="panel-heading menu-header liner-bottom">
+                    <h3 class="panel-title"><span style="font-style:normal;" class="fa-check-square-o"></span>&nbsp;{% trans %}Reservas{% endtrans %}</h3>
+                </div>
+            </a>
+            <a class="anchor-menu" href="{{ path('view_users') }}">
+                <div class="panel-heading menu-header liner-bottom">
+                    <h3 class="panel-title"><span style="font-style:normal;" class="fa-users"></span>&nbsp;{% trans %}Usuarios{% endtrans %}</h3>
+                </div>
+            </a>
+        </div>
+    {% endif %}
+    #}
 
 	{% if is_granted("ROLE_ADMIN") %}
 		<h3>{% trans %}Menú propietario{% endtrans %}</h3>
