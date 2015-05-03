@@ -286,6 +286,8 @@ echo "<br/>---------------------------------------------------------------------
 
     private function showCalendar($since, $to = 0, $Lang = 'es'){
 
+        $daysPrinted = array();
+
         $showPeriod = false;
         $SDday      = substr($since, 6, 2);
         $SDmonth    = substr($since, 4, 2);
@@ -372,8 +374,9 @@ echo "<br/>---------------------------------------------------------------------
             else{
                 $printDay = true;
                 foreach($bookings as $oneBooking){
-                    if($oneBooking['from'] <= $currentDay && $currentDay < $oneBooking['to']){
+                    if($oneBooking['from'] <= $currentDay && $currentDay < $oneBooking['to'] && !in_array($currentDay, $daysPrinted)){
                         $printDay = false;
+                        $daysPrinted[] = $currentDay;
                         $stringCalendar .= '<td><span title="' . $oneBooking['bookingID'] . '" class="bookedDay">' . $currentDay . '</span></td>';
                     }
                 }

@@ -34,6 +34,7 @@ class SearcherController extends Controller
 
 					case "type":
 						$where .= " AND p.typeRent LIKE '" . $value . "'";
+
 						$session->set('searchType', $value);
 
 						$thisRange = array();
@@ -68,6 +69,7 @@ class SearcherController extends Controller
 							$session->set('searchEndDateDay', 			(int)$EDday);
 							$session->set('searchEndDateMonth', 		(int)$EDmonth);
 							$session->set('searchEndDateYear', 			(int)$EDyear);
+
 							while($thisDate != $lastDate){
 								$thisRange[] = $thisDate;
 								$thisYear	 = substr($thisDate, 0, 4);
@@ -80,7 +82,6 @@ class SearcherController extends Controller
 							$session->set('searchDays', $thisRange);
 							$session->set('searchTotalDays', count($thisRange));
 						}
-
 						break;
 				}
 			}

@@ -1,3 +1,10 @@
+header{background-color: #222222 !important;}
+.brandClass {color: #E67E22 !important; fonr-size: 2em;}
+.headerLists a{color: #FFFFFF !important;}
+.headerLists a:hover{color: #E67E22 !important;}
+.headerLists .open a{color: #222222 !important;}
+.headerLists .open .adminLI a{color: #FFFFFF !important;}
+
 .mediaFooter{
 	background-image: -moz-linear-gradient(top, #707070 0%, #FFFFFF 100%);
 	padding: 20px;
@@ -55,6 +62,7 @@
 
 .mainContent{
 	border: 1px solid #dddddd;
+    background: #FFFFFF;
     border-radius: 4px;
     box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
     margin-bottom: 20px;

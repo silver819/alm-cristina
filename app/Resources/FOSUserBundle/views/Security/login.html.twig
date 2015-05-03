@@ -10,8 +10,8 @@
 
 		<div class="col-md-4 column text-center borderBox">
 			{% if error %}
-			    <div>
-			    	{{ error|trans }}
+			    <div class="alert alert-danger">
+			    	{% trans %}Nombre de usuario o contraseña no validos{% endtrans %}
 			    </div>
 
 			    <br/>

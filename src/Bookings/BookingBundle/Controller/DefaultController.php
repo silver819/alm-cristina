@@ -86,7 +86,7 @@ class DefaultController extends Controller
 		// Preparacion datos para enviar emails de confirmación
 		$property =  $this->getDoctrine()
                           ->getRepository('ReservableActivityBundle:Activity')
-                          ->findByPropertyID($thisBookingID);
+                          ->findByPropertyID($_POST['itemID']);
 
         $client = $this->getDoctrine()
                        ->getRepository('UserUserBundle:Users')

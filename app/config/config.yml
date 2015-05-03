@@ -142,7 +142,7 @@ services:
 
 ## EasyAdminBundle
 easy_admin:
-    site_name: 'ADMIN PANEL'
+    site_name: 'ADMINISTRACIÓN'
     entities:
         Usuarios:
             class: User\UserBundle\Entity\Users
@@ -177,6 +177,20 @@ easy_admin:
                 fields:
                     - { property: 'name',         label: 'Nombre' }
                     - { property: 'surname',      label: 'Apellido'}
+                    - { property: 'phoneNumber',  label: 'Teléfono fijo',     type: 'number' }
+                    - { property: 'mobileNumber', label: 'Teléfono movil',    type: 'number' }
+                    - { property: 'username',     label: 'Nombre de usuario', help: 'Alfanuméricos' }
+                    - { property: 'enabled',      label: 'Activo' }
+                    - { property: 'locked',       label: 'Bloqueado' }
+                    - { property: 'roles',        label: 'Tipo de usuario',   help: 'ROLE_USER, ROLE_ADMIN, ROLE_SUPER_ADMIN' }
+
+            new:
+                title: 'Editar usuario'
+                fields:
+                    - { property: 'name',         label: 'Nombre' }
+                    - { property: 'surname',      label: 'Apellido'}
+                    - { property: 'email',        label: 'Email'}
+                    - { property: 'password',     label: 'Contraseña'}
                     - { property: 'phoneNumber',  label: 'Teléfono fijo',     type: 'number' }
                     - { property: 'mobileNumber', label: 'Teléfono movil',    type: 'number' }
                     - { property: 'username',     label: 'Nombre de usuario', help: 'Alfanuméricos' }

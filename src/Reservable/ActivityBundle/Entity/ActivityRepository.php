@@ -83,7 +83,7 @@ class ActivityRepository extends EntityRepository
                                   WHERE p.id = ' . $propertyID)
                     ->getResult();
 
-        if($result[0]) $property = $result[0];
+        if(isset($result[0])) $property = $result[0];
 
         return $property;
     }
