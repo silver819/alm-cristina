@@ -91,7 +91,7 @@ swiftmailer:
     transport: gmail
     host: smtp.gmail.com
     username: 'almacenpfc@gmail.com'
-    password: 'naRanJita'
+    password: 'naRanJita2'
     spool: { type: memory }
 
 # HWIOAuth User Bundle
