@@ -14,6 +14,8 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
  */
 class Picture
 {
+    const DIRECTORYIMAGES = "/var/www/almacen/web/images/properties";
+
     /**
      * @ORM\Id
      * @ORM\Column(type="integer", name="id")
@@ -38,6 +40,11 @@ class Picture
     * @ORM\JoinColumn(name="activityID", referencedColumnName="id")
     **/
     protected $activityID;
+
+    public function setPath($name)
+    {
+        $this->path = $name;
+    }
 
     public function getAbsolutePath()
     {

@@ -28,6 +28,9 @@
     <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
     <script src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
 
+    <!-- Dropbox -->
+    <script type="text/javascript" src="https://www.dropbox.com/static/api/2/dropins.js" id="dropboxjs" data-app-key="1e9yyen85o4davu"></script>
+
     <header class="navbar navbar-default " role="navigation">
         <div class="container">
             <a class="navbar-brand brandClass" href="{{ path('homepage') }}">{% trans %}Almacen{% endtrans %}</a>

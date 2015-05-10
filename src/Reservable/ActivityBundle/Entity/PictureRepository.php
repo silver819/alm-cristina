@@ -35,5 +35,23 @@ class PictureRepository extends EntityRepository
                                    WHERE p.activityID = ' . $propertyID)
                     ->getResult();
   }
+
+    function findLastIDimage($propertyID){
+        $id = 0;
+
+        $result = $this->getEntityManager()
+            ->createQuery("SELECT p.path
+                           FROM ReservableActivityBundle:Picture p
+                           WHERE p.path LIKE '" . $propertyID . "_%'
+                           ORDER BY p.path DESC")
+            ->getResult();
+
+        if(!empty($result)){
+            list($trash, $extension) = explode('_', $result[0]['path']);
+            list($id, $extension) = explode('.', $extension);
+        }
+
+        return $id;
+    }
   
 }

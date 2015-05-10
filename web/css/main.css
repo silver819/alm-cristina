@@ -164,6 +164,10 @@ h2{
     margin: 0 auto;
 }
 
+.modifImage > .item {
+    margin-top: 20px;
+}
+
 .imageCarouselDetails img {
     width: auto;
     height: 250px;

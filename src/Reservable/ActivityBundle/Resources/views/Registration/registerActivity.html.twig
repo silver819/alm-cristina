@@ -38,6 +38,33 @@
 			var map = new google.maps.Map(document.getElementById("map_canvas"),mapOptions);
 			map.setOptions({scrollwheel:false});
 			var marker;
+
+            /***** DROPBOX *****/
+            var options = {
+
+                // Required. Called when a user selects an item in the Chooser.
+                success: function (files) {
+                    var reader = new FileReader();
+                    reader.onload = function(event){
+                        var save = document.createElement('a');
+                        save.href = event.target.result;
+                        save.target = '_blank';
+                        save.download = files[0].name || 'descarga.png';
+
+                    };
+
+                    console.log(files);
+                    alert("Here's the file link: " + files[0].link)
+                },
+
+                //cancel: function () {},
+                linkType: "direct", // preview or "direct"
+                multiselect: false,
+                extensions: ['.jpg', '.jpeg', '.JPG']
+            };
+            var button = Dropbox.createChooseButton(options);
+            console.log(button);
+            document.getElementById("dropboxContainer").appendChild(button);
 		});
 
 		function toggleBounce() {
@@ -69,7 +96,7 @@
 						map:map,
 					    draggable:true,
 					    animation: google.maps.Animation.DROP,
-						position: newLatLng,
+						position: newLatLng
 					});
 					document.getElementById("activity_lat").value	= lat;
 					document.getElementById("activity_lng").value	= long;
@@ -114,7 +141,6 @@
 		{% trans %}Estos campos no son obligatorios, pero si lo desea puede añadir hasta seis imágenes de su propiedad{% endtrans %}</span>
 		{{ form_widget(form.pictures) }}
 		<div style="clear: both; height: 10px;"></div>
-
 
 		{{ form_rest(form) }}
 

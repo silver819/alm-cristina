@@ -95,3 +95,11 @@ checkUser:
         _method:  GET|POST
     options:
         expose: true
+
+loadImages:
+    pattern: /loadImages
+    defaults: { _controller: ReservableActivityBundle:Picture:loadImages }
+    requirements:
+        _method:  GET|POST
+    options:
+        expose: true

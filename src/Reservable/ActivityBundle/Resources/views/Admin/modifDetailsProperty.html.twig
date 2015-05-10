@@ -1,6 +1,62 @@
 {% extends '::admin.html.twig' %}
 
 {% block workspace %}
+
+    <script>
+        $(document).ready(function()
+        {
+            $('#dropboxContainerTest').click(function(){
+                imagePath='http://img4.wikia.nocookie.net/__cb20150313181403/clash-of-clans/es/images/thumb/4/4e/MPB-Defense.png/150px-MPB-Defense.png';
+
+                $.ajax({
+                    url: '{{ path('loadImages') }}',
+                    data: {'image':imagePath, 'activityID':{{ details.id }}},
+                    type: "post",
+                    success: function($response) {
+                        console.log($response);
+                    }
+                });
+            });
+
+        /***** DROPBOX *****/
+            var options = {
+
+                // Required. Called when a user selects an item in the Chooser.
+                success: function (files) {
+                    $.ajax({
+                        url: '{{ path('loadImages') }}',
+                        data: {'images':files, 'activityID':{{ details.id }}},
+                        type: "post",
+                        success: function($response) {
+                            console.log($response);
+                        }
+                    });
+                    /*var reader = new FileReader();
+                    reader.onload = function(event){
+                        console.log(files);
+                        var save = document.createElement('a');
+                        save.href = event.target.result;
+                        save.target = '_blank';
+                        save.download = files[0].name || 'descarga.png';
+
+                    };
+
+                    console.log(files);
+                    alert("Here's the file link: " + files[0].link)*/
+                },
+
+                //cancel: function () {},
+                linkType: "direct", // preview or "direct"
+                multiselect: true,
+                extensions: ['.jpg', '.jpeg', '.JPG']
+            };
+            var button = Dropbox.createChooseButton(options);
+            console.log(button);
+            document.getElementById("dropboxContainer").appendChild(button);
+        });
+    </script>
+
+
     {% if app.environment == "dev" %}
         {% set baseUrl = "/app_dev.php/" ~ app.request.locale ~ "/admin/view-details/" ~ details.id  %}
     {% else %}
@@ -9,15 +65,23 @@
 
     <form action="modif/save" method="post">
 
+        {% set cont = 0 %}
+        <div class="col-md-3 column modifImage">
         {% if pictures is not empty %}
-            <div class="col-md-3 column">
                 {% for onePicture in pictures %}
+                    {% set cont = cont + 1 %}
                     <div class="item">
                         <img alt="" width="100" src="/images/properties/{{ onePicture }}" />
                     </div>
                 {% endfor %}
+        {% endif %}
+        {% if cont < 10 %}
+            <div class="item">
+                <span id="dropboxContainer"></span>
+                <input type="button" id="dropboxContainerTest" value="Test">
             </div>
         {% endif %}
+        </div>
 
         <div class="col-md-9 column">
             <input type="hidden" name="productID" class="productID" value="{{ details.id }}">
