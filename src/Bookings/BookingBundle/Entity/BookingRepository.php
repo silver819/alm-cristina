@@ -68,6 +68,10 @@ class BookingRepository extends EntityRepository
     }
 
     function cancelBooking($bookingID){
+        $result = $this->getEntityManager()
+                    ->createQuery('DELETE FROM BookingsBookingBundle:DisponibilityBooking d
+                                   WHERE d.bookingID = ' . $bookingID)->getResult();
+
         return $this->getEntityManager()
                     ->createQuery('UPDATE BookingsBookingBundle:Booking b
                                   SET b.ownerConfirm = -1

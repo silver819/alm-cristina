@@ -18,6 +18,7 @@ class ConsultBookingsController extends Controller
 
         $arrayProperties    = array();
         $allOwners          = array();
+        $results            = array();
 
         if($this->get('security.context')->isGranted('ROLE_SUPER_ADMIN')){
             $allProperties = $this->getDoctrine()
@@ -40,17 +41,67 @@ class ConsultBookingsController extends Controller
                 $allOwners[$oneResult['id']]['ownerID'] = $oneResult['id'];
             }
         }
-        else{
+        else if($this->get('security.context')->isGranted('ROLE_ADMIN')){
     		$ownerID = $this->get('security.context')->getToken()->getUser()->getId();
 
     		$ownerProperties = $this->getDoctrine()
                                ->getRepository('ReservableActivityBundle:Activity')
                                ->findAllByOwnerID($ownerID);
-            
+
             foreach($ownerProperties as $oneResult){$arrayProperties[] = $oneResult->getId();}
         }
+        else{
+            $userID         = $this->get('security.context')->getToken()->getUser()->getId();
+            $userName       = $this->get('security.context')->getToken()->getUser()->getName();
+            $userSurname    = $this->get('security.context')->getToken()->getUser()->getSurname();
+            $userEmail      = $this->get('security.context')->getToken()->getUser()->getEmail();
 
-        $results = array();
+            $userBookings   = $this->getDoctrine()
+                                   ->getManager()
+                                    ->createQuery('SELECT b.id, b.activityID, b.startDate, b.endDate, b.price, a.typeRent, a.name, a.ownerID
+                                               FROM BookingsBookingBundle:Booking b
+                                               JOIN ReservableActivityBundle:Activity a
+                                               WHERE b.activityID = a.id
+                                               AND b.ownerConfirm != -1
+                                               AND b.startDate >= ' . date('Ymd') . '
+                                               AND b.clientID = ' . $userID)
+                                    ->getResult();
+
+            foreach($userBookings as $oneBooking){
+                $aux                    = array();
+
+                $aux['bookingID']       = $oneBooking['id'];
+                $aux['propertyID'] 		= $oneBooking['activityID'];
+                $aux['clientID'] 		= $userID;
+                $aux['price'] 			= $oneBooking['price'];
+                $aux['startDate'] 		= $oneBooking['startDate'];
+                $aux['startDateDay'] 	= substr($oneBooking['startDate'], 6, 2);
+                $aux['startDateMonth']	= substr($oneBooking['startDate'], 4, 2);
+                $aux['startDateYear'] 	= substr($oneBooking['startDate'], 0, 4);
+                $aux['startDateHour'] 	= substr($oneBooking['startDate'], 8, 2);
+                $aux['endDate'] 		= $oneBooking['endDate'];
+                $aux['endDateDay'] 		= substr($oneBooking['endDate'], 6, 2);
+                $aux['endDateMonth']	= substr($oneBooking['endDate'], 4, 2);
+                $aux['endDateYear'] 	= substr($oneBooking['endDate'], 0, 4);
+                $aux['endDateHour'] 	= substr($oneBooking['endDate'], 8, 2);
+
+                $aux['type'] 			= $oneBooking['typeRent'];
+                $aux['propertyName'] 	= $oneBooking['name'];
+
+                $aux['clientName'] 		= $userName;
+                $aux['clientSurname'] 	= $userSurname;
+                $aux['clientEmail'] 	= $userEmail;
+
+                $aux['ownerID']         = $oneBooking['ownerID'];
+                $aux['ownerEmail']      = $this->getDoctrine()
+                                            ->getRepository('UserUserBundle:Users')
+                                            ->getEmail($oneBooking['ownerID']);
+
+                $aux['calendar']        = $this->showCalendar($aux['startDate'], $aux['endDate'], $request->getLocale());
+
+                $results[] = $aux;
+            }
+        }
 
         if(!empty($arrayProperties)){
 
@@ -244,7 +295,7 @@ echo "<br/>---------------------------------------------------------------------
                 return $this->redirect('../consult-bookings');
             }
             else{
-                die("No se ha podido aceptar la reserva " . $_POST['bookingID']);
+                die("No se ha podido cancelar la reserva " . $_POST['bookingID']);
             }
         }
         else{

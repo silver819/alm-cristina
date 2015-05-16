@@ -72,22 +72,26 @@
 				{# Botones de accion #}
 				<div class="row clearfix">
 					<div class="col-md-12 column">
-						<div class="col-md-6 column">
-							<form action={{ path('acceptBooking') }} method=POST>
-								<input type="hidden" name="bookingID" value="{{ oneBooking.bookingID }}">
-								<button value="Send" class="btn btn-success btnMargin pull-right" type="submit">
-									<i class="glyphicon glyphicon-ok"></i>&nbsp;{% trans %}Aceptar{% endtrans %}
-								</button>
-							</form>
-						</div>
-						<div class="col-md-6 column">
+                        {% if is_granted("ROLE_SUPER_ADMIN") or is_granted("ROLE_ADMIN") %}
+                            <div class="col-md-6 column">
+                                <form action={{ path('acceptBooking') }} method=POST>
+                                    <input type="hidden" name="bookingID" value="{{ oneBooking.bookingID }}">
+                                    <button value="Send" class="btn btn-success btnMargin pull-right" type="submit">
+                                        <i class="glyphicon glyphicon-ok"></i>&nbsp;{% trans %}Aceptar{% endtrans %}
+                                    </button>
+                                </form>
+                            </div>
+                            <div class="col-md-6 column">
+                        {% endif %}
 							<form action={{ path('cancelBooking') }} method=POST>
 								<input type="hidden" name="bookingID" value="{{ oneBooking.bookingID }}">
 								<button value="Send" class="btn btn-danger btnMargin pull-left" type="submit">
 									<i class="glyphicon glyphicon-remove"></i>&nbsp;{% trans %}Cancelar{% endtrans %}
 								</button>
 							</form>
-						</div>
+                        {%  if is_granted("ROLE_SUPER_ADMIN") or is_granted("ROLE_ADMIN") %}
+						    </div>
+                        {% endif %}
 					</div>
 				</div>
 			</div>
