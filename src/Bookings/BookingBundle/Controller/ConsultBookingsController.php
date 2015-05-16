@@ -15,7 +15,7 @@ class ConsultBookingsController extends Controller
 		if(!$this->get('security.context')->isGranted('ROLE_USER')) {
 			throw new AccessDeniedException();
 		}
-
+ladybug_dump($request);
         $arrayProperties    = array();
         $allOwners          = array();
         $results            = array();
