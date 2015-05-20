@@ -14,6 +14,31 @@ class SearcherController extends Controller
 
 		$session = $request->getSession();
 
+        // Borramos datos que tengamos anteriormente en la sesion
+        $session->remove('searchName');
+        $session->remove('searchHour');
+        $session->remove('searchType');
+        $session->remove('searchName');
+        $session->remove('searchDate');
+        $session->remove('searchdateDay');
+        $session->remove('searchdateMonth');
+        $session->remove('searchdateYear');
+        $session->remove('searchStartDateComplete');
+        $session->remove('searchEndDateComplete');
+        $session->remove('searchDays');
+        $session->remove('searchType');
+        $session->remove('searchStartDateComplete');
+        $session->remove('searchEndDateComplete');
+        $session->remove('searchStartDate');
+        $session->remove('searchStartDateDay');
+        $session->remove('searchStartDateMonth');
+        $session->remove('searchStartDateYear');
+        $session->remove('searchEndDate');
+        $session->remove('searchEndDateDay');
+        $session->remove('searchEndDateMonth');
+        $session->remove('searchEndDateYear');
+        $session->remove('searchDays');
+        $session->remove('searchTotalDays');
 
 		$where = "1=1";
 		$relevantFields = array("name", "type", "hour");
