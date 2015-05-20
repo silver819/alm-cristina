@@ -16,6 +16,9 @@
     </div>
 
 	<div class="row clearfix">
+        <div class="col-md-12 column" >
+            <h2 id="nameLodgingContainer">{{ selector.0.name }}</h2>
+        </div>
 		<div class="col-md-12 column text-center" id="calendarContainer">
 			<div class="row clearfix">
 				<div class="col-md-4 column">
@@ -72,7 +75,8 @@
                 data: {'activityID': id.value},
                 type: "post",
                 success: function($response) {
-                    document.getElementById('calendarContainer').innerHTML = $response['calendar'];
+                    document.getElementById('nameLodgingContainer').innerHTML   = $response['nameLodging'];
+                    document.getElementById('calendarContainer').innerHTML      = $response['calendar'];
                 }
             });
 

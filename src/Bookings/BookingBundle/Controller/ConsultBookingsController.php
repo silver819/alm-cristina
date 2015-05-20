@@ -349,6 +349,10 @@ echo "<br/>---------------------------------------------------------------------
 
         $activityID = $request->request->get('activityID');
 
+        $nameLodging = $this->getDoctrine()
+            ->getRepository('ReservableActivityBundle:Activity')
+            ->findNameByActivityID($activityID);
+
         $todayMonth = date("m");
         $todayYear  = date("Y");
 
@@ -379,7 +383,7 @@ echo "<br/>---------------------------------------------------------------------
         $calendar .= $this->showCalendar(date("Ymd", mktime(0, 0, 0, $todayMonth+11, 1, $todayYear)), false, $request->getLocale(), $activityID);
         $calendar .= '</div></div>';
 
-        return new JsonResponse(array('calendar'=>$calendar));
+        return new JsonResponse(array('calendar'=> $calendar, 'nameLodging' => $nameLodging));
     }
 
     public function acceptBookingAction(){
