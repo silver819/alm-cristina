@@ -337,11 +337,11 @@ echo "<br/>---------------------------------------------------------------------
         $twelfth    = $this->showCalendar(date("Ymd", mktime(0, 0, 0, $todayMonth+11, 1, $todayYear)), false, $request->getLocale(), $selector[0]['id']);
 
         return $this->render('BookingsBookingBundle:Consult:calendar-bookings.html.twig',
-            array(  'first' => $first,      'second' => $second,        'third' => $third, 
-                    'fourth' => $fourth,    'fifth' => $fifth,          'sixth' => $sixth,
-                    'seventh' => $seventh,  'eighth' => $eighth,        'ninth' => $ninth,
-                    'tenth' => $tenth,      'eleventh' => $eleventh,    'twelfth' => $twelfth,
-                    'selector' => $selector));
+            array(  'first'     => $first,    'second'   => $second,      'third'   => $third,
+                    'fourth'    => $fourth,   'fifth'    => $fifth,       'sixth'   => $sixth,
+                    'seventh'   => $seventh,  'eighth'   => $eighth,      'ninth'   => $ninth,
+                    'tenth'     => $tenth,    'eleventh' => $eleventh,    'twelfth' => $twelfth,
+                    'selector'  => $selector));
     }
 
     public function calculateCalendarAction(){
