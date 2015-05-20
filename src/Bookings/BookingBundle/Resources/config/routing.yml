@@ -10,6 +10,10 @@ consultBookings:
     path:     /consult-bookings/
     defaults: { _controller: BookingsBookingBundle:ConsultBookings:consultBookings }
 
+consultClientBookings:
+    path:     /consult-client-bookings/
+    defaults: { _controller: BookingsBookingBundle:ConsultBookings:consultclientBookings }
+
 historyBookings:
     path:     /history-bookings/
     defaults: { _controller: BookingsBookingBundle:ConsultBookings:historyBookings }
