@@ -5,8 +5,18 @@
 	<h2>{% trans %}Calendario{% endtrans %}</h2>
 	<hr/>
 
+    <div class="row clearfix">
+        <div class="col-md-12 column text-center">
+            <select onchange="changeCalendar(this)">
+            {% for selection in selector %}
+                <option value="{{ selection.id }}">{{ selection.name }}</option>
+            {% endfor %}
+            </select>
+        </div>
+    </div>
+
 	<div class="row clearfix">
-		<div class="col-md-12 column text-center">
+		<div class="col-md-12 column text-center" id="calendarContainer">
 			<div class="row clearfix">
 				<div class="col-md-4 column">
 					{{ first | raw }}
@@ -53,5 +63,20 @@
 			</div>
 		</div>
 	</div>
+
+    <script>
+        function changeCalendar(id){
+
+            $.ajax({
+                url: '{{ path('calculateCalendar') }}',
+                data: {'activityID': id.value},
+                type: "post",
+                success: function($response) {
+                    document.getElementById('calendarContainer').innerHTML = $response['calendar'];
+                }
+            });
+
+        }
+    </script>
 
 {% endblock %}

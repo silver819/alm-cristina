@@ -29,3 +29,11 @@ acceptBooking:
 cancelBooking:
     path:     /cancel-booking/
     defaults: { _controller: BookingsBookingBundle:ConsultBookings:cancelBooking }
+
+calculateCalendar:
+    pattern: /calculateCalendar
+    defaults: { _controller: BookingsBookingBundle:ConsultBookings:calculateCalendar }
+    requirements:
+        _method:  GET|POST
+    options:
+        expose: true

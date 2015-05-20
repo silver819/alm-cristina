@@ -5,6 +5,7 @@ namespace Bookings\BookingBundle\Controller;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Bookings\BookingBundle\Entity\Booking;
 use Bookings\BookingBundle\Entity\DisponibilityBooking;
 
@@ -305,27 +306,80 @@ echo pageFooter(__FILE__);
 echo "<br/>---------------------------------------------------------------------------<br/>";
 */
 
+        $selector   = array();
+        $properties = $this->getDoctrine()
+            ->getRepository('ReservableActivityBundle:Activity')
+            ->findAllByOwnerID($this->get('security.context')->getToken()->getUser()->getId());
+
+        foreach($properties as $oneProperty){
+            $aux         = array();
+            $aux['name'] = $oneProperty->getName();
+            $aux['id']   = $oneProperty->getId();
+            $aux['type'] = $oneProperty->getTypeRent();
+
+            $selector[] = $aux;
+        }
+
         $todayMonth = date("m");
         $todayYear  = date("Y");
 
-        $first      = $this->showCalendar($todayYear . $todayMonth . "0100", false, $request->getLocale());
-        $second     = $this->showCalendar(date("Ymd", mktime(0, 0, 0, $todayMonth+1, 1, $todayYear)), false, $request->getLocale());
-        $third      = $this->showCalendar(date("Ymd", mktime(0, 0, 0, $todayMonth+2, 1, $todayYear)), false, $request->getLocale());
-        $fourth     = $this->showCalendar(date("Ymd", mktime(0, 0, 0, $todayMonth+3, 1, $todayYear)), false, $request->getLocale());
-        $fifth      = $this->showCalendar(date("Ymd", mktime(0, 0, 0, $todayMonth+4, 1, $todayYear)), false, $request->getLocale());
-        $sixth      = $this->showCalendar(date("Ymd", mktime(0, 0, 0, $todayMonth+5, 1, $todayYear)), false, $request->getLocale());
-        $seventh    = $this->showCalendar(date("Ymd", mktime(0, 0, 0, $todayMonth+6, 1, $todayYear)), false, $request->getLocale());
-        $eighth     = $this->showCalendar(date("Ymd", mktime(0, 0, 0, $todayMonth+7, 1, $todayYear)), false, $request->getLocale());
-        $ninth      = $this->showCalendar(date("Ymd", mktime(0, 0, 0, $todayMonth+8, 1, $todayYear)), false, $request->getLocale());
-        $tenth      = $this->showCalendar(date("Ymd", mktime(0, 0, 0, $todayMonth+9, 1, $todayYear)), false, $request->getLocale());
-        $eleventh   = $this->showCalendar(date("Ymd", mktime(0, 0, 0, $todayMonth+10, 1, $todayYear)), false, $request->getLocale());
-        $twelfth    = $this->showCalendar(date("Ymd", mktime(0, 0, 0, $todayMonth+11, 1, $todayYear)), false, $request->getLocale());
+        $first      = $this->showCalendar($todayYear . $todayMonth . "0100", false, $request->getLocale(), $selector[0]['id']);
+        $second     = $this->showCalendar(date("Ymd", mktime(0, 0, 0, $todayMonth+1, 1, $todayYear)), false, $request->getLocale(), $selector[0]['id']);
+        $third      = $this->showCalendar(date("Ymd", mktime(0, 0, 0, $todayMonth+2, 1, $todayYear)), false, $request->getLocale(), $selector[0]['id']);
+        $fourth     = $this->showCalendar(date("Ymd", mktime(0, 0, 0, $todayMonth+3, 1, $todayYear)), false, $request->getLocale(), $selector[0]['id']);
+        $fifth      = $this->showCalendar(date("Ymd", mktime(0, 0, 0, $todayMonth+4, 1, $todayYear)), false, $request->getLocale(), $selector[0]['id']);
+        $sixth      = $this->showCalendar(date("Ymd", mktime(0, 0, 0, $todayMonth+5, 1, $todayYear)), false, $request->getLocale(), $selector[0]['id']);
+        $seventh    = $this->showCalendar(date("Ymd", mktime(0, 0, 0, $todayMonth+6, 1, $todayYear)), false, $request->getLocale(), $selector[0]['id']);
+        $eighth     = $this->showCalendar(date("Ymd", mktime(0, 0, 0, $todayMonth+7, 1, $todayYear)), false, $request->getLocale(), $selector[0]['id']);
+        $ninth      = $this->showCalendar(date("Ymd", mktime(0, 0, 0, $todayMonth+8, 1, $todayYear)), false, $request->getLocale(), $selector[0]['id']);
+        $tenth      = $this->showCalendar(date("Ymd", mktime(0, 0, 0, $todayMonth+9, 1, $todayYear)), false, $request->getLocale(), $selector[0]['id']);
+        $eleventh   = $this->showCalendar(date("Ymd", mktime(0, 0, 0, $todayMonth+10, 1, $todayYear)), false, $request->getLocale(), $selector[0]['id']);
+        $twelfth    = $this->showCalendar(date("Ymd", mktime(0, 0, 0, $todayMonth+11, 1, $todayYear)), false, $request->getLocale(), $selector[0]['id']);
 
         return $this->render('BookingsBookingBundle:Consult:calendar-bookings.html.twig',
             array(  'first' => $first,      'second' => $second,        'third' => $third, 
                     'fourth' => $fourth,    'fifth' => $fifth,          'sixth' => $sixth,
                     'seventh' => $seventh,  'eighth' => $eighth,        'ninth' => $ninth,
-                    'tenth' => $tenth,      'eleventh' => $eleventh,    'twelfth' => $twelfth));
+                    'tenth' => $tenth,      'eleventh' => $eleventh,    'twelfth' => $twelfth,
+                    'selector' => $selector));
+    }
+
+    public function calculateCalendarAction(){
+        $request    = $this->getRequest();
+
+        $activityID = $request->request->get('activityID');
+
+        $todayMonth = date("m");
+        $todayYear  = date("Y");
+
+        $calendar = '';
+        $calendar .= '<div class="row clearfix"><div class="col-md-4 column">';
+        $calendar .= $this->showCalendar($todayYear . $todayMonth . "0100", false, $request->getLocale(), $activityID);
+		$calendar .= '</div><div class="col-md-4 column">';
+		$calendar .= $this->showCalendar(date("Ymd", mktime(0, 0, 0, $todayMonth+1, 1, $todayYear)), false, $request->getLocale(), $activityID);
+		$calendar .= '</div><div class="col-md-4 column">';
+		$calendar .= $this->showCalendar(date("Ymd", mktime(0, 0, 0, $todayMonth+2, 1, $todayYear)), false, $request->getLocale(), $activityID);
+		$calendar .= '</div></div><div class="row clearfix"><div class="col-md-4 column">';
+		$calendar .= $this->showCalendar(date("Ymd", mktime(0, 0, 0, $todayMonth+3, 1, $todayYear)), false, $request->getLocale(), $activityID);
+		$calendar .= '</div><div class="col-md-4 column">';
+		$calendar .= $this->showCalendar(date("Ymd", mktime(0, 0, 0, $todayMonth+4, 1, $todayYear)), false, $request->getLocale(), $activityID);
+		$calendar .= '</div><div class="col-md-4 column">';
+        $calendar .= $this->showCalendar(date("Ymd", mktime(0, 0, 0, $todayMonth+5, 1, $todayYear)), false, $request->getLocale(), $activityID);
+        $calendar .= '</div></div><div class="row clearfix"><div class="col-md-4 column">';
+        $calendar .= $this->showCalendar(date("Ymd", mktime(0, 0, 0, $todayMonth+6, 1, $todayYear)), false, $request->getLocale(), $activityID);
+        $calendar .= '</div><div class="col-md-4 column">';
+        $calendar .= $this->showCalendar(date("Ymd", mktime(0, 0, 0, $todayMonth+7, 1, $todayYear)), false, $request->getLocale(), $activityID);
+        $calendar .= '</div><div class="col-md-4 column">';
+        $calendar .= $this->showCalendar(date("Ymd", mktime(0, 0, 0, $todayMonth+8, 1, $todayYear)), false, $request->getLocale(), $activityID);
+        $calendar .= '</div></div><div class="row clearfix"><div class="col-md-4 column">';
+        $calendar .= $this->showCalendar(date("Ymd", mktime(0, 0, 0, $todayMonth+9, 1, $todayYear)), false, $request->getLocale(), $activityID);
+		$calendar .= '</div><div class="col-md-4 column">';
+        $calendar .= $this->showCalendar(date("Ymd", mktime(0, 0, 0, $todayMonth+10, 1, $todayYear)), false, $request->getLocale(), $activityID);
+		$calendar .= '</div><div class="col-md-4 column">';
+        $calendar .= $this->showCalendar(date("Ymd", mktime(0, 0, 0, $todayMonth+11, 1, $todayYear)), false, $request->getLocale(), $activityID);
+        $calendar .= '</div></div>';
+
+        return new JsonResponse(array('calendar'=>$calendar));
     }
 
     public function acceptBookingAction(){
@@ -394,7 +448,7 @@ echo "<br/>---------------------------------------------------------------------
         return $nameMonths[$Lang][$month-1];
     }
 
-    private function showCalendar($since, $to = 0, $Lang = 'es'){
+    private function showCalendar($since, $to = 0, $Lang = 'es', $propertyID){
 
         $daysPrinted = array();
 
@@ -413,21 +467,12 @@ echo "<br/>---------------------------------------------------------------------
         $month = $SDmonth;
         $year  = $SDyear;
 
-        // Seleccionamos las reservas de este mes para marcarlas en el calendario
-        $ownerID        = $this->get('security.context')->getToken()->getUser()->getId();
         $fromThisDate   = $SDyear . $SDmonth . '0100';
         $toThisDate     = date('Ymd', mktime(0, 0, 0, $SDmonth + 1, 1, $SDyear)) . '00';
-        
-        $ownerProperties = $this->getDoctrine()
-                           ->getRepository('ReservableActivityBundle:Activity')
-                           ->findAllByOwnerID($ownerID);
-
-        $arrayProperties = array();
-        foreach($ownerProperties as $oneResult){$arrayProperties[] = $oneResult->getId();}
 
         $bookings       = $this->getDoctrine()
                                ->getRepository('BookingsBookingBundle:Booking')
-                               ->getBookingsInPeriod($fromThisDate, $toThisDate, $arrayProperties);
+                               ->getBookingsInPeriod($fromThisDate, $toThisDate, array($propertyID));
 
         $stringCalendar = '';
         
