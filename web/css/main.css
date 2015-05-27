@@ -243,6 +243,23 @@ h2{
     margin: 20px;
 }
 
+.noAvailableDay{
+    background-color: lightgray;
+}
+
+.calendarByDay td{
+    width: 20px;
+}
+
+.cabeceraCalendar{
+    background-color: #ffffcc;
+}
+
+.borderTD {
+    border: 1px solid lightgray;
+    font-weight: normal;
+}
+
 @media (max-width: 300px) {
     .nameDiv {
         width: 100%;

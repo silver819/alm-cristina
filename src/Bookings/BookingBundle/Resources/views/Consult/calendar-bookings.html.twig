@@ -20,50 +20,7 @@
             <h2 id="nameLodgingContainer">{{ selector.0.name }}</h2>
         </div>
 		<div class="col-md-12 column text-center" id="calendarContainer">
-			<div class="row clearfix">
-				<div class="col-md-4 column">
-					{{ first | raw }}
-				</div>
-				<div class="col-md-4 column">
-					{{ second | raw }}
-				</div>
-				<div class="col-md-4 column">
-					{{ third | raw }}
-				</div>
-			</div>
-			<div class="row clearfix">
-				<div class="col-md-4 column">
-					{{ fourth | raw }}
-				</div>
-				<div class="col-md-4 column">
-					{{ fifth | raw }}
-				</div>
-				<div class="col-md-4 column">
-					{{ sixth | raw }}
-				</div>
-			</div>
-			<div class="row clearfix">
-				<div class="col-md-4 column">
-					{{ seventh | raw }}
-				</div>
-				<div class="col-md-4 column">
-					{{ eighth | raw }}
-				</div>
-				<div class="col-md-4 column">
-					{{ ninth | raw }}
-				</div>
-			</div>
-			<div class="row clearfix">
-				<div class="col-md-4 column">
-					{{ tenth | raw }}
-				</div>
-				<div class="col-md-4 column">
-					{{ eleventh | raw }}
-				</div>
-				<div class="col-md-4 column">
-					{{ twelfth | raw }}
-				</div>
-			</div>
+            {{ calendar | raw }}
 		</div>
 	</div>
 

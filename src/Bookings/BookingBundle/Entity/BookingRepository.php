@@ -95,6 +95,7 @@ class BookingRepository extends EntityRepository
             foreach ($bookings as $oneBooking) {
                 $aux['bookingID'] = $oneBooking['id'];
                 $aux['from'] = substr($oneBooking['startDate'], 6, 2);
+                $aux['hour'] = substr($oneBooking['startDate'], 8, 2);
                 $monthStart = substr($oneBooking['startDate'], 4, 2);
                 $monthEnd = substr($oneBooking['endDate'], 4, 2);
                 $aux['to'] = ($monthEnd == $monthStart) ? substr($oneBooking['endDate'], 6, 2) : 50;

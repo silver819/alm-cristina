@@ -97,5 +97,15 @@ class ActivityRepository extends EntityRepository
 
         return $result[0]['name'];
     }
+
+    function findTypeByActivityID($propertyID){
+        $result = $this->getEntityManager()
+                    ->createQuery('SELECT p.typeRent
+                                  FROM ReservableActivityBundle:Activity p
+                                  WHERE p.id = ' . $propertyID)
+                    ->getResult();
+
+        return $result[0]['typeRent'];
+    }
     
 }
