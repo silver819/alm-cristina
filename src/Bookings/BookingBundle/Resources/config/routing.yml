@@ -18,6 +18,10 @@ historyBookings:
     path:     /history-bookings/
     defaults: { _controller: BookingsBookingBundle:ConsultBookings:historyBookings }
 
+historyBookingsUser:
+    path:     /history-bookings-user/
+    defaults: { _controller: BookingsBookingBundle:ConsultBookings:historyBookingsUser }
+
 calendarBookings:
     path:     /calendar/
     defaults: { _controller: BookingsBookingBundle:ConsultBookings:calendarBookings }

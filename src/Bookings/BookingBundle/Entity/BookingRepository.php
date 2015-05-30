@@ -21,6 +21,15 @@ class BookingRepository extends EntityRepository
             		->getResult();
 	}
 
+    function findAllBookingsByClientID($ownerID){
+
+        return $this->getEntityManager()
+            ->createQuery('SELECT b
+                		   FROM BookingsBookingBundle:Booking b
+                		   WHERE b.clientID = ' . $ownerID)
+            ->getResult();
+    }
+
 	function getLastBookingID(){
 		return $this->getEntityManager()
             	    ->createQuery('SELECT MAX(b.id)
