@@ -153,7 +153,7 @@ class ConsultBookingsController extends Controller
                                                ->getRepository('UserUserBundle:Users')
                                                ->getEmail($propertyData->getOwnerID());
 
-                $aux['calendar']        = $this->showCalendar($aux['startDate'], $aux['endDate'], $request->getLocale());
+                $aux['calendar']        = $this->showCalendar($aux['startDate'], $aux['endDate'], $request->getLocale(), $propertyData->getId());
 
                 $results[] = $aux;
             }

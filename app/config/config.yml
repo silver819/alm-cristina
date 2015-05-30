@@ -203,3 +203,7 @@ easy_admin:
             class: Reservable\ActivityBundle\Entity\Picture
         Reservas:
             class: Bookings\BookingBundle\Entity\Booking
+        Tipos:
+            class: Reservable\ActivityBundle\Entity\TypeActivity
+        Fearures:
+            class: Reservable\ActivityBundle\Entity\Features
