@@ -112,6 +112,21 @@
                 mapa
             </div>
 
+            <div>
+                Tipo de establecimiento:<br/>
+                {% for type in types %}
+                    <input type="radio" name="type" value="{{ type.id }}" {% if type.selected == 1 %}checked{% endif %}> {{ type.name }}
+                {% endfor %}
+            </div>
+            <div>
+                {% if features is not empty %}
+                    Características:<br/>
+                    {% for feature in features %}
+                        <input type="checkbox" name="feature[]" value="{{ feature.id }}" {% if feature.selected == 1 %}checked{% endif %}> {{ feature.name }}
+                    {% endfor %}
+                {% endif %}
+            </div>
+
             <div class="clear"></div>
 
             <div style="margin:auto;">

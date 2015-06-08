@@ -2,6 +2,8 @@
 
 namespace Reservable\ActivityBundle\Controller;
 
+use Reservable\ActivityBundle\Entity\ActivityyToType;
+use Reservable\ActivityBundle\Entity\ActivityToFeature;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Reservable\ActivityBundle\Entity\Activity;
@@ -46,12 +48,61 @@ class AdminController extends Controller
             $arrayPictures[] = $onePicture['path'];
         }
 
+        // tipos
+        $types = $this->getDoctrine()
+            ->getRepository('ReservableActivityBundle:TypeActivity')
+            ->getAllTypes($details->getTypeRent());
+
+        $typeSelected = $this->getDoctrine()
+            ->getRepository('ReservableActivityBundle:ActivityyToType')
+            ->getTypeSelected($property);
+
+        if($typeSelected){
+            foreach($types as $key => $oneType){
+                if($oneType['id'] == $typeSelected){
+                    $types[$key]['selected'] = 1;
+                }
+            }
+        }
+
+        // features
+        $features = array();
+        if($typeSelected) {
+            $features = $this->getAllFeaturesByType($typeSelected);
+
+            $featuresSelected = $this->getDoctrine()
+                ->getRepository('ReservableActivityBundle:ActivityToFeature')
+                ->getAllFeatures($details->getId());
+
+            if($featuresSelected){
+                foreach($features as $key => $oneFeature){
+                    if(in_array($oneFeature['id'], $featuresSelected)){
+                        $features[$key]['selected'] = 1;
+                    }
+                }
+            }
+        }
+
         return $this->render('ReservableActivityBundle:Admin:modifDetailsProperty.html.twig',
-            array('details' => $details, 'pictures' => $arrayPictures));
+            array('details' => $details, 'pictures' => $arrayPictures, 'types' => $types, 'features' => $features));
+    }
+
+    private function getAllFeaturesByType($type){
+        $features = $this->getDoctrine()
+            ->getManager()
+            ->createQuery("SELECT f.id, f.name
+                           FROM ReservableActivityBundle:TypeToFeature ttf
+                           INNER JOIN ReservableActivityBundle:Features f
+                           WHERE ttf.featureID = f.id AND ttf.typeID = " . $type)
+            ->getResult();
+
+        return $features;
     }
 
     public function saveModifDetailsAction(){
+
         if($_POST['productID']){
+            // Guardar
             $resultQuery = $this->getDoctrine()
                 ->getManager()
                 ->createQuery("UPDATE ReservableActivityBundle:Activity a
@@ -61,6 +112,41 @@ class AdminController extends Controller
                                WHERE a.id = '" . $_POST['productID'] . "'")
                 ->getResult();
 
+            //tipos y features
+            $em = $this->getDoctrine()->getManager();
+            if(isset($_POST['type'])){
+                $resultQuery = $this->getDoctrine()
+                    ->getManager()
+                    ->createQuery("DELETE FROM ReservableActivityBundle:ActivityyToType att
+                                       WHERE att.activityID = " . $_POST['productID'])
+                    ->getResult();
+
+                $activityTypeEquivalence = new ActivityyToType();
+                $activityTypeEquivalence->setActivityID($_POST['productID']);
+                $activityTypeEquivalence->setTypeID($_POST['type']);
+
+                $em->persist($activityTypeEquivalence);
+
+            }
+
+            $resultQuery = $this->getDoctrine()
+                ->getManager()
+                ->createQuery("DELETE FROM ReservableActivityBundle:ActivityToFeature atf
+                                       WHERE atf.activityID = " . $_POST['productID'])
+                ->getResult();
+            if(isset($_POST['feature']) && !empty($_POST['feature'])) {
+                foreach ($_POST['feature'] as $oneFeature) {
+                    $activityFeatureEquivalence = new ActivityToFeature();
+                    $activityFeatureEquivalence->setActivityID($_POST['productID']);
+                    $activityFeatureEquivalence->setFeatureID($oneFeature);
+
+                    $em->persist($activityFeatureEquivalence);
+                }
+            }
+
+            $em->flush();
+
+            // Recopilo info
             $details = $this->getDoctrine()
                 ->getRepository('ReservableActivityBundle:Activity')
                 ->findByPropertyID($_POST['productID']);
