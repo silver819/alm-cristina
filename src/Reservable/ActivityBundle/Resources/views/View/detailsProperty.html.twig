@@ -26,42 +26,66 @@
 						<button type="submit" class="btn btn-primary" value="Send">{% trans %}Reservar{% endtrans %}</button>
 					</div>
 				</div>
-			</form>
+			</div>
+        </form>
+
 			<div class="clear margin"></div>
 
 			{% if pictures is not empty %}
-				<div class="carousel slide" id="carousel-details">
-					<ol class="carousel-indicators">
-						{% for onePicture in pictures %}
-							{% if loop.index0 == 0 %}
-								<li class="active" data-slide-to="0" data-target="#carousel-details"></li>
-							{% else %}
-								<li data-slide-to="{{ loop.index0 }}" data-target="#carousel-details"></li>
-							{% endif %}
-						{% endfor %}
-					</ol>
-					<div class="carousel-inner">
-						{% for onePicture in pictures %}
-							{% if loop.index0 == 0 %}
-								<div class="item active imageCarouselDetails">
-									<img alt="" src="/images/properties/{{ onePicture }}" />
-								</div>
-							{% else %}
-								<div class="item imageCarouselDetails">
-									<img alt="" src="/images/properties/{{ onePicture }}" />
-								</div>
-							{% endif %}
-						{% endfor %}
-					</div>
-					<a class="left carousel-control" href="#carousel-details" data-slide="prev"><span class="glyphicon glyphicon-chevron-left"></span></a>
-					<a class="right carousel-control" href="#carousel-details" data-slide="next"><span class="glyphicon glyphicon-chevron-right"></span></a>
-				</div>
+                <div class="col-md-12 column">
+                    <div class="col-md-2 column"></div>
+                    <div class="col-md-8 column">
+                    <div class="carousel slide" id="carousel-details" style="height: 250px;">
+                        <ol class="carousel-indicators">
+                            {% for onePicture in pictures %}
+                                {% if loop.index0 == 0 %}
+                                    <li class="active" data-slide-to="0" data-target="#carousel-details"></li>
+                                {% else %}
+                                    <li data-slide-to="{{ loop.index0 }}" data-target="#carousel-details"></li>
+                                {% endif %}
+                            {% endfor %}
+                        </ol>
+                        <div class="carousel-inner">
+                            {% for onePicture in pictures %}
+                                {% if loop.index0 == 0 %}
+                                    <div class="item active imageCarouselDetails">
+                                        <img alt="" src="/images/properties/{{ onePicture }}" />
+                                    </div>
+                                {% else %}
+                                    <div class="item imageCarouselDetails">
+                                        <img alt="" src="/images/properties/{{ onePicture }}" />
+                                    </div>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                        <a class="left carousel-control" href="#carousel-details" data-slide="prev"><span class="glyphicon glyphicon-chevron-left"></span></a>
+                        <a class="right carousel-control" href="#carousel-details" data-slide="next"><span class="glyphicon glyphicon-chevron-right"></span></a>
+                    </div>
+                    </div>
+                    <div class="col-md-2 column"></div>
+                </div>
 			{% endif %}
+
 			<div class="clear margin"></div>
 			
-			<p class="desc-icon">
-				<i class="fa fa-quote-left fa-3x pull-left fa-border"></i><p>{{ details.description }}</p>
-			</p>
+			<div class="col-md-12 column">
+                <div class="col-md-8 column">
+                    <p class="desc-icon">
+                        <i class="fa fa-quote-left fa-3x pull-left fa-border"></i><p>{{ details.description }}</p>
+                    </p>
+                </div>
+                <div class="col-md-4 column">
+                    {{ trans }}Equipamiento{{ endtrans }}
+                    <ul>
+                    {% for feature in features %}
+                        {% if feature.selected %}
+                            <li>{{ feature.name }}</li>
+                        {% endif %}
+                    {% endfor %}
+                    </ul>
+                </div>
+            </div>
+			<div class="clear"></div>
 			<div class="clear"></div>
 		</div>
 	</div>

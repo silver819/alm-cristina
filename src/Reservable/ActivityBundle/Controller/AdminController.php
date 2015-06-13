@@ -28,8 +28,43 @@ class AdminController extends Controller
             $arrayPictures[] = $onePicture['path'];
         }
 
+        // tipos
+        $types = $this->getDoctrine()
+            ->getRepository('ReservableActivityBundle:TypeActivity')
+            ->getAllTypes($details->getTypeRent());
+
+        $typeSelected = $this->getDoctrine()
+            ->getRepository('ReservableActivityBundle:ActivityyToType')
+            ->getTypeSelected($property);
+
+        if($typeSelected){
+            foreach($types as $key => $oneType){
+                if($oneType['id'] == $typeSelected){
+                    $types[$key]['selected'] = 1;
+                }
+            }
+        }
+
+        // features
+        $features = array();
+        if($typeSelected) {
+            $features = $this->getAllFeaturesByType($typeSelected);
+
+            $featuresSelected = $this->getDoctrine()
+                ->getRepository('ReservableActivityBundle:ActivityToFeature')
+                ->getAllFeatures($details->getId());
+
+            if($featuresSelected){
+                foreach($features as $key => $oneFeature){
+                    if(in_array($oneFeature['id'], $featuresSelected)){
+                        $features[$key]['selected'] = 1;
+                    }
+                }
+            }
+        }
+//ladybug_dump($details);
         return $this->render('ReservableActivityBundle:Admin:adminDetailsProperty.html.twig',
-            array('details' => $details, 'pictures' => $arrayPictures));
+            array('details' => $details, 'pictures' => $arrayPictures, 'types' => $types, 'features' => $features));
     }
 
     public function modifDetailsAction($property, Request $request){
