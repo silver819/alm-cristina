@@ -37,10 +37,11 @@ class AdminController extends Controller
             ->getRepository('ReservableActivityBundle:ActivityyToType')
             ->getTypeSelected($property);
 
+        $type = '';
         if($typeSelected){
             foreach($types as $key => $oneType){
                 if($oneType['id'] == $typeSelected){
-                    $types[$key]['selected'] = 1;
+                    $type = $oneType['name'];
                 }
             }
         }
@@ -64,7 +65,7 @@ class AdminController extends Controller
         }
 //ladybug_dump($details);
         return $this->render('ReservableActivityBundle:Admin:adminDetailsProperty.html.twig',
-            array('details' => $details, 'pictures' => $arrayPictures, 'types' => $types, 'features' => $features));
+            array('details' => $details, 'pictures' => $arrayPictures, 'type' => $type, 'features' => $features));
     }
 
     public function modifDetailsAction($property, Request $request){
@@ -143,7 +144,8 @@ class AdminController extends Controller
                 ->createQuery("UPDATE ReservableActivityBundle:Activity a
                                SET   a.name = '" . $_POST['name'] . "',
                                      a.price = '" . $_POST['price'] . "',
-                                     a.address = '" . $_POST['address'] . "'
+                                     a.address = '" . $_POST['address'] . "',
+                                     a.description = '" . $_POST['description'] . "'
                                WHERE a.id = '" . $_POST['productID'] . "'")
                 ->getResult();
 
@@ -195,8 +197,44 @@ class AdminController extends Controller
                 $arrayPictures[] = $onePicture['path'];
             }
 
+            // tipos
+            $types = $this->getDoctrine()
+                ->getRepository('ReservableActivityBundle:TypeActivity')
+                ->getAllTypes($details->getTypeRent());
+
+            $typeSelected = $this->getDoctrine()
+                ->getRepository('ReservableActivityBundle:ActivityyToType')
+                ->getTypeSelected($_POST['productID']);
+
+            $type = '';
+            if($typeSelected){
+                foreach($types as $key => $oneType){
+                    if($oneType['id'] == $typeSelected){
+                        $type = $oneType['name'];
+                    }
+                }
+            }
+
+            // features
+            $features = array();
+            if($typeSelected) {
+                $features = $this->getAllFeaturesByType($typeSelected);
+
+                $featuresSelected = $this->getDoctrine()
+                    ->getRepository('ReservableActivityBundle:ActivityToFeature')
+                    ->getAllFeatures($details->getId());
+
+                if($featuresSelected){
+                    foreach($features as $key => $oneFeature){
+                        if(in_array($oneFeature['id'], $featuresSelected)){
+                            $features[$key]['selected'] = 1;
+                        }
+                    }
+                }
+            }
+
             return $this->render('ReservableActivityBundle:Admin:adminDetailsProperty.html.twig',
-                array('details' => $details, 'pictures' => $arrayPictures));
+                array('details' => $details, 'pictures' => $arrayPictures , 'type' => $type, 'features' => $features ));
         }
     }
 

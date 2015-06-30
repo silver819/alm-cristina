@@ -260,6 +260,12 @@ h2{
     font-weight: normal;
 }
 
+.breadcrumbs{
+    font-size: 0.8em;
+    font-style: italic;
+    color: grey;
+}
+
 @media (max-width: 300px) {
     .nameDiv {
         width: 100%;

@@ -116,6 +116,9 @@
 						</select>
 					<td>
 				</tr>
+                <tr>
+                    <th><label>{% trans %}Filtros{% endtrans %}</label></th>
+                </tr>
 			</table>
 		</div>
 		<div id="byDayDiv">
@@ -123,6 +126,12 @@
 			<input class="thisInput" name="StartDate" type="text" id="dateByDaySD" value="{{ app.session.get('searchStartDate') }}">
 			<label>{% trans %}Salida{% endtrans %}</label>
 			<input class="thisInput" name="EndDate" type="text" id="dateByDayED" value="{{ app.session.get('searchEndDate') }}">
+
+            <br/>
+            <label>{% trans %}Filtros{% endtrans %}</label>
+            <input type="checkbox" class="checkboxSearch" name="filterSearch[]" value="3"> Chalet<br/>
+            <input type="checkbox" class="checkboxSearch" name="filterSearch[]" value="4"> Apartamento</br>
+            <input type="checkbox" class="checkboxSearch" name="filterSearch[]" value="5"> Estudio
 		</div>
 		{% else %}
 			&nbsp;&nbsp;<input id="byHour" type="radio" name="type" value="hour" checked>{% trans %}Hora{% endtrans %}&nbsp;&nbsp;<input id="byDay" type="radio" name="type" value="day">{% trans %}Día{% endtrans %}
@@ -155,6 +164,15 @@
 						</select>
 					<td>
 				</tr>
+                <tr>
+                    <th><label>{% trans %}Filtros{% endtrans %}</label></th>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="checkbox" class="checkboxSearch" name="filterSearch[]" value="1"> Padel<br/>
+                        <input type="checkbox" class="checkboxSearch" name="filterSearch[]" value="2"> Tenis
+                    </td>
+                </tr>
 			</table>
 		</div>
 		<div id="byDayDiv" style="display:none">
@@ -162,6 +180,12 @@
 			<input class="thisInput" name="StartDate" type="text" id="dateByDaySD">
 			<label>{% trans %}Salida{% endtrans %}</label>
 			<input class="thisInput" name="EndDate" type="text" id="dateByDayED">
+
+            <br/>
+            <label>{% trans %}Filtros{% endtrans %}</label>
+            <input type="checkbox" class="checkboxSearch" name="filterSearch[]" value="3"> Chalet<br/>
+            <input type="checkbox" class="checkboxSearch" name="filterSearch[]" value="4"> Apartamento</br>
+            <input type="checkbox" class="checkboxSearch" name="filterSearch[]" value="5"> Estudio
 		</div>
 		{% endif %}
 

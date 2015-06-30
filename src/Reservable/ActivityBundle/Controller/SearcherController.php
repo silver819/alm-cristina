@@ -14,6 +14,8 @@ class SearcherController extends Controller
 
 		$session = $request->getSession();
 
+        ladybug_dump($_POST);die();
+
         // Borramos datos que tengamos anteriormente en la sesion
         $session->remove('searchName');
         $session->remove('searchHour');

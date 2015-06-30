@@ -67,7 +67,6 @@ class ConsultBookingsController extends Controller
                                                AND b.startDate >= ' . date('Ymd') . '
                                                AND b.clientID = ' . $userID)
                                     ->getResult();
-
             foreach($userBookings as $oneBooking){
                 $aux                    = array();
 
@@ -98,7 +97,7 @@ class ConsultBookingsController extends Controller
                                             ->getRepository('UserUserBundle:Users')
                                             ->getEmail($oneBooking['ownerID']);
 
-                $aux['calendar']        = $this->showCalendar($aux['startDate'], $aux['endDate'], $request->getLocale());
+                $aux['calendar']        = $this->showCalendar($aux['startDate'], $aux['endDate'], $request->getLocale(), $oneBooking['id']);
 
                 $results[] = $aux;
             }
@@ -360,9 +359,17 @@ echo "<br/>---------------------------------------------------------------------
         $calendar   = '';
         $todayMonth = date("m");
         $todayYear  = date("Y");
-        $properties = $this->getDoctrine()
-            ->getRepository('ReservableActivityBundle:Activity')
-            ->findAllByOwnerID($this->get('security.context')->getToken()->getUser()->getId());
+
+        if($this->get('security.context')->isGranted('ROLE_SUPER_ADMIN')) {
+            $properties = $this->getDoctrine()
+                ->getRepository('ReservableActivityBundle:Activity')
+                ->findAll();
+        }
+        else {
+            $properties = $this->getDoctrine()
+                ->getRepository('ReservableActivityBundle:Activity')
+                ->findAllByOwnerID($this->get('security.context')->getToken()->getUser()->getId());
+        }
 
         foreach($properties as $oneProperty){
             $aux         = array();

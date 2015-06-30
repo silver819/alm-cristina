@@ -6,23 +6,6 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class DefaultControllerTest extends WebTestCase
 {
-    public function testAnonymousSearch()
-    {
-        fwrite(STDOUT, "*** TEST Anonymous search ***\n");
-        fwrite(STDOUT, "\t- Search for tennis courts\n");
-        $client             = static::createClient();
-        $client->followRedirects(true);
-        $crawler            = $client->request('GET', '/es/');
-        $form               = $crawler->selectButton('_bookingSearch')->form();
-        $form['name']       = 'tenis';
-        $crawler            = $client->submit($form);
-
-        $this->assertFalse($crawler->filter('html:contains("No hemos encontrado")')->count() > 0);
-        fwrite(STDOUT, "\t- Correct search\n");
-
-        // tearDown
-    }
-
     public function testCalendar()
     {
         fwrite(STDOUT, "*** TEST Calendar ***\n");

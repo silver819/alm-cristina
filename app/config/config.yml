@@ -205,5 +205,5 @@ easy_admin:
             class: Bookings\BookingBundle\Entity\Booking
         Tipos:
             class: Reservable\ActivityBundle\Entity\TypeActivity
-        Fearures:
+        Features:
             class: Reservable\ActivityBundle\Entity\Features
