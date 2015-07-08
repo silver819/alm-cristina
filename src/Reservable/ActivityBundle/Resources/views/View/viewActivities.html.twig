@@ -26,45 +26,110 @@
 		{% for oneProperty in properties %}
 		
 
-		<div class="alert alert-warning ownerEmail {{ oneProperty.ownerID }}">
-			{% if pictures[oneProperty.id] is defined %}
-				<span class="imageSpan">
-				<img src="/images/properties/{{pictures[oneProperty.id]}}" width="100">
-				</span>
-			{% endif %}
+		<div class="box ownerEmail {{ oneProperty.ownerID }}">
+            <div class="box-header with-border">
+                <h3 class="box-title">{{ oneProperty.name }}</h3>
+                <div class="box-tools pull-right">
+                    <button data-widget="collapse" class="btn btn-box-tool"><i class="fa fa-minus"></i></button>
 
-			<span class="modifyDiv">
-				{% if oneProperty.active %}
-					<a id="modal-link-deactive-{{ oneProperty.id }}" href="#modal-deactive-{{ oneProperty.id }}" role="button" class="btn" data-toggle="modal">
-					<i style="color:green;" class="glyphicon glyphicon-eye-open" title="{% trans %}Activo{% endtrans %}"></i>
-					</a>
-				{% else %}
-					<a id="modal-link-active-{{ oneProperty.id }}" href="#modal-active-{{ oneProperty.id }}" role="button" class="btn" data-toggle="modal">
-					<i style="color:grey;" class="glyphicon glyphicon-eye-close" title="{% trans %}Desactivo{% endtrans %}"></i>
-					</a>
-				{% endif %}
-				<br/>
-				<a id="modal-link-details-{{ oneProperty.id }}" href="#modal-details-{{ oneProperty.id }}" role="button" class="btn" data-toggle="modal">
-				<i style="color:blue;" class="glyphicon glyphicon-edit" title="{% trans %}Modificar propiedad{% endtrans %}"></i>
-				</a>
-				<br/>
-				<a id="modal-link-delete-{{ oneProperty.id }}" href="#modal-delete-{{ oneProperty.id }}" role="button" class="btn" data-toggle="modal">
-				<i style="color:red;" class="glyphicon glyphicon-trash" title="{% trans %}Eliminar propiedad{% endtrans %}"></i>
-				</a>
-			</span>
 
-			<span class="contentSpan">
-				<div class="nameDiv">
-					<h4><strong><a href="view-details/{{ oneProperty.id }}">{{ oneProperty.name }}</a></strong></h4>
-				</div>
-				<p><i class="fa fa-eur" title="{% trans %}Precio{% endtrans %}"></i>&nbsp;{{ oneProperty.price }} &euro;/ {% if oneProperty.typeRent == 'hour' %} {% trans %}hora{% endtrans %} {% else %} {% trans %}día{% endtrans %} {% endif %}</p>
-				{% if is_granted("ROLE_SUPER_ADMIN") %}
-					<p><i class="fa fa-user" title="{% trans %}Propietario{% endtrans %}"></i>&nbsp;{{ allOwners[oneProperty.ownerID].email }}</p>
-				{% endif %}
-				<p>{% if (oneProperty.lat != null) and (oneProperty.lng != null) %}<i class="fa fa-map-marker" title="{% trans %}Dirección disponible en mapa{% endtrans %}"></i>{% else  %}<i class="fa fa-location-arrow" title="{% trans %}Dirección{% endtrans %}"></i>{% endif %}&nbsp;{{ oneProperty.address }}</p>
-				<p><i class="fa fa-file-text" title="{% trans %}Descripción{% endtrans %}"></i>&nbsp;{{ oneProperty.description }}</p>
-			</span>
-			<div style="clear:both;"></div>
+                    <span class="modifyDiv">
+                        {% if oneProperty.active %}
+                            <a id="modal-link-deactive-{{ oneProperty.id }}" href="#modal-deactive-{{ oneProperty.id }}" role="button" class="btn" data-toggle="modal">
+                                <i style="color:green;" class="glyphicon glyphicon-eye-open" title="{% trans %}Activo{% endtrans %}"></i>
+                            </a>
+                        {% else %}
+                            <a id="modal-link-active-{{ oneProperty.id }}" href="#modal-active-{{ oneProperty.id }}" role="button" class="btn" data-toggle="modal">
+                                <i style="color:grey;" class="glyphicon glyphicon-eye-close" title="{% trans %}Desactivo{% endtrans %}"></i>
+                            </a>
+                        {% endif %}
+                        <a id="modal-link-details-{{ oneProperty.id }}" href="#modal-details-{{ oneProperty.id }}" role="button" class="btn" data-toggle="modal">
+                            <i style="color:blue;" class="glyphicon glyphicon-edit" title="{% trans %}Modificar propiedad{% endtrans %}"></i>
+                        </a>
+                        <a id="modal-link-delete-{{ oneProperty.id }}" href="#modal-delete-{{ oneProperty.id }}" role="button" class="btn" data-toggle="modal">
+                            <i style="color:red;" class="glyphicon glyphicon-trash" title="{% trans %}Eliminar propiedad{% endtrans %}"></i>
+                        </a>
+                    </span>
+
+                    <button data-widget="remove" class="btn btn-box-tool"><i class="fa fa-times"></i></button>
+                </div>
+            </div>
+            <div class="box-body" style="display: block;">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div data-ride="carousel" class="carousel slide" id="carousel-example-generic">
+                            <ol class="carousel-indicators">
+                                <li class="active" data-slide-to="0" data-target="#carousel-example-generic"></li>
+                                <li class="" data-slide-to="1" data-target="#carousel-example-generic"></li>
+                                <li class="" data-slide-to="2" data-target="#carousel-example-generic"></li>
+                            </ol>
+                            <div class="carousel-inner">
+                                <div class="item active">
+                                    <img alt="First slide" src="http://placehold.it/900x500/39CCCC/ffffff&amp;text=I+Love+Bootstrap">
+                                    <div class="carousel-caption">
+                                        First Slide
+                                    </div>
+                                </div>
+                                <div class="item">
+                                    <img alt="Second slide" src="http://placehold.it/900x500/3c8dbc/ffffff&amp;text=I+Love+Bootstrap">
+                                    <div class="carousel-caption">
+                                        Second Slide
+                                    </div>
+                                </div>
+                                <div class="item">
+                                    <img alt="Third slide" src="http://placehold.it/900x500/f39c12/ffffff&amp;text=I+Love+Bootstrap">
+                                    <div class="carousel-caption">
+                                        Third Slide
+                                    </div>
+                                </div>
+                            </div>
+                            <a data-slide="prev" href="#carousel-example-generic" class="left carousel-control">
+                                <span class="fa fa-angle-left"></span>
+                            </a>
+                            <a data-slide="next" href="#carousel-example-generic" class="right carousel-control">
+                                <span class="fa fa-angle-right"></span>
+                            </a>
+                        </div>
+                    </div><!-- /.col -->
+                    <div class="col-md-6">
+                        <span class="contentSpan">
+                            {% if is_granted("ROLE_SUPER_ADMIN") %}
+                                <p><i class="fa fa-user" title="{% trans %}Propietario{% endtrans %}"></i>&nbsp;{{ allOwners[oneProperty.ownerID].email }}</p>
+                            {% endif %}
+                            <p>{% if (oneProperty.lat != null) and (oneProperty.lng != null) %}<i class="fa fa-map-marker" title="{% trans %}Dirección disponible en mapa{% endtrans %}"></i>{% else  %}<i class="fa fa-location-arrow" title="{% trans %}Dirección{% endtrans %}"></i>{% endif %}&nbsp;{{ oneProperty.address }}</p>
+                            <p><i class="fa fa-file-text" title="{% trans %}Descripción{% endtrans %}"></i>&nbsp;{{ oneProperty.description }}</p>
+                        </span>
+                    </div><!-- /.col -->
+                </div><!-- /.row -->
+            </div>
+            <div class="box-footer" style="display: block;">
+                <div class="row">
+                    <div class="col-sm-3 col-xs-6">
+                        <div class="description-block border-right">
+                            <h5 class="description-header">{% trans %}Precio{% endtrans %}</h5>
+                            <span class="description-text">&nbsp;{{ oneProperty.price }} &euro; / {% if oneProperty.typeRent == 'hour' %} {% trans %}hora{% endtrans %} {% else %} {% trans %}día{% endtrans %} {% endif %}</span>
+                        </div><!-- /.description-block -->
+                    </div><!-- /.col -->
+                    <div class="col-sm-3 col-xs-6">
+                        <div class="description-block border-right">
+                            <h5 class="description-header"></h5>
+                            <span class="description-text"></span>
+                        </div><!-- /.description-block -->
+                    </div><!-- /.col -->
+                    <div class="col-sm-3 col-xs-6">
+                        <div class="description-block border-right">
+                            <h5 class="description-header">Comentarios</h5>
+                            <span class="description-text"></span>
+                        </div><!-- /.description-block -->
+                    </div><!-- /.col -->
+                    <div class="col-sm-3 col-xs-6">
+                        <div class="description-block">
+                            <h5 class="description-header">Valoración</h5>
+                            <span class="description-text"></span>
+                        </div><!-- /.description-block -->
+                    </div>
+                </div><!-- /.row -->
+            </div>
 		</div>
 
 		{# Modal activar #}

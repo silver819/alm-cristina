@@ -48,6 +48,7 @@ class DefaultControllerTest extends WebTestCase
         $this->assertTrue($crawler->filter('html:contains("Entrar")')->count() > 0);
     }
 
+    /*
     // Registrar usuario
     public function testNewUser()
     {
@@ -134,5 +135,5 @@ class DefaultControllerTest extends WebTestCase
         fwrite(STDOUT, "\t- Clicked on the delete user link\n");
         $this->assertTrue($crawler->filter('html:contains("Ver usuarios")')->count() > 0);
         fwrite(STDOUT, "\t- Correct deletion\n");
-    }
+    }*/
 }

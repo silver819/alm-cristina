@@ -38,7 +38,7 @@ class DefaultControllerTest extends WebTestCase
         // tearDown
     }
 
-    public function testModifyLodgings()
+    /*public function testModifyLodgings()
     {
         fwrite(STDOUT, "*** TEST Modify lodging ***\n");
         // Login
@@ -97,5 +97,5 @@ class DefaultControllerTest extends WebTestCase
         fwrite(STDOUT, "\t- Correct deletion\n");
 
         // tearDown
-    }
+    }*/
 }
