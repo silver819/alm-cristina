@@ -30,6 +30,10 @@ easy_admin_bundle:
     prefix:   /{_locale}/superUserAdmin
 
 ## My own bundles
+admin_admin:
+    resource: "@AdminAdminBundle/Resources/config/routing.yml"
+    prefix:   /
+
 user_user:
     resource: "@UserUserBundle/Controller/"
     type:     annotation

@@ -1,9 +1,10 @@
 {% extends '::admin.html.twig' %}
 
-{% block workspace %}
+{% block page_title %}
+    {% trans %}Historial de reservas{% endtrans %}
+{% endblock %}
 
-	<h2>{% trans %}Historial de reservas{% endtrans %}</h2>
-	<hr/>
+{% block page_content %}
 
 	{% if bookings is empty %}
 		<div class="alert alert-danger text-center">

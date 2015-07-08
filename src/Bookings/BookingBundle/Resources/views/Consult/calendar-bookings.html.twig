@@ -1,10 +1,10 @@
 {% extends '::admin.html.twig' %}
 
-{% block workspace %}
+{% block page_title %}
+    {% trans %}Calendario{% endtrans %}
+{% endblock %}
 
-	<h2>{% trans %}Calendario{% endtrans %}</h2>
-	<hr/>
-
+{% block page_content %}
     <div class="row clearfix">
         <div class="col-md-12 column text-center">
             <select onchange="changeCalendar(this)">

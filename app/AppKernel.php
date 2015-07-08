@@ -24,6 +24,8 @@ class AppKernel extends Kernel
             new Bookings\BookingBundle\BookingsBookingBundle(),
             new HWI\Bundle\OAuthBundle\HWIOAuthBundle(),
             new JavierEguiluz\Bundle\EasyAdminBundle\EasyAdminBundle(),
+            new Avanzu\AdminThemeBundle\AvanzuAdminThemeBundle(),
+            new Admin\AdminBundle\AdminAdminBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

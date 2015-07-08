@@ -1,9 +1,10 @@
 {% extends '::admin.html.twig' %}
 
-{% block workspace %}
+{% block page_title %}
+    {% trans %}Gestionar reservas{% endtrans %}
+{% endblock %}
 
-	<h2>{% trans %}Gestionar reservas{% endtrans %}</h2>
-	<hr/>
+{% block page_content %}
 
 	{% if is_granted("ROLE_SUPER_ADMIN") %}
 		<div class="bookingsFilter">

@@ -1,6 +1,10 @@
 {% extends '::admin.html.twig' %}
 
-{% block workspace %}
+{% block page_title %}
+    {% trans %}Añadir propiedad{% endtrans %}
+{% endblock %}
+
+{% block page_content %}
 
 	<style>
 		#map_canvas{
@@ -105,9 +109,6 @@
 			google.maps.event.addListener(marker, 'click', toggleBounce);
 		}
 	</script>
-
-	<h2>{% trans %}Añadir propiedad{% endtrans %}</h2>
-	<hr/>
 
 	<form action="{{ path('register_activity') }}" method="POST" {{ form_enctype(form) }}>
 	    
