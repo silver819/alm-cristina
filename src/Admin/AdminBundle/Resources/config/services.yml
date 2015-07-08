@@ -1,0 +1,8 @@
+parameters:
+    sidebar_navigation_listener.class: Admin\AdminBundle\EventListener\SidebarNavigation
+
+services:
+    admin_admin.menu_listener:
+        class: %sidebar_navigation_listener.class%
+        tags:
+            - { name: kernel.event_listener, event: theme.sidebar_setup_menu, method: onSetupMenu }
