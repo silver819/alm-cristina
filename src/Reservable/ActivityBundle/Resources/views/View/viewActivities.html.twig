@@ -96,7 +96,6 @@
                             {% if is_granted("ROLE_SUPER_ADMIN") %}
                                 <p><i class="fa fa-user" title="{% trans %}Propietario{% endtrans %}"></i>&nbsp;{{ allOwners[oneProperty.ownerID].email }}</p>
                             {% endif %}
-                            <p>{% if (oneProperty.lat != null) and (oneProperty.lng != null) %}<i class="fa fa-map-marker" title="{% trans %}Dirección disponible en mapa{% endtrans %}"></i>{% else  %}<i class="fa fa-location-arrow" title="{% trans %}Dirección{% endtrans %}"></i>{% endif %}&nbsp;{{ oneProperty.address }}</p>
                             <p><i class="fa fa-file-text" title="{% trans %}Descripción{% endtrans %}"></i>&nbsp;{{ oneProperty.description }}</p>
                         </span>
                     </div><!-- /.col -->
@@ -112,8 +111,8 @@
                     </div><!-- /.col -->
                     <div class="col-sm-3 col-xs-6">
                         <div class="description-block border-right">
-                            <h5 class="description-header"></h5>
-                            <span class="description-text"></span>
+                            <h5 class="description-header">{% trans %}Dirección{% endtrans %}</h5>
+                            <span class="description-text">{{ oneProperty.address }} {% if (oneProperty.lat != null) and (oneProperty.lng != null) %}<i class="fa fa-map-marker" title="{% trans %}Dirección disponible en mapa{% endtrans %}"></i>{% else  %}<i class="fa fa-location-arrow" title=""></i>{% endif %}</span>
                         </div><!-- /.description-block -->
                     </div><!-- /.col -->
                     <div class="col-sm-3 col-xs-6">
