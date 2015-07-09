@@ -57,31 +57,19 @@
             <div class="box-body" style="display: block;">
                 <div class="row">
                     <div class="col-md-6">
+                        {% if pictures[oneProperty.id] is defined %}
                         <div data-ride="carousel" class="carousel slide" id="carousel-example-generic">
                             <ol class="carousel-indicators">
-                                <li class="active" data-slide-to="0" data-target="#carousel-example-generic"></li>
-                                <li class="" data-slide-to="1" data-target="#carousel-example-generic"></li>
-                                <li class="" data-slide-to="2" data-target="#carousel-example-generic"></li>
+                                {% for oneImage in pictures[oneProperty.id] %}
+                                    <li class="{% if loop.index0 == 0 %}active{% endif %}" data-slide-to="{{ loop.index0 == 0 }}" data-target="#carousel-example-generic"></li>
+                                {% endfor %}
                             </ol>
                             <div class="carousel-inner">
-                                <div class="item active">
-                                    <img alt="First slide" src="http://placehold.it/900x500/39CCCC/ffffff&amp;text=I+Love+Bootstrap">
-                                    <div class="carousel-caption">
-                                        First Slide
+                                {% for oneImage in pictures[oneProperty.id] %}
+                                    <div class="item {% if loop.index0 == 0 %}active{% endif %}">
+                                        <img alt="First slide" src="/images/properties/{{ oneImage }}">
                                     </div>
-                                </div>
-                                <div class="item">
-                                    <img alt="Second slide" src="http://placehold.it/900x500/3c8dbc/ffffff&amp;text=I+Love+Bootstrap">
-                                    <div class="carousel-caption">
-                                        Second Slide
-                                    </div>
-                                </div>
-                                <div class="item">
-                                    <img alt="Third slide" src="http://placehold.it/900x500/f39c12/ffffff&amp;text=I+Love+Bootstrap">
-                                    <div class="carousel-caption">
-                                        Third Slide
-                                    </div>
-                                </div>
+                                {% endfor %}
                             </div>
                             <a data-slide="prev" href="#carousel-example-generic" class="left carousel-control">
                                 <span class="fa fa-angle-left"></span>
@@ -90,6 +78,7 @@
                                 <span class="fa fa-angle-right"></span>
                             </a>
                         </div>
+                        {% endif %}
                     </div><!-- /.col -->
                     <div class="col-md-6">
                         <span class="contentSpan">

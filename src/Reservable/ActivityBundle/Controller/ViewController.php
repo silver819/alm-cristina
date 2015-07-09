@@ -48,13 +48,20 @@ class ViewController extends Controller
 		$arrayPictures = array();
 		if(!empty($properties)){
 			foreach($properties as $oneResult){
-				$firstImage = $this->getDoctrine()
+				$allImage = $this->getDoctrine()
 								   ->getRepository('ReservableActivityBundle:Picture')
 								   ->findAllByPropertyID($oneResult->getId());
 
-				if(!empty($firstImage[0]['path'])){
-					$arrayPictures[$oneResult->getId()] = $firstImage[0]['path'];
-				}
+				if(!empty($allImage)){
+                    $auxImages = array();
+                    foreach($allImage as $oneImage) {
+                        $auxImages[] = $oneImage['path'];
+                    }
+                    $arrayPictures[$oneResult->getId()] = $auxImages;
+                }
+                else{
+                    $arrayPictures[$oneResult->getId()][] = 'no-photo.jpg';
+                }
 			}
 		}
 
