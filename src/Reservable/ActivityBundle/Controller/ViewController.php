@@ -76,7 +76,7 @@ class ViewController extends Controller
 					->getRepository('ReservableActivityBundle:Activity')
 					->activeProperty($_POST['productID'])){
 				
-				return $this->redirect('view-properties');
+				return $this->redirect('admin/view-properties');
 			}
 			else{
 				die("No se ha podido activar la propiedad " . $_POST['productID']);
@@ -93,7 +93,7 @@ class ViewController extends Controller
 					->getRepository('ReservableActivityBundle:Activity')
 					->deactiveProperty($_POST['productID'])){
 				
-				return $this->redirect('view-properties');
+				return $this->redirect('admin/view-properties');
 			}
 			else{
 				die("No se ha podido desactivar la propiedad " . $_POST['productID']);
@@ -122,7 +122,7 @@ class ViewController extends Controller
 				 ->setValues($_POST['productID'], $setValues);
 		}
 
-		return $this->redirect('view-properties');
+		return $this->redirect('admin/view-properties');
 	}
 
     public function deletePropertyAction(){
@@ -135,7 +135,7 @@ class ViewController extends Controller
 					->getRepository('ReservableActivityBundle:Picture')
 					->deleteAllByPropertyID($_POST['productID']);
 				
-				return $this->redirect('view-properties');
+				return $this->redirect('admin/view-properties');
 			}
 			else{
 				die("No se ha podido eliminar la propiedad " . $_POST['productID']);
