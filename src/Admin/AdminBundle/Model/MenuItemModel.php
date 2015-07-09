@@ -60,13 +60,13 @@ class MenuItemModel implements MenuItemInterface
         $badge = false,
         $badgeColor = 'green'
     ) {
-        $this->badge = $badge;
-        $this->icon = $icon;
-        $this->identifier = $id;
-        $this->label = $label;
-        $this->route = $route;
-        $this->routeArgs = $routeArgs;
-        $this->badgeColor = $badgeColor;
+        $this->badge        = $badge;
+        $this->icon         = $icon;
+        $this->identifier   = $id;
+        $this->label        = $label;
+        $this->route        = $route;
+        $this->routeArgs    = $routeArgs;
+        $this->badgeColor   = $badgeColor;
     }
 
     /**

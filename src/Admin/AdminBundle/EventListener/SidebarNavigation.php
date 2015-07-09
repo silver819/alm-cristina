@@ -10,12 +10,13 @@ class SidebarNavigation
 
     public function onSetupMenu(SidebarMenuEvent $event)
     {
+        //$event = new SidebarMenuEvent();
+        //ldd($event);
         $request = $event->getRequest();
-
+        //ldd($request);
         foreach ($this->getMenu($request) as $item) {
             $event->addItem($item);
         }
-
     }
 
 
