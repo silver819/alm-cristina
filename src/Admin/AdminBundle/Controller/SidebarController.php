@@ -21,7 +21,7 @@ class SidebarController extends Controller
     public function userPanelAction()
     {
 
-        /*if (!$this->getDispatcher()->hasListeners(ThemeEvents::THEME_SIDEBAR_USER)) {
+        if (!$this->getDispatcher()->hasListeners(ThemeEvents::THEME_SIDEBAR_USER)) {
             return new Response();
         }
         $userEvent = $this->getDispatcher()->dispatch(ThemeEvents::THEME_SIDEBAR_USER, new ShowUserEvent());
@@ -31,7 +31,7 @@ class SidebarController extends Controller
             array(
                 'user' => $userEvent->getUser()
             )
-        );*/
+        );
         return false;
     }
 
@@ -45,8 +45,7 @@ class SidebarController extends Controller
 
     public function searchFormAction()
     {
-        //return $this->render('AvanzuAdminThemeBundle:Sidebar:search-form.html.twig', array());
-        return false;
+        return $this->render('AvanzuAdminThemeBundle:Sidebar:search-form.html.twig', array());
     }
 
     public function menuAction(Request $request)
