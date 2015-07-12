@@ -19,7 +19,7 @@ avanzu_admin_show_message:
   path: /messages/{messageid}/
 
 
-
+# Sidebar
 avanzu_admin_demo:
   path: /demo-admin/
   defaults: {_controller: AvanzuAdminThemeBundle:Default:index}
@@ -42,3 +42,9 @@ avanzu_admin_ui_gen_demo:
 avanzu_admin_ui_icon_demo:
   path: /demo-admin/ui-elements/icons/
   defaults: {_controller: AvanzuAdminThemeBundle:Default:uiIcons}
+
+# User Bar
+avanzu_admin_profile:
+  path: /profile/{userid}/
+avanzu_admin_logout:
+  path: /logout

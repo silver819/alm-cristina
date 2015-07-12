@@ -1,8 +1,16 @@
 parameters:
     sidebar_navigation_listener.class: Admin\AdminBundle\EventListener\SidebarNavigation
+    user_listener.class: Admin\AdminBundle\EventListener\UserBarListener
 
 services:
     admin_admin.menu_listener:
         class: %sidebar_navigation_listener.class%
         tags:
             - { name: kernel.event_listener, event: theme.sidebar_setup_menu, method: onSetupMenu }
+
+    admin_admin.user_listener:
+        class: %user_listener.class%
+        arguments: ['@service_container']
+        tags:
+            - { name: kernel.event_listener, event: theme.navbar_user, method: onShowUser }
+            #- { name: doctrine.event_listener, event: prePersist}

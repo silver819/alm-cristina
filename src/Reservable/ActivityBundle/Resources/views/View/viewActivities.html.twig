@@ -24,201 +24,199 @@
 		</div>
 	{% else %}
 		{% for oneProperty in properties %}
-		
-
-		<div class="box ownerEmail {{ oneProperty.ownerID }}">
-            <div class="box-header with-border">
-                <h3 class="box-title">{{ oneProperty.name }}</h3>
-                <div class="box-tools pull-right">
-                    <button data-widget="collapse" class="btn btn-box-tool"><i class="fa fa-minus"></i></button>
+            <div class="box ownerEmail {{ oneProperty.ownerID }}">
+                <div class="box-header with-border">
+                    <h3 class="box-title">{{ oneProperty.name }}</h3>
+                    <div class="box-tools pull-right">
+                        <button data-widget="collapse" class="btn btn-box-tool"><i class="fa fa-minus"></i></button>
 
 
-                    <span class="modifyDiv">
-                        {% if oneProperty.active %}
-                            <a id="modal-link-deactive-{{ oneProperty.id }}" href="#modal-deactive-{{ oneProperty.id }}" role="button" class="btn" data-toggle="modal">
-                                <i style="color:green;" class="glyphicon glyphicon-eye-open" title="{% trans %}Activo{% endtrans %}"></i>
+                        <span class="modifyDiv">
+                            {% if oneProperty.active %}
+                                <a id="modal-link-deactive-{{ oneProperty.id }}" href="#modal-deactive-{{ oneProperty.id }}" role="button" class="btn" data-toggle="modal">
+                                    <i style="color:green;" class="glyphicon glyphicon-eye-open" title="{% trans %}Activo{% endtrans %}"></i>
+                                </a>
+                            {% else %}
+                                <a id="modal-link-active-{{ oneProperty.id }}" href="#modal-active-{{ oneProperty.id }}" role="button" class="btn" data-toggle="modal">
+                                    <i style="color:grey;" class="glyphicon glyphicon-eye-close" title="{% trans %}Desactivo{% endtrans %}"></i>
+                                </a>
+                            {% endif %}
+                            <a id="modal-link-details-{{ oneProperty.id }}" href="#modal-details-{{ oneProperty.id }}" role="button" class="btn" data-toggle="modal">
+                                <i style="color:blue;" class="glyphicon glyphicon-edit" title="{% trans %}Modificar propiedad{% endtrans %}"></i>
                             </a>
-                        {% else %}
-                            <a id="modal-link-active-{{ oneProperty.id }}" href="#modal-active-{{ oneProperty.id }}" role="button" class="btn" data-toggle="modal">
-                                <i style="color:grey;" class="glyphicon glyphicon-eye-close" title="{% trans %}Desactivo{% endtrans %}"></i>
+                            <a id="modal-link-delete-{{ oneProperty.id }}" href="#modal-delete-{{ oneProperty.id }}" role="button" class="btn" data-toggle="modal">
+                                <i style="color:red;" class="glyphicon glyphicon-trash" title="{% trans %}Eliminar propiedad{% endtrans %}"></i>
                             </a>
-                        {% endif %}
-                        <a id="modal-link-details-{{ oneProperty.id }}" href="#modal-details-{{ oneProperty.id }}" role="button" class="btn" data-toggle="modal">
-                            <i style="color:blue;" class="glyphicon glyphicon-edit" title="{% trans %}Modificar propiedad{% endtrans %}"></i>
-                        </a>
-                        <a id="modal-link-delete-{{ oneProperty.id }}" href="#modal-delete-{{ oneProperty.id }}" role="button" class="btn" data-toggle="modal">
-                            <i style="color:red;" class="glyphicon glyphicon-trash" title="{% trans %}Eliminar propiedad{% endtrans %}"></i>
-                        </a>
-                    </span>
+                        </span>
 
-                    <button data-widget="remove" class="btn btn-box-tool"><i class="fa fa-times"></i></button>
+                        <button data-widget="remove" class="btn btn-box-tool"><i class="fa fa-times"></i></button>
+                    </div>
+                </div>
+                <div class="box-body" style="display: block;">
+                    <div class="row">
+                        <div class="col-md-6">
+                            {% if pictures[oneProperty.id] is defined %}
+                            <div data-ride="carousel" class="carousel slide" id="carousel-example-generic">
+                                <ol class="carousel-indicators">
+                                    {% for oneImage in pictures[oneProperty.id] %}
+                                        <li class="{% if loop.index0 == 0 %}active{% endif %}" data-slide-to="{{ loop.index0 == 0 }}" data-target="#carousel-example-generic"></li>
+                                    {% endfor %}
+                                </ol>
+                                <div class="carousel-inner">
+                                    {% for oneImage in pictures[oneProperty.id] %}
+                                        <div class="item {% if loop.index0 == 0 %}active{% endif %}">
+                                            <img alt="First slide" src="/images/properties/{{ oneImage }}">
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                                <a data-slide="prev" href="#carousel-example-generic" class="left carousel-control">
+                                    <span class="fa fa-angle-left"></span>
+                                </a>
+                                <a data-slide="next" href="#carousel-example-generic" class="right carousel-control">
+                                    <span class="fa fa-angle-right"></span>
+                                </a>
+                            </div>
+                            {% endif %}
+                        </div><!-- /.col -->
+                        <div class="col-md-6">
+                            <span class="contentSpan">
+                                {% if is_granted("ROLE_SUPER_ADMIN") %}
+                                    <p><i class="fa fa-user" title="{% trans %}Propietario{% endtrans %}"></i>&nbsp;{{ allOwners[oneProperty.ownerID].email }}</p>
+                                {% endif %}
+                                <p><i class="fa fa-file-text" title="{% trans %}Descripción{% endtrans %}"></i>&nbsp;{{ oneProperty.description }}</p>
+                            </span>
+                        </div><!-- /.col -->
+                    </div><!-- /.row -->
+                </div>
+                <div class="box-footer" style="display: block;">
+                    <div class="row">
+                        <div class="col-sm-3 col-xs-6">
+                            <div class="description-block border-right">
+                                <h5 class="description-header">{% trans %}Precio{% endtrans %}</h5>
+                                <span class="description-text">&nbsp;{{ oneProperty.price }} &euro; / {% if oneProperty.typeRent == 'hour' %} {% trans %}hora{% endtrans %} {% else %} {% trans %}día{% endtrans %} {% endif %}</span>
+                            </div><!-- /.description-block -->
+                        </div><!-- /.col -->
+                        <div class="col-sm-3 col-xs-6">
+                            <div class="description-block border-right">
+                                <h5 class="description-header">{% trans %}Dirección{% endtrans %}</h5>
+                                <span class="description-text">{{ oneProperty.address }} {% if (oneProperty.lat != null) and (oneProperty.lng != null) %}<i class="fa fa-map-marker" title="{% trans %}Dirección disponible en mapa{% endtrans %}"></i>{% else  %}<i class="fa fa-location-arrow" title=""></i>{% endif %}</span>
+                            </div><!-- /.description-block -->
+                        </div><!-- /.col -->
+                        <div class="col-sm-3 col-xs-6">
+                            <div class="description-block border-right">
+                                <h5 class="description-header">Comentarios</h5>
+                                <span class="description-text"></span>
+                            </div><!-- /.description-block -->
+                        </div><!-- /.col -->
+                        <div class="col-sm-3 col-xs-6">
+                            <div class="description-block">
+                                <h5 class="description-header">Valoración</h5>
+                                <span class="description-text"></span>
+                            </div><!-- /.description-block -->
+                        </div>
+                    </div><!-- /.row -->
                 </div>
             </div>
-            <div class="box-body" style="display: block;">
-                <div class="row">
-                    <div class="col-md-6">
-                        {% if pictures[oneProperty.id] is defined %}
-                        <div data-ride="carousel" class="carousel slide" id="carousel-example-generic">
-                            <ol class="carousel-indicators">
-                                {% for oneImage in pictures[oneProperty.id] %}
-                                    <li class="{% if loop.index0 == 0 %}active{% endif %}" data-slide-to="{{ loop.index0 == 0 }}" data-target="#carousel-example-generic"></li>
-                                {% endfor %}
-                            </ol>
-                            <div class="carousel-inner">
-                                {% for oneImage in pictures[oneProperty.id] %}
-                                    <div class="item {% if loop.index0 == 0 %}active{% endif %}">
-                                        <img alt="First slide" src="/images/properties/{{ oneImage }}">
-                                    </div>
-                                {% endfor %}
+
+            {# Modal activar #}
+            <div class="modal fade" id="modal-active-{{ oneProperty.id }}" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                            <h4 class="modal-title" id="myModalLabel">{% trans %}Activar{% endtrans %} {{ oneProperty.name }}</h4>
                             </div>
-                            <a data-slide="prev" href="#carousel-example-generic" class="left carousel-control">
-                                <span class="fa fa-angle-left"></span>
-                            </a>
-                            <a data-slide="next" href="#carousel-example-generic" class="right carousel-control">
-                                <span class="fa fa-angle-right"></span>
-                            </a>
+                            <div class="modal-body">
+                            <form action="{{ path('active_property') }}" method="post">
+                                <input type="hidden" name="productID" class="productID" value="{{ oneProperty.id }}">
+                                {% trans %}¿Realmente desea activar{% endtrans %} {{ oneProperty.name }}?
+                                <br/>
+                                {% trans %}Si activa esta propiedad, saldrá en las búsquedas y será reservable por cualquier usuario.{% endtrans %}
+                                <br/>
+                                <div style="margin: 20px auto 0px;text-align: center;">
+                                <button value="Send" class="btn btn-success" type="submit"><i class="glyphicon glyphicon-ok"></i>&nbsp;{% trans %}Activar{% endtrans %}</button>
+                                <button type="button" class="btn btn-danger"><i class="glyphicon glyphicon-remove"></i>&nbsp;{% trans %}Cancelar{% endtrans %}</button>
+                                </div>
+                            </form>
                         </div>
-                        {% endif %}
-                    </div><!-- /.col -->
-                    <div class="col-md-6">
-                        <span class="contentSpan">
-                            {% if is_granted("ROLE_SUPER_ADMIN") %}
-                                <p><i class="fa fa-user" title="{% trans %}Propietario{% endtrans %}"></i>&nbsp;{{ allOwners[oneProperty.ownerID].email }}</p>
-                            {% endif %}
-                            <p><i class="fa fa-file-text" title="{% trans %}Descripción{% endtrans %}"></i>&nbsp;{{ oneProperty.description }}</p>
-                        </span>
-                    </div><!-- /.col -->
-                </div><!-- /.row -->
-            </div>
-            <div class="box-footer" style="display: block;">
-                <div class="row">
-                    <div class="col-sm-3 col-xs-6">
-                        <div class="description-block border-right">
-                            <h5 class="description-header">{% trans %}Precio{% endtrans %}</h5>
-                            <span class="description-text">&nbsp;{{ oneProperty.price }} &euro; / {% if oneProperty.typeRent == 'hour' %} {% trans %}hora{% endtrans %} {% else %} {% trans %}día{% endtrans %} {% endif %}</span>
-                        </div><!-- /.description-block -->
-                    </div><!-- /.col -->
-                    <div class="col-sm-3 col-xs-6">
-                        <div class="description-block border-right">
-                            <h5 class="description-header">{% trans %}Dirección{% endtrans %}</h5>
-                            <span class="description-text">{{ oneProperty.address }} {% if (oneProperty.lat != null) and (oneProperty.lng != null) %}<i class="fa fa-map-marker" title="{% trans %}Dirección disponible en mapa{% endtrans %}"></i>{% else  %}<i class="fa fa-location-arrow" title=""></i>{% endif %}</span>
-                        </div><!-- /.description-block -->
-                    </div><!-- /.col -->
-                    <div class="col-sm-3 col-xs-6">
-                        <div class="description-block border-right">
-                            <h5 class="description-header">Comentarios</h5>
-                            <span class="description-text"></span>
-                        </div><!-- /.description-block -->
-                    </div><!-- /.col -->
-                    <div class="col-sm-3 col-xs-6">
-                        <div class="description-block">
-                            <h5 class="description-header">Valoración</h5>
-                            <span class="description-text"></span>
-                        </div><!-- /.description-block -->
                     </div>
-                </div><!-- /.row -->
+                </div>
             </div>
-		</div>
 
-		{# Modal activar #}
-		<div class="modal fade" id="modal-active-{{ oneProperty.id }}" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-			<div class="modal-dialog">
-				<div class="modal-content">
-					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-						<h4 class="modal-title" id="myModalLabel">{% trans %}Activar{% endtrans %} {{ oneProperty.name }}</h4>
-						</div>
-						<div class="modal-body">
-						<form action="{{ path('active_property') }}" method="post">
-							<input type="hidden" name="productID" class="productID" value="{{ oneProperty.id }}">
-							{% trans %}¿Realmente desea activar{% endtrans %} {{ oneProperty.name }}?
-							<br/>
-							{% trans %}Si activa esta propiedad, saldrá en las búsquedas y será reservable por cualquier usuario.{% endtrans %}
-							<br/>
-							<div style="margin: 20px auto 0px;text-align: center;">
-							<button value="Send" class="btn btn-success" type="submit"><i class="glyphicon glyphicon-ok"></i>&nbsp;{% trans %}Activar{% endtrans %}</button>
-							<button type="button" class="btn btn-danger"><i class="glyphicon glyphicon-remove"></i>&nbsp;{% trans %}Cancelar{% endtrans %}</button>
-							</div>
-						</form>
-					</div>
-				</div>
-			</div>
-		</div>
+            {# Modal desactivar #}
+            <div class="modal fade" id="modal-deactive-{{ oneProperty.id }}" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                            <h4 class="modal-title" id="myModalLabel">{% trans %}Desactivar{% endtrans %} {{ oneProperty.name }}</h4>
+                        </div>
+                        <div class="modal-body">
+                            <form action="{{ path('deactive_property') }}" method="post">
+                                <input type="hidden" name="productID" class="productID" value="{{ oneProperty.id }}">
+                                {% trans %}¿Realmente desea desactivar{% endtrans %} {{ oneProperty.name }}?
+                                <br/>
+                                {% trans %}Si desactiva esta propiedad, no saldrá en las búsquedas y no podrá ser reservado.{% endtrans %}
+                                <br/>
+                                <div style="margin: 20px auto 0px;text-align: center;">
+                                <button value="Send" class="btn btn-success" type="submit"><i class="glyphicon glyphicon-ok"></i>&nbsp;{% trans %}Desactivar{% endtrans %}</button>
+                                <button type="button" class="btn btn-danger"><i class="glyphicon glyphicon-remove"></i>&nbsp;{% trans %}Cancelar{% endtrans %}</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-		{# Modal desactivar #}
-		<div class="modal fade" id="modal-deactive-{{ oneProperty.id }}" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-			<div class="modal-dialog">
-				<div class="modal-content">
-					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-						<h4 class="modal-title" id="myModalLabel">{% trans %}Desactivar{% endtrans %} {{ oneProperty.name }}</h4>
-					</div>
-					<div class="modal-body">
-						<form action="{{ path('deactive_property') }}" method="post">
-							<input type="hidden" name="productID" class="productID" value="{{ oneProperty.id }}">
-							{% trans %}¿Realmente desea desactivar{% endtrans %} {{ oneProperty.name }}?
-							<br/>
-							{% trans %}Si desactiva esta propiedad, no saldrá en las búsquedas y no podrá ser reservado.{% endtrans %}
-							<br/>
-							<div style="margin: 20px auto 0px;text-align: center;">
-							<button value="Send" class="btn btn-success" type="submit"><i class="glyphicon glyphicon-ok"></i>&nbsp;{% trans %}Desactivar{% endtrans %}</button>
-							<button type="button" class="btn btn-danger"><i class="glyphicon glyphicon-remove"></i>&nbsp;{% trans %}Cancelar{% endtrans %}</button>
-							</div>
-						</form>
-					</div>
-				</div>
-			</div>
-		</div>
+            {# Modal modificar #}
+            <div class="modal fade" id="modal-details-{{ oneProperty.id }}" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                            <h4 class="modal-title" id="myModalLabel">{% trans %}Características{% endtrans %} {{ oneProperty.name }}</h4>
+                            </div>
+                            <div class="modal-body">
+                            <form action="{{ path('modify_property') }}" method="post">
+                                <input type="hidden" name="productID" class="productID" value="{{ oneProperty.id }}">
+                                <table style="width: 100%;">
+                                <tr><td>{% trans %}Nombre{% endtrans %}:</td><td><input type="text" name="name" value="{{ oneProperty.name }}" style="width: 100%;"></td></tr>
+                                <tr><td>{% trans %}Precio{% endtrans %}:</td><td><input type="text" name="price" value="{{ oneProperty.price }}" style="width: 100%;"></td></tr>
+                                <tr><td>{% trans %}Descripciín{% endtrans %}:</td><td><textarea rows="3" name="description" style="width: 100%;">{{ oneProperty.description }}</textarea></td></tr>
+                                <tr><td>{% trans %}Dirección{% endtrans %}:</td><td><input type="text" name="address" value="{{ oneProperty.address }}" style="width: 100%;"></td></tr>
+                                </table>
+                                <div style="margin: 20px auto 0px;text-align: center;">
+                                <button value="Send" class="btn btn-success" type="submit"><i class="glyphicon glyphicon-save"></i>&nbsp;{% trans %}Actualizar{% endtrans %}</button>
+                                <button type="button" class="btn btn-danger"><i class="glyphicon glyphicon-remove"></i>&nbsp;{% trans %}Cancelar{% endtrans %}</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-		{# Modal modificar #}
-		<div class="modal fade" id="modal-details-{{ oneProperty.id }}" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-			<div class="modal-dialog">
-				<div class="modal-content">
-					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-						<h4 class="modal-title" id="myModalLabel">{% trans %}Características{% endtrans %} {{ oneProperty.name }}</h4>
-						</div>
-						<div class="modal-body">
-						<form action="{{ path('modify_property') }}" method="post">
-							<input type="hidden" name="productID" class="productID" value="{{ oneProperty.id }}">
-							<table style="width: 100%;">
-							<tr><td>{% trans %}Nombre{% endtrans %}:</td><td><input type="text" name="name" value="{{ oneProperty.name }}" style="width: 100%;"></td></tr>
-							<tr><td>{% trans %}Precio{% endtrans %}:</td><td><input type="text" name="price" value="{{ oneProperty.price }}" style="width: 100%;"></td></tr>
-							<tr><td>{% trans %}Descripciín{% endtrans %}:</td><td><textarea rows="3" name="description" style="width: 100%;">{{ oneProperty.description }}</textarea></td></tr>
-							<tr><td>{% trans %}Dirección{% endtrans %}:</td><td><input type="text" name="address" value="{{ oneProperty.address }}" style="width: 100%;"></td></tr>
-							</table>
-							<div style="margin: 20px auto 0px;text-align: center;">
-							<button value="Send" class="btn btn-success" type="submit"><i class="glyphicon glyphicon-save"></i>&nbsp;{% trans %}Actualizar{% endtrans %}</button>
-							<button type="button" class="btn btn-danger"><i class="glyphicon glyphicon-remove"></i>&nbsp;{% trans %}Cancelar{% endtrans %}</button>
-							</div>
-						</form>
-					</div>
-				</div>
-			</div>
-		</div>
-
-		{# Modal eliminar #}
-		<div class="modal fade" id="modal-delete-{{ oneProperty.id }}" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-			<div class="modal-dialog">
-				<div class="modal-content">
-					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-						<h4 class="modal-title" id="myModalLabel">{% trans %}Eliminar{% endtrans %} {{ oneProperty.name }}</h4>
-						</div>
-						<div class="modal-body">
-						<form action="{{ path('delete_property') }}" method="post">
-							<input type="hidden" name="productID" class="productID" value="{{ oneProperty.id }}">
-							{% trans %}¿Realmente desea eliminar{% endtrans %} {{ oneProperty.name }} {% trans %}de su lista?{% endtrans %}
-							<br/>
-							<div style="margin: 20px auto 0px;text-align: center;">
-							<button value="Send" class="btn btn-success" type="submit"><i class="glyphicon glyphicon-ok"></i>&nbsp;{% trans %}Eliminar{% endtrans %}</button>
-							<button type="button" class="btn btn-danger"><i class="glyphicon glyphicon-remove"></i>&nbsp;{% trans %}Cancelar{% endtrans %}</button>
-							</div>
-						</form>
-					</div>
-				</div>
-			</div>
-		</div>
+            {# Modal eliminar #}
+            <div class="modal fade" id="modal-delete-{{ oneProperty.id }}" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                            <h4 class="modal-title" id="myModalLabel">{% trans %}Eliminar{% endtrans %} {{ oneProperty.name }}</h4>
+                            </div>
+                            <div class="modal-body">
+                            <form action="{{ path('delete_property') }}" method="post">
+                                <input type="hidden" name="productID" class="productID" value="{{ oneProperty.id }}">
+                                {% trans %}¿Realmente desea eliminar{% endtrans %} {{ oneProperty.name }} {% trans %}de su lista?{% endtrans %}
+                                <br/>
+                                <div style="margin: 20px auto 0px;text-align: center;">
+                                <button value="Send" class="btn btn-success" type="submit"><i class="glyphicon glyphicon-ok"></i>&nbsp;{% trans %}Eliminar{% endtrans %}</button>
+                                <button type="button" class="btn btn-danger"><i class="glyphicon glyphicon-remove"></i>&nbsp;{% trans %}Cancelar{% endtrans %}</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
 		{% endfor %}
 
 	{% endif %}
