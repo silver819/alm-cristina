@@ -35,7 +35,6 @@
 		</div>
 	{% else %}
 		{% for oneBooking in bookings %}
-
             <div class="box ownerEmail {{ oneProperty.ownerID }}">
                 <div class="box-header with-border">
                     <h3 class="box-title">{{ oneBooking.propertyName }}</h3>
@@ -72,8 +71,7 @@
                 </div>
                 <div class="box-footer" style="display: block;">
                     <div class="row">
-                        <div class="col-sm-3 col-xs-6">
-                        </div><!-- /.col -->
+                        <div class="col-sm-3 col-xs-6"></div><!-- /.col -->
                         <div class="col-sm-3 col-xs-6">
                             {% if is_granted("ROLE_SUPER_ADMIN") or is_granted("ROLE_ADMIN") %}
                                 <div class="col-md-6 column">
@@ -87,37 +85,35 @@
                             {% endif %}
                         </div><!-- /.col -->
                         <div class="col-sm-3 col-xs-6">
-                                <form action={{ path('cancelBooking') }} method=POST>
-                                    <input type="hidden" name="bookingID" value="{{ oneBooking.bookingID }}">
-                                    <button value="Send" class="btn btn-danger btnMargin pull-left" type="submit">
-                                        <i class="glyphicon glyphicon-remove"></i>&nbsp;{% trans %}Cancelar{% endtrans %}
-                                    </button>
-                                </form>
-                            </div><!-- /.description-block -->
+                            <form action={{ path('cancelBooking') }} method=POST>
+                                <input type="hidden" name="bookingID" value="{{ oneBooking.bookingID }}">
+                                <button value="Send" class="btn btn-danger btnMargin pull-left" type="submit">
+                                    <i class="glyphicon glyphicon-remove"></i>&nbsp;{% trans %}Cancelar{% endtrans %}
+                                </button>
+                            </form>
                         </div><!-- /.col -->
-                        <div class="col-sm-3 col-xs-6">
-                        </div>
+                        <div class="col-sm-3 col-xs-6"></div>
                     </div><!-- /.row -->
                 </div>
             </div>
-
 		{% endfor %}
 	{% endif %}
+{% endblock %}
 
-	<script>
-		var filterByOwner = document.getElementById("filterByOwner");
+{% block javascripts_inline %}
+    <script>
+        var filterByOwner = document.getElementById("filterByOwner");
 
-		filterByOwner.onchange = function(){
-			var ownerID = filterByOwner.options[filterByOwner.selectedIndex].value;
+        filterByOwner.onchange = function(){
+            var ownerID = filterByOwner.options[filterByOwner.selectedIndex].value;
 
-			if(ownerID == 0){
-				$('.ownerEmail').show('slow');
-			}
-			else{
-				$('.ownerEmail').hide('slow');
- 				$('.'+ ownerID).show('slow');
- 			}
-  		}
-	</script>
-
+            if(ownerID == 0){
+                $('.ownerEmail').show('slow');
+            }
+            else{
+                $('.ownerEmail').hide('slow');
+                $('.'+ ownerID).show('slow');
+            }
+        }
+    </script>
 {% endblock %}

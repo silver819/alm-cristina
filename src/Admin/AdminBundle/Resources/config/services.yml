@@ -8,9 +8,9 @@ services:
         tags:
             - { name: kernel.event_listener, event: theme.sidebar_setup_menu, method: onSetupMenu }
 
-    admin_admin.user_listener:
-        class: %user_listener.class%
-        arguments: ['@service_container']
-        tags:
-            - { name: kernel.event_listener, event: theme.navbar_user, method: onShowUser }
+    #admin_admin.user_listener:
+    #    class: %user_listener.class%
+    #    arguments: ['@service_container']
+    #    tags:
+    #        - { name: kernel.event_listener, event: theme.navbar_user, method: onShowUser }
             #- { name: doctrine.event_listener, event: prePersist}

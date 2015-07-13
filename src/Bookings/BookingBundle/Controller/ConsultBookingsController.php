@@ -577,20 +577,11 @@ echo "<br/>---------------------------------------------------------------------
         $stringCalendar .= '<table class="table table-bordered text-center"><tbody>';
 
         // Cabecera
-        $stringCalendar .= '<tr><th colspan="7">' . $this->nameMonths($month, $Lang) . " " . $year . '</th></tr>';
-
+        $stringCalendar .= '<tr><th colspan="7">' . $this->nameMonths($month, $Lang) . ' ' . $year . '</th></tr>';
 
         // Días de la semana
         $nameDayShort = array('es' => array('L','M','X','J','V','S','D'), 'en' => array('M','T','W','T','F','S','S'));
-        $stringCalendar .= '<tr>
-                                <th>' . $nameDayShort[$Lang][0] . '</th>
-                                <th>' . $nameDayShort[$Lang][1] . '</th>
-                                <th>' . $nameDayShort[$Lang][2] . '</th>
-                                <th>' . $nameDayShort[$Lang][3] . '</th>
-                                <th>' . $nameDayShort[$Lang][4] . '</th>
-                                <th>' . $nameDayShort[$Lang][5] . '</th>
-                                <th>' . $nameDayShort[$Lang][6] . '</th>
-                            </tr>';
+        $stringCalendar .= '<tr><th>' . $nameDayShort[$Lang][0] . '</th><th>' . $nameDayShort[$Lang][1] . '</th><th>' . $nameDayShort[$Lang][2] . '</th><th>' . $nameDayShort[$Lang][3] . '</th><th>' . $nameDayShort[$Lang][4] . '</th><th>' . $nameDayShort[$Lang][5] . '</th><th>' . $nameDayShort[$Lang][6] . '</th></tr>';
         
         $currentDay         = 1;
         $numDayWeek         = $this->numDayOfWeek(1,$month,$year);

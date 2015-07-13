@@ -4,7 +4,7 @@
 
 
 {% block title %}
-    Almacen
+    {% trans %}Almacen{% endtrans %}
 {% endblock %}
 
 {% block page_title %}
@@ -16,7 +16,78 @@
 {% block page_content %}
 {% endblock %}
 
-{% block javascripts %}
+{% block myOwn %}
+    {# Nombre de usuario #}
+    <li class="headerUserName"><a href="{{ path('fos_user_profile_show') }}">{{ app.user.username }}</a></li>
+
+    {# Idioma #}
+    <li class="dropdown languageDropdown" style="height: 50px !important;">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+            {% if app.request.locale == 'en' %}
+                <img src="{{ asset('images/flags/GB.png') }}" alt="English" title="English">
+            {% else %}
+                <img src="{{ asset('images/flags/ES.png') }}" alt="Español" title="Español">
+            {% endif %}
+            &nbsp;<strong class="caret"></strong></a>
+        <ul class="dropdown-menu">
+            <li><a href="{{ path('homepage', {'_locale':'es'}) }}"><img src="{{ asset('images/flags/ES.png') }}" alt="Español" title="Español">&nbsp;&nbsp;Español</a></li>
+            <li><a href="{{ path('homepage', {'_locale':'en'}) }}"><img src="{{ asset('images/flags/GB.png') }}" alt="English" title="English">&nbsp;&nbsp;English</a></li>
+        </ul>
+    </li>
+
+    {# Perfil #}
+    <li class="dropdown menuDropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">{% trans %}Mi cuenta{% endtrans %}&nbsp;<strong class="caret"></strong></a>
+        {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+            <ul class="dropdown-menu">
+                {% if is_granted("ROLE_SUPER_ADMIN") %}
+                    <style>
+                        .adminLI{background-color: #E78A37;padding-bottom: 5px;padding-top:5px;}
+                        .adminLI a{color: #FFFFFF !important;}
+                        .adminLI a:hover{background-color: #E78A37 !important;}
+                    </style>
+
+                    {% if app.environment == "dev" %}
+                        {% set adminUrl = "/app_dev.php/" ~ app.request.locale ~ "/superUserAdmin"  %}
+                    {% else %}
+                        {% set adminUrl = "/" ~ app.request.locale ~ "/superUserAdmin"  %}
+                    {% endif %}
+
+                    <li class="adminLI">
+                        <a href="{{ adminUrl }}" target="_blank">
+                            <span class="glyphicon glyphicon-wrench"></span>
+                            &nbsp;&nbsp;{% trans %}Administración{% endtrans %}
+                        </a>
+                    </li>
+                    <li class="divider"></li>
+                {% endif %}
+                <li>
+                    <a href="{{ path('consultBookings') }}"><span class="glyphicon glyphicon-th-list"></span>&nbsp;&nbsp;{% trans %}Menu{% endtrans %}</a>
+                </li>
+                <li>
+                    <a href="{{ path('fos_user_profile_show') }}"><span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp;{% trans %}Ver perfil{% endtrans %}</a>
+                </li>
+                <li>
+                    <a href="{{ path('fos_user_profile_edit') }}"><span class="glyphicon glyphicon-pencil"></span>&nbsp;&nbsp;{% trans %}Modificar perfil{% endtrans %}</a>
+                </li>
+                <li class="divider"></li>
+                <li>
+                    <a href="{{ path('fos_user_security_logout') }}"><span class="glyphicon glyphicon-off" style="color:red;"></span>&nbsp;&nbsp;{% trans %}Salir{% endtrans %}</a>
+                </li>
+            </ul>
+        {% else %}
+            <ul class="dropdown-menu">
+                <li>
+                    <a href="{{ path('fos_user_security_login') }}"><span class="glyphicon glyphicon-log-in"></span>&nbsp;&nbsp;{% trans %}Iniciar sesión{% endtrans %}</a>
+                </li>
+                <li>
+                    <a href="{{ path('fos_user_registration_register') }}"><span class="glyphicon glyphicon-plus"></span>&nbsp;&nbsp;{% trans %}Registrar{% endtrans %}</a>
+                </li>
+            </ul>
+        {% endif %}
+    </li>
+{% endblock %}
+
+{% block javascripts_2 %}
     <!-- jQuery (necessary for Bootstraps JavaScript plugins) -->
     <script src="{{ asset('js/jquery.js') }}"></script>
     <!-- Include all JavaScripts, compiled by Assetic -->
@@ -28,119 +99,9 @@
     <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyBlq3zbtFHWFL2PWZWFl9k2XfbmTICCvV0&sensor=false&language={{ app.request.locale }}"></script>
 
     <!-- FOSjsRoutingBundle -->
-    <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
-    <script src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
+    <!--<script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>-->
+    <!--<script src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>-->
 
     <!-- Dropbox -->
     <script type="text/javascript" src="https://www.dropbox.com/static/api/2/dropins.js" id="dropboxjs" data-app-key="1e9yyen85o4davu"></script>
-{% endblock %}
-
-
-
-{% block section %}
-
-{# <div class="col-md-1 column"></div> #}
-
-<div class="col-md-3 column">
-    {#
-    {% if is_granted("ROLE_SUPER_ADMIN") %}
-        <h3>{% trans %}Menú administrador{% endtrans %}</h3>
-
-        <div class="panel panel-default">
-            <a class="anchor-menu" href="{{ path('view_activities') }}">
-                <div class="panel-heading menu-header liner-bottom">
-                    <h3 class="panel-title"><span style="font-style:normal;" class="fa-building-o"></span>&nbsp;{% trans %}Propiedades{% endtrans %}</h3>
-                </div>
-            </a>
-            <a class="anchor-menu" href="{{ path('consultBookings') }}">
-                <div class="panel-heading menu-header liner-bottom">
-                    <h3 class="panel-title"><span style="font-style:normal;" class="fa-check-square-o"></span>&nbsp;{% trans %}Reservas{% endtrans %}</h3>
-                </div>
-            </a>
-            <a class="anchor-menu" href="{{ path('view_users') }}">
-                <div class="panel-heading menu-header liner-bottom">
-                    <h3 class="panel-title"><span style="font-style:normal;" class="fa-users"></span>&nbsp;{% trans %}Usuarios{% endtrans %}</h3>
-                </div>
-            </a>
-        </div>
-    {% endif %}
-    #}
-
-	{% if is_granted("ROLE_ADMIN") %}
-		<h3>{% trans %}Menú propietario{% endtrans %}</h3>
-		<div class="panel-group" id="panel-activities-role-user">
-			<div class="panel panel-default">
-				<div class="panel-heading">
-					<a class="panel-title collapsed" data-toggle="collapse" data-parent="#panel-activities-role-user" href="#panel-element-activities-role-user">{% trans %}Propiedades{% endtrans %}</a>
-				</div>
-				<div id="panel-element-activities-role-user" class="panel-collapse collapse">
-					<div class="panel-body">
-						<a class="anchor-menu" href="{{ path('view_activities') }}">
-							<div class="panel-body">&nbsp;&nbsp;&nbsp;<span class="glyphicon glyphicon-eye-open"></span>&nbsp;{% trans %}Ver propiedades{% endtrans %}</div>
-						</a>
-						<a class="anchor-menu" href="{{ path('new_activity') }}">
-							<div class="panel-body">&nbsp;&nbsp;&nbsp;<span class="glyphicon glyphicon-plus"></span>&nbsp;{% trans %}Añadir propiedad{% endtrans %}</div>
-						</a>
-					</div>
-				</div>
-			</div>
-
-			<div class="panel panel-default">
-				<div class="panel-heading">
-					<a class="panel-title collapsed" data-toggle="collapse" data-parent="#panel-bookings-role-user" href="#panel-element-bookings-role-user">{% trans %}Reservas{% endtrans %}</a>
-				</div>
-				<div id="panel-element-bookings-role-user" class="panel-collapse collapse">
-					<div class="panel-body">
-						<a class="anchor-menu" href="{{ path('calendarBookings') }}">
-						<div class="panel-body">&nbsp;&nbsp;&nbsp;<span class="fa-calendar"></span>&nbsp;{% trans %}Calendario{% endtrans %}</div>
-						</a>
-						<a class="anchor-menu" href="{{ path('consultBookings') }}">
-							<div class="panel-body">&nbsp;&nbsp;&nbsp;<span class="glyphicon glyphicon-check"></span>&nbsp;{% trans %}Gestionar reservas{% endtrans %}</div>
-						</a>
-						<a class="anchor-menu" href="{{ path('historyBookings') }}">
-							<div class="panel-body">&nbsp;&nbsp;&nbsp;<span class="glyphicon glyphicon-eye-open"></span>&nbsp;{% trans %}Historial de reservas{% endtrans %}</div>
-						</a>
-					</div>
-				</div>
-			</div>
-		</div>
-		<h3>{% trans %}Menú usuario{% endtrans %}</h3>
-	{% else %}
-		<div class="panel panel-default">
-			<div class="panel-heading menu-header">
-				<h3 class="panel-title">{% trans %}¿Quieres convertirte en propietario?{% endtrans %}</h3>
-			</div>
-			<a class="anchor-menu" href="{{ path('new_activity') }}">
-				<div class="panel-body">&nbsp;&nbsp;&nbsp;<span class="glyphicon glyphicon-plus"></span>&nbsp;{% trans %}Registrala aquí una propiedad que quieras alquilar{% endtrans %}</div>
-			</a>
-		</div>
-	{% endif %}
-
-	{% if is_granted("ROLE_USER") %}
-			<div class="panel panel-default">
-				<div class="panel-heading">
-					<a class="panel-title collapsed" data-toggle="collapse" data-parent="#panel-my-bookings" href="#panel-element-my-bookings">{% trans %}Mis reservas{% endtrans %}</a>
-				</div>
-				<div id="panel-element-my-bookings" class="panel-collapse collapse">
-					<div class="panel-body">
-						<a class="anchor-menu" href="{{ path('consultClientBookings') }}">
-							<div class="panel-body">&nbsp;&nbsp;&nbsp;<span class="glyphicon glyphicon-check"></span>&nbsp;{% trans %}Ver reservas{% endtrans %}</div>
-						</a>
-						<a class="anchor-menu" href="{{ path('historyBookingsUser') }}">
-							<div class="panel-body">&nbsp;&nbsp;&nbsp;<span class="glyphicon glyphicon-check"></span>&nbsp;{% trans %}Historial de reservas{% endtrans %}</div>
-						</a>
-					</div>
-				</div>
-			</div>
-	{% endif %}
-</div>
-
-<div class="col-md-9 column mainContent">
-	{% block workspace %}
-
-	{% endblock %}
-</div>
-
-{# <div class="col-md-1 column"></div> #}
-
 {% endblock %}
