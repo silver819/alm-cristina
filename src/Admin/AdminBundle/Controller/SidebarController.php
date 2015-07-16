@@ -45,7 +45,8 @@ class SidebarController extends Controller
 
     public function searchFormAction()
     {
-        return $this->render('AvanzuAdminThemeBundle:Sidebar:search-form.html.twig', array());
+        //return $this->render('AvanzuAdminThemeBundle:Sidebar:search-form.html.twig', array());
+        return false;
     }
 
     public function menuAction(Request $request)

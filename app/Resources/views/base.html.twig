@@ -1,144 +1,326 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<!--[if lt IE 7 ]><html lang="en" class="no-js ie6"> <![endif]-->
+<!--[if IE 7 ]><html lang="en" class="no-js ie7"> <![endif]-->
+<!--[if IE 8 ]><html lang="en" class="no-js ie8"> <![endif]-->
+<!--[if IE 9 ]><html lang="en" class="no-js ie9"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--><html lang="en" class="no-js"> <!--<![endif]-->
 <head>
-    <title>PFC</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Bootstrap -->
-    <link href="{{ asset('css/bootstrap.css') }}" rel="stylesheet" media="screen">
+    <meta charset="utf-8">
+    <meta name="author" content="">
+    <meta name="keywords" content="">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>    Almacen</title>
+
+    <link rel="stylesheet" href="/bundles/avanzuadmintheme/static/dev/styles/admin-lte-all.css" />
     <link href="{{ asset('css/main.css') }}" filter="cssrewrite" type="text/css" rel="stylesheet">
     <link href="{{ asset('js/jquery-ui-1.11.1.custom/jquery-ui.css') }}" type="text/css" rel="stylesheet">
-    <link href="{{ asset('css/font-awesome-4.2.0/css/font-awesome.css') }}" rel="stylesheet">
 
-    <!-- HTML5 Shim and Respond.js add IE8 support of HTML5 elements and media queries -->
-    {% include 'BraincraftedBootstrapBundle::ie8-support.html.twig' %}
+
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <script src="{{ asset('js/jquery-ui-1.11.1.custom/jquery-ui.js') }}" ></script>
+    <script src="{{ asset('js/jquery-ui-1.11.1.custom/jquery.ui.datepicker-es.js') }}" ></script>
+
+    <script type="text/javascript" src="/bundles/avanzuadmintheme/static/dev/scripts/modernizr.js"></script>
+    <!--[if lt IE 9]>
+
+    <![endif]-->
+
+
 </head>
+<body class="skin-blue">
+<div class="wrapper">
 
-<body>
-<!-- jQuery (necessary for Bootstraps JavaScript plugins) -->
-<script src="{{ asset('js/jquery.js') }}"></script>
-<!-- Include all JavaScripts, compiled by Assetic -->
-<script src="{{ asset('js/bootstrap.js') }}"></script>
-<script src="{{ asset('js/jquery-ui-1.11.1.custom/jquery-ui.js') }}" ></script>
+    <header class="main-header">
+        <a href="#" class="logo">
+            <!-- Add the class icon to your logo image or logo icon to add the margining -->
+            Almacen
+        </a>
+        <!-- Header Navbar: style can be found in header.less -->
+        <nav class="navbar navbar-static-top" role="navigation">
+            <!-- Sidebar toggle button-->
+            <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+                <span class="sr-only">Toggle navigation</span>
+            </a>
+            <div class="navbar-custom-menu">
+                <ul class="nav navbar-nav">
 
-<script src="{{ asset('js/jquery-ui-1.11.1.custom/jquery.ui.datepicker-es.js') }}" ></script>
-<!-- Google Maps API v3 -->
-<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyBlq3zbtFHWFL2PWZWFl9k2XfbmTICCvV0&sensor=false&language={{ app.request.locale }}"></script>
 
-<!-- FOSjsRoutingBundle -->
-<script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
-<script src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
 
-<!-- Dropbox -->
-<script type="text/javascript" src="https://www.dropbox.com/static/api/2/dropins.js" id="dropboxjs" data-app-key="1e9yyen85o4davu"></script>
 
-<header class="navbar navbar-default " role="navigation">
-    <div class="container">
-        <a class="navbar-brand brandClass" href="{{ path('homepage') }}">{% trans %}Almacen{% endtrans %}</a>
+                    <li class="headerUserName"><a href="/app_dev.php/es/profile/">Cristina</a></li>
 
-        <ul class="nav navbar-nav navbar-right headerLists">
-            {# Nombre de usuario #}
-            <li class="headerUserName"><a href="{{ path('fos_user_profile_show') }}">{{ app.user.username }}</a></li>
+                    <li class="dropdown languageDropdown" style="height: 50px !important;">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <img src="/images/flags/ES.png" alt="Español" title="Español">
+                            &nbsp;<strong class="caret"></strong></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="/app_dev.php/es/"><img src="/images/flags/ES.png" alt="Español" title="Español">&nbsp;&nbsp;Español</a></li>
+                            <li><a href="/app_dev.php/en/"><img src="/images/flags/GB.png" alt="English" title="English">&nbsp;&nbsp;English</a></li>
+                        </ul>
+                    </li>
 
-            {# Idioma #}
-            <li class="dropdown languageDropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                    {% if app.request.locale == 'en' %}
-                        <img src="{{ asset('images/flags/GB.png') }}" alt="English" title="English">
-                    {% else %}
-                        <img src="{{ asset('images/flags/ES.png') }}" alt="Español" title="Español">
-                    {% endif %}
-                    &nbsp;<strong class="caret"></strong></a>
-                <ul class="dropdown-menu">
-                    <li><a href="{{ path('homepage', {'_locale':'es'}) }}"><img src="{{ asset('images/flags/ES.png') }}" alt="Español" title="Español">&nbsp;&nbsp;Español</a></li>
-                    <li><a href="{{ path('homepage', {'_locale':'en'}) }}"><img src="{{ asset('images/flags/GB.png') }}" alt="English" title="English">&nbsp;&nbsp;English</a></li>
-                </ul>
-            </li>
-
-            {# Perfil #}
-            <li class="dropdown menuDropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">{% trans %}Mi cuenta{% endtrans %}&nbsp;<strong class="caret"></strong></a>
-                {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-                    <ul class="dropdown-menu">
-                        {% if is_granted("ROLE_SUPER_ADMIN") %}
-                            <style>
-                                .adminLI{background-color: #E78A37;padding-bottom: 5px;padding-top:5px;}
-                                .adminLI a{color: #FFFFFF !important;}
-                                .adminLI a:hover{background-color: #E78A37 !important;}
-                            </style>
-
-                            {% if app.environment == "dev" %}
-                                {% set adminUrl = "/app_dev.php/" ~ app.request.locale ~ "/superUserAdmin"  %}
-                            {% else %}
-                                {% set adminUrl = "/" ~ app.request.locale ~ "/superUserAdmin"  %}
-                            {% endif %}
-
-                            <li class="adminLI">
-                                <a href="{{ adminUrl }}" target="_blank">
-                                    <span class="glyphicon glyphicon-wrench"></span>
-                                    &nbsp;&nbsp;{% trans %}Administración{% endtrans %}
-                                </a>
+                    <li class="dropdown menuDropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Mi cuenta&nbsp;<strong class="caret"></strong></a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="/app_dev.php/es/consult-bookings/"><span class="glyphicon glyphicon-th-list"></span>&nbsp;&nbsp;Menu</a>
+                            </li>
+                            <li>
+                                <a href="/app_dev.php/es/profile/"><span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp;Ver perfil</a>
+                            </li>
+                            <li>
+                                <a href="/app_dev.php/es/profile/edit"><span class="glyphicon glyphicon-pencil"></span>&nbsp;&nbsp;Modificar perfil</a>
                             </li>
                             <li class="divider"></li>
-                        {% endif %}
-                        <li>
-                            <a href="{{ path('consultBookings') }}"><span class="glyphicon glyphicon-th-list"></span>&nbsp;&nbsp;{% trans %}Menu{% endtrans %}</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('fos_user_profile_show') }}"><span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp;{% trans %}Ver perfil{% endtrans %}</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('fos_user_profile_edit') }}"><span class="glyphicon glyphicon-pencil"></span>&nbsp;&nbsp;{% trans %}Modificar perfil{% endtrans %}</a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a href="{{ path('fos_user_security_logout') }}"><span class="glyphicon glyphicon-off" style="color:red;"></span>&nbsp;&nbsp;{% trans %}Salir{% endtrans %}</a>
-                        </li>
-                    </ul>
-                {% else %}
-                    <ul class="dropdown-menu">
-                        <li>
-                            <a href="{{ path('fos_user_security_login') }}"><span class="glyphicon glyphicon-log-in"></span>&nbsp;&nbsp;{% trans %}Iniciar sesión{% endtrans %}</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('fos_user_registration_register') }}"><span class="glyphicon glyphicon-plus"></span>&nbsp;&nbsp;{% trans %}Registrar{% endtrans %}</a>
-                        </li>
-                    </ul>
-                {% endif %}
-            </li>
-        </ul>
-    </div>
-</header>
-<section class="mediaSection">
-    <div class="container">
-        <div class="row clearfix">
-            <div class="col-md-12 column">
-                {% block section %}
-
-                {% endblock %}
+                            <li>
+                                <a href="/app_dev.php/es/logout"><span class="glyphicon glyphicon-off" style="color:red;"></span>&nbsp;&nbsp;Salir</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
             </div>
-        </div>
-    </div>
-</section>
-<footer>
-    <div class="wrapper-widget-block-footerlinks row-fluid span9 mediaFooter">
-        <div class="container">
-            <p>
-                Cristina Sánchez García © 2014 - 2015<br/>
-                {% trans %}Proyecto Fin de Carrera Ingeniería Informática{% endtrans %}<br/>
-                {% trans %}Universidad de Cádiz{% endtrans %}
-            </p>
-        </div>
-    </div>
-</footer>
+        </nav>
+    </header>
 
-<!-- Coloca este JavaScript asíncrono justo delante de la etiqueta </body> -->
-<script type="text/javascript">
-    (function() {
-        var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
-        po.src = 'https://apis.google.com/js/client:plusone.js';
-        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
-    })();
+    <!-- Left side column. contains the logo and sidebar -->
+    <aside class="mainSearch main-sidebar sidebar-offcanvas">
+        <form action="{{ path('search') }}" method="POST">
+            <label>{% trans %}Nombre{% endtrans %}</label>
+            <input class="thisInput" type="text" name="name" value="{{ app.session.get('searchName') }}">
+
+            <label>{% trans %}Alquilar por{% endtrans %}</label><br/>
+            {% if app.session.get('searchType') == 'day' %}
+                &nbsp;&nbsp;<input id="byHour" type="radio" name="type" value="hour">{% trans %}Hora{% endtrans %}&nbsp;&nbsp;<input id="byDay" type="radio" name="type" value="day" checked>{% trans %}Día{% endtrans %}
+
+                <div id="byHourDiv" style="display:none">
+                    <table class="dateHourTable">
+                        <th><label>{% trans %}Fecha{% endtrans %}</label></th>
+                        <th><label style="float: right;">{% trans %}Hora{% endtrans %}</label></th>
+                        </tr>
+                        <tr>
+                            <td>
+                                <input class="thisInput" style="width:115px;" name="date" type="text" id="dateByHour" value="{{ app.session.get('searchDate') }}">
+                            </td>
+                            <td>
+                                <select name="hour">
+                                    <option value="09">09:00</option><option value="10">10:00</option>
+                                    <option value="11">11:00</option><option value="12" selected>12:00</option>
+                                    <option value="13">13:00</option><option value="14">14:00</option>
+                                    <option value="15">15:00</option><option value="16">16:00</option>
+                                    <option value="17">17:00</option><option value="18">18:00</option>
+                                    <option value="19">19:00</option><option value="20">20:00</option>
+                                    <option value="21">21:00</option><option value="22">22:00</option>
+                                </select>
+                            <td>
+                        </tr>
+                        <tr>
+                            <th><label>{% trans %}Filtros{% endtrans %}</label></th>
+                        </tr>
+                    </table>
+                </div>
+                <div id="byDayDiv">
+                    <label>{% trans %}Entrada{% endtrans %}</label>
+                    <input class="thisInput" name="StartDate" type="text" id="dateByDaySD" value="{{ app.session.get('searchStartDate') }}">
+                    <label>{% trans %}Salida{% endtrans %}</label>
+                    <input class="thisInput" name="EndDate" type="text" id="dateByDayED" value="{{ app.session.get('searchEndDate') }}">
+
+                    <br/>
+                    <label>{% trans %}Filtros{% endtrans %}</label>
+                    <input type="checkbox" class="checkboxSearch" name="filterSearch[]" value="3"> Chalet<br/>
+                    <input type="checkbox" class="checkboxSearch" name="filterSearch[]" value="4"> Apartamento</br>
+                    <input type="checkbox" class="checkboxSearch" name="filterSearch[]" value="5"> Estudio
+                </div>
+            {% else %}
+                &nbsp;&nbsp;<input id="byHour" type="radio" name="type" value="hour" checked>{% trans %}Hora{% endtrans %}&nbsp;&nbsp;<input id="byDay" type="radio" name="type" value="day">{% trans %}Día{% endtrans %}
+
+                <div id="byHourDiv">
+                    <table class="dateHourTable">
+                        <th><label>{% trans %}Fecha{% endtrans %}</label></th>
+                        <th><label style="float: right;">{% trans %}Hora{% endtrans %}</label></th>
+                        </tr>
+                        <tr>
+                            <td>
+                                <input class="thisInput" name="date" type="text" id="dateByHour">
+                            </td>
+                            <td>
+                                <select name="hour">
+                                    {% if app.session.get('searchHour') == 09 %}<option value="09" selected>09:00</option>{% else %}<option value="09">09:00</option>{% endif %}
+                                    {% if app.session.get('searchHour') == 10 %}<option value="10" selected>10:00</option>{% else %}<option value="10">10:00</option>{% endif %}
+                                    {% if app.session.get('searchHour') == 11 %}<option value="11" selected>11:00</option>{% else %}<option value="11">11:00</option>{% endif %}
+                                    {% if app.session.get('searchHour') == 12 %}<option value="12" selected>12:00</option>{% else %}<option value="12">12:00</option>{% endif %}
+                                    {% if app.session.get('searchHour') == 13 %}<option value="13" selected>13:00</option>{% else %}<option value="13">13:00</option>{% endif %}
+                                    {% if app.session.get('searchHour') == 14 %}<option value="14" selected>14:00</option>{% else %}<option value="14">14:00</option>{% endif %}
+                                    {% if app.session.get('searchHour') == 15 %}<option value="15" selected>15:00</option>{% else %}<option value="15">15:00</option>{% endif %}
+                                    {% if app.session.get('searchHour') == 16 %}<option value="16" selected>16:00</option>{% else %}<option value="16">16:00</option>{% endif %}
+                                    {% if app.session.get('searchHour') == 17 %}<option value="17" selected>17:00</option>{% else %}<option value="17">17:00</option>{% endif %}
+                                    {% if app.session.get('searchHour') == 18 %}<option value="18" selected>18:00</option>{% else %}<option value="18">18:00</option>{% endif %}
+                                    {% if app.session.get('searchHour') == 19 %}<option value="19" selected>19:00</option>{% else %}<option value="19">19:00</option>{% endif %}
+                                    {% if app.session.get('searchHour') == 20 %}<option value="20" selected>20:00</option>{% else %}<option value="20">20:00</option>{% endif %}
+                                    {% if app.session.get('searchHour') == 21 %}<option value="21" selected>21:00</option>{% else %}<option value="21">21:00</option>{% endif %}
+                                    {% if app.session.get('searchHour') == 22 %}<option value="22" selected>22:00</option>{% else %}<option value="22">22:00</option>{% endif %}
+                                </select>
+                            <td>
+                        </tr>
+                        <tr>
+                            <th><label>{% trans %}Filtros{% endtrans %}</label></th>
+                        </tr>
+                        <tr>
+                            <td>
+                                <input type="checkbox" class="checkboxSearch" name="filterSearch[]" value="1"> Padel<br/>
+                                <input type="checkbox" class="checkboxSearch" name="filterSearch[]" value="2"> Tenis
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div id="byDayDiv" style="display:none">
+                    <label>{% trans %}Entrada{% endtrans %}</label>
+                    <input class="thisInput" name="StartDate" type="text" id="dateByDaySD">
+                    <label>{% trans %}Salida{% endtrans %}</label>
+                    <input class="thisInput" name="EndDate" type="text" id="dateByDayED">
+
+                    <br/>
+                    <label>{% trans %}Filtros{% endtrans %}</label>
+                    <input type="checkbox" class="checkboxSearch" name="filterSearch[]" value="3"> Chalet<br/>
+                    <input type="checkbox" class="checkboxSearch" name="filterSearch[]" value="4"> Apartamento</br>
+                    <input type="checkbox" class="checkboxSearch" name="filterSearch[]" value="5"> Estudio
+                </div>
+            {% endif %}
+
+
+
+            <div class="text-center">
+                <button value="Send" class="btn btn-success" type="submit" name="_bookingSearch">
+                    <i class="glyphicon glyphicon-search"></i>&nbsp;{% trans %}Buscar{% endtrans %}
+                </button>
+            </div>
+        </form>
+    </aside>
+
+    <!-- Right side column. Contains the navbar and content of the page -->
+    <div class="content-wrapper">
+        <!-- Main content -->
+        <section class="content">
+            {% block results %}
+
+            {% endblock %}
+        </section>
+        <!-- /.content -->
+    </div>
+    <!-- /.content-wrapper -->
+
+    <footer class="main-footer">
+        <div class="pull-right hidden-xs">
+            <b>PFC Ingeniería Informática</b> Universidad de Cádiz
+        </div>
+        <strong>Cristina Sánchez García</strong> &copy; 2014-2015
+    </footer>
+
+</div>
+<!-- ./wrapper -->
+
+
+<script src="/bundles/avanzuadmintheme/static/dev/scripts/admin-lte-all.js"></script>
+
+
+<script>
+    var filterByOwner = document.getElementById("filterByOwner");
+
+    filterByOwner.onchange = function(){
+        var ownerID = filterByOwner.options[filterByOwner.selectedIndex].value;
+
+        if(ownerID == 0){
+            $('.ownerEmail').show('slow');
+        }
+        else{
+            $('.ownerEmail').hide('slow');
+            $('.'+ ownerID).show('slow');
+        }
+    }
 </script>
 
+{# Buscador #}
+<script>
+    $.datepicker.setDefaults($.datepicker.regional[ "{{ app.request.locale }}" ]);
 
+    $(function() {
+        /* Fecha por hora */
+        var dateDay 	= {{ app.session.get('searchdateDay')|json_encode() }};
+        var dateMonth	= {{ app.session.get('searchdateMonth')|json_encode() }};
+        var dateYear 	= {{ app.session.get('searchdateYear')|json_encode() }};
+
+        if(!dateDay || !dateMonth || !dateYear){
+            var today 	= new Date();
+            dateYear 	= today.getFullYear();
+            dateMonth 	= today.getMonth();
+            dateDay 	= today.getDay() + 2;
+
+            if(dateDay < 10)	{dateDay 	= '0' + dateDay;	}
+            if(dateMonth < 10)	{dateMonth	= '0' + dateMonth;	}
+        }
+
+        $("#dateByHour").datepicker({
+            dateFormat: 		"dd/mm/yy",
+            defaultDate: 		+2,
+            minDate: 			+2,
+        });
+        $("#dateByHour").datepicker( "setDate", new Date(dateYear, dateMonth, dateDay));
+
+        /* Fechas por días */
+        var StartDateDay 	= {{ app.session.get('searchStartDateDay')|json_encode() }};
+        var StartDateMonth	= {{ app.session.get('searchStartDateMonth')|json_encode() - 1 }};
+        var StartDateYear 	= {{ app.session.get('searchStartDateYear')|json_encode() }};
+        var EndDateDay 		= {{ app.session.get('searchEndDateDay')|json_encode() }};
+        var EndDateMonth	= {{ app.session.get('searchEndDateMonth')|json_encode() - 1 }};
+        var EndDateYear 	= {{ app.session.get('searchEndDateYear')|json_encode() }};
+
+        if(!StartDateDay || !StartDateMonth || !StartDateYear || !EndDateDay || !EndDateMonth || !EndDateYear){
+            var today 	= new Date();
+            StartDateYear 	= today.getFullYear();
+            StartDateMonth 	= today.getMonth();
+            StartDateDay 	= today.getDay() + 2;
+
+            if(StartDateDay < 10)	{StartDateDay 	= '0' + StartDateDay;	}
+            if(StartDateMonth < 10)	{StartDateMonth	= '0' + StartDateMonth;	}
+
+            StartDateYear 	= today.getFullYear();
+            EndDateMonth 	= today.getMonth();
+            EndDateDay 		= today.getDay() + 3;
+
+            if(EndDateDay < 10)		{EndDateDay		= '0' + EndDateDay;		}
+            if(EndDateMonth < 10)	{EndDateMonth 	= '0' + EndDateMonth;	}
+        }
+
+        $("#dateByDaySD").datepicker({
+            dateFormat: 		"dd/mm/yy",
+            defaultDate: 		+2,
+            minDate: 			+2,
+            onClose: function(selectedDate) {
+                $("#dateByDayED").datepicker("option", "minDate", selectedDate );
+            }
+        });
+        $("#dateByDaySD").datepicker( "setDate", new Date(StartDateYear, StartDateMonth, StartDateDay));
+
+        $("#dateByDayED").datepicker({
+            dateFormat: 		"dd/mm/yy",
+            defaultDate: 		+3,
+            minDate: 			+3,
+            onClose: function(selectedDate) {
+                $( "#dateByDaySD" ).datepicker( "option", "maxDate", selectedDate );
+            }
+        });
+        $("#dateByDayED").datepicker( "setDate", new Date(EndDateYear, EndDateMonth, EndDateDay));
+
+        $("#byHour").click(function() {
+            $("#byHourDiv").show("slow");
+            $("#byDayDiv").hide("slow");
+        });
+
+        $("#byDay").click(function() {
+            $("#byHourDiv").hide("slow");
+            $("#byDayDiv").show("slow");
+        });
+    });
+</script>
+
+<div id="sfwdt145fda" class="sf-toolbar" style="display: none"></div><script>/*<![CDATA[*/    Sfjs = (function() {        "use strict";        var noop = function() {},            profilerStorageKey = 'sf2/profiler/',            request = function(url, onSuccess, onError, payload, options) {                var xhr = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');                options = options || {};                options.maxTries = options.maxTries || 0;                xhr.open(options.method || 'GET', url, true);                xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');                xhr.onreadystatechange = function(state) {                    if (4 !== xhr.readyState) {                        return null;                    }                    if (xhr.status == 404 && options.maxTries > 1) {                        setTimeout(function(){                            options.maxTries--;                            request(url, onSuccess, onError, payload, options);                        }, 500);                        return null;                    }                    if (200 === xhr.status) {                        (onSuccess || noop)(xhr);                    } else {                        (onError || noop)(xhr);                    }                };                xhr.send(payload || '');            },            hasClass = function(el, klass) {                return el.className.match(new RegExp('\\b' + klass + '\\b'));            },            removeClass = function(el, klass) {                el.className = el.className.replace(new RegExp('\\b' + klass + '\\b'), ' ');            },            addClass = function(el, klass) {                if (!hasClass(el, klass)) { el.className += " " + klass; }            },            getPreference = function(name) {                if (!window.localStorage) {                    return null;                }                return localStorage.getItem(profilerStorageKey + name);            },            setPreference = function(name, value) {                if (!window.localStorage) {                    return null;                }                localStorage.setItem(profilerStorageKey + name, value);            };        return {            hasClass: hasClass,            removeClass: removeClass,            addClass: addClass,            getPreference: getPreference,            setPreference: setPreference,            request: request,            load: function(selector, url, onSuccess, onError, options) {                var el = document.getElementById(selector);                if (el && el.getAttribute('data-sfurl') !== url) {                    request(                        url,                        function(xhr) {                            el.innerHTML = xhr.responseText;                            el.setAttribute('data-sfurl', url);                            removeClass(el, 'loading');                            (onSuccess || noop)(xhr, el);                        },                        function(xhr) { (onError || noop)(xhr, el); },                        '',                        options                    );                }                return this;            },            toggle: function(selector, elOn, elOff) {                var tmp = elOn.style.display,                    el = document.getElementById(selector);                elOn.style.display = elOff.style.display;                elOff.style.display = tmp;                if (el) {                    el.style.display = 'none' === tmp ? 'none' : 'block';                }                return this;            }        }    })();/*]]>*/</script><script>/*<![CDATA[*/    (function () {                Sfjs.load(            'sfwdt145fda',            '/app_dev.php/_wdt/145fda',            function(xhr, el) {                el.style.display = -1 !== xhr.responseText.indexOf('sf-toolbarreset') ? 'block' : 'none';                if (el.style.display == 'none') {                    return;                }                if (Sfjs.getPreference('toolbar/displayState') == 'none') {                    document.getElementById('sfToolbarMainContent-145fda').style.display = 'none';                    document.getElementById('sfToolbarClearer-145fda').style.display = 'none';                    document.getElementById('sfMiniToolbar-145fda').style.display = 'block';                } else {                    document.getElementById('sfToolbarMainContent-145fda').style.display = 'block';                    document.getElementById('sfToolbarClearer-145fda').style.display = 'block';                    document.getElementById('sfMiniToolbar-145fda').style.display = 'none';                }            },            function(xhr) {                if (xhr.status !== 0) {                    confirm('An error occurred while loading the web debug toolbar (' + xhr.status + ': ' + xhr.statusText + ').\n\nDo you want to open the profiler?') && (window.location = '/app_dev.php/_profiler/145fda');                }            },            {'maxTries': 5}        );    })();/*]]>*/</script>
 </body>
 </html>
