@@ -2,7 +2,6 @@
 
 {% block results %}
 
-	<div class="col-md-8 column">
 		{% if results is empty %}
 			<div class="alert alert-danger text-center">
 				<h4>¡No hemos encontrado ninguna propiedad que se ajuste a tu búsqueda!</h4>
@@ -11,45 +10,103 @@
 		{% else %}
 			{% for oneResult in results %}
 				<form method="POST" action="{{ path('book') }}">
-					<div class="oneResultDiv">
-						<div class="nameDiv">
-							<input type="hidden" name="propertyName" value="{{ oneResult.name }}">
-							<strong><a href="view-details/{{ oneResult.id }}">{{ oneResult.name }}</a></strong>
-						</div>
-						{% if images[oneResult.id] is defined %}
-							<span class="imageSpan">
-							<img src="/images/properties/{{images[oneResult.id]}}" width="100">
-							</span>
-						{% endif %}
-						<div class="priceDiv">
-							{% if oneResult.typeRent == 'hour' %}
-								<input type="hidden" name="totalPrice" value="{{ oneResult.price }}">
-								{{ oneResult.price }} &euro; / {% trans %}hora{% endtrans %}
-							{% else %}
-								<input type="hidden" name="totalPrice" value="{{ oneResult.price * app.session.get('searchTotalDays') }}">
-								{{ oneResult.price * app.session.get('searchTotalDays') }} &euro; / {{ app.session.get('searchTotalDays') }} {% if app.session.get('searchTotalDays') == 1 %}{% trans %}día{% endtrans %}{% else %}{% trans %}dias{% endtrans %}{% endif %}
-							{% endif %}
-							<div class="clear"></div>
-							<div class="bookingButton">
-								<input type="hidden" name="itemID" value="{{ oneResult.id }}">
-								{% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-									<button type="submit" class="btn btn-primary" value="Send">{% trans %}Reservar{% endtrans %}</button>
-								{% else %}
-									<button class="btn btn-success" value="Send">{% trans %}Iniciar sesión{% endtrans %}</button>
-								{% endif %}
-							</div>
-						</div>
-						<div>
-							<p>{% if (oneResult.lat != null) and (oneResult.lng != null) %}<i class="fa fa-map-marker" title="{% trans %}Dirección disponible en mapa{% endtrans %}"></i>{% else  %}<i class="fa fa-location-arrow" title="{% trans %}Dirección{% endtrans %}"></i>{% endif %}&nbsp;{{ oneResult.address }}</p>
-							<p><i class="fa fa-file-text" title="{% trans %}Descripción{% endtrans %}"></i>&nbsp;{{ oneResult.description }}</p>
-						</div>
-					</div>
+                    <div class="box ownerEmail {{ oneProperty.ownerID }}">
+                        <div class="box-header with-border">
+                            <h3 class="box-title">{{ oneResult.name }}</h3>
+                            <div class="box-tools pull-right">
+                                <button data-widget="collapse" class="btn btn-box-tool"><i class="fa fa-minus"></i></button>
+                                <button data-widget="remove" class="btn btn-box-tool"><i class="fa fa-times"></i></button>
+                            </div>
+                        </div>
+                        <div class="box-body" style="display: block;">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    {% if images[oneResult.id] is defined %}
+                                        <div data-ride="carousel" class="carousel slide" id="carousel-example-generic">
+                                            <ol class="carousel-indicators">
+                                                {% for oneImage in images[oneResult.id] %}
+                                                    <li class="{% if loop.index0 == 0 %}active{% endif %}" data-slide-to="{{ loop.index0 == 0 }}" data-target="#carousel-example-generic"></li>
+                                                {% endfor %}
+                                            </ol>
+                                            <div class="carousel-inner">
+                                                {% for oneImage in images[oneResult.id] %}
+                                                    <div class="item {% if loop.index0 == 0 %}active{% endif %}">
+                                                        <img alt="First slide" src="/images/properties/{{ oneImage }}">
+                                                    </div>
+                                                {% endfor %}
+                                            </div>
+                                            <a data-slide="prev" href="#carousel-example-generic" class="left carousel-control">
+                                                <span class="fa fa-angle-left"></span>
+                                            </a>
+                                            <a data-slide="next" href="#carousel-example-generic" class="right carousel-control">
+                                                <span class="fa fa-angle-right"></span>
+                                            </a>
+                                        </div>
+                                    {% endif %}
+                                </div><!-- /.col -->
+                                <div class="col-md-6">
+                                    <span class="contentSpan">
+                                        {% if is_granted("ROLE_SUPER_ADMIN") %}
+                                            <p><i class="fa fa-user" title="{% trans %}Propietario{% endtrans %}"></i>&nbsp;{{ allOwners[oneProperty.ownerID].email }}</p>
+                                        {% endif %}
+                                        <p><i class="fa fa-file-text" title="{% trans %}Descripción{% endtrans %}"></i>&nbsp;{{ oneResult.description }}</p>
+                                    </span>
+                                </div><!-- /.col -->
+                            </div><!-- /.row -->
+                        </div>
+                        <div class="box-footer" style="display: block;">
+                            <div class="row">
+                                <div class="col-sm-3 col-xs-6">
+                                    <div class="description-block border-right">
+                                        <h5 class="description-header">{% trans %}Precio{% endtrans %}</h5>
+                                        {%  set price = oneResult.price %}
+                                        {% if oneResult.typeRent == 'hour' %}
+                                            {% set modality = 'hora' %}
+                                        {% else %}
+                                            {% set modality = 'día' %}
+                                        {% endif %}
+                                        <span class="description-text">&nbsp;{{ price }} &euro; / {{ modality }}</span>
+                                    </div><!-- /.description-block -->
+                                </div><!-- /.col -->
+                                <div class="col-sm-3 col-xs-6">
+                                    <div class="description-block border-right">
+                                        <h5 class="description-header">Comentarios</h5>
+                                        <span class="description-text"></span>
+                                    </div><!-- /.description-block -->
+                                </div><!-- /.col -->
+                                <div class="col-sm-3 col-xs-6">
+                                    <div class="description-block border-right">
+                                        <h5 class="description-header">Valoración</h5>
+                                        <span class="description-text"></span>
+                                    </div><!-- /.description-block -->
+                                </div>
+                                <div class="col-sm-3 col-xs-6">
+                                    <div class="description-block">
+                                        <h5 class="description-header">Total
+                                            {% if oneResult.typeRent == 'hour' %}
+                                                <input type="hidden" name="totalPrice" value="{{ oneResult.price }}">
+                                                {{ oneResult.price }} &euro;
+                                            {% else %}
+                                                <input type="hidden" name="totalPrice" value="{{ oneResult.price * app.session.get('searchTotalDays') }}">
+                                                {{ oneResult.price * app.session.get('searchTotalDays') }} &euro;
+                                            {% endif %}
+                                        </h5>
+                                        <span class="description-text">
+                                            <input type="hidden" name="itemID" value="{{ oneResult.id }}">
+                                            {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                                                <button type="submit" class="btn btn-primary" value="Send">{% trans %}Reservar{% endtrans %}</button>
+                                            {% else %}
+                                                <button class="btn btn-success" value="Send">{% trans %}Iniciar sesión{% endtrans %}</button>
+                                            {% endif %}
+                                        </span>
+                                    </div><!-- /.description-block -->
+                                </div><!-- /.col -->
+                            </div><!-- /.row -->
+                        </div>
+                    </div>
 				</form>
-				<div class="clear"></div>
-				<hr class="style-six">
 			{% endfor %}
 		{% endif %}
 
-	</div>
 
 {% endblock %}

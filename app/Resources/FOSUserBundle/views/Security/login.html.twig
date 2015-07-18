@@ -6,44 +6,58 @@
 
 <div class="container">
 	<div class="row clearfix">
-		<div class="col-md-4 column"></div>
+		<div class="col-md-3 column"></div>
 
 		<div class="col-md-4 column text-center borderBox">
-			{% if error %}
-			    <div class="alert alert-danger">
-			    	{% trans %}Nombre de usuario o contraseña no validos{% endtrans %}
-			    </div>
+            <div class="box box-success">
+                <div class="box-header with-border">
+                    <h3 class="box-title">{% trans %}Iniciar sesión{% endtrans %}</h3>
+                </div><!-- /.box-header -->
+                <div class="box-body">
+                    <div class="row">
+                        {% if error %}
+                            <div class="alert alert-danger">
+                                {% trans %}Nombre de usuario o contraseña no validos{% endtrans %}
+                            </div>
 
-			    <br/>
-			{% endif %}
+                            <br/>
+                        {% endif %}
 
-			<form action="{{ path("fos_user_security_check") }}" method="post">
-			    <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
+                        <form action="{{ path("fos_user_security_check") }}" method="post">
+                            <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
 
-			    <label for="username">{{ 'security.login.email'|trans }}</label>
-			    <br/>
-			    <input type="text" id="username" name="_username" value="{{ last_username }}" required="required" />
+                            <label for="username">{{ 'security.login.email'|trans }}</label>
+                            <br/>
+                            <input type="text" id="username" name="_username" value="{{ last_username }}" required="required" />
 
-			    <br/>
+                            <br/>
 
-			    <label for="password">{{ 'security.login.password'|trans }}</label>
-			    <br/>
-			    <input type="password" id="password" name="_password" required="required" />
+                            <label for="password">{{ 'security.login.password'|trans }}</label>
+                            <br/>
+                            <input type="password" id="password" name="_password" required="required" />
 
-				<br/>
+                            <br/>
 
-			    <input type="checkbox" id="remember_me" name="_remember_me" value="on" />
-			    <label for="remember_me">{{ 'security.login.remember_me'|trans }}</label>
+                            <input type="checkbox" id="remember_me" name="_remember_me" value="on" />
+                            <label for="remember_me">{{ 'security.login.remember_me'|trans }}</label>
 
-			    <br/><br/>
+                            <br/><br/>
 
-			    <button class="btn btn-primary" id="_submit" name="_submit" type="submit"><span class="glyphicon glyphicon-log-in"></span>&nbsp;&nbsp;{{ 'security.login.submit'|trans }}</button>
-			</form>
-            {# <br/><br/>
-            {% render(controller('HWIOAuthBundle:Connect:connect')) %} #}
+                            <button class="btn btn-primary" id="_submit" name="_submit" type="submit"><span class="glyphicon glyphicon-log-in"></span>&nbsp;&nbsp;{{ 'security.login.submit'|trans }}</button>
+                        </form>
+                        <br/>
+                        {# <br/><br/>
+                        {% render(controller('HWIOAuthBundle:Connect:connect')) %} #}
+                    </div><!-- /.row -->
+                    <div class="box-footer">
+                        <div class="text-right" style="float: right;"></span><a class="uppercase" href="javascript::">{% trans %}Registrarse{% endtrans %}</a></div>
+                        <div class="text-left"></span><a class="uppercase" href="javascript::">{% trans %}Olvidé contraseña{% endtrans %}</a></div>
+                    </div>
+                </div><!-- /.box-body -->
+            </div>
 		</div>
 
-		<div class="col-md-4 column"></div>
+		<div class="col-md-5 column"></div>
 	</div>
 </div>
 {% endblock fos_user_content %}

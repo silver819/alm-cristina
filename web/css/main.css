@@ -328,3 +328,7 @@ h2{
 .mainSearch input, select{
     color: #000;
 }
+
+.totalPrice{
+    font-size: 1.5em;
+}
