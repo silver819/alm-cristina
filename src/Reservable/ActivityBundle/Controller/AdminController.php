@@ -24,8 +24,13 @@ class AdminController extends Controller
             ->findAllByPropertyID($property);
 
         $arrayPictures = array();
-        foreach($pictures as $onePicture){
-            $arrayPictures[] = $onePicture['path'];
+        if(!empty($pictures)) {
+            foreach ($pictures as $onePicture) {
+                $arrayPictures[] = $onePicture['path'];
+            }
+        }
+        else{
+            $arrayPictures[] = 'no-photo.jpg';
         }
 
         // tipos
