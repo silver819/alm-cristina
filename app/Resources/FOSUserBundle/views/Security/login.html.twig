@@ -50,8 +50,8 @@
                         {% render(controller('HWIOAuthBundle:Connect:connect')) %} #}
                     </div><!-- /.row -->
                     <div class="box-footer">
-                        <div class="text-right" style="float: right;"></span><a class="uppercase" href="javascript::">{% trans %}Registrarse{% endtrans %}</a></div>
-                        <div class="text-left"></span><a class="uppercase" href="javascript::">{% trans %}Olvidé contraseña{% endtrans %}</a></div>
+                        <div class="text-right" style="float: right;"></span><a class="uppercase" href="{{ path('fos_user_registration_register') }}">{% trans %}Registrarse{% endtrans %}</a></div>
+                        <div class="text-left"></span><a class="uppercase" href="{{ path('fos_user_resetting_request') }}">{% trans %}Olvidé contraseña{% endtrans %}</a></div>
                     </div>
                 </div><!-- /.box-body -->
             </div>
