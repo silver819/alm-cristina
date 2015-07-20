@@ -63,7 +63,9 @@ class AdminController extends Controller
                 }
             }
         }
-//ladybug_dump($details);
+
+        //ld($details);
+
         return $this->render('ReservableActivityBundle:Admin:adminDetailsProperty.html.twig',
             array('details' => $details, 'pictures' => $arrayPictures, 'type' => $type, 'features' => $features));
     }

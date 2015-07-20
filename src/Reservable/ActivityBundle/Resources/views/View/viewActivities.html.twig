@@ -26,7 +26,7 @@
 		{% for oneProperty in properties %}
             <div class="box ownerEmail {{ oneProperty.ownerID }}">
                 <div class="box-header with-border">
-                    <h3 class="box-title">{{ oneProperty.name }}</h3>
+                    <h3 class="box-title"><a href="{{ path('adminDetails', {'property':oneProperty.id}) }}">{{ oneProperty.name }}</a></h3>
                     <div class="box-tools pull-right">
                         <button data-widget="collapse" class="btn btn-box-tool"><i class="fa fa-minus"></i></button>
 
