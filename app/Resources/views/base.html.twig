@@ -43,38 +43,74 @@
             </a>
             <div class="navbar-custom-menu">
                 <ul class="nav navbar-nav">
+                    {% if app.user is defined %}
+                        <li class="headerUserName"><a href="{{ path('fos_user_profile_show') }}">{{ app.user.username }}</a></li>
+                    {% endif %}
 
-
-
-
-                    <li class="headerUserName"><a href="/app_dev.php/es/profile/">Cristina</a></li>
-
+                    {# Idioma #}
                     <li class="dropdown languageDropdown" style="height: 50px !important;">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            <img src="/images/flags/ES.png" alt="Español" title="Español">
+                            {% if app.request.locale == 'en' %}
+                                <img src="{{ asset('images/flags/GB.png') }}" alt="English" title="English">
+                            {% else %}
+                                <img src="{{ asset('images/flags/ES.png') }}" alt="Español" title="Español">
+                            {% endif %}
                             &nbsp;<strong class="caret"></strong></a>
                         <ul class="dropdown-menu">
-                            <li><a href="/app_dev.php/es/"><img src="/images/flags/ES.png" alt="Español" title="Español">&nbsp;&nbsp;Español</a></li>
-                            <li><a href="/app_dev.php/en/"><img src="/images/flags/GB.png" alt="English" title="English">&nbsp;&nbsp;English</a></li>
+                            <li><a href="{{ path('homepage', {'_locale':'es'}) }}"><img src="{{ asset('images/flags/ES.png') }}" alt="Español" title="Español">&nbsp;&nbsp;Español</a></li>
+                            <li><a href="{{ path('homepage', {'_locale':'en'}) }}"><img src="{{ asset('images/flags/GB.png') }}" alt="English" title="English">&nbsp;&nbsp;English</a></li>
                         </ul>
                     </li>
 
-                    <li class="dropdown menuDropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Mi cuenta&nbsp;<strong class="caret"></strong></a>
-                        <ul class="dropdown-menu">
-                            <li>
-                                <a href="/app_dev.php/es/consult-bookings/"><span class="glyphicon glyphicon-th-list"></span>&nbsp;&nbsp;Menu</a>
-                            </li>
-                            <li>
-                                <a href="/app_dev.php/es/profile/"><span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp;Ver perfil</a>
-                            </li>
-                            <li>
-                                <a href="/app_dev.php/es/profile/edit"><span class="glyphicon glyphicon-pencil"></span>&nbsp;&nbsp;Modificar perfil</a>
-                            </li>
-                            <li class="divider"></li>
-                            <li>
-                                <a href="/app_dev.php/es/logout"><span class="glyphicon glyphicon-off" style="color:red;"></span>&nbsp;&nbsp;Salir</a>
-                            </li>
-                        </ul>
+                    {# Perfil #}
+                    <li class="dropdown menuDropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">{% trans %}Mi cuenta{% endtrans %}&nbsp;<strong class="caret"></strong></a>
+                        {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                            <ul class="dropdown-menu">
+                                {% if is_granted("ROLE_SUPER_ADMIN") %}
+                                    <style>
+                                        .adminLI{background-color: #E78A37;padding-bottom: 5px;padding-top:5px;}
+                                        .adminLI a{color: #FFFFFF !important;}
+                                        .adminLI a:hover{background-color: #E78A37 !important;}
+                                    </style>
+
+                                    {% if app.environment == "dev" %}
+                                        {% set adminUrl = "/app_dev.php/" ~ app.request.locale ~ "/superUserAdmin"  %}
+                                    {% else %}
+                                        {% set adminUrl = "/" ~ app.request.locale ~ "/superUserAdmin"  %}
+                                    {% endif %}
+
+                                    <li class="adminLI">
+                                        <a href="{{ adminUrl }}" target="_blank">
+                                            <span class="glyphicon glyphicon-wrench"></span>
+                                            &nbsp;&nbsp;{% trans %}Administración{% endtrans %}
+                                        </a>
+                                    </li>
+                                    <li class="divider"></li>
+                                {% endif %}
+                                <li>
+                                    <a href="{{ path('consultBookings') }}"><span class="glyphicon glyphicon-th-list"></span>&nbsp;&nbsp;{% trans %}Menu{% endtrans %}</a>
+                                </li>
+                                <li>
+                                    <a href="{{ path('fos_user_profile_show') }}"><span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp;{% trans %}Ver perfil{% endtrans %}</a>
+                                </li>
+                                <li>
+                                    <a href="{{ path('fos_user_profile_edit') }}"><span class="glyphicon glyphicon-pencil"></span>&nbsp;&nbsp;{% trans %}Modificar perfil{% endtrans %}</a>
+                                </li>
+                                <li class="divider"></li>
+                                <li>
+                                    <a href="{{ path('fos_user_security_logout') }}"><span class="glyphicon glyphicon-off" style="color:red;"></span>&nbsp;&nbsp;{% trans %}Salir{% endtrans %}</a>
+                                </li>
+                            </ul>
+                        {% else %}
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a href="{{ path('fos_user_security_login') }}"><span class="glyphicon glyphicon-log-in"></span>&nbsp;&nbsp;{% trans %}Iniciar sesión{% endtrans %}</a>
+                                </li>
+                                <li>
+                                    <a href="{{ path('fos_user_registration_register') }}"><span class="glyphicon glyphicon-plus"></span>&nbsp;&nbsp;{% trans %}Registrar{% endtrans %}</a>
+                                </li>
+                            </ul>
+                        {% endif %}
                     </li>
                 </ul>
             </div>
@@ -320,7 +356,5 @@
         });
     });
 </script>
-
-<div id="sfwdt145fda" class="sf-toolbar" style="display: none"></div><script>/*<![CDATA[*/    Sfjs = (function() {        "use strict";        var noop = function() {},            profilerStorageKey = 'sf2/profiler/',            request = function(url, onSuccess, onError, payload, options) {                var xhr = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');                options = options || {};                options.maxTries = options.maxTries || 0;                xhr.open(options.method || 'GET', url, true);                xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');                xhr.onreadystatechange = function(state) {                    if (4 !== xhr.readyState) {                        return null;                    }                    if (xhr.status == 404 && options.maxTries > 1) {                        setTimeout(function(){                            options.maxTries--;                            request(url, onSuccess, onError, payload, options);                        }, 500);                        return null;                    }                    if (200 === xhr.status) {                        (onSuccess || noop)(xhr);                    } else {                        (onError || noop)(xhr);                    }                };                xhr.send(payload || '');            },            hasClass = function(el, klass) {                return el.className.match(new RegExp('\\b' + klass + '\\b'));            },            removeClass = function(el, klass) {                el.className = el.className.replace(new RegExp('\\b' + klass + '\\b'), ' ');            },            addClass = function(el, klass) {                if (!hasClass(el, klass)) { el.className += " " + klass; }            },            getPreference = function(name) {                if (!window.localStorage) {                    return null;                }                return localStorage.getItem(profilerStorageKey + name);            },            setPreference = function(name, value) {                if (!window.localStorage) {                    return null;                }                localStorage.setItem(profilerStorageKey + name, value);            };        return {            hasClass: hasClass,            removeClass: removeClass,            addClass: addClass,            getPreference: getPreference,            setPreference: setPreference,            request: request,            load: function(selector, url, onSuccess, onError, options) {                var el = document.getElementById(selector);                if (el && el.getAttribute('data-sfurl') !== url) {                    request(                        url,                        function(xhr) {                            el.innerHTML = xhr.responseText;                            el.setAttribute('data-sfurl', url);                            removeClass(el, 'loading');                            (onSuccess || noop)(xhr, el);                        },                        function(xhr) { (onError || noop)(xhr, el); },                        '',                        options                    );                }                return this;            },            toggle: function(selector, elOn, elOff) {                var tmp = elOn.style.display,                    el = document.getElementById(selector);                elOn.style.display = elOff.style.display;                elOff.style.display = tmp;                if (el) {                    el.style.display = 'none' === tmp ? 'none' : 'block';                }                return this;            }        }    })();/*]]>*/</script><script>/*<![CDATA[*/    (function () {                Sfjs.load(            'sfwdt145fda',            '/app_dev.php/_wdt/145fda',            function(xhr, el) {                el.style.display = -1 !== xhr.responseText.indexOf('sf-toolbarreset') ? 'block' : 'none';                if (el.style.display == 'none') {                    return;                }                if (Sfjs.getPreference('toolbar/displayState') == 'none') {                    document.getElementById('sfToolbarMainContent-145fda').style.display = 'none';                    document.getElementById('sfToolbarClearer-145fda').style.display = 'none';                    document.getElementById('sfMiniToolbar-145fda').style.display = 'block';                } else {                    document.getElementById('sfToolbarMainContent-145fda').style.display = 'block';                    document.getElementById('sfToolbarClearer-145fda').style.display = 'block';                    document.getElementById('sfMiniToolbar-145fda').style.display = 'none';                }            },            function(xhr) {                if (xhr.status !== 0) {                    confirm('An error occurred while loading the web debug toolbar (' + xhr.status + ': ' + xhr.statusText + ').\n\nDo you want to open the profiler?') && (window.location = '/app_dev.php/_profiler/145fda');                }            },            {'maxTries': 5}        );    })();/*]]>*/</script>
 </body>
 </html>

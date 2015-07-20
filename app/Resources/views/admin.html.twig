@@ -14,14 +14,13 @@
 {% endblock %}
 
 {% block page_content %}
-
-    {{ dump(app.user) }}
-
 {% endblock %}
 
 {% block myOwn %}
     {# Nombre de usuario #}
-    <li class="headerUserName"><a href="{{ path('fos_user_profile_show') }}">{{ app.user.username }}</a></li>
+    {% if app.user is defined %}
+        <li class="headerUserName"><a href="{{ path('fos_user_profile_show') }}">{{ app.user.username }}</a></li>
+    {% endif %}
 
     {# Idioma #}
     <li class="dropdown languageDropdown" style="height: 50px !important;">
