@@ -1,0 +1,11 @@
+ragings_rating_homepage:
+    path:     /hello/{name}
+    defaults: { _controller: RagingsRatingBundle:Default:index }
+
+makeRating:
+    path:     /make-rating/{reservationNumber}
+    defaults: { _controller: RagingsRatingBundle:Default:makeQuestionaire }
+
+register_questionaire:
+    path:     /thanks-rating
+    defaults: { _controller: RagingsRatingBundle:Default:saveQuestionaire }

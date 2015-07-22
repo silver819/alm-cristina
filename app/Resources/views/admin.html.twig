@@ -16,6 +16,11 @@
 {% block page_content %}
 {% endblock %}
 
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="{{ asset('css/main.css') }}" filter="cssrewrite" type="text/css" rel="stylesheet">
+{% endblock %}
+
 {% block myOwn %}
     {# Nombre de usuario #}
     {% if app.user is defined %}

@@ -1,0 +1,21 @@
+{% extends '::admin.html.twig' %}
+
+{% block page_title %}
+    {% trans %}Encuesta de satisfacción{% endtrans %}
+{% endblock %}
+
+{% block page_content %}
+
+    <div class="box box-success">
+        <div class="box-header">
+            <h3 class="box-title">{% trans %}¡¡ Gracias !!{% endtrans %}</h3>
+        </div>
+        <div class="box-body">
+            <p>{% trans %}Te agradecemos enormemente que hayas dedicado estos minutos a responder la encuesta, así ayudas a los demás usuarios a disfrutar de una mejor experiencia{% endtrans %}.</p>
+        </div><!-- /.box-body -->
+        <div class="box-footer">
+            <p>{% trans %}Esperamos que regreses{% endtrans %}</p>
+        </div>
+    </div>
+
+{% endblock %}

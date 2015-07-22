@@ -47,6 +47,10 @@ bookings_booking:
     resource: "@BookingsBookingBundle/Resources/config/routing.yml"
     prefix:   /{_locale}/
 
+ragings_rating:
+    resource: "@RagingsRatingBundle/Resources/config/routing.yml"
+    prefix:   /{_locale}/
+
 fos_js_routing:
     resource: "@FOSJsRoutingBundle/Resources/config/routing/routing.xml"
 

@@ -1,0 +1,149 @@
+{% extends '::admin.html.twig' %}
+
+{% block page_title %}
+    {% trans %}Encuesta de satisfacción{% endtrans %}
+{% endblock %}
+
+{% block page_content %}
+
+    <div class="box box-success">
+        <div class="box-header">
+            <h3 class="box-title">{% trans %}Reserva{% endtrans %} {{ reservationNumber }} </h3>
+            <p>{% trans %}Mediante la siguiente encuesta tratamos de mejorar los servicios ofrecitos, es por ello que le agradeceríamos enormemente que se tome unos mínutos en responder a las siguientes cuestiones.{% endtrans %}</p>
+
+            <p>{% trans %}Valore las siguientes cuestiones según el nivel de satisfaccion que le ha aportado el servicio disfrutado:{% endtrans %}</p>
+            <ol>
+                <li>{% trans %}Insatisfecho{% endtrans %}</li>
+                <li>{% trans %}Poco satisfecho{% endtrans %}</li>
+                <li>{% trans %}Satisfecho{% endtrans %}</li>
+                <li>{% trans %}Muy satisfecho{% endtrans %}</li>
+                <li>{% trans %}Totalmente satisfecho{% endtrans %}</li>
+            </ol>
+        </div>
+        <form method="POST" action="{{ path('register_questionaire') }}">
+            <div class="box-body">
+                <input type="hidden" name="reservationNumber" value="{{ reservationNumber }}">
+                <div class="row">
+                    <div class="col-md-1 column"></div>
+                    <div class="col-md-10 column">
+                        <table id="questionaire">
+                            <tr>
+                                <th>{% trans %}¿Consideras que la instalación está bien ubicada?{% endtrans %}</th>
+                                <td>
+                                    1 <input type="radio" value="1" name="ubicacion">
+                                    2 <input type="radio" value="2" name="ubicacion">
+                                    3 <input type="radio" value="3" name="ubicacion" checked>
+                                    4 <input type="radio" value="4" name="ubicacion">
+                                    5 <input type="radio" value="5" name="ubicacion">
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>{% trans %}¿Has tenido problemas para encontrarla?{% endtrans %}</th>
+                                <td>
+                                    1 <input type="radio" value="1" name="llegar">
+                                    2 <input type="radio" value="2" name="llegar">
+                                    3 <input type="radio" value="3" name="llegar" checked>
+                                    4 <input type="radio" value="4" name="llegar">
+                                    5 <input type="radio" value="5" name="llegar">
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>{% trans %}¿Qué te ha parecido el nivel de limpieza de la instalación?{% endtrans %}</th>
+                                <td>
+                                    1 <input type="radio" value="1" name="limpieza">
+                                    2 <input type="radio" value="2" name="limpieza">
+                                    3 <input type="radio" value="3" name="limpieza" checked>
+                                    4 <input type="radio" value="4" name="limpieza">
+                                    5 <input type="radio" value="5" name="limpieza">
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>{% trans %}¿Se te ha proporcionado el material solicitado?{% endtrans %}</th>
+                                <td>
+                                    1 <input type="radio" value="1" name="material">
+                                    2 <input type="radio" value="2" name="material">
+                                    3 <input type="radio" value="3" name="material" checked>
+                                    4 <input type="radio" value="4" name="material">
+                                    5 <input type="radio" value="5" name="material">
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>{% trans %}¿La instalación disponía de las características especificadas en la web?{% endtrans %}</th>
+                                <td>
+                                    1 <input type="radio" value="1" name="caracteristicas">
+                                    2 <input type="radio" value="2" name="caracteristicas">
+                                    3 <input type="radio" value="3" name="caracteristicas" checked>
+                                    4 <input type="radio" value="4" name="caracteristicas">
+                                    5 <input type="radio" value="5" name="caracteristicas">
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <th>{% trans %}¿Te han resultado dificiles las gestiones para realizar el alquiler?{% endtrans %}</th>
+                                <td>
+                                    1 <input type="radio" value="1" name="gestiones">
+                                    2 <input type="radio" value="2" name="gestiones">
+                                    3 <input type="radio" value="3" name="gestiones" checked>
+                                    4 <input type="radio" value="4" name="gestiones">
+                                    5 <input type="radio" value="5" name="gestiones">
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>{% trans %}¿Te ha parecido intuitiva y usable nuestra web?{% endtrans %}</th>
+                                <td>
+                                    1 <input type="radio" value="1" name="usabilidad">
+                                    2 <input type="radio" value="2" name="usabilidad">
+                                    3 <input type="radio" value="3" name="usabilidad" checked>
+                                    4 <input type="radio" value="4" name="usabilidad">
+                                    5 <input type="radio" value="5" name="usabilidad">
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>{% trans %}¿Volverias a usar nuestros servicios?{% endtrans %}</th>
+                                <td>
+                                    Si <input type="radio" value="1" name="repetir">
+                                    No <input type="radio" value="2" name="repetir">
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>{% trans %}¿Cómo nos has encontrado?{% endtrans %}</th>
+                                <td>
+                                    <input type="radio" value="1" name="encontrar"> Haciendo búsquedas por internet<br/>
+                                    <input type="radio" value="2" name="encontrar"> A través de un amigo<br/>
+                                    <input type="radio" value="3" name="encontrar"> Anuncio en televisión<br/>
+                                    <input type="radio" value="4" name="encontrar"> Anuncio en la prensa<br/>
+                                    <input type="radio" value="5" name="encontrar"> Otros
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>{% trans %}¿Recomendarías nuestros servicios a otra persona?{% endtrans %}</th>
+                                <td>
+                                    Si <input type="radio" value="1" name="recomendar">
+                                    No <input type="radio" value="2" name="recomendar">
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>{% trans %}¿Qué mejorarías?{% endtrans %}</th>
+                                <td>
+                                    <textarea name="mejoras"rows="5"></textarea>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>{% trans %}Por último, ¿quíeres hacernos algún comentario?{% endtrans %}</th>
+                                <td>
+                                    <textarea name="comentarios" rows="5"></textarea>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="col-md-1 column"></div>
+                </div>
+            </div><!-- /.box-body -->
+            <div class="box-footer text-center">
+                <button value="Send" class="btn btn-success" type="submit">
+                    <i class="glyphicon glyphicon-ok"></i>&nbsp;{% trans %}Enviar{% endtrans %}</button>
+            </div>
+        </form>
+    </div>
+
+{% endblock %}

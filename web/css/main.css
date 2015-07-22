@@ -332,3 +332,15 @@ h2{
 .totalPrice{
     font-size: 1.5em;
 }
+
+#questionaire{
+    width: 100%;
+}
+
+#questionaire th{
+    padding: 10px;
+}
+
+#questionaire textarea{
+    width: 100%;
+}
