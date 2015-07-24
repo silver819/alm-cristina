@@ -71,8 +71,14 @@ class AdminController extends Controller
 
         //ld($details);
 
+        // Comentarios y valoraciones
+        $comments       = $this->getComments($property);
+        $resultRatings  = $this->getRatings($property);
+        $ratings        = $resultRatings['ratings'];
+        $totalRating    = $resultRatings['totalScore'];
+
         return $this->render('ReservableActivityBundle:Admin:adminDetailsProperty.html.twig',
-            array('details' => $details, 'pictures' => $arrayPictures, 'type' => $type, 'features' => $features));
+            array('details' => $details, 'pictures' => $arrayPictures, 'type' => $type, 'features' => $features, 'comments' =>$comments, 'ratings' => $ratings, 'totalRating' => $totalRating));
     }
 
     public function modifDetailsAction($property, Request $request){
@@ -126,8 +132,15 @@ class AdminController extends Controller
             }
         }
 
+        // Comentarios y valoraciones
+        $comments       = $this->getComments($property);
+        $resultRatings  = $this->getRatings($property);
+        $ratings        = $resultRatings['ratings'];
+        $totalRating    = $resultRatings['totalScore'];
+
+
         return $this->render('ReservableActivityBundle:Admin:modifDetailsProperty.html.twig',
-            array('details' => $details, 'pictures' => $arrayPictures, 'types' => $types, 'features' => $features));
+            array('details' => $details, 'pictures' => $arrayPictures, 'types' => $types, 'features' => $features, 'comments' => $comments, 'ratings' => $ratings, 'totalRating' => $totalRating));
     }
 
     private function getAllFeaturesByType($type){
@@ -358,4 +371,67 @@ class AdminController extends Controller
             }
         }
     }
+
+    public function getComments($propertyID){
+
+        $resultQuery = $this->getDoctrine()
+            ->getManager()
+            ->createQuery("SELECT r.comentarios
+                           FROM RagingsRatingBundle:Rating r INNER JOIN BookingsBookingBundle:Booking b
+                           WHERE r.reservationNumber = b.id
+                           AND b.activityID = '" . $propertyID . "'
+                           AND r.comentarios != ''")
+            ->getResult();
+
+        return $resultQuery;
+    }
+
+    public function getRatings($propertyID){
+
+        $resultQuery = $this->getDoctrine()
+            ->getManager()
+            ->createQuery("SELECT r.ubicacion, r.llegar, r.limpieza, r.material, r.caracteristicas, r.gestiones, r.usabilidad
+                           FROM RagingsRatingBundle:Rating r INNER JOIN BookingsBookingBundle:Booking b
+                           WHERE r.reservationNumber = b.id
+                           AND b.activityID = '" . $propertyID . "'
+                           AND r.comentarios != ''")
+            ->getResult();
+
+        $mean   = array();
+        $mean['ubicacion']          = 0;
+        $mean['llegar']             = 0;
+        $mean['limpieza']           = 0;
+        $mean['material']           = 0;
+        $mean['caracteristicas']    = 0;
+        $mean['gestiones']          = 0;
+        $mean['usabilidad']         = 0;
+        $total  = 0;
+        $cont   = 0;
+        if(!empty($resultQuery)){
+            foreach($resultQuery as $oneResult){
+                $mean['ubicacion']          += $oneResult['ubicacion'];         $total += $oneResult['ubicacion'];
+                $mean['llegar']             += $oneResult['llegar'];            $total += $oneResult['llegar'];
+                $mean['limpieza']           += $oneResult['limpieza'];          $total += $oneResult['limpieza'];
+                $mean['material']           += $oneResult['material'];          $total += $oneResult['material'];
+                $mean['caracteristicas']    += $oneResult['caracteristicas'];   $total += $oneResult['caracteristicas'];
+                $mean['gestiones']          += $oneResult['gestiones'];         $total += $oneResult['gestiones'];
+                $mean['usabilidad']         += $oneResult['usabilidad'];        $total += $oneResult['usabilidad'];
+
+                $cont++;
+            }
+
+            $mean['ubicacion']          = $mean['ubicacion'] / $cont;
+            $mean['llegar']             = $mean['llegar'] / $cont;
+            $mean['limpieza']           = $mean['limpieza'] / $cont;
+            $mean['material']           = $mean['material'] / $cont;
+            $mean['caracteristicas']    = $mean['caracteristicas'] / $cont;
+            $mean['gestiones']          = $mean['gestiones'] / $cont;
+            $mean['usabilidad']         = $mean['usabilidad'] / $cont;
+
+            $total = $total / ($cont * count($mean));
+        }
+
+        return array('ratings' => $mean, 'totalScore' => $total);
+    }
+
 }
