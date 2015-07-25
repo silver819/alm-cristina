@@ -94,6 +94,16 @@
     </li>
 {% endblock %}
 
+{% block javascripts %}
+    {{ parent() }}
+
+    <script src="//code.highcharts.com/4.0.1/highcharts.js"></script>
+    <script src="//code.highcharts.com/4.0.1/modules/exporting.js"></script>
+    <script type="text/javascript">
+        {{ chart(chart) }}
+    </script>
+{% endblock %}
+
 {% block javascripts_2 %}
     <!-- jQuery (necessary for Bootstraps JavaScript plugins) -->
     <script src="{{ asset('js/jquery.js') }}"></script>

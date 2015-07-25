@@ -175,17 +175,41 @@
             </div><!-- /.col -->
         </div>
 
-        {# Comentarios y valoracion #}
+        {# Valoracion #}
+        <div class="box box-success">
+            <div class="box-header with-border">
+                <h3 class="box-title">{% trans %}Valoraciones{% endtrans %}</h3>
+                <div class="box-tools pull-right">
+                    <button data-widget="collapse" class="btn btn-box-tool"><i class="fa fa-minus"></i></button>
+                    <button data-widget="remove" class="btn btn-box-tool"><i class="fa fa-times"></i></button>
+                </div>
+            </div>
+            <div class="box-body">
+                <div class="chart">
+                    <div id="ratingChart" style="min-width: 250px; height: 400px; margin: 0 auto"></div>
+                </div>
+            </div><!-- /.box-body -->
+        </div>
+
+        {# Comentarios #}
         <div class="box">
             <div class="box-header with-border">
-                <h3 class="box-title">{% trans %}Comentarios y valoraciones{% endtrans %}</h3>
+                <h3 class="box-title">{% trans %}Comentarios{% endtrans %}</h3>
                 <div class="box-tools pull-right">
                     <button data-widget="collapse" class="btn btn-box-tool"><i class="fa fa-minus"></i></button>
                     <button data-widget="remove" class="btn btn-box-tool"><i class="fa fa-times"></i></button>
                 </div>
             </div>
             <div class="box-body" style="display: block;">
-                Comentarios y valoraciones
+                <table class="table table-bordered">
+                    <tbody>
+                        {% for comment in comments %}
+                            <tr>
+                                <td>{{ comment.comentarios }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
             </div><!-- /.col -->
         </div>
     </section><!-- right col -->

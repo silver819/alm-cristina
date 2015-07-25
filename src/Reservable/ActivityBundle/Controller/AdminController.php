@@ -8,6 +8,7 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Reservable\ActivityBundle\Entity\Activity;
 use Symfony\Component\HttpFoundation\Request;
+use Ob\HighchartsBundle\Highcharts\Highchart;
 
 class AdminController extends Controller
 {
@@ -77,8 +78,34 @@ class AdminController extends Controller
         $ratings        = $resultRatings['ratings'];
         $totalRating    = $resultRatings['totalScore'];
 
+        // Chart
+
+        $categories = array('Ubicación', 'Cómo llegar', 'Limpieza', 'Material', 'Características', 'Gestiones', 'Usabilidad');
+        $data = array(
+            array('Ubicación',                                      $ratings['ubicacion']),
+            array('Cómo llegar',                                    $ratings['llegar']),
+            array('Limpieza',                                       $ratings['limpieza']),
+            array('Material proporcionado',                         $ratings['material']),
+            array('Características coindicen con las anunciadas',   $ratings['caracteristicas']),
+            array('Gestiones',                                      $ratings['gestiones']),
+            array('Usabilidad',                                     $ratings['usabilidad']),
+        );
+
+        $ob = new Highchart();
+        $ob->chart->renderTo('ratingChart');
+        $ob->chart->type('column');
+        $ob->title->text('Resultados de la encuesta sobre 5 puntos');
+        $ob->plotOptions->pie(array(
+            'allowPointSelect'  => true,
+            'cursor'            => 'pointer',
+            'dataLabels'        => array('enabled' => false),
+            'showInLegend'      => true
+        ));
+        $ob->xAxis->categories($categories);
+        $ob->series(array(array('type' => 'column','name' => 'Valoración media', 'data' => $data)));
+
         return $this->render('ReservableActivityBundle:Admin:adminDetailsProperty.html.twig',
-            array('details' => $details, 'pictures' => $arrayPictures, 'type' => $type, 'features' => $features, 'comments' =>$comments, 'ratings' => $ratings, 'totalRating' => $totalRating));
+            array('details' => $details, 'pictures' => $arrayPictures, 'type' => $type, 'features' => $features, 'comments' =>$comments, 'ratings' => $ratings, 'totalRating' => $totalRating, 'chart' => $ob));
     }
 
     public function modifDetailsAction($property, Request $request){

@@ -27,6 +27,7 @@ class AppKernel extends Kernel
             new Avanzu\AdminThemeBundle\AvanzuAdminThemeBundle(),
             new Admin\AdminBundle\AdminAdminBundle(),
             new Ragings\RatingBundle\RagingsRatingBundle(),
+            new Ob\HighchartsBundle\ObHighchartsBundle()
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
