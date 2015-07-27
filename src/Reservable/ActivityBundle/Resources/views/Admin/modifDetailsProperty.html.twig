@@ -1,6 +1,10 @@
 {% extends '::admin.html.twig' %}
 
-{% block workspace %}
+{% block page_title %}
+    {{ details.name }}
+{% endblock %}
+
+{% block page_content %}
 
     <script>
         $(document).ready(function()

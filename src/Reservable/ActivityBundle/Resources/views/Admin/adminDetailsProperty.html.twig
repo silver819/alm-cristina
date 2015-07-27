@@ -5,284 +5,228 @@
 {% endblock %}
 
 {% block page_content %}
+    <section class="content">
 
-<section class="content">
+        <div class="row">
 
-<div class="row">
-
-    {# Acciones #}
-    <div class="row">
-    <span style="float:right;">
-
-        <a id="modify" href="{{ baseUrl }}/modif">{% trans %}Modificar{% endtrans %}
-            <i style="color:blue;" class="glyphicon glyphicon-edit" title="{% trans %}Modificar propiedad{% endtrans %}"></i>
-        </a>
-        {% if details.active %}
-            <a id="deactive" href="{{ baseUrl }}/deactive">{% trans %}Desactivar{% endtrans %}
-                <i style="color:green;" class="glyphicon glyphicon-eye-open" title="{% trans %}Activo{% endtrans %}"></i>
-            </a>
-                {% else %}
-            <a id="active" href="{{ baseUrl }}/active">{% trans %}Activar{% endtrans %}
-                <i style="color:grey;" class="glyphicon glyphicon-eye-close" title="{% trans %}Desactivo{% endtrans %}"></i>
-            </a>
-        {% endif %}
-        <a id="delete" href="{{ baseUrl }}/delete">{% trans %}Eliminar{% endtrans %}
-            <i style="color:red;" class="glyphicon glyphicon-trash" title="{% trans %}Eliminar propiedad{% endtrans %}"></i>
-        </a>
-    </span>
-    </div>
-
-    {# Info boxes #}
-    <div class="row">
-        <div class="col-md-3 col-sm-6 col-xs-12">
-            <div class="info-box">
-                <span class="info-box-icon bg-aqua"><i class="fa fa-envelope-o"></i></span>
-                <div class="info-box-content">
-                    <span class="info-box-text">{% trans %}Tipo{% endtrans %}</span>
-                    <span class="info-box-number">{{ type }}</span>
-                </div><!-- /.info-box-content -->
-            </div><!-- /.info-box -->
-        </div><!-- /.col -->
-        <div class="col-md-3 col-sm-6 col-xs-12">
-            <div class="info-box">
-                <span class="info-box-icon bg-green"><i class="fa fa-flag-o"></i></span>
-                <div class="info-box-content">
-                    <span class="info-box-text">Modalidad</span>
-                    <span class="info-box-number">{% if fetails.typeRent == 'day' %}{% trans %}Por día{% endtrans %}{% else %}{% trans %}Por hora{% endtrans %}{% endif %}</span>
-                </div><!-- /.info-box-content -->
-            </div><!-- /.info-box -->
-        </div><!-- /.col -->
-        <div class="col-md-3 col-sm-6 col-xs-12">
-            <div class="info-box">
-                <span class="info-box-icon bg-yellow"><i class="fa fa-comment"></i></span>
-                <div class="info-box-content">
-                    <span class="info-box-text">Comentarios</span>
-                    <span class="info-box-number">{{ comments | length }}</span>
-                </div><!-- /.info-box-content -->
-            </div><!-- /.info-box -->
-        </div><!-- /.col -->
-        <div class="col-md-3 col-sm-6 col-xs-12">
-            <div class="info-box">
-                <span class="info-box-icon bg-red"><i class="fa fa-star-o"></i></span>
-                <div class="info-box-content">
-                    <span class="info-box-text">Valoración</span>
-                    <span class="info-box-number">{{ totalRating }}</span>
-                </div><!-- /.info-box-content -->
-            </div><!-- /.info-box -->
-        </div><!-- /.col -->
-    </div>
-
-    <section class="col-lg-7 connectedSortable ui-sortable">
-
-        {# Precios / temporadas #}
-        <div class="box">
-            <div class="box-header with-border">
-                <h3 class="box-title">{% trans %}Precios{% endtrans %}</h3>
-                <div class="box-tools pull-right">
-                    <button data-widget="collapse" class="btn btn-box-tool"><i class="fa fa-minus"></i></button>
-                    <button data-widget="remove" class="btn btn-box-tool"><i class="fa fa-times"></i></button>
+            {# Acciones #}
+            <div class="row text-right">
+                <div class="col-md-12">
+                    <a id="modify" href="{{ app.request.uri }}/modif">{% trans %}Modificar{% endtrans %}
+                        <i style="color:blue;" class="glyphicon glyphicon-edit" title="{% trans %}Modificar propiedad{% endtrans %}"></i>
+                    </a>
+                    {% if details.active %}
+                        <a id="deactive" href="{{ app.request.uri }}/deactive">{% trans %}Desactivar{% endtrans %}
+                            <i style="color:green;" class="glyphicon glyphicon-eye-open" title="{% trans %}Activo{% endtrans %}"></i>
+                        </a>
+                            {% else %}
+                        <a id="active" href="{{ app.request.uri }}/active">{% trans %}Activar{% endtrans %}
+                            <i style="color:grey;" class="glyphicon glyphicon-eye-close" title="{% trans %}Desactivo{% endtrans %}"></i>
+                        </a>
+                    {% endif %}
+                    <a id="delete" href="{{ app.request.uri }}/delete">{% trans %}Eliminar{% endtrans %}
+                        <i style="color:red;" class="glyphicon glyphicon-trash" title="{% trans %}Eliminar propiedad{% endtrans %}"></i>
+                    </a>
                 </div>
+                <br/>
+                <br/>
             </div>
-            <div class="box-body" style="display: block;">
-                <table class="table table-bordered text-center">
-                    <tr>
-                        <th>{% trans %}Inicio{% endtrans %}</th>
-                        <th>{% trans %}Fin{% endtrans %}</th>
-                        <th>&euro;</th>
-                    </tr>
-                    {% for season in seasons %}
-                        <tr>
-                            <td>{{ season.startSeason }}</td>
-                            <td>{{ season.endSeason }}</td>
-                            <td>{{ season.price }}</td>
-                        </tr>
-                    {% endfor %}
-                </table>
-            </div><!-- /.col -->
-        </div>
 
-        {# Imagenes #}
-        <div class="box">
-            <div class="box-header with-border">
-                <h3 class="box-title">{% trans %}Imágenes{% endtrans %}</h3>
-                <div class="box-tools pull-right">
-                    <button data-widget="collapse" class="btn btn-box-tool"><i class="fa fa-minus"></i></button>
-                    <button data-widget="remove" class="btn btn-box-tool"><i class="fa fa-times"></i></button>
-                </div>
+            {# Info boxes #}
+            <div class="row">
+                <div class="col-md-3 col-sm-6 col-xs-12">
+                    <div class="info-box">
+                        <span class="info-box-icon bg-aqua"><i class="fa fa-envelope-o"></i></span>
+                        <div class="info-box-content">
+                            <span class="info-box-text">{% trans %}Tipo{% endtrans %}</span>
+                            <span class="info-box-number">{{ type }}</span>
+                        </div><!-- /.info-box-content -->
+                    </div><!-- /.info-box -->
+                </div><!-- /.col -->
+                <div class="col-md-3 col-sm-6 col-xs-12">
+                    <div class="info-box">
+                        <span class="info-box-icon bg-green"><i class="fa fa-flag-o"></i></span>
+                        <div class="info-box-content">
+                            <span class="info-box-text">Modalidad</span>
+                            <span class="info-box-number">{% if fetails.typeRent == 'day' %}{% trans %}Por día{% endtrans %}{% else %}{% trans %}Por hora{% endtrans %}{% endif %}</span>
+                        </div><!-- /.info-box-content -->
+                    </div><!-- /.info-box -->
+                </div><!-- /.col -->
+                <div class="col-md-3 col-sm-6 col-xs-12">
+                    <div class="info-box">
+                        <span class="info-box-icon bg-yellow"><i class="fa fa-comment"></i></span>
+                        <div class="info-box-content">
+                            <span class="info-box-text">Comentarios</span>
+                            <span class="info-box-number">{{ comments | length }}</span>
+                        </div><!-- /.info-box-content -->
+                    </div><!-- /.info-box -->
+                </div><!-- /.col -->
+                <div class="col-md-3 col-sm-6 col-xs-12">
+                    <div class="info-box">
+                        <span class="info-box-icon bg-red"><i class="fa fa-star-o"></i></span>
+                        <div class="info-box-content">
+                            <span class="info-box-text">Valoración</span>
+                            <span class="info-box-number">{{ totalRating }}</span>
+                        </div><!-- /.info-box-content -->
+                    </div><!-- /.info-box -->
+                </div><!-- /.col -->
             </div>
-            <div class="box-body" style="display: block;">
-                {% if pictures is defined %}
-                    <div data-ride="carousel" class="carousel slide" id="carousel-example-generic">
-                        <ol class="carousel-indicators">
-                            {% for oneImage in pictures %}
-                                <li class="{% if loop.index0 == 0 %}active{% endif %}" data-slide-to="{{ loop.index0 == 0 }}" data-target="#carousel-example-generic"></li>
-                            {% endfor %}
-                        </ol>
-                        <div class="carousel-inner">
-                            {% for oneImage in pictures %}
-                                <div class="item {% if loop.index0 == 0 %}active{% endif %}">
-                                    <img alt="First slide" src="/images/properties/{{ oneImage }}">
-                                </div>
-                            {% endfor %}
+
+            <section class="col-lg-7 connectedSortable ui-sortable">
+
+                {# Precios / temporadas #}
+                <div class="box">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">{% trans %}Precios{% endtrans %}</h3>
+                        <div class="box-tools pull-right">
+                            <button data-widget="collapse" class="btn btn-box-tool"><i class="fa fa-minus"></i></button>
+                            <button data-widget="remove" class="btn btn-box-tool"><i class="fa fa-times"></i></button>
                         </div>
-                            <a data-slide="prev" href="#carousel-example-generic" class="left carousel-control">
-                                <span class="fa fa-angle-left"></span>
-                            </a>
-                            <a data-slide="next" href="#carousel-example-generic" class="right carousel-control">
-                                <span class="fa fa-angle-right"></span>
-                            </a>
                     </div>
-                {% endif %}
-            </div><!-- /.col -->
-        </div>
-
-        {# Mapa #}
-        <div class="box">
-            <div class="box-header with-border">
-                <h3 class="box-title">{% trans %}Ubicación{% endtrans %}</h3>
-                <div class="box-tools pull-right">
-                    <button data-widget="collapse" class="btn btn-box-tool"><i class="fa fa-minus"></i></button>
-                    <button data-widget="remove" class="btn btn-box-tool"><i class="fa fa-times"></i></button>
-                </div>
-            </div>
-            <div class="box-body" style="display: block;">
-                Mapa google
-            </div><!-- /.col -->
-        </div>
-    </section><!-- /.Left col -->
-
-    <!-- right col (We are only adding the ID to make the widgets sortable)-->
-    <section class="col-lg-5 connectedSortable ui-sortable">
-
-        {# Descripcion #}
-        <div class="box">
-            <div class="box-header with-border">
-                <h3 class="box-title">{% trans %}Descripción{% endtrans %}</h3>
-                <div class="box-tools pull-right">
-                    <button data-widget="collapse" class="btn btn-box-tool"><i class="fa fa-minus"></i></button>
-                    <button data-widget="remove" class="btn btn-box-tool"><i class="fa fa-times"></i></button>
-                </div>
-            </div>
-            <div class="box-body" style="display: block;">
-                {{ details.description }}
-            </div><!-- /.col -->
-        </div>
-
-        {# Features #}
-        <div class="box">
-            <div class="box-header with-border">
-                <h3 class="box-title">{% trans %}Características{% endtrans %}</h3>
-                <div class="box-tools pull-right">
-                    <button data-widget="collapse" class="btn btn-box-tool"><i class="fa fa-minus"></i></button>
-                    <button data-widget="remove" class="btn btn-box-tool"><i class="fa fa-times"></i></button>
-                </div>
-            </div>
-            <div class="box-body" style="display: block;">
-                <ul>
-                    {% for feature in features %}
-                        {% if feature.selected %}
-                            <li>{{ feature.name }}</li>
-                        {% endif %}
-                    {% endfor %}
-                </ul>
-            </div><!-- /.col -->
-        </div>
-
-        {# Valoracion #}
-        <div class="box box-success">
-            <div class="box-header with-border">
-                <h3 class="box-title">{% trans %}Valoraciones{% endtrans %}</h3>
-                <div class="box-tools pull-right">
-                    <button data-widget="collapse" class="btn btn-box-tool"><i class="fa fa-minus"></i></button>
-                    <button data-widget="remove" class="btn btn-box-tool"><i class="fa fa-times"></i></button>
-                </div>
-            </div>
-            <div class="box-body">
-                <div class="chart">
-                    <div id="ratingChart" style="min-width: 250px; height: 400px; margin: 0 auto"></div>
-                </div>
-            </div><!-- /.box-body -->
-        </div>
-
-        {# Comentarios #}
-        <div class="box">
-            <div class="box-header with-border">
-                <h3 class="box-title">{% trans %}Comentarios{% endtrans %}</h3>
-                <div class="box-tools pull-right">
-                    <button data-widget="collapse" class="btn btn-box-tool"><i class="fa fa-minus"></i></button>
-                    <button data-widget="remove" class="btn btn-box-tool"><i class="fa fa-times"></i></button>
-                </div>
-            </div>
-            <div class="box-body" style="display: block;">
-                <table class="table table-bordered">
-                    <tbody>
-                        {% for comment in comments %}
+                    <div class="box-body" style="display: block;">
+                        <table class="table table-bordered text-center">
                             <tr>
-                                <td>{{ comment.comentarios }}</td>
+                                <th>{% trans %}Inicio{% endtrans %}</th>
+                                <th>{% trans %}Fin{% endtrans %}</th>
+                                <th>&euro;</th>
                             </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-            </div><!-- /.col -->
-        </div>
-    </section><!-- right col -->
+                            {% for season in seasons %}
+                                <tr>
+                                    <td>{{ season.startSeason }}</td>
+                                    <td>{{ season.endSeason }}</td>
+                                    <td>{{ season.price }}</td>
+                                </tr>
+                            {% endfor %}
+                        </table>
+                    </div><!-- /.col -->
+                </div>
 
-</div><!-- /.row (main row) -->
+                {# Imagenes #}
+                <div class="box">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">{% trans %}Imágenes{% endtrans %}</h3>
+                        <div class="box-tools pull-right">
+                            <button data-widget="collapse" class="btn btn-box-tool"><i class="fa fa-minus"></i></button>
+                            <button data-widget="remove" class="btn btn-box-tool"><i class="fa fa-times"></i></button>
+                        </div>
+                    </div>
+                    <div class="box-body" style="display: block;">
+                        {% if pictures is defined %}
+                            <div data-ride="carousel" class="carousel slide" id="carousel-example-generic">
+                                <ol class="carousel-indicators">
+                                    {% for oneImage in pictures %}
+                                        <li class="{% if loop.index0 == 0 %}active{% endif %}" data-slide-to="{{ loop.index0 == 0 }}" data-target="#carousel-example-generic"></li>
+                                    {% endfor %}
+                                </ol>
+                                <div class="carousel-inner">
+                                    {% for oneImage in pictures %}
+                                        <div class="item {% if loop.index0 == 0 %}active{% endif %}">
+                                            <img alt="First slide" src="/images/properties/{{ oneImage }}">
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                                    <a data-slide="prev" href="#carousel-example-generic" class="left carousel-control">
+                                        <span class="fa fa-angle-left"></span>
+                                    </a>
+                                    <a data-slide="next" href="#carousel-example-generic" class="right carousel-control">
+                                        <span class="fa fa-angle-right"></span>
+                                    </a>
+                            </div>
+                        {% endif %}
+                    </div><!-- /.col -->
+                </div>
 
-</section>
+                {# Mapa #}
+                <div class="box">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">{% trans %}Ubicación{% endtrans %}</h3>
+                        <div class="box-tools pull-right">
+                            <button data-widget="collapse" class="btn btn-box-tool"><i class="fa fa-minus"></i></button>
+                            <button data-widget="remove" class="btn btn-box-tool"><i class="fa fa-times"></i></button>
+                        </div>
+                    </div>
+                    <div class="box-body" style="display: block;">
+                        Mapa google
+                    </div><!-- /.col -->
+                </div>
+            </section><!-- /.Left col -->
 
+            <!-- right col (We are only adding the ID to make the widgets sortable)-->
+            <section class="col-lg-5 connectedSortable ui-sortable">
 
+                {# Descripcion #}
+                <div class="box">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">{% trans %}Descripción{% endtrans %}</h3>
+                        <div class="box-tools pull-right">
+                            <button data-widget="collapse" class="btn btn-box-tool"><i class="fa fa-minus"></i></button>
+                            <button data-widget="remove" class="btn btn-box-tool"><i class="fa fa-times"></i></button>
+                        </div>
+                    </div>
+                    <div class="box-body" style="display: block;">
+                        {{ details.description }}
+                    </div><!-- /.col -->
+                </div>
 
+                {# Features #}
+                <div class="box">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">{% trans %}Características{% endtrans %}</h3>
+                        <div class="box-tools pull-right">
+                            <button data-widget="collapse" class="btn btn-box-tool"><i class="fa fa-minus"></i></button>
+                            <button data-widget="remove" class="btn btn-box-tool"><i class="fa fa-times"></i></button>
+                        </div>
+                    </div>
+                    <div class="box-body" style="display: block;">
+                        <ul>
+                            {% for feature in features %}
+                                {% if feature.selected %}
+                                    <li>{{ feature.name }}</li>
+                                {% endif %}
+                            {% endfor %}
+                        </ul>
+                    </div><!-- /.col -->
+                </div>
 
+                {# Valoracion #}
+                <div class="box box-success">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">{% trans %}Valoraciones{% endtrans %}</h3>
+                        <div class="box-tools pull-right">
+                            <button data-widget="collapse" class="btn btn-box-tool"><i class="fa fa-minus"></i></button>
+                            <button data-widget="remove" class="btn btn-box-tool"><i class="fa fa-times"></i></button>
+                        </div>
+                    </div>
+                    <div class="box-body">
+                        <div class="chart">
+                            <div id="ratingChart" style="min-width: 250px; height: 400px; margin: 0 auto"></div>
+                        </div>
+                    </div><!-- /.box-body -->
+                </div>
 
+                {# Comentarios #}
+                <div class="box">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">{% trans %}Comentarios{% endtrans %}</h3>
+                        <div class="box-tools pull-right">
+                            <button data-widget="collapse" class="btn btn-box-tool"><i class="fa fa-minus"></i></button>
+                            <button data-widget="remove" class="btn btn-box-tool"><i class="fa fa-times"></i></button>
+                        </div>
+                    </div>
+                    <div class="box-body" style="display: block;">
+                        <table class="table table-bordered">
+                            <tbody>
+                                {% for comment in comments %}
+                                    <tr>
+                                        <td>{{ comment.comentarios }}</td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div><!-- /.col -->
+                </div>
+            </section><!-- right col -->
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        </div><!-- /.row (main row) -->
+    </section>
 {% endblock %}
