@@ -7,6 +7,7 @@ use Reservable\ActivityBundle\Entity\ActivityToFeature;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Reservable\ActivityBundle\Entity\Activity;
+use Reservable\ActivityBundle\Entity\Seasons;
 use Symfony\Component\HttpFoundation\Request;
 use Ob\HighchartsBundle\Highcharts\Highchart;
 
@@ -70,7 +71,8 @@ class AdminController extends Controller
             }
         }
 
-        //ld($details);
+        // Precios y temporadas
+        $seasons = $this->getAllSeasonsByPropertyId($property);
 
         // Comentarios y valoraciones
         $comments       = $this->getComments($property);
@@ -79,7 +81,6 @@ class AdminController extends Controller
         $totalRating    = $resultRatings['totalScore'];
 
         // Chart
-
         $categories = array('Ubicación', 'Cómo llegar', 'Limpieza', 'Material', 'Características', 'Gestiones', 'Usabilidad');
         $data = array(
             array('Ubicación',                                      $ratings['ubicacion']),
@@ -105,7 +106,18 @@ class AdminController extends Controller
         $ob->series(array(array('type' => 'column','name' => 'Valoración media', 'data' => $data)));
 
         return $this->render('ReservableActivityBundle:Admin:adminDetailsProperty.html.twig',
-            array('details' => $details, 'pictures' => $arrayPictures, 'type' => $type, 'features' => $features, 'comments' =>$comments, 'ratings' => $ratings, 'totalRating' => $totalRating, 'chart' => $ob));
+            array(
+                'details'       => $details,
+                'pictures'      => $arrayPictures,
+                'type'          => $type,
+                'features'      => $features,
+                'comments'      => $comments,
+                'ratings'       => $ratings,
+                'totalRating'   => $totalRating,
+                'chart'         => $ob,
+                'seasons'       => $seasons
+            )
+        );
     }
 
     public function modifDetailsAction($property, Request $request){
@@ -180,6 +192,28 @@ class AdminController extends Controller
             ->getResult();
 
         return $features;
+    }
+
+    private function getAllSeasonsByPropertyId($propertyID){
+
+        $today = date('Ymd');
+
+        $seasons = $this->getDoctrine()
+            ->getManager()
+            ->createQuery("SELECT s.startSeason, s.endSeason, s.price
+                           FROM ReservableActivityBundle:Seasons s
+                           WHERE s.activityID =  " . $propertyID . "
+                           AND s.endSeason > " . $today)
+            ->getResult();
+
+        if(!empty($seasons)){
+            foreach($seasons as $key => $season){
+                $seasons[$key]['startSeason'] = substr($season['startSeason'], 6, 2) . '/' . substr($season['startSeason'], 4, 2) . '/' . substr($season['startSeason'], 0, 4);
+                $seasons[$key]['endSeason']   = substr($season['endSeason'], 6, 2) . '/' . substr($season['endSeason'], 4, 2) . '/' . substr($season['endSeason'], 0, 4);
+            }
+        }
+
+        return $seasons;
     }
 
     public function saveModifDetailsAction(){

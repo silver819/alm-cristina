@@ -84,7 +84,20 @@
                 </div>
             </div>
             <div class="box-body" style="display: block;">
-                Precios y temporadas
+                <table class="table table-bordered text-center">
+                    <tr>
+                        <th>{% trans %}Inicio{% endtrans %}</th>
+                        <th>{% trans %}Fin{% endtrans %}</th>
+                        <th>&euro;</th>
+                    </tr>
+                    {% for season in seasons %}
+                        <tr>
+                            <td>{{ season.startSeason }}</td>
+                            <td>{{ season.endSeason }}</td>
+                            <td>{{ season.price }}</td>
+                        </tr>
+                    {% endfor %}
+                </table>
             </div><!-- /.col -->
         </div>
 
