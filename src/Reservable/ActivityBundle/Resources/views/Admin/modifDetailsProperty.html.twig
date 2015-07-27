@@ -9,6 +9,8 @@
     <script>
         $(document).ready(function()
         {
+            $("#datepickerFrom" ).datepicker();
+
             $('#dropboxContainerTest').click(function(){
                 imagePath='http://img4.wikia.nocookie.net/__cb20150313181403/clash-of-clans/es/images/thumb/4/4e/MPB-Defense.png/150px-MPB-Defense.png';
 
@@ -61,82 +63,147 @@
     </script>
 
 
-    {% if app.environment == "dev" %}
-        {% set baseUrl = "/app_dev.php/" ~ app.request.locale ~ "/admin/view-details/" ~ details.id  %}
-    {% else %}
-        {% set baseUrl = "/" ~ app.request.locale ~ "/admin/view-details/" ~ details.id  %}
-    {% endif %}
+    <section class="content">
 
-    <form action="modif/save" method="post">
+        <div class="row">
+            <form action="modif/save" method="post">
+                <input type="hidden" name="productID" class="productID" value="{{ details.id }}">
 
-        {% set cont = 0 %}
-        <div class="col-md-3 column modifImage">
-        {% if pictures is not empty %}
-                {% for onePicture in pictures %}
-                    {% set cont = cont + 1 %}
-                    <div class="item">
-                        <img alt="" width="100" src="/images/properties/{{ onePicture }}" />
+                <section class="col-lg-3 connectedSortable ui-sortable">
+                    {# Imagenes #}
+                    <div class="box">
+                        <div class="box-header with-border">
+                            <h3 class="box-title">{% trans %}Imágenes{% endtrans %}</h3>
+                            <div class="box-tools pull-right">
+                                <button data-widget="collapse" class="btn btn-box-tool"><i class="fa fa-minus"></i></button>
+                                <button data-widget="remove" class="btn btn-box-tool"><i class="fa fa-times"></i></button>
+                            </div>
+                        </div>
+                        <div class="box-body" style="display: block;">
+                            {% if pictures is defined %}
+                                {% for onePicture in pictures %}
+                                    {% set cont = cont + 1 %}
+                                    <div class="item">
+                                        <img alt="" width="100%" src="/images/properties/{{ onePicture }}" />
+                                    </div>
+                                    <br/>
+                                {% endfor %}
+                            {% endif %}
+                        </div><!-- /.col -->
+                        <div class="box-footer">
+                            {% if cont < 10 %}
+                                <div class="item">
+                                    <span id="dropboxContainer"></span>
+                                    <input type="button" id="dropboxContainerTest" value="Test">
+                                </div>
+                            {% endif %}
+                        </div>
                     </div>
-                {% endfor %}
-        {% endif %}
-        {% if cont < 10 %}
-            <div class="item">
-                <span id="dropboxContainer"></span>
-                <input type="button" id="dropboxContainerTest" value="Test">
-            </div>
-        {% endif %}
-        </div>
 
-        <div class="col-md-9 column">
-            <input type="hidden" name="productID" class="productID" value="{{ details.id }}">
-            <h2><input type="text" name="name" style="width:100%;color: #8a6d3b;" value="{{ details.name }}"></h2>
 
-            <div class="clear"></div>
+                </section>
+                <section class="col-lg-9 connectedSortable ui-sortable">
 
-            <div style="float:right;">
-                <input type="number" name="price" value="{{ details.price }}"> {{ details.typeRent }}
-            </div>
+                    {# Descripcion #}
+                    <div class="box">
+                        <div class="box-header with-border">
+                            <h3 class="box-title">{% trans %}Descripción{% endtrans %}</h3>
+                            <div class="box-tools pull-right">
+                                <button data-widget="collapse" class="btn btn-box-tool"><i class="fa fa-minus"></i></button>
+                                <button data-widget="remove" class="btn btn-box-tool"><i class="fa fa-times"></i></button>
+                            </div>
+                        </div>
+                        <div class="box-body" style="display: block;">
+                            <textarea style="width:100%;" name="description">{{ details.description | trim }}</textarea>
+                        </div><!-- /.col -->
+                    </div>
 
-            <div class="clear"></div>
+                    {# Features #}
+                    <div class="box">
+                        <div class="box-header with-border">
+                            <h3 class="box-title">{% trans %}Características{% endtrans %}</h3>
+                            <div class="box-tools pull-right">
+                                <button data-widget="collapse" class="btn btn-box-tool"><i class="fa fa-minus"></i></button>
+                                <button data-widget="remove" class="btn btn-box-tool"><i class="fa fa-times"></i></button>
+                            </div>
+                        </div>
+                        <div class="box-body" style="display: block;">
+                            <div>
+                                Tipo de establecimiento:<br/>
+                                {% for type in types %}
+                                    <input type="radio" name="type" value="{{ type.id }}" {% if type.selected == 1 %}checked{% endif %}> {{ type.name }}
+                                {% endfor %}
+                            </div>
+                            <div>
+                                {% if features is not empty %}
+                                    Características:<br/>
+                                    {% for feature in features %}
+                                        <input type="checkbox" name="feature[]" value="{{ feature.id }}" {% if feature.selected == 1 %}checked{% endif %}> {{ feature.name }}
+                                    {% endfor %}
+                                {% endif %}
+                            </div>
+                        </div><!-- /.col -->
+                    </div>
 
-            <div class="clear"></div>
+                    {# Precios / temporadas #}
+                    <div class="box">
+                        <div class="box-header with-border">
+                            <h3 class="box-title">{% trans %}Precios{% endtrans %}</h3>
+                            <div class="box-tools pull-right">
+                                <button data-widget="collapse" class="btn btn-box-tool"><i class="fa fa-minus"></i></button>
+                                <button data-widget="remove" class="btn btn-box-tool"><i class="fa fa-times"></i></button>
+                            </div>
+                        </div>
+                        <div class="box-body" style="display: block;">
+                            <table class="table table-bordered text-center">
+                                <tr>
+                                    <th>{% trans %}Inicio{% endtrans %}</th>
+                                    <th>{% trans %}Fin{% endtrans %}</th>
+                                    <th>&euro;</th>
+                                </tr>
+                                {% for season in seasons %}
+                                    <tr>
+                                        <td>{{ season.startSeason }}</td>
+                                        <td>{{ season.endSeason }}</td>
+                                        <td>{{ season.price }}</td>
+                                    </tr>
+                                {% endfor %}
+                                <tr>
+                                    <td>
+                                        <div class="input-group">
+                                            <div class="input-group-addon">
+                                                <i class="fa fa-calendar"></i>
+                                            </div>
+                                            <input type="text" id="datepickerFrom" class="form-control pull-right active">
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div><!-- /.col -->
+                    </div>
 
-            <p class="desc-icon">
-                <i class="fa fa-quote-left fa-1x pull-left fa-border"></i> {% trans %}Descripción{% endtrans %}
-                <textarea style="width:100%;" name="description">
-                    {{ details.description | trim }}
-                </textarea>
-            </p>
+                    {# Mapa #}
+                    <div class="box">
+                        <div class="box-header with-border">
+                            <h3 class="box-title">{% trans %}Ubicación{% endtrans %}</h3>
+                            <div class="box-tools pull-right">
+                                <button data-widget="collapse" class="btn btn-box-tool"><i class="fa fa-minus"></i></button>
+                                <button data-widget="remove" class="btn btn-box-tool"><i class="fa fa-times"></i></button>
+                            </div>
+                        </div>
+                        <div class="box-body" style="display: block;">
+                            Mapa google
+                        </div><!-- /.col -->
+                    </div>
+                </section><!-- /.Left col -->
 
-            <div class="clear"></div>
-
-            <div>
-                <input type="text" name="address" value="{{ details.address }}">
-
-                mapa
-            </div>
-
-            <div>
-                Tipo de establecimiento:<br/>
-                {% for type in types %}
-                    <input type="radio" name="type" value="{{ type.id }}" {% if type.selected == 1 %}checked{% endif %}> {{ type.name }}
-                {% endfor %}
-            </div>
-            <div>
-                {% if features is not empty %}
-                    Características:<br/>
-                    {% for feature in features %}
-                        <input type="checkbox" name="feature[]" value="{{ feature.id }}" {% if feature.selected == 1 %}checked{% endif %}> {{ feature.name }}
-                    {% endfor %}
-                {% endif %}
-            </div>
-
-            <div class="clear"></div>
-
-            <div style="margin:auto;">
-                <button name="submit" value="Send" class="btn btn-success" type="submit"><i class="glyphicon glyphicon-ok"></i>&nbsp;{% trans %}Guardar{% endtrans %}</button>
-                <a href="{{ baseUrl }}"><button type="button" class="btn btn-danger"><i class="glyphicon glyphicon-remove"></i>&nbsp;{% trans %}Cancelar{% endtrans %}</button></a>
-            </div>
-        </div>
-    </form>
+                <section class="col-lg-12 text-center">
+                    <div class="row">
+                        <button name="submit" value="Send" class="btn btn-success" type="submit"><i class="glyphicon glyphicon-ok"></i>&nbsp;{% trans %}Guardar{% endtrans %}</button>
+                        <a href="{{ baseUrl }}"><button type="button" class="btn btn-danger"><i class="glyphicon glyphicon-remove"></i>&nbsp;{% trans %}Cancelar{% endtrans %}</button></a>
+                    </div>
+                </section>
+            </form>
+        </div><!-- /.row (main row) -->
+    </section>
 {% endblock %}

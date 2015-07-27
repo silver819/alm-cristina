@@ -171,15 +171,11 @@ class AdminController extends Controller
             }
         }
 
-        // Comentarios y valoraciones
-        $comments       = $this->getComments($property);
-        $resultRatings  = $this->getRatings($property);
-        $ratings        = $resultRatings['ratings'];
-        $totalRating    = $resultRatings['totalScore'];
-
+        // Precios y temporadas
+        $seasons = $this->getAllSeasonsByPropertyId($property);
 
         return $this->render('ReservableActivityBundle:Admin:modifDetailsProperty.html.twig',
-            array('details' => $details, 'pictures' => $arrayPictures, 'types' => $types, 'features' => $features, 'comments' => $comments, 'ratings' => $ratings, 'totalRating' => $totalRating));
+            array('details' => $details, 'pictures' => $arrayPictures, 'types' => $types, 'features' => $features, 'seasons' => $seasons));
     }
 
     private function getAllFeaturesByType($type){
@@ -223,10 +219,7 @@ class AdminController extends Controller
             $resultQuery = $this->getDoctrine()
                 ->getManager()
                 ->createQuery("UPDATE ReservableActivityBundle:Activity a
-                               SET   a.name = '" . $_POST['name'] . "',
-                                     a.price = '" . $_POST['price'] . "',
-                                     a.address = '" . $_POST['address'] . "',
-                                     a.description = '" . $_POST['description'] . "'
+                               SET   a.description = '" . $_POST['description'] . "'
                                WHERE a.id = '" . $_POST['productID'] . "'")
                 ->getResult();
 

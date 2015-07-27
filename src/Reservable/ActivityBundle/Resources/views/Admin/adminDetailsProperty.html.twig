@@ -5,6 +5,20 @@
 {% endblock %}
 
 {% block page_content %}
+
+    <script>
+        var map;
+        function initialize() {
+            map = new google.maps.Map(document.getElementById('map-canvas'), {
+                zoom: 8,
+                center: {lat: -34.397, lng: 150.644}
+            });
+        }
+
+        google.maps.event.addDomListener(window, 'load', initialize);
+
+    </script>
+
     <section class="content">
 
         <div class="row">
@@ -146,7 +160,7 @@
                         </div>
                     </div>
                     <div class="box-body" style="display: block;">
-                        Mapa google
+                        <div id="map-canvas"></div>
                     </div><!-- /.col -->
                 </div>
             </section><!-- /.Left col -->
