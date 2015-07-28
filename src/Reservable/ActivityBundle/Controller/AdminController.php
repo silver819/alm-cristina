@@ -21,6 +21,21 @@ class AdminController extends Controller
             ->getRepository('ReservableActivityBundle:Activity')
             ->findByPropertyID($property);
 
+        // Mapa
+        $lat = $details->getLat();$lng = $details->getLng();
+
+        $marker = $this->get('ivory_google_map.marker');
+        $marker->setPosition($lat, $lng);
+        //ldd($marker);
+
+        $map = $this->get('ivory_google_map.map');
+        $map->setCenter($lat, $lng);
+        $map->addMarker($marker);
+        $map->setMapOptions(array('zoom' => 13));
+        $map->setStylesheetOptions(array('width' => '100%'));
+        //ldd($map);
+
+        // Imagenes
         $pictures = $this->getDoctrine()
             ->getRepository('ReservableActivityBundle:Picture')
             ->findAllByPropertyID($property);
@@ -115,7 +130,8 @@ class AdminController extends Controller
                 'ratings'       => $ratings,
                 'totalRating'   => $totalRating,
                 'chart'         => $ob,
-                'seasons'       => $seasons
+                'seasons'       => $seasons,
+                'map'           => $map
             )
         );
     }
