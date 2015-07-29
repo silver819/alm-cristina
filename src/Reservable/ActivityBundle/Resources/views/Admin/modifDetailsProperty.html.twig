@@ -19,6 +19,10 @@
                 if (status == google.maps.GeocoderStatus.OK) {
 
                     var latlng = new google.maps.LatLng(results[0].geometry.location);
+
+                    document.getElementById('latAddress').value = results[0].geometry.location.A;
+                    document.getElementById('lngAddress').value = results[0].geometry.location.F;
+
                     var mapOptions = {
                         zoom: 12,
                         center: latlng
@@ -33,8 +37,6 @@
                 }
             });
         }
-
-
 
         $(document).ready(function()
         {
@@ -96,7 +98,9 @@
 
         <div class="row">
             <form action="modif/save" method="post">
-                <input type="hidden" name="productID" class="productID" value="{{ details.id }}">
+                <input type="hidden" name="productID" value="{{ details.id }}">
+                <input type="hidden" id="latAddress" name="latAddress" value="{{ details.lat }}">
+                <input type="hidden" id="lngAddress" name="lngAddress" value="{{ details.lng }}">
 
                 <section class="col-lg-3 connectedSortable ui-sortable">
                     {# Imagenes #}
