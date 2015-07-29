@@ -143,6 +143,21 @@ class AdminController extends Controller
             ->getRepository('ReservableActivityBundle:Activity')
             ->findByPropertyID($property);
 
+        // Mapa
+        $lat = $details->getLat();$lng = $details->getLng();
+
+        $marker = $this->get('ivory_google_map.marker');
+        $marker->setPosition($lat, $lng);
+        //ldd($marker);
+
+        $map = $this->get('ivory_google_map.map');
+        $map->setCenter($lat, $lng);
+        $map->addMarker($marker);
+        $map->setMapOptions(array('zoom' => 13));
+        $map->setStylesheetOptions(array('width' => '100%'));
+        //ldd($map);
+
+        // Imagenes
         $pictures = $this->getDoctrine()
             ->getRepository('ReservableActivityBundle:Picture')
             ->findAllByPropertyID($property);
@@ -191,7 +206,12 @@ class AdminController extends Controller
         $seasons = $this->getAllSeasonsByPropertyId($property);
 
         return $this->render('ReservableActivityBundle:Admin:modifDetailsProperty.html.twig',
-            array('details' => $details, 'pictures' => $arrayPictures, 'types' => $types, 'features' => $features, 'seasons' => $seasons));
+            array('details' => $details,
+                'map'       => $map,
+                'pictures'  => $arrayPictures,
+                'types'     => $types,
+                'features'  => $features,
+                'seasons'   => $seasons));
     }
 
     private function getAllFeaturesByType($type){
