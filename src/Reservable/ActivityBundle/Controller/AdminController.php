@@ -15,123 +15,20 @@ class AdminController extends Controller
 {
     public function viewDetailsAction($property, Request $request){
 
-        $session = $request->getSession();
-
-        $details = $this->getDoctrine()
-            ->getRepository('ReservableActivityBundle:Activity')
-            ->findByPropertyID($property);
-
-        // Mapa
-        $lat = $details->getLat();$lng = $details->getLng();
-
-        $marker = $this->get('ivory_google_map.marker');
-        $marker->setPosition($lat, $lng);
-        //ldd($marker);
-
-        $map = $this->get('ivory_google_map.map');
-        $map->setCenter($lat, $lng);
-        $map->addMarker($marker);
-        $map->setMapOptions(array('zoom' => 13));
-        $map->setStylesheetOptions(array('width' => '100%'));
-        //ldd($map);
-
-        // Imagenes
-        $pictures = $this->getDoctrine()
-            ->getRepository('ReservableActivityBundle:Picture')
-            ->findAllByPropertyID($property);
-
-        $arrayPictures = array();
-        if(!empty($pictures)) {
-            foreach ($pictures as $onePicture) {
-                $arrayPictures[] = $onePicture['path'];
-            }
-        }
-        else{
-            $arrayPictures[] = 'no-photo.jpg';
-        }
-
-        // tipos
-        $types = $this->getDoctrine()
-            ->getRepository('ReservableActivityBundle:TypeActivity')
-            ->getAllTypes($details->getTypeRent());
-
-        $typeSelected = $this->getDoctrine()
-            ->getRepository('ReservableActivityBundle:ActivityyToType')
-            ->getTypeSelected($property);
-
-        $type = '';
-        if($typeSelected){
-            foreach($types as $key => $oneType){
-                if($oneType['id'] == $typeSelected){
-                    $type = $oneType['name'];
-                }
-            }
-        }
-
-        // features
-        $features = array();
-        if($typeSelected) {
-            $features = $this->getAllFeaturesByType($typeSelected);
-
-            $featuresSelected = $this->getDoctrine()
-                ->getRepository('ReservableActivityBundle:ActivityToFeature')
-                ->getAllFeatures($details->getId());
-
-            if($featuresSelected){
-                foreach($features as $key => $oneFeature){
-                    if(in_array($oneFeature['id'], $featuresSelected)){
-                        $features[$key]['selected'] = 1;
-                    }
-                }
-            }
-        }
-
-        // Precios y temporadas
-        $seasons = $this->getAllSeasonsByPropertyId($property);
-
-        // Comentarios y valoraciones
-        $comments       = $this->getComments($property);
-        $resultRatings  = $this->getRatings($property);
-        $ratings        = $resultRatings['ratings'];
-        $totalRating    = $resultRatings['totalScore'];
-
-        // Chart
-        $categories = array('Ubicación', 'Cómo llegar', 'Limpieza', 'Material', 'Características', 'Gestiones', 'Usabilidad');
-        $data = array(
-            array('Ubicación',                                      $ratings['ubicacion']),
-            array('Cómo llegar',                                    $ratings['llegar']),
-            array('Limpieza',                                       $ratings['limpieza']),
-            array('Material proporcionado',                         $ratings['material']),
-            array('Características coindicen con las anunciadas',   $ratings['caracteristicas']),
-            array('Gestiones',                                      $ratings['gestiones']),
-            array('Usabilidad',                                     $ratings['usabilidad']),
-        );
-
-        $ob = new Highchart();
-        $ob->chart->renderTo('ratingChart');
-        $ob->chart->type('column');
-        $ob->title->text('Resultados de la encuesta sobre 5 puntos');
-        $ob->plotOptions->pie(array(
-            'allowPointSelect'  => true,
-            'cursor'            => 'pointer',
-            'dataLabels'        => array('enabled' => false),
-            'showInLegend'      => true
-        ));
-        $ob->xAxis->categories($categories);
-        $ob->series(array(array('type' => 'column','name' => 'Valoración media', 'data' => $data)));
+        $result = $this->getDataLodging($property, $request);
 
         return $this->render('ReservableActivityBundle:Admin:adminDetailsProperty.html.twig',
             array(
-                'details'       => $details,
-                'pictures'      => $arrayPictures,
-                'type'          => $type,
-                'features'      => $features,
-                'comments'      => $comments,
-                'ratings'       => $ratings,
-                'totalRating'   => $totalRating,
-                'chart'         => $ob,
-                'seasons'       => $seasons,
-                'map'           => $map
+                'details'       => $result['details'],
+                'pictures'      => $result['arrayPictures'],
+                'type'          => $result['type'],
+                'features'      => $result['features'],
+                'comments'      => $result['comments'],
+                'ratings'       => $result['ratings'],
+                'totalRating'   => $result['totalRating'],
+                'chart'         => $result['ob'],
+                'seasons'       => $result['seasons'],
+                'map'           => $result['map']
             )
         );
     }
@@ -248,19 +145,36 @@ class AdminController extends Controller
         return $seasons;
     }
 
-    public function saveModifDetailsAction(){
+    public function saveModifDetailsAction(Request $request){
+
+        $em = $this->getDoctrine()->getManager();
 
         if($_POST['productID']){
-            // Guardar
+            // Información general
             $resultQuery = $this->getDoctrine()
                 ->getManager()
                 ->createQuery("UPDATE ReservableActivityBundle:Activity a
-                               SET   a.description = '" . $_POST['description'] . "'
+                               SET   a.description = '" . $_POST['description'] . "',
+                               a.address = '" . $_POST['address'] . "',
+                               a.lat = '" . $_POST['latAddress'] . "',
+                               a.lng = '" . $_POST['lngAddress'] . "'
                                WHERE a.id = '" . $_POST['productID'] . "'")
                 ->getResult();
 
-            //tipos y features
-            $em = $this->getDoctrine()->getManager();
+            // Temporadas
+            foreach($_POST['Seasons'] as $oneSeason){
+                if($oneSeason['From'] != '' && $oneSeason['To'] != '' && $oneSeason['Price'] != ''){
+                    $season = new Seasons();
+                    $season->setActivityID($_POST['productID']);
+                    $season->setStartSeason($this->FormatDate($oneSeason['From']));
+                    $season->setEndSeason($this->FormatDate($oneSeason['To']));
+                    $season->setPrice($oneSeason['Price']);
+
+                    $em->persist($season);
+                }
+            }
+
+            // Tipos y features
             if(isset($_POST['type'])){
                 $resultQuery = $this->getDoctrine()
                     ->getManager()
@@ -293,58 +207,23 @@ class AdminController extends Controller
 
             $em->flush();
 
-            // Recopilo info
-            $details = $this->getDoctrine()
-                ->getRepository('ReservableActivityBundle:Activity')
-                ->findByPropertyID($_POST['productID']);
-
-            $pictures = $this->getDoctrine()
-                ->getRepository('ReservableActivityBundle:Picture')
-                ->findAllByPropertyID($_POST['productID']);
-
-            $arrayPictures = array();
-            foreach($pictures as $onePicture){
-                $arrayPictures[] = $onePicture['path'];
-            }
-
-            // tipos
-            $types = $this->getDoctrine()
-                ->getRepository('ReservableActivityBundle:TypeActivity')
-                ->getAllTypes($details->getTypeRent());
-
-            $typeSelected = $this->getDoctrine()
-                ->getRepository('ReservableActivityBundle:ActivityyToType')
-                ->getTypeSelected($_POST['productID']);
-
-            $type = '';
-            if($typeSelected){
-                foreach($types as $key => $oneType){
-                    if($oneType['id'] == $typeSelected){
-                        $type = $oneType['name'];
-                    }
-                }
-            }
-
-            // features
-            $features = array();
-            if($typeSelected) {
-                $features = $this->getAllFeaturesByType($typeSelected);
-
-                $featuresSelected = $this->getDoctrine()
-                    ->getRepository('ReservableActivityBundle:ActivityToFeature')
-                    ->getAllFeatures($details->getId());
-
-                if($featuresSelected){
-                    foreach($features as $key => $oneFeature){
-                        if(in_array($oneFeature['id'], $featuresSelected)){
-                            $features[$key]['selected'] = 1;
-                        }
-                    }
-                }
-            }
+            // ****   RECOPILO INFO   ****
+            $result = $this->getDataLodging($_POST['productID'], $request);
 
             return $this->render('ReservableActivityBundle:Admin:adminDetailsProperty.html.twig',
-                array('details' => $details, 'pictures' => $arrayPictures , 'type' => $type, 'features' => $features ));
+                array(
+                    'details'       => $result['details'],
+                    'pictures'      => $result['arrayPictures'],
+                    'type'          => $result['type'],
+                    'features'      => $result['features'],
+                    'comments'      => $result['comments'],
+                    'ratings'       => $result['ratings'],
+                    'totalRating'   => $result['totalRating'],
+                    'chart'         => $result['ob'],
+                    'seasons'       => $result['seasons'],
+                    'map'           => $result['map']
+                )
+            );
         }
     }
 
@@ -522,6 +401,134 @@ class AdminController extends Controller
         }
 
         return array('ratings' => $mean, 'totalScore' => $total);
+    }
+
+    private function getDataLodging($property, Request $request){
+        $session = $request->getSession();
+
+        $details = $this->getDoctrine()
+            ->getRepository('ReservableActivityBundle:Activity')
+            ->findByPropertyID($property);
+
+        // Mapa
+        $lat = $details->getLat();$lng = $details->getLng();
+
+        $marker = $this->get('ivory_google_map.marker');
+        $marker->setPosition($lat, $lng);
+        //ldd($marker);
+
+        $map = $this->get('ivory_google_map.map');
+        $map->setCenter($lat, $lng);
+        $map->addMarker($marker);
+        $map->setMapOptions(array('zoom' => 13));
+        $map->setStylesheetOptions(array('width' => '100%'));
+        //ldd($map);
+
+        // Imagenes
+        $pictures = $this->getDoctrine()
+            ->getRepository('ReservableActivityBundle:Picture')
+            ->findAllByPropertyID($property);
+
+        $arrayPictures = array();
+        if(!empty($pictures)) {
+            foreach ($pictures as $onePicture) {
+                $arrayPictures[] = $onePicture['path'];
+            }
+        }
+        else{
+            $arrayPictures[] = 'no-photo.jpg';
+        }
+
+        // tipos
+        $types = $this->getDoctrine()
+            ->getRepository('ReservableActivityBundle:TypeActivity')
+            ->getAllTypes($details->getTypeRent());
+
+        $typeSelected = $this->getDoctrine()
+            ->getRepository('ReservableActivityBundle:ActivityyToType')
+            ->getTypeSelected($property);
+
+        $type = '';
+        if($typeSelected){
+            foreach($types as $key => $oneType){
+                if($oneType['id'] == $typeSelected){
+                    $type = $oneType['name'];
+                }
+            }
+        }
+
+        // features
+        $features = array();
+        if($typeSelected) {
+            $features = $this->getAllFeaturesByType($typeSelected);
+
+            $featuresSelected = $this->getDoctrine()
+                ->getRepository('ReservableActivityBundle:ActivityToFeature')
+                ->getAllFeatures($details->getId());
+
+            if($featuresSelected){
+                foreach($features as $key => $oneFeature){
+                    if(in_array($oneFeature['id'], $featuresSelected)){
+                        $features[$key]['selected'] = 1;
+                    }
+                }
+            }
+        }
+
+        // Precios y temporadas
+        $seasons = $this->getAllSeasonsByPropertyId($property);
+
+        // Comentarios y valoraciones
+        $comments       = $this->getComments($property);
+        $resultRatings  = $this->getRatings($property);
+        $ratings        = $resultRatings['ratings'];
+        $totalRating    = $resultRatings['totalScore'];
+
+        // Chart
+        $categories = array('Ubicación', 'Cómo llegar', 'Limpieza', 'Material', 'Características', 'Gestiones', 'Usabilidad');
+        $data = array(
+            array('Ubicación',                                      $ratings['ubicacion']),
+            array('Cómo llegar',                                    $ratings['llegar']),
+            array('Limpieza',                                       $ratings['limpieza']),
+            array('Material proporcionado',                         $ratings['material']),
+            array('Características coindicen con las anunciadas',   $ratings['caracteristicas']),
+            array('Gestiones',                                      $ratings['gestiones']),
+            array('Usabilidad',                                     $ratings['usabilidad']),
+        );
+
+        $ob = new Highchart();
+        $ob->chart->renderTo('ratingChart');
+        $ob->chart->type('column');
+        $ob->title->text('Resultados de la encuesta sobre 5 puntos');
+        $ob->plotOptions->pie(array(
+            'allowPointSelect'  => true,
+            'cursor'            => 'pointer',
+            'dataLabels'        => array('enabled' => false),
+            'showInLegend'      => true
+        ));
+        $ob->xAxis->categories($categories);
+        $ob->series(array(array('type' => 'column','name' => 'Valoración media', 'data' => $data)));
+
+        // Preparamos resultados para devolver
+        $result = array();
+        $result['details']          = $details;
+        $result['arrayPictures']    = $arrayPictures;
+        $result['type']             = $type;
+        $result['features']         = $features;
+        $result['comments']         = $comments;
+        $result['ratings']          = $ratings;
+        $result['totalRating']      = $totalRating;
+        $result['ob']               = $ob;
+        $result['seasons']          = $seasons;
+        $result['map']              = $map;
+
+        return $result;
+    }
+
+    private function FormatDate($dateString){
+
+        list($day, $month, $year) = explode('/', $dateString);
+        return $year . $month . $day;
     }
 
 }
