@@ -7,6 +7,22 @@
 {% block page_content %}
 
 	{% if is_granted("ROLE_SUPER_ADMIN") %}
+        <script>
+            var filterByOwner = document.getElementById("filterByOwner");
+
+            filterByOwner.onchange = function(){
+                var ownerID = filterByOwner.options[filterByOwner.selectedIndex].value;
+
+                if(ownerID == 0){
+                    $('.ownerEmail').show('slow');
+                }
+                else{
+                    $('.ownerEmail').hide('slow');
+                    $('.'+ ownerID).show('slow');
+                }
+            }
+        </script>
+
 		<div class="bookingsFilter">
 			<table style="align:right;">
 				<tr>
@@ -98,22 +114,4 @@
             </div>
 		{% endfor %}
 	{% endif %}
-{% endblock %}
-
-{% block javascripts_inline %}
-    <script>
-        var filterByOwner = document.getElementById("filterByOwner");
-
-        filterByOwner.onchange = function(){
-            var ownerID = filterByOwner.options[filterByOwner.selectedIndex].value;
-
-            if(ownerID == 0){
-                $('.ownerEmail').show('slow');
-            }
-            else{
-                $('.ownerEmail').hide('slow');
-                $('.'+ ownerID).show('slow');
-            }
-        }
-    </script>
 {% endblock %}

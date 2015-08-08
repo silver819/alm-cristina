@@ -16,82 +16,87 @@
 {% block page_content %}
 {% endblock %}
 
+{% block myOwn %}
+    <div class="navbar-custom-menu">
+        <ul class="nav navbar-nav">
+            {# Nombre de usuario #}
+            {% if app.user is defined %}
+                <li class="headerUserName"><a href="{{ path('fos_user_profile_show') }}">{{ app.user.username }}</a></li>
+            {% endif %}
+
+            {# Idioma #}
+            <li class="dropdown languageDropdown" style="height: 50px !important;">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                    {% if app.request.locale == 'en' %}
+                        <img src="{{ asset('images/flags/GB.png') }}" alt="English" title="English">
+                    {% else %}
+                        <img src="{{ asset('images/flags/ES.png') }}" alt="Español" title="Español">
+                    {% endif %}
+                    &nbsp;<strong class="caret"></strong></a>
+                <ul class="dropdown-menu">
+                    <li><a href="{{ path('homepage', {'_locale':'es'}) }}"><img src="{{ asset('images/flags/ES.png') }}" alt="Español" title="Español">&nbsp;&nbsp;Español</a></li>
+                    <li><a href="{{ path('homepage', {'_locale':'en'}) }}"><img src="{{ asset('images/flags/GB.png') }}" alt="English" title="English">&nbsp;&nbsp;English</a></li>
+                </ul>
+            </li>
+
+            {# Perfil #}
+            <li class="dropdown menuDropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">{% trans %}Mi cuenta{% endtrans %}&nbsp;<strong class="caret"></strong></a>
+                {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                    <ul class="dropdown-menu">
+                        {% if is_granted("ROLE_SUPER_ADMIN") %}
+                            <style>
+                                .adminLI{background-color: #E78A37;padding-bottom: 5px;padding-top:5px;}
+                                .adminLI a{color: #FFFFFF !important;}
+                                .adminLI a:hover{background-color: #E78A37 !important;}
+                            </style>
+
+                            {% if app.environment == "dev" %}
+                                {% set adminUrl = "/app_dev.php/" ~ app.request.locale ~ "/superUserAdmin"  %}
+                            {% else %}
+                                {% set adminUrl = "/" ~ app.request.locale ~ "/superUserAdmin"  %}
+                            {% endif %}
+
+                            <li class="adminLI">
+                                <a href="{{ adminUrl }}" target="_blank">
+                                    <span class="glyphicon glyphicon-wrench"></span>
+                                    &nbsp;&nbsp;{% trans %}Administración{% endtrans %}
+                                </a>
+                            </li>
+                            <li class="divider"></li>
+                        {% endif %}
+                        <li>
+                            <a href="{{ path('consultBookings') }}"><span class="glyphicon glyphicon-th-list"></span>&nbsp;&nbsp;{% trans %}Menu{% endtrans %}</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('fos_user_profile_show') }}"><span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp;{% trans %}Ver perfil{% endtrans %}</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('fos_user_profile_edit') }}"><span class="glyphicon glyphicon-pencil"></span>&nbsp;&nbsp;{% trans %}Modificar perfil{% endtrans %}</a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a href="{{ path('fos_user_security_logout') }}"><span class="glyphicon glyphicon-off" style="color:red;"></span>&nbsp;&nbsp;{% trans %}Salir{% endtrans %}</a>
+                        </li>
+                    </ul>
+                {% else %}
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a href="{{ path('fos_user_security_login') }}"><span class="glyphicon glyphicon-log-in"></span>&nbsp;&nbsp;{% trans %}Iniciar sesión{% endtrans %}</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('fos_user_registration_register') }}"><span class="glyphicon glyphicon-plus"></span>&nbsp;&nbsp;{% trans %}Registrar{% endtrans %}</a>
+                        </li>
+                    </ul>
+                {% endif %}
+            </li>
+        </ul>
+    </div>
+{% endblock %}
+
 {% block stylesheets %}
     {{ parent() }}
     <link href="{{ asset('css/main.css') }}" filter="cssrewrite" type="text/css" rel="stylesheet">
-{% endblock %}
-
-{% block myOwn %}
-    {# Nombre de usuario #}
-    {% if app.user is defined %}
-        <li class="headerUserName"><a href="{{ path('fos_user_profile_show') }}">{{ app.user.username }}</a></li>
-    {% endif %}
-
-    {# Idioma #}
-    <li class="dropdown languageDropdown" style="height: 50px !important;">
-        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-            {% if app.request.locale == 'en' %}
-                <img src="{{ asset('images/flags/GB.png') }}" alt="English" title="English">
-            {% else %}
-                <img src="{{ asset('images/flags/ES.png') }}" alt="Español" title="Español">
-            {% endif %}
-            &nbsp;<strong class="caret"></strong></a>
-        <ul class="dropdown-menu">
-            <li><a href="{{ path('homepage', {'_locale':'es'}) }}"><img src="{{ asset('images/flags/ES.png') }}" alt="Español" title="Español">&nbsp;&nbsp;Español</a></li>
-            <li><a href="{{ path('homepage', {'_locale':'en'}) }}"><img src="{{ asset('images/flags/GB.png') }}" alt="English" title="English">&nbsp;&nbsp;English</a></li>
-        </ul>
-    </li>
-
-    {# Perfil #}
-    <li class="dropdown menuDropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">{% trans %}Mi cuenta{% endtrans %}&nbsp;<strong class="caret"></strong></a>
-        {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-            <ul class="dropdown-menu">
-                {% if is_granted("ROLE_SUPER_ADMIN") %}
-                    <style>
-                        .adminLI{background-color: #E78A37;padding-bottom: 5px;padding-top:5px;}
-                        .adminLI a{color: #FFFFFF !important;}
-                        .adminLI a:hover{background-color: #E78A37 !important;}
-                    </style>
-
-                    {% if app.environment == "dev" %}
-                        {% set adminUrl = "/app_dev.php/" ~ app.request.locale ~ "/superUserAdmin"  %}
-                    {% else %}
-                        {% set adminUrl = "/" ~ app.request.locale ~ "/superUserAdmin"  %}
-                    {% endif %}
-
-                    <li class="adminLI">
-                        <a href="{{ adminUrl }}" target="_blank">
-                            <span class="glyphicon glyphicon-wrench"></span>
-                            &nbsp;&nbsp;{% trans %}Administración{% endtrans %}
-                        </a>
-                    </li>
-                    <li class="divider"></li>
-                {% endif %}
-                <li>
-                    <a href="{{ path('consultBookings') }}"><span class="glyphicon glyphicon-th-list"></span>&nbsp;&nbsp;{% trans %}Menu{% endtrans %}</a>
-                </li>
-                <li>
-                    <a href="{{ path('fos_user_profile_show') }}"><span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp;{% trans %}Ver perfil{% endtrans %}</a>
-                </li>
-                <li>
-                    <a href="{{ path('fos_user_profile_edit') }}"><span class="glyphicon glyphicon-pencil"></span>&nbsp;&nbsp;{% trans %}Modificar perfil{% endtrans %}</a>
-                </li>
-                <li class="divider"></li>
-                <li>
-                    <a href="{{ path('fos_user_security_logout') }}"><span class="glyphicon glyphicon-off" style="color:red;"></span>&nbsp;&nbsp;{% trans %}Salir{% endtrans %}</a>
-                </li>
-            </ul>
-        {% else %}
-            <ul class="dropdown-menu">
-                <li>
-                    <a href="{{ path('fos_user_security_login') }}"><span class="glyphicon glyphicon-log-in"></span>&nbsp;&nbsp;{% trans %}Iniciar sesión{% endtrans %}</a>
-                </li>
-                <li>
-                    <a href="{{ path('fos_user_registration_register') }}"><span class="glyphicon glyphicon-plus"></span>&nbsp;&nbsp;{% trans %}Registrar{% endtrans %}</a>
-                </li>
-            </ul>
-        {% endif %}
-    </li>
+    <link href="{{ asset('js/jquery-ui-1.11.1.custom/jquery-ui.css') }}" type="text/css" rel="stylesheet">
 {% endblock %}
 
 {% block javascripts %}
@@ -99,7 +104,7 @@
 
     <script src="//code.highcharts.com/4.0.1/highcharts.js"></script>
     <script src="//code.highcharts.com/4.0.1/modules/exporting.js"></script>
-    <script type="text/javascript">
+    <script>
         {{ chart(chart) }}
     </script>
 {% endblock %}
@@ -110,10 +115,11 @@
     <!-- Include all JavaScripts, compiled by Assetic -->
     <script src="{{ asset('js/bootstrap.js') }}"></script>
     <script src="{{ asset('js/jquery-ui-1.11.1.custom/jquery-ui.js') }}" ></script>
-    <link href="{{ asset('js/jquery-ui-1.11.1.custom/jquery-ui.css') }}" type="text/css" rel="stylesheet">
+    <script src="{{ asset('js/jquery-ui-1.11.1.custom/jquery-ui.js') }}" ></script>
 
     <script src="{{ asset('js/jquery-ui-1.11.1.custom/jquery.ui.datepicker-es.js') }}" ></script>
     <!-- Google Maps API v3 -->
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
     <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyBlq3zbtFHWFL2PWZWFl9k2XfbmTICCvV0&sensor=false&language={{ app.request.locale }}"></script>
 
     <!-- FOSjsRoutingBundle -->
@@ -122,4 +128,6 @@
 
     <!-- Dropbox -->
     <script type="text/javascript" src="https://www.dropbox.com/static/api/2/dropins.js" id="dropboxjs" data-app-key="1e9yyen85o4davu"></script>
+
+    <script type="text/javascript" src="/bundles/avanzuadmintheme/static/dev/scripts/modernizr.js"></script>
 {% endblock %}
