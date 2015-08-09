@@ -41,7 +41,7 @@ class ConsultController extends Controller
 
                     break;
                 case 'ROLE_ADMIN':
-                    $aux['properties'] = $this->getUserProperties();
+                    $aux['properties'] = $this->getUserProperties($oneUser->getID());
 
                     break;
                 case 'ROLE_SUPER_ADMIN':
@@ -190,4 +190,42 @@ class ConsultController extends Controller
 
 		return new JsonResponse(array('response'=>$result));
 	}
+
+    public function getUserProperties($userID){
+        $properties = $this->getDoctrine()
+                      ->getManager()
+                      ->createQuery('SELECT a
+                                     FROM ReservableActivityBundle:Activity a
+                                     WHERE a.ownerID = ' . $userID)
+                      ->getResult();
+
+        $result = array();
+        if(!empty($properties)){
+            foreach($properties as $oneProperty){
+                $aux['id'] = $oneProperty->getId();
+                $aux['name'] = $oneProperty->getName();
+                $aux['numBookings'] = $this->getNumBookings($oneProperty->getId());
+
+                $result[] = $aux;
+            }
+        }
+
+        return $result;
+    }
+
+    public function getNumBookings($activityID){
+        $bookings = $this->getDoctrine()
+            ->getManager()
+            ->createQuery('SELECT count(b)
+                           FROM BookingsBookingBundle:Booking b
+                           WHERE b.activityID = ' . $activityID)
+            ->getResult();
+
+        $num = 0;
+        if(!empty($bookings)){
+            $num = $bookings[0][1];
+        }
+        
+        return $num;
+    }
 }
