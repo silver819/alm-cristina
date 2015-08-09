@@ -1,10 +1,10 @@
 {% extends '::admin.html.twig' %}
 
-{% block workspace %}
+{% block page_title %}
+    {% trans %}Ver usuarios{% endtrans %}
+{% endblock %}
 
-	<h2>{% trans %}Ver usuarios{% endtrans %}</h2>
-	<hr/>
-
+{% block page_content %}
 	<div class="userFilter">
 			{%trans%}Filtrar por email{%endtrans%} <select name="filterByUser" id="filterByUser">
 				<option value="0">{% trans %}todos{% endtrans %}</option>
@@ -27,27 +27,42 @@
 
 		{% if oneUser.role == "ROLE_SUPER_ADMIN" %}
 			{% set role = 'Administrador' %}
-			{% set class = 'alert-danger' %}
+			{% set class = 'box-danger' %}
 		{% elseif oneUser.role == "ROLE_ADMIN" %}
 			{% set role = 'Propietario' %}
-			{% set class = 'alert-warning' %}
+			{% set class = 'box-warning' %}
 		{% elseif oneUser.role == "ROLE_USER" %}
 			{% set role = 'Usuario' %}
-			{% set class = 'alert-success' %}
+			{% set class = 'box-success' %}
 		{% endif %}
-		
-		<div class="alert {{ class }} userDiv {{ oneUser.userID }}">
 
-			<span class="contentSpan">
-				<div class="nameDiv">
-					<h4><strong><a href="view-users/{{ oneUser.userID }}">{{ oneUser.name }} {{ oneUser.surname }}</a></strong></h4>
-				</div>
-				
-				<p>{{ role }}</p>
-			</span>
+        <div class="box {{ class }} userDiv {{ oneUser.userID }}">
+            <div class="box-header with-border">
+                <h3 class="box-title"><a href="view-users/{{ oneUser.userID }}">{{ oneUser.name }} {{ oneUser.surname }}</a> ( {{ oneUser.email }} )</h3>
+                <div class="box-tools pull-right">
+                    <!-- Buttons, labels, and many other things can be placed here! -->
+                    <!-- Here is a label for example -->
+                    <span class="label label-primary">Label</span>
+                </div><!-- /.box-tools -->
+            </div><!-- /.box-header -->
+            <div class="box-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <ul class="list-unstyled">
+                            <li><i class="fa fa-phone"></i> {{ oneUser.phone }}</li>
+                            <li><i class="fa fa-mobile"></i> {{ oneUser.mobile }}</li>
+                        </ul>
+                    </div><!-- /.col -->
+                    <div class="col-md-6">
 
-		</div>
+                    </div><!-- /.col -->
+                </div>
 
+            </div><!-- /.box-body -->
+            <div class="box-footer">
+                <p>{{ role }}</p>
+            </div><!-- box-footer -->
+        </div>
 	{% endfor %}
 
 	<script>
@@ -73,17 +88,17 @@
 			switch(selectedRole) {
 				case 'Admin':
 					$('.userDiv').hide('slow');
- 					$('.alert-danger').show('slow');
+ 					$('.box-danger').show('slow');
 					break;
 
 				case 'Owner':
 					$('.userDiv').hide('slow');
- 					$('.alert-warning').show('slow');
+ 					$('.box-warning').show('slow');
 					break;
 
 				case 'User':
 					$('.userDiv').hide('slow');
- 					$('.alert-success').show('slow');
+ 					$('.box-success').show('slow');
 					break;
 
 				default:

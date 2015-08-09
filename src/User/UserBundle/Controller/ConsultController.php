@@ -24,11 +24,31 @@ class ConsultController extends Controller
 						   ->findAllUsers();
 
 		foreach($users as $oneUser){
+            //ldd($oneUser);
 			$aux['userID']		= ucwords($oneUser->getID());
+			$aux['email']		= $oneUser->getEmail();
 			$aux['name']		= ucwords($oneUser->getName());
 			$aux['surname']		= ucwords($oneUser->getSurname());
+			$aux['phone']		= $oneUser->getPhoneNumber();
+			$aux['mobile']	    = $oneUser->getMobileNumber();
+			$aux['lastLogin']	= $oneUser->getLastLogin();
 			$role				= $oneUser->getRole();
 			$aux['role']		= $role[0];
+
+            switch($role[0]){
+                case 'ROLE_USER':
+
+
+                    break;
+                case 'ROLE_ADMIN':
+                    $aux['properties'] = $this->getUserProperties();
+
+                    break;
+                case 'ROLE_SUPER_ADMIN':
+
+
+                    break;
+            }
 
 			$allUsers[] = $aux;
 

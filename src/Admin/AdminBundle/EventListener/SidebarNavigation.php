@@ -35,10 +35,13 @@ class SidebarNavigation
         }
 
         $rootItems[] = $viewProperties     = new MenuItemModel('view-activities',  'Ver propiedades',          'view_activities',  $menu, 'glyphicon glyphicon-eye-open');
-        $rootItems[] = $addProperty        = new MenuItemModel('add-property',     'Nueva ropiedad',           'new_activity',     $menu, 'glyphicon glyphicon-plus');
         $rootItems[] = $bookings           = new MenuItemModel('bookings',         'Reservas',                 'consultBookings',  $menu, 'glyphicon glyphicon-check');
         $rootItems[] = $calendar           = new MenuItemModel('calendarBookings', 'Calendario',               'calendarBookings', $menu, 'fa-calendar');
         $rootItems[] = $history            = new MenuItemModel('historyBookings',  'Historial de reservas',    'historyBookings',  $menu, 'fa fa-th');
+        $rootItems[] = $addProperty        = new MenuItemModel('add-property',     'Nueva ropiedad',           'new_activity',     $menu, 'glyphicon glyphicon-plus');
+        if($this->context->isGranted('ROLE_SUPER_ADMIN')){
+            //$rootItems[] = $viewOwners      = new MenuItemModel('add-types',      'Nuevos tipos',         'addTypes',      $menu, 'glyphicon glyphicon-eye-open');
+        }
         $rootItems[] = $statistics         = new MenuItemModel('statistics',       'Estadísticas',             'historyBookings',  $menu, 'fa fa-bar-chart');
 
         /*$rootItems = array(
