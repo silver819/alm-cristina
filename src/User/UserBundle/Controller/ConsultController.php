@@ -32,6 +32,7 @@ class ConsultController extends Controller
 			$aux['phone']		= $oneUser->getPhoneNumber();
 			$aux['mobile']	    = $oneUser->getMobileNumber();
 			$aux['lastLogin']	= $oneUser->getLastLogin();
+			$aux['active']	    = $oneUser->isEnabled();
 			$role				= $oneUser->getRole();
 			$aux['role']		= $role[0];
 

@@ -1,9 +1,10 @@
 {% extends '::admin.html.twig' %}
 
-{% block workspace %}
+{% block page_title %}
+    {% trans %}Ver usuarios{% endtrans %}
+{% endblock %}
 
-    <h2>{% trans %}Ver usuarios{% endtrans %}</h2>
-    <hr/>
+{% block page_content %}
 
     {% if app.environment == "dev" %}
         {% set baseUrl = "/app_dev.php/" ~ app.request.locale ~ "/view-users/" ~ oneUser.id %}

@@ -29,8 +29,6 @@
                     <h3 class="box-title"><a href="{{ path('adminDetails', {'property':oneProperty.id}) }}">{{ oneProperty.name }}</a></h3>
                     <div class="box-tools pull-right">
                         <button data-widget="collapse" class="btn btn-box-tool"><i class="fa fa-minus"></i></button>
-
-
                         <span class="modifyDiv">
                             {% if oneProperty.active %}
                                 <a id="modal-link-deactive-{{ oneProperty.id }}" href="#modal-deactive-{{ oneProperty.id }}" role="button" class="btn" data-toggle="modal">

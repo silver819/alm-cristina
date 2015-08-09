@@ -40,9 +40,13 @@
             <div class="box-header with-border">
                 <h3 class="box-title"><a href="view-users/{{ oneUser.userID }}">{{ oneUser.name }} {{ oneUser.surname }}</a> ( {{ oneUser.email }} )</h3>
                 <div class="box-tools pull-right">
-                    <!-- Buttons, labels, and many other things can be placed here! -->
-                    <!-- Here is a label for example -->
-                    <span class="label label-primary">Label</span>
+                    {% if oneUser.active %}
+                        <span class="label label-success">{% trans %}Activo{% endtrans %}</span>
+                    {% else %}
+                        <span class="label label-danger">{% trans %}Inactivo{% endtrans %}</span>
+                    {% endif %}
+                    <button data-widget="collapse" class="btn btn-box-tool"><i class="fa fa-minus"></i></button>
+                    <button data-widget="remove" class="btn btn-box-tool"><i class="fa fa-times"></i></button>
                 </div><!-- /.box-tools -->
             </div><!-- /.box-header -->
             <div class="box-body">
@@ -57,7 +61,7 @@
                         {% if oneUser.properties is defined %}
                             <ul class="list-unstyled">
                                 {% for property in oneUser.properties %}
-                                    <li><a href="#">{{ property.name }}</a> ( {{ property.numBookings }} )</li>
+                                    <li><a href="{{ path('adminDetails', {'property':property.id}) }}">{{ property.name }}</a> ( {{ property.numBookings }} )</li>
                                 {% endfor %}
                             </ul>
                         {% endif %}
