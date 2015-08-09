@@ -54,7 +54,13 @@
                         </ul>
                     </div><!-- /.col -->
                     <div class="col-md-6">
-
+                        {% if oneUser.properties is defined %}
+                            <ul class="list-unstyled">
+                                {% for property in oneUser.properties %}
+                                    <li><a href="#">{{ property.name }}</a> ( {{ property.numBookings }} )</li>
+                                {% endfor %}
+                            </ul>
+                        {% endif %}
                     </div><!-- /.col -->
                 </div>
 

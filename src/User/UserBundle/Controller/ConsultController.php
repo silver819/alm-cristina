@@ -35,6 +35,7 @@ class ConsultController extends Controller
 			$role				= $oneUser->getRole();
 			$aux['role']		= $role[0];
 
+            $aux['properties']  = array();
             switch($role[0]){
                 case 'ROLE_USER':
 
@@ -225,7 +226,7 @@ class ConsultController extends Controller
         if(!empty($bookings)){
             $num = $bookings[0][1];
         }
-        
+
         return $num;
     }
 }
