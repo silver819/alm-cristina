@@ -5,75 +5,100 @@
 {% endblock %}
 
 {% block page_content %}
-	<div class="userFilter">
-			{%trans%}Filtrar por email{%endtrans%} <select name="filterByUser" id="filterByUser">
-				<option value="0">{% trans %}todos{% endtrans %}</option>
-				{% for oneEmail in allEmails %}
-					<option value="{{ oneEmail.ownerID }}">{{ oneEmail.email }}</option>
-				{% endfor %}
-			</select> 
-			</br>
-			{%trans%}Filtrar por tipo de usuario{%endtrans%} <select name="filterByRole" id="filterByRole">
-				<option value="all">{% trans %}todos{% endtrans %}</option>
-				<option value="Admin">{% trans %}administradores{% endtrans %}</option>
-				<option value="Owner">{% trans %}propietarios{% endtrans %}</option>
-				<option value="User">{% trans %}usuarios{% endtrans %}</option>
-			</select> 
-	</div>
-
-	{% for oneUser in allUsers %}
-
-		{% set role = 'Desconcido' %}
-
-		{% if oneUser.role == "ROLE_SUPER_ADMIN" %}
-			{% set role = 'Administrador' %}
-			{% set class = 'box-danger' %}
-		{% elseif oneUser.role == "ROLE_ADMIN" %}
-			{% set role = 'Propietario' %}
-			{% set class = 'box-warning' %}
-		{% elseif oneUser.role == "ROLE_USER" %}
-			{% set role = 'Usuario' %}
-			{% set class = 'box-success' %}
-		{% endif %}
-
-        <div class="box {{ class }} userDiv {{ oneUser.userID }}">
-            <div class="box-header with-border">
-                <h3 class="box-title"><a href="view-users/{{ oneUser.userID }}">{{ oneUser.name }} {{ oneUser.surname }}</a> ( {{ oneUser.email }} )</h3>
-                <div class="box-tools pull-right">
-                    {% if oneUser.active %}
-                        <span class="label label-success">{% trans %}Activo{% endtrans %}</span>
-                    {% else %}
-                        <span class="label label-danger">{% trans %}Inactivo{% endtrans %}</span>
-                    {% endif %}
-                    <button data-widget="collapse" class="btn btn-box-tool"><i class="fa fa-minus"></i></button>
-                    <button data-widget="remove" class="btn btn-box-tool"><i class="fa fa-times"></i></button>
-                </div><!-- /.box-tools -->
-            </div><!-- /.box-header -->
-            <div class="box-body">
-                <div class="row">
-                    <div class="col-md-6">
-                        <ul class="list-unstyled">
-                            <li><i class="fa fa-phone"></i> {{ oneUser.phone }}</li>
-                            <li><i class="fa fa-mobile"></i> {{ oneUser.mobile }}</li>
-                        </ul>
-                    </div><!-- /.col -->
-                    <div class="col-md-6">
-                        {% if oneUser.properties is defined %}
-                            <ul class="list-unstyled">
-                                {% for property in oneUser.properties %}
-                                    <li><a href="{{ path('adminDetails', {'property':property.id}) }}">{{ property.name }}</a> ( {{ property.numBookings }} )</li>
-                                {% endfor %}
-                            </ul>
-                        {% endif %}
-                    </div><!-- /.col -->
-                </div>
-
-            </div><!-- /.box-body -->
-            <div class="box-footer">
-                <p>{{ role }}</p>
-            </div><!-- box-footer -->
+    <div class="row">
+        <div class="col-md-3">
+            autocompletado email
         </div>
-	{% endfor %}
+        <div class="col-md-3">
+            <div class="userFilter">
+                {%trans%}Email{%endtrans%}
+                <select name="filterByUser" id="filterByUser">
+                    <option value="0">{% trans %}todos{% endtrans %}</option>
+                    {% for oneEmail in allEmails %}
+                        <option value="{{ oneEmail.ownerID }}">{{ oneEmail.email }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="userFilter">
+                {%trans%}Tipo de usuario{%endtrans%}
+                <select name="filterByRole" id="filterByRole">
+                    <option value="all">{% trans %}todos{% endtrans %}</option>
+                    <option value="Admin">{% trans %}administradores{% endtrans %}</option>
+                    <option value="Owner">{% trans %}propietarios{% endtrans %}</option>
+                    <option value="User">{% trans %}usuarios{% endtrans %}</option>
+                </select>
+            </div>
+	    </div>
+        <div class="col-md-3">
+            {%trans%}Activo{%endtrans%}
+            <select name="filterByActive" id="filterByActive">
+                <option value="all">{% trans %}Todos{% endtrans %}</option>
+                <option value="1">{% trans %}Si{% endtrans %}</option>
+                <option value="0">{% trans %}No{% endtrans %}</option>
+            </select>
+        </div>
+	</div>
+    <br/>
+    <div class="row">
+        <div class="col-md-12">
+
+            {% for oneUser in allUsers %}
+
+                {% set role = 'Desconcido' %}
+
+                {% if oneUser.role == "ROLE_SUPER_ADMIN" %}
+                    {% set role = 'Administrador' %}
+                    {% set class = 'box-danger' %}
+                {% elseif oneUser.role == "ROLE_ADMIN" %}
+                    {% set role = 'Propietario' %}
+                    {% set class = 'box-warning' %}
+                {% elseif oneUser.role == "ROLE_USER" %}
+                    {% set role = 'Usuario' %}
+                    {% set class = 'box-success' %}
+                {% endif %}
+
+                <div class="box {{ class }} userDiv {{ oneUser.userID }} active-{{ oneUser.active }}">
+                    <div class="box-header with-border">
+                        <h3 class="box-title"><a href="view-users/{{ oneUser.userID }}">{{ oneUser.name }} {{ oneUser.surname }}</a> ( {{ oneUser.email }} )</h3>
+                        <div class="box-tools pull-right">
+                            {% if oneUser.active %}
+                                <span class="label label-success">{% trans %}Activo{% endtrans %}</span>
+                            {% else %}
+                                <span class="label label-danger">{% trans %}Inactivo{% endtrans %}</span>
+                            {% endif %}
+                            <button data-widget="collapse" class="btn btn-box-tool"><i class="fa fa-minus"></i></button>
+                            <button data-widget="remove" class="btn btn-box-tool"><i class="fa fa-times"></i></button>
+                        </div><!-- /.box-tools -->
+                    </div><!-- /.box-header -->
+                    <div class="box-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <ul class="list-unstyled">
+                                    <li><i class="fa fa-phone"></i> {{ oneUser.phone }}</li>
+                                    <li><i class="fa fa-mobile"></i> {{ oneUser.mobile }}</li>
+                                </ul>
+                            </div><!-- /.col -->
+                            <div class="col-md-6">
+                                {% if oneUser.properties is defined %}
+                                    <ul class="list-unstyled">
+                                        {% for property in oneUser.properties %}
+                                            <li><a href="{{ path('adminDetails', {'property':property.id}) }}">{{ property.name }}</a> ( {{ property.numBookings }} )</li>
+                                        {% endfor %}
+                                    </ul>
+                                {% endif %}
+                            </div><!-- /.col -->
+                        </div>
+
+                    </div><!-- /.box-body -->
+                    <div class="box-footer">
+                        <p>{{ role }}</p>
+                    </div><!-- box-footer -->
+                </div>
+            {% endfor %}
+        </div>
+    </div>
 
 	<script>
 		var filterByUser = document.getElementById("filterByUser");
@@ -115,6 +140,25 @@
 					$('.userDiv').show('slow');
 			}
   		}
+
+        var filterByActive = document.getElementById("filterByActive");
+
+        filterByActive.onchange = function(){
+            var active = filterByActive.options[filterByActive.selectedIndex].value;
+
+            if(active == 1){
+                $('.active-1').show('slow');
+                $('.active-').hide('slow');
+            }
+            else if(active == 0){
+                $('.active-1').hide('slow');
+                $('.active-').show('slow');
+            }
+            else{
+                $('.active-1').show('slow');
+                $('.active-').show('slow');
+            }
+        }
 	</script>
 
 {% endblock %}
