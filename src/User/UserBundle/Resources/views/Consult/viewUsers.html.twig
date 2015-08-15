@@ -7,13 +7,23 @@
 {% block page_content %}
     <div class="row">
         <div class="col-md-3">
-            autocompletado email
+            {%trans%}Email (autocompletado){%endtrans%}<br/>
+            <input type="text" autocomplete="off" name="autocompleteEmail" id="autocompleteEmail">
+            {% set stringAllEmails = '' %}
+            {% for oneEmail in allEmails %}
+                {% if loop.index == 1 %}
+                    {% set stringAllEmails =  oneEmail.email %}
+                {% else %}
+                    {% set stringAllEmails =  stringAllEmails ~ ", " ~ oneEmail.email %}
+                {% endif %}
+            {% endfor %}
+            <input type="hidden" id="allUsers" value="{{ stringAllEmails }}">
         </div>
         <div class="col-md-3">
             <div class="userFilter">
-                {%trans%}Email{%endtrans%}
+                {%trans%}Email{%endtrans%}<br/>
                 <select name="filterByUser" id="filterByUser">
-                    <option value="0">{% trans %}todos{% endtrans %}</option>
+                    <option value="0">{% trans %}Todos{% endtrans %}</option>
                     {% for oneEmail in allEmails %}
                         <option value="{{ oneEmail.ownerID }}">{{ oneEmail.email }}</option>
                     {% endfor %}
@@ -22,17 +32,17 @@
         </div>
         <div class="col-md-3">
             <div class="userFilter">
-                {%trans%}Tipo de usuario{%endtrans%}
+                {%trans%}Tipo de usuario{%endtrans%}<br/>
                 <select name="filterByRole" id="filterByRole">
-                    <option value="all">{% trans %}todos{% endtrans %}</option>
-                    <option value="Admin">{% trans %}administradores{% endtrans %}</option>
-                    <option value="Owner">{% trans %}propietarios{% endtrans %}</option>
-                    <option value="User">{% trans %}usuarios{% endtrans %}</option>
+                    <option value="all">{% trans %}Todos{% endtrans %}</option>
+                    <option value="Admin">{% trans %}Administradores{% endtrans %}</option>
+                    <option value="Owner">{% trans %}Propietarios{% endtrans %}</option>
+                    <option value="User">{% trans %}Usuarios{% endtrans %}</option>
                 </select>
             </div>
 	    </div>
         <div class="col-md-3">
-            {%trans%}Activo{%endtrans%}
+            {%trans%}Activo{%endtrans%}<br/>
             <select name="filterByActive" id="filterByActive">
                 <option value="all">{% trans %}Todos{% endtrans %}</option>
                 <option value="1">{% trans %}Si{% endtrans %}</option>
@@ -101,8 +111,18 @@
     </div>
 
 	<script>
-		var filterByUser = document.getElementById("filterByUser");
 
+        // Filtro autocompletado Email
+        $(function() {
+            stringUsers = document.getElementById("allUsers").value;
+            arrayUsers = stringUsers.split(',');
+            $("#autocompleteEmail").autocomplete({
+                source: arrayUsers
+            });
+        });
+
+        // Filtro selector Email
+		var filterByUser = document.getElementById("filterByUser");
 		filterByUser.onchange = function(){
 			var userID = filterByUser.options[filterByUser.selectedIndex].value;
 
@@ -115,8 +135,8 @@
  			}
   		}
 
+        // Filtro Rol
 		var filterByRole = document.getElementById("filterByRole");
-
 		filterByRole.onchange = function(){
 			var selectedRole = filterByRole.options[filterByRole.selectedIndex].value;
 
@@ -141,8 +161,8 @@
 			}
   		}
 
+        // Filtro Activo
         var filterByActive = document.getElementById("filterByActive");
-
         filterByActive.onchange = function(){
             var active = filterByActive.options[filterByActive.selectedIndex].value;
 
