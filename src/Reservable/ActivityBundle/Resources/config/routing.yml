@@ -8,6 +8,10 @@ new_activity:
     path: /new-property
     defaults: { _controller: ReservableActivityBundle:Registration:new }
 
+new_features:
+    path: /new-features
+    defaults: { _controller: ReservableActivityBundle:Registration:newFeature }
+
 register_activity:
     path: /register-property
     defaults: { _controller: ReservableActivityBundle:Registration:registerActivity }

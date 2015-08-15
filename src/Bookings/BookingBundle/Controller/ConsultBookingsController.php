@@ -240,41 +240,43 @@ class ConsultBookingsController extends Controller
                             ->getBookingsFromPropertiesHistory($arrayProperties);
 
         $results = array();
-        foreach($allBookings as $oneBooking){
-            $propertyData   = $this->getDoctrine()
-                                ->getRepository('ReservableActivityBundle:Activity')
-                                ->findByPropertyID($oneBooking->getActivityID());
+        if(!empty($allBookings)) {
+            foreach ($allBookings as $oneBooking) {
+                $propertyData = $this->getDoctrine()
+                    ->getRepository('ReservableActivityBundle:Activity')
+                    ->findByPropertyID($oneBooking->getActivityID());
 
-            $clientData     = $this->getDoctrine()
-                                ->getRepository('UserUserBundle:Users')
-                                ->getUserByUserID($oneBooking->getClientID());
+                $clientData = $this->getDoctrine()
+                    ->getRepository('UserUserBundle:Users')
+                    ->getUserByUserID($oneBooking->getClientID());
 
-            $aux['bookingID']       = $oneBooking->getId();
-            $aux['propertyID']      = $oneBooking->getActivityID();
-            $aux['clientID']        = $oneBooking->getClientID();
-            $aux['price']           = $oneBooking->getPrice();
-            $aux['ownerConfirm']    = $oneBooking->getOwnerConfirm();
-            $aux['startDate']       = $oneBooking->getStartDate();
-            $aux['startDateDay']    = substr($oneBooking->getStartDate(), 6, 2);
-            $aux['startDateMonth']  = substr($oneBooking->getStartDate(), 4, 2);
-            $aux['startDateYear']   = substr($oneBooking->getStartDate(), 0, 4);
-            $aux['startDateHour']   = substr($oneBooking->getStartDate(), 8, 2);
-            $aux['endDate']         = $oneBooking->getEndDate();
-            $aux['endDateDay']      = substr($oneBooking->getEndDate(), 6, 2);
-            $aux['endDateMonth']    = substr($oneBooking->getEndDate(), 4, 2);
-            $aux['endDateYear']     = substr($oneBooking->getEndDate(), 0, 4);
-            $aux['endDateHour']     = substr($oneBooking->getEndDate(), 8, 2);
+                $aux['bookingID'] = $oneBooking->getId();
+                $aux['propertyID'] = $oneBooking->getActivityID();
+                $aux['clientID'] = $oneBooking->getClientID();
+                $aux['price'] = $oneBooking->getPrice();
+                $aux['ownerConfirm'] = $oneBooking->getOwnerConfirm();
+                $aux['startDate'] = $oneBooking->getStartDate();
+                $aux['startDateDay'] = substr($oneBooking->getStartDate(), 6, 2);
+                $aux['startDateMonth'] = substr($oneBooking->getStartDate(), 4, 2);
+                $aux['startDateYear'] = substr($oneBooking->getStartDate(), 0, 4);
+                $aux['startDateHour'] = substr($oneBooking->getStartDate(), 8, 2);
+                $aux['endDate'] = $oneBooking->getEndDate();
+                $aux['endDateDay'] = substr($oneBooking->getEndDate(), 6, 2);
+                $aux['endDateMonth'] = substr($oneBooking->getEndDate(), 4, 2);
+                $aux['endDateYear'] = substr($oneBooking->getEndDate(), 0, 4);
+                $aux['endDateHour'] = substr($oneBooking->getEndDate(), 8, 2);
 
-            $aux['type']            = $propertyData->getTypeRent();
-            $aux['propertyName']    = $propertyData->getName();
+                $aux['type'] = $propertyData->getTypeRent();
+                $aux['propertyName'] = $propertyData->getName();
 
-            $aux['clientName']      = $clientData->getName();
-            $aux['clientSurname']   = $clientData->getSurname();
-            $aux['clientEmail']     = $clientData->getEmail();
+                $aux['clientName'] = $clientData->getName();
+                $aux['clientSurname'] = $clientData->getSurname();
+                $aux['clientEmail'] = $clientData->getEmail();
 
-            $aux['calendar']        = $this->showCalendar($aux['startDate'], $aux['endDate'], $request->getLocale(), $propertyData->getId());
+                $aux['calendar'] = $this->showCalendar($aux['startDate'], $aux['endDate'], $request->getLocale(), $propertyData->getId());
 
-            $results[] = $aux;
+                $results[] = $aux;
+            }
         }
 
         return $this->render('BookingsBookingBundle:Consult:history-bookings.html.twig', 

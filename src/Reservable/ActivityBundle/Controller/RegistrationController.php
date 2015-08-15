@@ -6,7 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Reservable\ActivityBundle\Entity\Activity;
 use Reservable\ActivityBundle\Form\Type\ActivityType;
 use Reservable\ActivityBundle\Entity\Picture;
-use Reservable\ActivityBundle\Form\Type\PictureType;
+use Reservable\ActivityBundle\Entity\ActivityToFeature;
 
 class RegistrationController extends Controller
 {
@@ -96,5 +96,39 @@ class RegistrationController extends Controller
 
     public function registeredActivityAction(){
         return $this->render('ReservableActivityBundle:Registration:registrationSuccess.html.twig');
+    }
+
+    public function newFeatureAction(){
+
+        // tipos
+        $types = $this->getDoctrine()
+            ->getRepository('ReservableActivityBundle:TypeActivity')
+            ->getAllTypes();
+
+        // features
+        $allTypes = array();
+        foreach($types as $oneType) {
+            $aux = array();
+            $aux['name'] = $oneType['name'];
+            $aux['typeId'] = $oneType['id'];
+            $aux['features'] = $this->getAllFeaturesByType($oneType['id']);
+
+            $allTypes[] = $aux;
+        }
+ldd($allTypes);
+
+        return $this->render('ReservableActivityBundle:Registration:newFeatureForm.html.twig');
+    }
+
+    private function getAllFeaturesByType($type){
+        $features = $this->getDoctrine()
+            ->getManager()
+            ->createQuery("SELECT f.id, f.name
+                           FROM ReservableActivityBundle:TypeToFeature ttf
+                           INNER JOIN ReservableActivityBundle:Features f
+                           WHERE ttf.featureID = f.id AND ttf.typeID = " . $type)
+            ->getResult();
+
+        return $features;
     }
 }

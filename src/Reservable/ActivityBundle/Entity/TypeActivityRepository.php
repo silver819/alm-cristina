@@ -12,14 +12,21 @@ use Doctrine\ORM\EntityRepository;
  */
 class TypeActivityRepository extends EntityRepository
 {
-    public function getAllTypes($mode){
+    public function getAllTypes($mode = false){
 
-        $types = $this->getEntityManager()
-            ->createQuery("SELECT t.name, t.id
+        if($mode) {
+            $types = $this->getEntityManager()
+                ->createQuery("SELECT t.name, t.id
                 		   FROM ReservableActivityBundle:TypeActivity t
                 		   WHERE t.mode LIKE '" . $mode . "'")
-            ->getResult();
-
+                ->getResult();
+        }
+        else{
+            $types = $this->getEntityManager()
+                ->createQuery("SELECT t.name, t.id
+                		   FROM ReservableActivityBundle:TypeActivity t")
+                ->getResult();
+        }
 
         return $types;
     }
