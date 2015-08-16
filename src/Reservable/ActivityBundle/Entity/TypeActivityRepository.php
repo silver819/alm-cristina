@@ -23,7 +23,7 @@ class TypeActivityRepository extends EntityRepository
         }
         else{
             $types = $this->getEntityManager()
-                ->createQuery("SELECT t.name, t.id
+                ->createQuery("SELECT t.name, t.id, t.mode
                 		   FROM ReservableActivityBundle:TypeActivity t")
                 ->getResult();
         }

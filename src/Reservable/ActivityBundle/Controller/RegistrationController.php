@@ -106,18 +106,15 @@ class RegistrationController extends Controller
             ->getAllTypes();
 
         // features
-        $allTypes = array();
+        $typesFeatures = array();
         foreach($types as $oneType) {
-            $aux = array();
-            $aux['name'] = $oneType['name'];
-            $aux['typeId'] = $oneType['id'];
-            $aux['features'] = $this->getAllFeaturesByType($oneType['id']);
-
-            $allTypes[] = $aux;
+            $typesFeatures[$oneType['id']]['features'] = $this->getAllFeaturesByType($oneType['id']);
         }
-ldd($allTypes);
 
-        return $this->render('ReservableActivityBundle:Registration:newFeatureForm.html.twig');
+        //ldd($typesFeatures);
+
+        return $this->render('ReservableActivityBundle:Registration:newFeatureForm.html.twig',
+            array('types'=> $types , 'typesFeatures' => $typesFeatures));
     }
 
     private function getAllFeaturesByType($type){

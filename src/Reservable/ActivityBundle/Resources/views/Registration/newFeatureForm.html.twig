@@ -6,4 +6,80 @@
 
 {% block page_content %}
 
+    <style>
+        .pointerSelect:hover{
+            cursor: pointer;
+            background-color: grey;
+        }
+    </style>
+
+    <div class="row">
+        {# Left col #}
+        <section class="col-lg-6 connectedSortable ui-sortable">
+            {# Tabla tipos #}
+            <div class="box">
+                <div class="box-header">
+                    <h3 class="box-title">{% trans %}Tipos{% endtrans %}</h3>
+                </div><!-- /.box-header -->
+                <div class="box-body table-responsive no-padding">
+                    <table class="table" id="typesTable">
+                        <tbody><tr>
+                            <th></th>
+                            <th>{% trans %}Tipo{% endtrans %}</th>
+                            <th>{% trans %}Modalidad{% endtrans %}</th>
+                        </tr>
+                        {% for type in types %}
+                            <tr id="{{ type.id }}" class="pointerSelect">
+                                <td></td>
+                                <td>{{ type.name }}</td>
+                                <td>{{ type.mode }}</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div><!-- /.box-body -->
+            </div><!-- /.box -->
+        </section>
+        {# Left col #}
+
+        {# right col #}
+        <section class="col-lg-6 connectedSortable ui-sortable">
+            {# Tabla tipos #}
+            <div class="box">
+                <div class="box-header">
+                    <h3 class="box-title">{% trans %}Características{% endtrans %}</h3>
+                </div><!-- /.box-header -->
+                <div class="box-body table-responsive no-padding">
+                    <table class="table table-striped" id="featuresTable">
+                        <tbody><tr>
+                            <th></th>
+                            <th>{% trans %}Característica{% endtrans %}</th>
+                            <th>{% trans %}Pertenece tipo{% endtrans %}</th>
+                        </tr>
+                        {% for type in types %}
+                            {% for feature in typesFeatures[type.id].features %}
+                                <tr class="oneType type-{{ type.id }}">
+                                    <td></td>
+                                    <td>{{ feature.name }}</td>
+                                    <td>{{ type.name }}</td>
+                                </tr>
+                            {% endfor %}
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div><!-- /.box-body -->
+            </div><!-- /.box -->
+        </section>
+        {# right col #}
+    </div>
+
+    <script>
+        $(".pointerSelect").click(function(){
+            var id = $(this).attr('id');
+            $(".oneType").hide();
+            $(".type-" + id).show('slow');
+
+        });
+    </script>
+
 {% endblock %}
