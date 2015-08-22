@@ -7,9 +7,19 @@
 {% block page_content %}
 
     <style>
+        #showAll, #addFeature, #addType{
+            cursor:pointer;
+        }
         .pointerSelect:hover{
             cursor: pointer;
-            background-color: grey;
+            background-color: #666;
+        }
+        .descata{
+            
+        }
+        .deleteType:hover, .deleteFeature:hover{
+            font-size: 1.5em;
+            cursor:pointer;
         }
     </style>
 
@@ -20,6 +30,9 @@
             <div class="box">
                 <div class="box-header">
                     <h3 class="box-title">{% trans %}Tipos{% endtrans %}</h3>
+                    <div class="box-tools pull-right">
+                        <span class="label label-success" id="addType"><i class="fa fa-plus"></i>{% trans %} Nuevo{% endtrans %}</span>
+                    </div>
                 </div><!-- /.box-header -->
                 <div class="box-body table-responsive no-padding">
                     <table class="table" id="typesTable">
@@ -27,12 +40,14 @@
                             <th></th>
                             <th>{% trans %}Tipo{% endtrans %}</th>
                             <th>{% trans %}Modalidad{% endtrans %}</th>
+                            <th class="text-center">{% trans %}Eliminar{% endtrans %}</th>
                         </tr>
                         {% for type in types %}
                             <tr id="{{ type.id }}" class="pointerSelect">
                                 <td></td>
                                 <td>{{ type.name }}</td>
                                 <td>{{ type.mode }}</td>
+                                <td class="text-center deleteType" style="color:red;"><i class="fa fa-minus-circle"></i></td>
                             </tr>
                         {% endfor %}
                         </tbody>
@@ -48,6 +63,10 @@
             <div class="box">
                 <div class="box-header">
                     <h3 class="box-title">{% trans %}Características{% endtrans %}</h3>
+                    <div class="box-tools pull-right">
+                        <span class="label label-success" id="addFeature"><i class="fa fa-plus"></i>{% trans %} Nuevo{% endtrans %}</span>
+                        <span class="label label-warning" id="showAll"></i>{% trans %}Mostrar todos{% endtrans %}</span>
+                    </div>
                 </div><!-- /.box-header -->
                 <div class="box-body table-responsive no-padding">
                     <table class="table table-striped" id="featuresTable">
@@ -55,6 +74,7 @@
                             <th></th>
                             <th>{% trans %}Característica{% endtrans %}</th>
                             <th>{% trans %}Pertenece tipo{% endtrans %}</th>
+                            <th class="text-center">{% trans %}Eliminar{% endtrans %}</th>
                         </tr>
                         {% for type in types %}
                             {% for feature in typesFeatures[type.id].features %}
@@ -62,6 +82,7 @@
                                     <td></td>
                                     <td>{{ feature.name }}</td>
                                     <td>{{ type.name }}</td>
+                                    <td class="text-center deleteFeature" style="color:red;" featureID="{{ feature.id }}" featureName="{{ feature.name }}" typeName="{{ type.name }}"><i class="fa fa-minus-circle"></i></td>
                                 </tr>
                             {% endfor %}
                         {% endfor %}
@@ -73,11 +94,47 @@
         {# right col #}
     </div>
 
+    <div class="example-modal">
+        <div class="modal fade" id="myModal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button aria-label="Close" data-dismiss="modal" class="close" type="button"><span aria-hidden="true">×</span></button>
+                        <h4 class="modal-title">{% trans %}Eliminar característica{% endtrans %}</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>{% trans %}Se va a eliminar la característica{% endtrans %} "<span id="featureName"></span>" {% trans %}perteneciente al tipo{% endtrans %} "<span id="typeName"></span>"</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button data-dismiss="modal" class="btn btn-default pull-left" type="button">{% trans %}Cancelar{% endtrans %}</button>
+                        <button class="btn btn-primary" type="button">{% trans %}Aceptar{% endtrans %}</button>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+    </div>
+
     <script>
         $(".pointerSelect").click(function(){
             var id = $(this).attr('id');
             $(".oneType").hide();
             $(".type-" + id).show('slow');
+        });
+        $("#showAll").click(function(){
+            $(".oneType").show('slow');
+        });
+        $(".addFeature").click(function(){
+
+        });
+        $(".deleteFeature").click(function(e){
+            e.preventDefault();
+
+            var featureId = $(this).attr('featureID');
+            var typeName = $(this).attr('typeName');
+            var featureName = $(this).attr('featureName');
+            $("#myModal #featureName").html(featureName);
+            $("#myModal #typeName").html(typeName);
+            $("#myModal").modal("show");
 
         });
     </script>
