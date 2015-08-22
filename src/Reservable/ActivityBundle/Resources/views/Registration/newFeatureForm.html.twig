@@ -78,11 +78,11 @@
                         </tr>
                         {% for type in types %}
                             {% for feature in typesFeatures[type.id].features %}
-                                <tr class="oneType type-{{ type.id }}">
+                                <tr class="oneType type-{{ type.id }}" id="typeFeature-{{ type.id }}-{{ feature.id }}">
                                     <td></td>
                                     <td>{{ feature.name }}</td>
                                     <td>{{ type.name }}</td>
-                                    <td class="text-center deleteFeature" style="color:red;" featureID="{{ feature.id }}" featureName="{{ feature.name }}" typeName="{{ type.name }}"><i class="fa fa-minus-circle"></i></td>
+                                    <td class="text-center deleteFeature" style="color:red;" featureID="{{ feature.id }}" featureName="{{ feature.name }}" typeID="{{ type.id }}" typeName="{{ type.name }}"><i class="fa fa-minus-circle"></i></td>
                                 </tr>
                             {% endfor %}
                         {% endfor %}
@@ -107,7 +107,7 @@
                     </div>
                     <div class="modal-footer">
                         <button data-dismiss="modal" class="btn btn-default pull-left" type="button">{% trans %}Cancelar{% endtrans %}</button>
-                        <button class="btn btn-primary" type="button">{% trans %}Aceptar{% endtrans %}</button>
+                        <button class="btn btn-success" type="button" id="deleteTypeFeature" typeID="" featureID="">{% trans %}Aceptar{% endtrans %}</button>
                     </div>
                 </div><!-- /.modal-content -->
             </div><!-- /.modal-dialog -->
@@ -129,13 +129,28 @@
         $(".deleteFeature").click(function(e){
             e.preventDefault();
 
-            var featureId = $(this).attr('featureID');
-            var typeName = $(this).attr('typeName');
+            var featureId   = $(this).attr('featureID');
+            var typeId      = $(this).attr('typeID');
+            var typeName    = $(this).attr('typeName');
             var featureName = $(this).attr('featureName');
             $("#myModal #featureName").html(featureName);
             $("#myModal #typeName").html(typeName);
+            $("#deleteTypeFeature").attr('featureID', featureId);
+            $("#deleteTypeFeature").attr('typeID', typeId);
             $("#myModal").modal("show");
-
+        });
+        $("#deleteTypeFeature").click(function(){
+            var featureId   = $(this).attr('featureID');
+            var typeId      = $(this).attr('typeID');
+            $("#myModal").modal("hide");
+            $.ajax({
+                url: '{{ path('delete_features') }}',
+                data: { 'featureID': featureId, 'typeID': typeId },
+                type: "post",
+                success: function(response) {
+                    $("#" + response['idDelete']).detach();
+                }
+            });
         });
     </script>
 

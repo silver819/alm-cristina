@@ -10,6 +10,7 @@ use Reservable\ActivityBundle\Entity\Activity;
 use Reservable\ActivityBundle\Entity\Seasons;
 use Symfony\Component\HttpFoundation\Request;
 use Ob\HighchartsBundle\Highcharts\Highchart;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 class AdminController extends Controller
 {
@@ -529,6 +530,20 @@ class AdminController extends Controller
 
         list($day, $month, $year) = explode('/', $dateString);
         return $year . $month . $day;
+    }
+
+    public function deleteFeatureAction(){
+
+        if(isset($_POST['typeID']) && isset($_POST['featureID'])) {
+            /*$resultQuery = $this->getDoctrine()
+                ->getManager()
+                ->createQuery("DELETE FROM ReservableActivityBundle:TypeToFeature ttf
+                           WHERE ttf.typeID = " . $_POST['typeId'] . " AND ttf.featureID = " . $_POST['featureId'])
+                ->getResult();*/
+
+            return new JsonResponse(array('idDelete'=> "typeFeature-" .$_POST['typeID'] . "-" . $_POST['featureID']));
+        }
+        else return new JsonResponse(array());
     }
 
 }
