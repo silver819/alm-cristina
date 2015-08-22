@@ -535,11 +535,11 @@ class AdminController extends Controller
     public function deleteFeatureAction(){
 
         if(isset($_POST['typeID']) && isset($_POST['featureID'])) {
-            /*$resultQuery = $this->getDoctrine()
+            $resultQuery = $this->getDoctrine()
                 ->getManager()
                 ->createQuery("DELETE FROM ReservableActivityBundle:TypeToFeature ttf
-                           WHERE ttf.typeID = " . $_POST['typeId'] . " AND ttf.featureID = " . $_POST['featureId'])
-                ->getResult();*/
+                               WHERE ttf.typeID = " . $_POST['typeID'] . " AND ttf.featureID = " . $_POST['featureID'])
+                ->getResult();
 
             return new JsonResponse(array('idDelete'=> "typeFeature-" .$_POST['typeID'] . "-" . $_POST['featureID']));
         }
