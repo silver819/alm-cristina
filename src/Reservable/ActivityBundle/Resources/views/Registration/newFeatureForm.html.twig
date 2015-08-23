@@ -121,7 +121,7 @@
                         <div class="row">
                             <div class="col-lg-1"></div>
                             <div class="col-lg-5">
-                                <select style="width:100%;">
+                                <select style="width:100%;" id="typeSelected">
                                     <option disabled selected>{% trans %}Selecciona tipo{% endtrans %}</option>
                                     {% for type in types %}
                                         <option value="{{  type.id }}">{{ type.name }}</option>
@@ -129,7 +129,7 @@
                                 </select>
                             </div>
                             <div class="col-lg-5">
-                                <select style="width:100%;">
+                                <select style="width:100%;" id="featureSelected">
                                     <option disabled selected>{% trans %}Selecciona característica{% endtrans %}</option>
                                     {% for feature in features %}
                                         <option value="{{  feature.id }}">{{ feature.name }}</option>
@@ -141,7 +141,7 @@
                     </div>
                     <div class="modal-footer">
                         <button data-dismiss="modal" class="btn btn-default pull-left" type="button">{% trans %}Cancelar{% endtrans %}</button>
-                        <button class="btn btn-success" type="button" id="addTypeFeature" typeID="" featureID="">{% trans %}Aceptar{% endtrans %}</button>
+                        <button class="btn btn-success" type="button" id="addTypeFeature" typeID="" featureID="" typeName="" featureName="">{% trans %}Aceptar{% endtrans %}</button>
                     </div>
                 </div><!-- /.modal-content -->
             </div><!-- /.modal-dialog -->
@@ -190,6 +190,35 @@
         });
         $("#addFeature").click(function(){
             $("#modalAddFeature").modal("show");
+        });
+        $("#typeSelected").change(function(){
+            $("#addTypeFeature").attr('typeID', $(this).val());
+            $("#addTypeFeature").attr('typeName', $("#typeSelected option:selected").text());
+        });
+        $("#featureSelected").change(function(){
+            $("#addTypeFeature").attr('featureID', $(this).val());
+            $("#addTypeFeature").attr('typeName', $("#featureSelected option:selected").text());
+        });
+        $("#addTypeFeature").click(function(){
+            var featureId   = $(this).attr('featureID');
+            var featureName = $(this).attr('featureName');
+            var typeId      = $(this).attr('typeID');
+            var typeName    = $(this).attr('typeName');
+            $("#modalAddFeature").modal("hide");
+            $.ajax({
+                url: '{{ path('add_features') }}',
+                data: { 'featureID':featureId, 'typeID':typeId, 'featureName':featureName, 'typeName':typeName },
+                type: "post",
+                success: function(response) {
+                    var html = "<tr id='typeFeature-"+response['typeID']+"-"+response['featureID']+"' class='oneType type-"+response['typeID']+"' style='display: table-row;'>" +
+                            "<td></td>" +
+                            "<td>"+response['featureName']+"</td>" +
+                            "<td>"+response['typeName']+"</td>" +
+                            "<td typeName='"+response['typeName']+"' typeId='"+response['typeID']+"' featureName='"+response['featureName']+"' featureId='"+response['featureID']+"' style='color:red;' class='text-center deleteFeature'><i class='fa fa-minus-circle'></i></td>" +
+                            "</tr>";
+                    $("#featuresTable tbody").append(html);
+                }
+            });
         });
     </script>
 

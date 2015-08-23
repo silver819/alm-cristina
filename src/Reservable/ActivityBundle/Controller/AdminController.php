@@ -2,11 +2,10 @@
 
 namespace Reservable\ActivityBundle\Controller;
 
+use Reservable\ActivityBundle\Entity\TypeToFeature;
 use Reservable\ActivityBundle\Entity\ActivityyToType;
 use Reservable\ActivityBundle\Entity\ActivityToFeature;
-use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Reservable\ActivityBundle\Entity\Activity;
 use Reservable\ActivityBundle\Entity\Seasons;
 use Symfony\Component\HttpFoundation\Request;
 use Ob\HighchartsBundle\Highcharts\Highchart;
@@ -542,6 +541,44 @@ class AdminController extends Controller
                 ->getResult();
 
             return new JsonResponse(array('idDelete'=> "typeFeature-" .$_POST['typeID'] . "-" . $_POST['featureID']));
+        }
+        else return new JsonResponse(array());
+    }
+
+    public function addFeatureAction(){
+
+        /*$_POST['typeID'] = 2;
+        $_POST['featureID'] = 6;
+        $_POST['featureName'] = 'nombre feature';
+        $_POST['typeName'] = 'nombre tipo';*/
+
+        if(isset($_POST['typeID']) && isset($_POST['featureID'])) {
+            $resultQuery = $this->getDoctrine()
+                ->getManager()
+                ->createQuery("SELECT ttf.typeID, ttf.featureID FROM ReservableActivityBundle:TypeToFeature ttf
+                               WHERE ttf.typeID = " . $_POST['typeID'] . " AND ttf.featureID = " . $_POST['featureID'])
+                ->getResult();
+
+            if(empty($resultQuery)){
+                $typeToFeature = new TypeToFeature();
+                $typeToFeature->setTypeID($_POST['typeID']);
+                $typeToFeature->setFeatureID($_POST['featureID']);
+
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($typeToFeature);
+                //$em->flush();
+
+                /*$response = "<tr id='typeFeature-" .$_POST['typeID']. "-" .$_POST['featureID']. "' class='oneType type-" .$_POST['typeID']. "' style='display: table-row;'>
+                                    <td></td>
+                                    <td>" .$_POST['featureName']. "</td>
+                                    <td>" .$_POST['typeName']. "</td>
+                                    <td typename='Tenis' typeid='" .$_POST['typeID']. "' featurename='Pista iluminada' featureid='" .$_POST['featureID']. "' style='color:red;' class='text-center deleteFeature'><i class='fa fa-minus-circle'></i></td>
+                                </tr>";*/
+
+                return new JsonResponse(array('typeID'=> $_POST['typeID'], 'featureID' => $_POST['featureID'], 'featureName' => $_POST['featureName'], 'typeName' => $_POST['typeName']));
+            }
+        else return new JsonResponse(array());
+
         }
         else return new JsonResponse(array());
     }

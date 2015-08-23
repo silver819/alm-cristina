@@ -20,6 +20,14 @@ delete_features:
     options:
         expose: true
 
+add_features:
+    path: /add-feature
+    defaults: { _controller: ReservableActivityBundle:Admin:addFeature }
+    requirements:
+        _method:  GET|POST
+    options:
+        expose: true
+
 register_activity:
     path: /register-property
     defaults: { _controller: ReservableActivityBundle:Registration:registerActivity }
