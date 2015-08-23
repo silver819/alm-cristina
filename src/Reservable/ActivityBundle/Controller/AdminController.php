@@ -566,16 +566,16 @@ class AdminController extends Controller
 
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($typeToFeature);
-                //$em->flush();
+                $em->flush();
 
-                /*$response = "<tr id='typeFeature-" .$_POST['typeID']. "-" .$_POST['featureID']. "' class='oneType type-" .$_POST['typeID']. "' style='display: table-row;'>
-                                    <td></td>
-                                    <td>" .$_POST['featureName']. "</td>
-                                    <td>" .$_POST['typeName']. "</td>
-                                    <td typename='Tenis' typeid='" .$_POST['typeID']. "' featurename='Pista iluminada' featureid='" .$_POST['featureID']. "' style='color:red;' class='text-center deleteFeature'><i class='fa fa-minus-circle'></i></td>
-                                </tr>";*/
-
-                return new JsonResponse(array('typeID'=> $_POST['typeID'], 'featureID' => $_POST['featureID'], 'featureName' => $_POST['featureName'], 'typeName' => $_POST['typeName']));
+                return new JsonResponse(
+                    array(
+                        'typeID'=> $_POST['typeID'],
+                        'featureID' => $_POST['featureID'],
+                        'featureName' => $_POST['featureName'],
+                        'typeName' => $_POST['typeName']
+                    )
+                );
             }
         else return new JsonResponse(array());
 

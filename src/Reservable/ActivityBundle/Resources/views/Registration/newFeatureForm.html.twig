@@ -197,7 +197,7 @@
         });
         $("#featureSelected").change(function(){
             $("#addTypeFeature").attr('featureID', $(this).val());
-            $("#addTypeFeature").attr('typeName', $("#featureSelected option:selected").text());
+            $("#addTypeFeature").attr('featureName', $("#featureSelected option:selected").text());
         });
         $("#addTypeFeature").click(function(){
             var featureId   = $(this).attr('featureID');
@@ -214,7 +214,8 @@
                             "<td></td>" +
                             "<td>"+response['featureName']+"</td>" +
                             "<td>"+response['typeName']+"</td>" +
-                            "<td typeName='"+response['typeName']+"' typeId='"+response['typeID']+"' featureName='"+response['featureName']+"' featureId='"+response['featureID']+"' style='color:red;' class='text-center deleteFeature'><i class='fa fa-minus-circle'></i></td>" +
+                            "<td style='color:red;' class='text-center deleteFeature' typeName='"+response['typeName']+"' typeId='"+response['typeID']+"' featureName='"+response['featureName']+"' featureId='"+response['featureID']+"'>" +
+                            "<i class='fa fa-minus-circle'></i></td>" +
                             "</tr>";
                     $("#featuresTable tbody").append(html);
                 }
