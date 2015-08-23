@@ -12,4 +12,12 @@ use Doctrine\ORM\EntityRepository;
  */
 class FeaturesRepository extends EntityRepository
 {
+
+    public function getAllFeatures(){
+        $features = $this->getEntityManager()
+            ->createQuery("SELECT f.id, f.name FROM ReservableActivityBundle:Features f")
+            ->getResult();
+
+        return $features;
+    }
 }

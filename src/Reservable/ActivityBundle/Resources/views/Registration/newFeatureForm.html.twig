@@ -1,7 +1,7 @@
 {% extends '::admin.html.twig' %}
 
 {% block page_title %}
-    {% trans %}Añadir tipos y features{% endtrans %}
+    {% trans %}Asociar tipos y características{% endtrans %}
 {% endblock %}
 
 {% block page_content %}
@@ -17,7 +17,7 @@
         .descata{
             
         }
-        .deleteType:hover, .deleteFeature:hover{
+        .deleteFeature:hover{
             font-size: 1.5em;
             cursor:pointer;
         }
@@ -89,8 +89,8 @@
         {# right col #}
     </div>
 
-    <div class="example-modal">
-        <div class="modal fade" id="myModal">
+    <div class="modalDelete">
+        <div class="modal fade" id="modalDeleteFeature">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -109,9 +109,50 @@
         </div><!-- /.modal -->
     </div>
 
+    <div class="modalAdd">
+        <div class="modal fade" id="modalAddFeature">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button aria-label="Close" data-dismiss="modal" class="close" type="button"><span aria-hidden="true">×</span></button>
+                        <h4 class="modal-title">{% trans %}Añadir asociación tipo <i class="fa fa-arrows-h"></i> característica{% endtrans %}</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-lg-1"></div>
+                            <div class="col-lg-5">
+                                <select style="width:100%;">
+                                    <option disabled selected>{% trans %}Selecciona tipo{% endtrans %}</option>
+                                    {% for type in types %}
+                                        <option value="{{  type.id }}">{{ type.name }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="col-lg-5">
+                                <select style="width:100%;">
+                                    <option disabled selected>{% trans %}Selecciona característica{% endtrans %}</option>
+                                    {% for feature in features %}
+                                        <option value="{{  feature.id }}">{{ feature.name }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="col-lg-1"></div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button data-dismiss="modal" class="btn btn-default pull-left" type="button">{% trans %}Cancelar{% endtrans %}</button>
+                        <button class="btn btn-success" type="button" id="addTypeFeature" typeID="" featureID="">{% trans %}Aceptar{% endtrans %}</button>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+    </div>
+
     <script>
         $(".pointerSelect").click(function(){
             var id = $(this).attr('id');
+            var showAll = $("#showAll");
+            //showAll.remove
             $(".oneType").hide();
             $(".type-" + id).show('slow');
         });
@@ -128,16 +169,16 @@
             var typeId      = $(this).attr('typeID');
             var typeName    = $(this).attr('typeName');
             var featureName = $(this).attr('featureName');
-            $("#myModal #featureName").html(featureName);
-            $("#myModal #typeName").html(typeName);
+            $("#modalDeleteFeature #featureName").html(featureName);
+            $("#modalDeleteFeature #typeName").html(typeName);
             $("#deleteTypeFeature").attr('featureID', featureId);
             $("#deleteTypeFeature").attr('typeID', typeId);
-            $("#myModal").modal("show");
+            $("#modalDeleteFeature").modal("show");
         });
         $("#deleteTypeFeature").click(function(){
             var featureId   = $(this).attr('featureID');
             var typeId      = $(this).attr('typeID');
-            $("#myModal").modal("hide");
+            $("#modalDeleteFeature").modal("hide");
             $.ajax({
                 url: '{{ path('delete_features') }}',
                 data: { 'featureID': featureId, 'typeID': typeId },
@@ -146,6 +187,9 @@
                     $("#" + response['idDelete']).detach();
                 }
             });
+        });
+        $("#addFeature").click(function(){
+            $("#modalAddFeature").modal("show");
         });
     </script>
 

@@ -111,10 +111,12 @@ class RegistrationController extends Controller
             $typesFeatures[$oneType['id']]['features'] = $this->getAllFeaturesByType($oneType['id']);
         }
 
+        $allFeatures = $this->getDoctrine()->getRepository('ReservableActivityBundle:Features')->getAllFeatures();
+
         //ldd($typesFeatures);
 
         return $this->render('ReservableActivityBundle:Registration:newFeatureForm.html.twig',
-            array('types'=> $types , 'typesFeatures' => $typesFeatures));
+            array('types'=> $types , 'typesFeatures' => $typesFeatures, 'features' => $allFeatures));
     }
 
     private function getAllFeaturesByType($type){

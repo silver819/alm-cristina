@@ -39,7 +39,9 @@ class SidebarNavigation
         $rootItems[] = $history            = new MenuItemModel('historyBookings',  'Historial de reservas',    'historyBookings',  $menu, 'fa fa-th');
         $rootItems[] = $addProperty        = new MenuItemModel('add-property',     'Nueva ropiedad',           'new_activity',     $menu, 'glyphicon glyphicon-plus');
         if($this->context->isGranted('ROLE_SUPER_ADMIN')){
-            $rootItems[] = $viewOwners      = new MenuItemModel('add-types',       'Nuevos tipos',             'new_features',      $menu, 'glyphicon glyphicon-eye-open');
+            $rootItems[] = $viewOwners      = new MenuItemModel('admin-types',       'Gestionar tipos',          'new_features',      $menu, 'fa fa-text-width');
+            $rootItems[] = $viewOwners      = new MenuItemModel('admin-features',       'Gestionar características','new_features',      $menu, 'fa fa-th-list');
+            $rootItems[] = $viewOwners      = new MenuItemModel('types-features',       'Tipos y características',  'new_features',      $menu, 'fa fa-exchange');
         }
         $rootItems[] = $statistics         = new MenuItemModel('statistics',       'Estadísticas',             'historyBookings',  $menu, 'fa fa-bar-chart');
 
