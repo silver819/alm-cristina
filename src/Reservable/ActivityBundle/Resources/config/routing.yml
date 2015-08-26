@@ -32,6 +32,14 @@ admin_types:
     path: /admin-types
     defaults: { _controller: ReservableActivityBundle:Registration:adminTypes }
 
+delete_type:
+    path: /delete-type
+    defaults: { _controller: ReservableActivityBundle:Admin:deleteType }
+    requirements:
+        _method:  GET|POST
+    options:
+        expose: true
+
 admin_features:
     path: /admin-features
     defaults: { _controller: ReservableActivityBundle:Registration:adminFeatures }

@@ -35,6 +35,13 @@ class TypeActivity
      */
     private $mode;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="icon", type="string", length=255)
+     */
+    private $icon;
+
 
     /**
      * Get id
@@ -90,5 +97,22 @@ class TypeActivity
     public function getMode()
     {
         return $this->mode;
+    }
+
+    public function setIcon($icon)
+    {
+        $this->icon = $icon;
+
+        return $this;
+    }
+
+    /**
+     * Get mode
+     *
+     * @return string
+     */
+    public function getIcon()
+    {
+        return $this->icon;
     }
 }

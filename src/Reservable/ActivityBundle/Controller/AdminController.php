@@ -583,4 +583,30 @@ class AdminController extends Controller
         else return new JsonResponse(array());
     }
 
+    public function deleteTypeAction(){
+
+        if(isset($_POST['typeID'])) {
+            /*$resultQuery = $this->getDoctrine()
+                ->getManager()
+                ->createQuery("DELETE FROM ReservableActivityBundle:TypeToFeature ttf
+                               WHERE ttf.typeID = " . $_POST['typeID'])
+                ->getResult();
+
+            $resultQuery = $this->getDoctrine()
+                ->getManager()
+                ->createQuery("DELETE FROM ReservableActivityBundle:ActivityyToType ttf
+                               WHERE ttf.typeID = " . $_POST['typeID'])
+                ->getResult();
+
+            $resultQuery = $this->getDoctrine()
+                ->getManager()
+                ->createQuery("DELETE FROM ReservableActivityBundle:TypeActivity ttf
+                               WHERE ttf.id = " . $_POST['typeID'])
+                ->getResult();*/
+echo "******".$_POST['typeID'];
+            return new JsonResponse(array('idDelete'=> $_POST['typeID'] ));
+        }
+        else return new JsonResponse(array());
+    }
+
 }

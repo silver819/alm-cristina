@@ -6,6 +6,93 @@
 
 {% block page_content %}
 
+    <style>
+        .deleteType:hover{
+            font-size: 1.5em;
+            cursor:pointer;
+        }
+    </style>
 
+    <div class="row">
+    {# Left col #}
+    <section class="col-lg-12 connectedSortable ui-sortable">
+        {# Tabla tipos #}
+        <div class="box">
+            <div class="box-header">
+                <h3 class="box-title">{% trans %}Tipos{% endtrans %}</h3>
+            </div><!-- /.box-header -->
+            <div class="box-body table-responsive no-padding">
+                <table class="table" id="typesTable">
+                    <tbody><tr>
+                        <th></th>
+                        <th>{% trans %}Tipo{% endtrans %}</th>
+                        <th>{% trans %}Modalidad{% endtrans %}</th>
+                        <th class="text-center">{% trans %}Icono{% endtrans %}</th>
+                        <th class="text-center">{% trans %}Modificar{% endtrans %}</th>
+                        <th class="text-center">{% trans %}Eliminar{% endtrans %}</th>
+                    </tr>
+                    {% for type in types %}
+                        <tr id="{{ type.id }}" class="pointerSelect">
+                            <td></td>
+                            <td>{{ type.name }}</td>
+                            <td>{{ type.mode }}</td>
+                            <td class="text-center">{% if type.icon is defined %}<i class="{{ type.icon }}"></i>{% endif %}</td>
+                            <td class="text-center" style="color:green;"><i class="fa fa-pencil"></i></td>
+                            <td class="text-center deleteType" style="color:red;" typeID="{{ type.id }}" typeName="{{ type.name }}"><i class="fa fa-minus-circle"></i></td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div><!-- /.box-body -->
+        </div><!-- /.box -->
+    </section>
+    {# Left col #}
+    </div>
+
+    <div class="modalDelete">
+        <div class="modal fade" id="modalDeleteType">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button aria-label="Close" data-dismiss="modal" class="close" type="button"><span aria-hidden="true">×</span></button>
+                        <h4 class="modal-title">{% trans %}Eliminar tipo{% endtrans %}</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>{% trans %}Se va a eliminar el tipo {% endtrans %} "<span id="typeName"></span>"
+                        <p>{% trans %}NOTA: Si elimina este tipo, también se eliminarán todas las asociaciones con las características que tenga este tipo y los tipos y features que tengan los alojamientos{% endtrans %}</p>
+                    <div class="modal-footer">
+                        <button data-dismiss="modal" class="btn btn-default pull-left" type="button">{% trans %}Cancelar{% endtrans %}</button>
+                        <button class="btn btn-success" type="button" id="deleteType" typeID="" >{% trans %}Aceptar{% endtrans %}</button>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+    </div>
+
+    <script>
+        $(".deleteType").click(function(e){
+
+            e.preventDefault();
+
+            var typeId      = $(this).attr('typeID');
+            var typeName    = $(this).attr('typeName');
+            $("#modalDeleteType #typeName").html(typeName);
+            $("#modalDeleteType").attr('typeID', typeId);
+            $("#modalDeleteType").modal("show");
+        });
+        $("#deleteType").click(function(){
+            var typeId      = $(this).attr('typeID');
+            $("#modalDeleteType").modal("hide");
+            $.ajax({
+                url: '{{ path('delete_type') }}',
+                data: { 'typeID': typeId },
+                type: "post",
+                success: function(response) {
+                    console.log(response);
+                    $("#" + response['idDelete']).detach();
+                }
+            });
+        });
+    </script>
 
 {% endblock %}
