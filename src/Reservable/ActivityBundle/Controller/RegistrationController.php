@@ -130,4 +130,23 @@ class RegistrationController extends Controller
 
         return $features;
     }
+
+    public function adminTypesAction(){
+
+        // tipos
+        $types = $this->getDoctrine()
+            ->getRepository('ReservableActivityBundle:TypeActivity')
+            ->getAllTypes();
+
+        return $this->render('ReservableActivityBundle:Registration:adminTypes.html.twig',
+            array('types' => $types)
+        );
+    }
+
+    public function adminFeaturesAction(){
+
+        return $this->render('ReservableActivityBundle:Registration:adminFeatures.html.twig',
+            array()
+        );
+    }
 }

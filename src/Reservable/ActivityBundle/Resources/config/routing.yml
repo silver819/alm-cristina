@@ -28,6 +28,14 @@ add_features:
     options:
         expose: true
 
+admin_types:
+    path: /admin-types
+    defaults: { _controller: ReservableActivityBundle:Registration:adminTypes }
+
+admin_features:
+    path: /admin-features
+    defaults: { _controller: ReservableActivityBundle:Registration:adminFeatures }
+
 register_activity:
     path: /register-property
     defaults: { _controller: ReservableActivityBundle:Registration:registerActivity }
