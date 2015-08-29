@@ -382,41 +382,42 @@ echo "<br/>---------------------------------------------------------------------
             $selector[] = $aux;
         }
 
-        if($selector[0]['type'] == 'hour'){
-            $calendar .= '<div class="row clearfix"><div class="col-md-12 column">';
-            $calendar .= $this->showCalendarByDay($todayYear . $todayMonth . "0100", false, $request->getLocale(), $selector[0]['id']);
-            $calendar .= '</div><div class="col-md-12 column"><br/>';
-            $calendar .= $this->showCalendarByDay(date("Ymd", mktime(0, 0, 0, $todayMonth+1, 1, $todayYear)), false, $request->getLocale(), $selector[0]['id']);
-            $calendar .= '</div><div class="col-md-12 column"><br/>';
-            $calendar .= $this->showCalendarByDay(date("Ymd", mktime(0, 0, 0, $todayMonth+2, 1, $todayYear)), false, $request->getLocale(), $selector[0]['id']);
-            $calendar .= '</div></div>';
-        }
-        else{
-            $calendar .= '<div class="row clearfix"><div class="col-md-4 column">';
-            $calendar .= $this->showCalendar($todayYear . $todayMonth . "0100", false, $request->getLocale(), $selector[0]['id']);
-            $calendar .= '</div><div class="col-md-4 column">';
-            $calendar .= $this->showCalendar(date("Ymd", mktime(0, 0, 0, $todayMonth+1, 1, $todayYear)), false, $request->getLocale(), $selector[0]['id']);
-            $calendar .= '</div><div class="col-md-4 column">';
-            $calendar .= $this->showCalendar(date("Ymd", mktime(0, 0, 0, $todayMonth+2, 1, $todayYear)), false, $request->getLocale(), $selector[0]['id']);
-            $calendar .= '</div></div><div class="row clearfix"><div class="col-md-4 column">';
-            $calendar .= $this->showCalendar(date("Ymd", mktime(0, 0, 0, $todayMonth+3, 1, $todayYear)), false, $request->getLocale(), $selector[0]['id']);
-            $calendar .= '</div><div class="col-md-4 column">';
-            $calendar .= $this->showCalendar(date("Ymd", mktime(0, 0, 0, $todayMonth+4, 1, $todayYear)), false, $request->getLocale(), $selector[0]['id']);
-            $calendar .= '</div><div class="col-md-4 column">';
-            $calendar .= $this->showCalendar(date("Ymd", mktime(0, 0, 0, $todayMonth+5, 1, $todayYear)), false, $request->getLocale(), $selector[0]['id']);
-            $calendar .= '</div></div><div class="row clearfix"><div class="col-md-4 column">';
-            $calendar .= $this->showCalendar(date("Ymd", mktime(0, 0, 0, $todayMonth+6, 1, $todayYear)), false, $request->getLocale(), $selector[0]['id']);
-            $calendar .= '</div><div class="col-md-4 column">';
-            $calendar .= $this->showCalendar(date("Ymd", mktime(0, 0, 0, $todayMonth+7, 1, $todayYear)), false, $request->getLocale(), $selector[0]['id']);
-            $calendar .= '</div><div class="col-md-4 column">';
-            $calendar .= $this->showCalendar(date("Ymd", mktime(0, 0, 0, $todayMonth+8, 1, $todayYear)), false, $request->getLocale(), $selector[0]['id']);
-            $calendar .= '</div></div><div class="row clearfix"><div class="col-md-4 column">';
-            $calendar .= $this->showCalendar(date("Ymd", mktime(0, 0, 0, $todayMonth+9, 1, $todayYear)), false, $request->getLocale(), $selector[0]['id']);
-            $calendar .= '</div><div class="col-md-4 column">';
-            $calendar .= $this->showCalendar(date("Ymd", mktime(0, 0, 0, $todayMonth+10, 1, $todayYear)), false, $request->getLocale(), $selector[0]['id']);
-            $calendar .= '</div><div class="col-md-4 column">';
-            $calendar .= $this->showCalendar(date("Ymd", mktime(0, 0, 0, $todayMonth+11, 1, $todayYear)), false, $request->getLocale(), $selector[0]['id']);
-            $calendar .= '</div></div>';
+        if(isset($selector[0]['type'])) {
+            if ($selector[0]['type'] == 'hour') {
+                $calendar .= '<div class="row clearfix"><div class="col-md-12 column">';
+                $calendar .= $this->showCalendarByDay($todayYear . $todayMonth . "0100", false, $request->getLocale(), $selector[0]['id']);
+                $calendar .= '</div><div class="col-md-12 column"><br/>';
+                $calendar .= $this->showCalendarByDay(date("Ymd", mktime(0, 0, 0, $todayMonth + 1, 1, $todayYear)), false, $request->getLocale(), $selector[0]['id']);
+                $calendar .= '</div><div class="col-md-12 column"><br/>';
+                $calendar .= $this->showCalendarByDay(date("Ymd", mktime(0, 0, 0, $todayMonth + 2, 1, $todayYear)), false, $request->getLocale(), $selector[0]['id']);
+                $calendar .= '</div></div>';
+            } else {
+                $calendar .= '<div class="row clearfix"><div class="col-md-4 column">';
+                $calendar .= $this->showCalendar($todayYear . $todayMonth . "0100", false, $request->getLocale(), $selector[0]['id']);
+                $calendar .= '</div><div class="col-md-4 column">';
+                $calendar .= $this->showCalendar(date("Ymd", mktime(0, 0, 0, $todayMonth + 1, 1, $todayYear)), false, $request->getLocale(), $selector[0]['id']);
+                $calendar .= '</div><div class="col-md-4 column">';
+                $calendar .= $this->showCalendar(date("Ymd", mktime(0, 0, 0, $todayMonth + 2, 1, $todayYear)), false, $request->getLocale(), $selector[0]['id']);
+                $calendar .= '</div></div><div class="row clearfix"><div class="col-md-4 column">';
+                $calendar .= $this->showCalendar(date("Ymd", mktime(0, 0, 0, $todayMonth + 3, 1, $todayYear)), false, $request->getLocale(), $selector[0]['id']);
+                $calendar .= '</div><div class="col-md-4 column">';
+                $calendar .= $this->showCalendar(date("Ymd", mktime(0, 0, 0, $todayMonth + 4, 1, $todayYear)), false, $request->getLocale(), $selector[0]['id']);
+                $calendar .= '</div><div class="col-md-4 column">';
+                $calendar .= $this->showCalendar(date("Ymd", mktime(0, 0, 0, $todayMonth + 5, 1, $todayYear)), false, $request->getLocale(), $selector[0]['id']);
+                $calendar .= '</div></div><div class="row clearfix"><div class="col-md-4 column">';
+                $calendar .= $this->showCalendar(date("Ymd", mktime(0, 0, 0, $todayMonth + 6, 1, $todayYear)), false, $request->getLocale(), $selector[0]['id']);
+                $calendar .= '</div><div class="col-md-4 column">';
+                $calendar .= $this->showCalendar(date("Ymd", mktime(0, 0, 0, $todayMonth + 7, 1, $todayYear)), false, $request->getLocale(), $selector[0]['id']);
+                $calendar .= '</div><div class="col-md-4 column">';
+                $calendar .= $this->showCalendar(date("Ymd", mktime(0, 0, 0, $todayMonth + 8, 1, $todayYear)), false, $request->getLocale(), $selector[0]['id']);
+                $calendar .= '</div></div><div class="row clearfix"><div class="col-md-4 column">';
+                $calendar .= $this->showCalendar(date("Ymd", mktime(0, 0, 0, $todayMonth + 9, 1, $todayYear)), false, $request->getLocale(), $selector[0]['id']);
+                $calendar .= '</div><div class="col-md-4 column">';
+                $calendar .= $this->showCalendar(date("Ymd", mktime(0, 0, 0, $todayMonth + 10, 1, $todayYear)), false, $request->getLocale(), $selector[0]['id']);
+                $calendar .= '</div><div class="col-md-4 column">';
+                $calendar .= $this->showCalendar(date("Ymd", mktime(0, 0, 0, $todayMonth + 11, 1, $todayYear)), false, $request->getLocale(), $selector[0]['id']);
+                $calendar .= '</div></div>';
+            }
         }
 
         return $this->render('BookingsBookingBundle:Consult:calendar-bookings.html.twig',
