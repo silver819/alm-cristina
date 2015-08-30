@@ -30,4 +30,13 @@ class TypeActivityRepository extends EntityRepository
 
         return $types;
     }
+    public function getIdByName($name){
+        $types = $this->getEntityManager()
+            ->createQuery("SELECT t.id
+                		   FROM ReservableActivityBundle:TypeActivity t
+                		   WHERE t.name LIKE '" . $name . "'")
+            ->getResult();
+
+        return ($types[0])?$types[0]:false;
+    }
 }

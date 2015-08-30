@@ -40,6 +40,14 @@ delete_type:
     options:
         expose: true
 
+add_type:
+    path: /add_type
+    defaults: { _controller: ReservableActivityBundle:Admin:addType }
+    requirements:
+        _method:  GET|POST
+    options:
+        expose: true
+
 admin_features:
     path: /admin-features
     defaults: { _controller: ReservableActivityBundle:Registration:adminFeatures }

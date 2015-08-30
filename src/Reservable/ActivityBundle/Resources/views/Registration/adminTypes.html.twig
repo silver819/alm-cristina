@@ -11,6 +11,9 @@
             font-size: 1.5em;
             cursor:pointer;
         }
+        #addType{
+            cursor:pointer;
+        }
     </style>
 
     <div class="row">
@@ -78,16 +81,17 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <button aria-label="Close" data-dismiss="modal" class="close" type="button"><span aria-hidden="true">×</span></button>
-                        <h4 class="modal-title">{% trans %}Añadir nuevo tipo{% endtrans %}</h4>
+                        <h4 class="modal-title">{% trans %}Añadir tipo{% endtrans %}</h4>
                     </div>
                     <div class="modal-body">
+                        <div>{% trans %}Rellena los siguientes campos para añadir un nuevo tipo{% endtrans %}</div>
                         <div class="row">
                             <div class="col-lg-3">
                                 <input type="text" name="nameType" id="nameType" placeholder="{% trans %}Nombre{% endtrans %}">
                             </div>
-                            <div class="col-lg-4">
-                                <select style="width:100%;" id="typeSelected">
-                                    <option disabled selected>{% trans %}Selecciona modalidad{% endtrans %}</option>
+                            <div class="col-lg-4 text-right">
+                                <select id="modalityType"name="modalityType">
+                                    <option disabled selected>{% trans %}Modalidad{% endtrans %}</option>
                                     <option value="hour">{%  trans %}Hora{% endtrans %}</option>
                                     <option value="day">{%  trans %}Día{% endtrans %}</option>
                                 </select>
@@ -95,11 +99,12 @@
                             <div class="col-lg-3">
                                 <input type="text" name="iconType" id="iconType" placeholder="{% trans %}Icono{% endtrans %}">
                             </div>
+                            <div class="col-lg-2">
                         </div>
                     </div>
                     <div class="modal-footer">
                         <button data-dismiss="modal" class="btn btn-default pull-left" type="button">{% trans %}Cancelar{% endtrans %}</button>
-                        <button class="btn btn-success" type="button" id="addTypeFeature" typeID="" featureID="" typeName="" featureName="">{% trans %}Aceptar{% endtrans %}</button>
+                        <button class="btn btn-success" type="button" id="addTypeButton" typeName="" typeModality="" typeIcon="">{% trans %}Aceptar{% endtrans %}</button>
                     </div>
                 </div><!-- /.modal-content -->
             </div><!-- /.modal-dialog -->
@@ -113,33 +118,26 @@
         $("#addType").click(function(){
             $("#modalAddType").modal("show");
         });
-        $("#typeSelected").change(function(){
-            $("#addTypeFeature").attr('typeID', $(this).val());
-            $("#addTypeFeature").attr('typeName', $("#typeSelected option:selected").text());
-        });
-        $("#featureSelected").change(function(){
-            $("#addTypeFeature").attr('featureID', $(this).val());
-            $("#addTypeFeature").attr('featureName', $("#featureSelected option:selected").text());
-        });
-        $("#addTypeFeature").click(function(){
-            var featureId   = $(this).attr('featureID');
-            var featureName = $(this).attr('featureName');
-            var typeId      = $(this).attr('typeID');
-            var typeName    = $(this).attr('typeName');
-            $("#modalAddFeature").modal("hide");
+        $("#addTypeButton").click(function(){
+            var typeName        = $('#nameType').val();
+            var typeModality    = $('#modalityType').val();
+            var typeIcon        = $("#iconType").val();
+            $("#modalAddType").modal("hide");
             $.ajax({
-                url: '{{ path('add_features') }}',
-                data: { 'featureID':featureId, 'typeID':typeId, 'featureName':featureName, 'typeName':typeName },
+                url: '{{ path('add_type') }}',
+                data: { 'typeName':typeName, 'typeModality':typeModality, 'typeIcon':typeIcon },
                 type: "post",
                 success: function(response) {
-                    var html = "<tr id='typeFeature-"+response['typeID']+"-"+response['featureID']+"' class='oneType type-"+response['typeID']+"' style='display: table-row;'>" +
-                            "<td></td>" +
-                            "<td>"+response['featureName']+"</td>" +
-                            "<td>"+response['typeName']+"</td>" +
-                            "<td style='color:red;' class='text-center deleteFeature' typeName='"+response['typeName']+"' typeId='"+response['typeID']+"' featureName='"+response['featureName']+"' featureId='"+response['featureID']+"'>" +
-                            "<i class='fa fa-minus-circle'></i></td>" +
-                            "</tr>";
-                    $("#featuresTable tbody").append(html);
+                    var html = '<tr class="pointerSelect" id="' + response['id'] + '">' +
+                            '<td></td>' +
+                            '<td>' + response['name'] + '</td>' +
+                            '<td>' + response['modality'] + '</td>' +
+                            '<td class="text-center"><i class="' + response['icon'] + '"></i></td>' +
+                            '<td style="color:green;" class="text-center"><i class="fa fa-pencil"></i></td>' +
+                            '<td typename="' + response['name'] + '" typeid="' + response['id'] + '" style="color:red;" class="text-center deleteType"><i class="fa fa-minus-circle"></i></td>' +
+                            '</tr>';
+
+                    $("#typesTable tbody").append(html);
                 }
             });
         });

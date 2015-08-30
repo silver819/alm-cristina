@@ -2,6 +2,7 @@
 
 namespace Reservable\ActivityBundle\Controller;
 
+use Reservable\ActivityBundle\Entity\TypeActivity;
 use Reservable\ActivityBundle\Entity\TypeToFeature;
 use Reservable\ActivityBundle\Entity\ActivityyToType;
 use Reservable\ActivityBundle\Entity\ActivityToFeature;
@@ -605,6 +606,30 @@ class AdminController extends Controller
                 ->getResult();
 
             return new JsonResponse(array('idDelete'=> $_POST['typeID'] ));
+        }
+        else return new JsonResponse(array());
+    }
+
+    public function addTypeAction(){
+
+        if(isset($_POST['typeName']) && isset($_POST['typeModality']) && isset($_POST['typeIcon']) && $_POST['typeName'] != '' && $_POST['typeModality'] != 'null'){
+
+            $newType = new TypeActivity();
+            $newType->setName($_POST['typeName']);
+            $newType->setMode($_POST['typeModality']);
+            $newType->setIcon($_POST['typeIcon']);
+
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($newType);
+            $em->flush();
+
+            $response = array();
+            $response['name']       = $_POST['typeName'];
+            $response['modality']   = $_POST['typeModality'];
+            $response['icon']       = $_POST['typeIcon'];
+            $response['id']         = $this->getDoctrine()->getRepository('ReservableActivityBundle:TypeActivity')->getIdByName($_POST['typeName']);
+
+            return new JsonResponse($response);
         }
         else return new JsonResponse(array());
     }
