@@ -4,6 +4,8 @@
     {% trans %}Asociar tipos y características{% endtrans %}
 {% endblock %}
 
+
+
 {% block page_content %}
 
     <style>
@@ -13,9 +15,6 @@
         .pointerSelect:hover{
             cursor: pointer;
             background-color: #666;
-        }
-        .descata{
-            
         }
         .deleteFeature:hover{
             font-size: 1.5em;
@@ -158,9 +157,6 @@
         });
         $("#showAll").click(function(){
             $(".oneType").show('slow');
-        });
-        $(".addFeature").click(function(){
-
         });
         $(".deleteFeature").click(function(e){
 
