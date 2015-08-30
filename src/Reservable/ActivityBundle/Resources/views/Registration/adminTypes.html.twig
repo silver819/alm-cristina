@@ -11,7 +11,7 @@
             font-size: 1.5em;
             cursor:pointer;
         }
-        #addType{
+        #addType, #showHour, #showDay, #showAll{
             cursor:pointer;
         }
     </style>
@@ -24,6 +24,10 @@
             <div class="box-header">
                 <h3 class="box-title">{% trans %}Tipos{% endtrans %}</h3>
                 <div class="box-tools pull-right">
+                    <span class="label label-warning" id="showHour"></i>{% trans %}Mostrar modalidad hora{% endtrans %}</span>
+                    <span class="label label-warning" id="showDay"></i>{% trans %}Mostrar modalidad dia{% endtrans %}</span>
+                    <span class="label label-warning" id="showAll"></i>{% trans %}Mostrar todos{% endtrans %}</span>
+                    &nbsp;
                     <span class="label label-success" id="addType"><i class="fa fa-plus"></i>{% trans %} Nuevo{% endtrans %}</span>
                 </div>
             </div><!-- /.box-header -->
@@ -38,7 +42,7 @@
                         <th class="text-center">{% trans %}Eliminar{% endtrans %}</th>
                     </tr>
                     {% for type in types %}
-                        <tr id="{{ type.id }}" class="pointerSelect">
+                        <tr id="{{ type.id }}" class="pointerSelect {{ type.mode }}">
                             <td></td>
                             <td>{{ type.name }}</td>
                             <td>{{ type.mode }}</td>
@@ -166,6 +170,20 @@
                     $("#" + response['idDelete']).detach();
                 }
             });
+        });
+
+        /* Filtros */
+        $("#showHour").click(function(){
+            $(".day").hide();
+            $(".hour").show('slow');
+        });
+        $("#showDay").click(function(){
+            $(".hour").hide();
+            $(".day").show('slow');
+        });
+        $("#showAll").click(function(){
+            $(".hour").show('slow');
+            $(".day").show('slow');
         });
     </script>
 
