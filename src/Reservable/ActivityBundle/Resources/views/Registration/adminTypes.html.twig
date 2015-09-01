@@ -7,7 +7,7 @@
 {% block page_content %}
 
     <style>
-        .deleteType:hover{
+        .deleteType:hover, .modifyItem:hover{
             font-size: 1.5em;
             cursor:pointer;
         }
@@ -47,7 +47,7 @@
                             <td>{{ type.name }}</td>
                             <td>{{ type.mode }}</td>
                             <td class="text-center">{% if type.icon is defined %}<i class="{{ type.icon }}"></i>{% endif %}</td>
-                            <td class="text-center" style="color:green;"><i class="fa fa-pencil"></i></td>
+                            <td class="text-center modifyItem" typeName="{{ type.name }}" typeModality="{{ type.mode }}" typeIcon="{{ type.icon }}" style="color:green;"><i class="fa fa-pencil"></i></td>
                             <td class="text-center deleteType" style="color:red;" typeID="{{ type.id }}" typeName="{{ type.name }}"><i class="fa fa-minus-circle"></i></td>
                         </tr>
                     {% endfor %}
@@ -115,6 +115,42 @@
         </div><!-- /.modal -->
     </div>
 
+
+    <div class="modalModifyType">
+        <div class="modal fade" id="modalModifyType">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button aria-label="Close" data-dismiss="modal" class="close" type="button"><span aria-hidden="true">×</span></button>
+                        <h4 class="modal-title">{% trans %}Modificar tipo{% endtrans %}</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-lg-3">
+                                <input type="text" name="typeName" id="typeName" placeholder="{% trans %}Nombre{% endtrans %}">
+                            </div>
+                            <div class="col-lg-4 text-right">
+                                <select id="typeModify"name="typeModify">
+                                    <option disabled selected>{% trans %}Modalidad{% endtrans %}</option>
+                                    <option value="hour">{%  trans %}Hora{% endtrans %}</option>
+                                    <option value="day">{%  trans %}Día{% endtrans %}</option>
+                                </select>
+                            </div>
+                            <div class="col-lg-3">
+                                <input type="text" name="typeIcon" id="typeIcon" placeholder="{% trans %}Icono{% endtrans %}">
+                            </div>
+                            <div class="col-lg-2">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button data-dismiss="modal" class="btn btn-default pull-left" type="button">{% trans %}Cancelar{% endtrans %}</button>
+                        <button class="btn btn-success" type="button" id="addTypeButton" typeName="" typeModality="" typeIcon="">{% trans %}Aceptar{% endtrans %}</button>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+    </div>
+
     <script>
 
         /* Añadir */
@@ -137,7 +173,7 @@
                             '<td>' + response['name'] + '</td>' +
                             '<td>' + response['modality'] + '</td>' +
                             '<td class="text-center"><i class="' + response['icon'] + '"></i></td>' +
-                            '<td style="color:green;" class="text-center"><i class="fa fa-pencil"></i></td>' +
+                            '<td style="color:green;" class="text-center modifyItem"><i class="fa fa-pencil"></i></td>' +
                             '<td typename="' + response['name'] + '" typeid="' + response['id'] + '" style="color:red;" class="text-center deleteType"><i class="fa fa-minus-circle"></i></td>' +
                             '</tr>';
 
@@ -170,6 +206,17 @@
                     $("#" + response['idDelete']).detach();
                 }
             });
+        });
+
+        /* Modificar */
+        $(".modifyItem").click(function(){
+            var name        = $(this).attr('typeName');
+            var modality    = $(this).attr('typeModality');
+            var icon        = $(this).attr('typeIcon');
+            $("#modalModifyType #typeName").val(name);
+            $("#modalModifyType #typeModality option[value=modality]").attr('selected', 'selected');
+            $("#modalModifyType #typeIcon").val(icon);
+            $("#modalModifyType").modal("show");
         });
 
         /* Filtros */
