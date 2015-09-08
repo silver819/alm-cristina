@@ -47,7 +47,7 @@
                             <td>{{ type.name }}</td>
                             <td>{{ type.mode }}</td>
                             <td class="text-center">{% if type.icon is defined %}<i class="{{ type.icon }}"></i>{% endif %}</td>
-                            <td class="text-center modifyItem" typeName="{{ type.name }}" typeModality="{{ type.mode }}" typeIcon="{{ type.icon }}" style="color:green;"><i class="fa fa-pencil"></i></td>
+                            <td class="text-center modifyItem" typeID="{{ type.id }}" typeName="{{ type.name }}" typeModality="{{ type.mode }}" typeIcon="{{ type.icon }}" style="color:green;"><i class="fa fa-pencil"></i></td>
                             <td class="text-center deleteType" style="color:red;" typeID="{{ type.id }}" typeName="{{ type.name }}"><i class="fa fa-minus-circle"></i></td>
                         </tr>
                     {% endfor %}
@@ -144,7 +144,7 @@
                     </div>
                     <div class="modal-footer">
                         <button data-dismiss="modal" class="btn btn-default pull-left" type="button">{% trans %}Cancelar{% endtrans %}</button>
-                        <button class="btn btn-success" type="button" id="addTypeButton" typeName="" typeModality="" typeIcon="">{% trans %}Aceptar{% endtrans %}</button>
+                        <button class="btn btn-success" type="button" id="modifyTypeButton" typeId="" typeName="" typeModality="" typeIcon="">{% trans %}Aceptar{% endtrans %}</button>
                     </div>
                 </div><!-- /.modal-content -->
             </div><!-- /.modal-dialog -->
@@ -210,13 +210,39 @@
 
         /* Modificar */
         $(".modifyItem").click(function(){
+            var id          = $(this).attr('typeID');
             var name        = $(this).attr('typeName');
             var modality    = $(this).attr('typeModality');
             var icon        = $(this).attr('typeIcon');
+
+            $("#modifyTypeButton").attr('typeID', id);
+            $("#modifyTypeButton").attr('typeName', name);
+            $("#modifyTypeButton").attr('typeModality', modality);
+            $("#modifyTypeButton").attr('typeIcon', icon);
+
             $("#modalModifyType #typeName").val(name);
-            $("#modalModifyType #typeModality option[value=modality]").attr('selected', 'selected');
+            $("#modalModifyType #typeModify option[value=modality]").attr('selected', 'selected');
             $("#modalModifyType #typeIcon").val(icon);
             $("#modalModifyType").modal("show");
+        });
+        $("#modifyTypeButton").click(function(){
+
+            var typeId          = $("#modifyTypeButton").attr('typeID');
+            var typeIName       = $("#modalModifyType #typeName").val();
+            var typeModality    = $("#modalModifyType #typeModify option:selected").val();
+            var typeIcon        = $("#modalModifyType #typeIcon").val();
+
+            $("#modalModifyType").modal("hide");
+
+            $.ajax({
+                url: '{{ path('modify_type') }}',
+                data: { 'typeID': typeId, 'typeIName': typeIName, 'typeModality': typeModality, 'typeIcon': typeIcon },
+                type: "post",
+                success: function(response) {
+                    console.log(response);
+                    //$("#" + response['idDelete']).detach();
+                }
+            });
         });
 
         /* Filtros */

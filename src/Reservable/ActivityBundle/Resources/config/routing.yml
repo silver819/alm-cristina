@@ -40,6 +40,14 @@ delete_type:
     options:
         expose: true
 
+modify_type:
+    path: /modify-type
+    defaults: { _controller: ReservableActivityBundle:Admin:modifyType }
+    requirements:
+        _method:  GET|POST
+    options:
+        expose: true
+
 add_type:
     path: /add_type
     defaults: { _controller: ReservableActivityBundle:Admin:addType }

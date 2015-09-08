@@ -610,6 +610,26 @@ class AdminController extends Controller
         else return new JsonResponse(array());
     }
 
+    public function modifyTypeAction(){
+
+        ld($_POST);
+
+        if(isset($_POST['typeID']) && isset($_POST['typeIName']) && isset($_POST['typeModality'])) {
+
+            $resultQuery = $this->getDoctrine()
+                ->getManager()
+                ->createQuery("UPDATE  ReservableActivityBundle:TypeActivity ta
+                               SET   ta.name = '" . $_POST['typeIName'] . "',
+                               ta.mode = '" . $_POST['typeModality'] . "',
+                               ta.icon = '" . $_POST['typeIcon'] . "'
+                               WHERE ta.id = '" . $_POST['typeID'] . "'")
+                ->getResult();
+
+            return new JsonResponse(array('idDelete'=> $_POST['typeID'] ));
+        }
+        else return new JsonResponse(array());
+    }
+
     public function addTypeAction(){
 
         if(isset($_POST['typeName']) && isset($_POST['typeModality']) && isset($_POST['typeIcon']) && $_POST['typeName'] != '' && $_POST['typeModality'] != 'null'){
