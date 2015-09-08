@@ -44,9 +44,9 @@
                     {% for type in types %}
                         <tr id="{{ type.id }}" class="pointerSelect {{ type.mode }}">
                             <td></td>
-                            <td>{{ type.name }}</td>
-                            <td>{{ type.mode }}</td>
-                            <td class="text-center">{% if type.icon is defined %}<i class="{{ type.icon }}"></i>{% endif %}</td>
+                            <td class="typeName">{{ type.name }}</td>
+                            <td class="typeModality">{{ type.mode }}</td>
+                            <td class="text-center typeIcon">{% if type.icon is defined %}<i class="{{ type.icon }}"></i>{% endif %}</td>
                             <td class="text-center modifyItem" typeID="{{ type.id }}" typeName="{{ type.name }}" typeModality="{{ type.mode }}" typeIcon="{{ type.icon }}" style="color:green;"><i class="fa fa-pencil"></i></td>
                             <td class="text-center deleteType" style="color:red;" typeID="{{ type.id }}" typeName="{{ type.name }}"><i class="fa fa-minus-circle"></i></td>
                         </tr>
@@ -240,7 +240,9 @@
                 type: "post",
                 success: function(response) {
                     console.log(response);
-                    //$("#" + response['idDelete']).detach();
+                    $("#" + response['typeID'] + " .typeName").text(response['typeName']);
+                    $("#" + response['typeID'] + " .typeModality").text(response['typeModality']);
+                    $("#" + response['typeID'] + " .typeIcon").text(response['typeIcon']);
                 }
             });
         });

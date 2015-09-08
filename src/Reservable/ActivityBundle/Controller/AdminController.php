@@ -612,8 +612,6 @@ class AdminController extends Controller
 
     public function modifyTypeAction(){
 
-        ld($_POST);
-
         if(isset($_POST['typeID']) && isset($_POST['typeIName']) && isset($_POST['typeModality'])) {
 
             $resultQuery = $this->getDoctrine()
@@ -625,7 +623,7 @@ class AdminController extends Controller
                                WHERE ta.id = '" . $_POST['typeID'] . "'")
                 ->getResult();
 
-            return new JsonResponse(array('idDelete'=> $_POST['typeID'] ));
+            return new JsonResponse(array('typeID'=> $_POST['typeID'],  'typeName' => $_POST['typeIName'],  'typeModality' => $_POST['typeModality'],  'typeIcon' => $_POST['typeIcon']));
         }
         else return new JsonResponse(array());
     }
