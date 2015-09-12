@@ -20,4 +20,14 @@ class FeaturesRepository extends EntityRepository
 
         return $features;
     }
+
+    public function getIdByName($name){
+        $types = $this->getEntityManager()
+            ->createQuery("SELECT t.id
+                		   FROM ReservableActivityBundle:Features t
+                		   WHERE t.name LIKE '" . $name . "'")
+            ->getResult();
+
+        return ($types[0])?$types[0]:false;
+    }
 }

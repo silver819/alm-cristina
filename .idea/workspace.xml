@@ -3,11 +3,9 @@
   <component name="ChangeListManager">
     <list default="true" id="0ca3c09d-9b70-4edd-bbfb-2d0f972bbd20" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Reservable/ActivityBundle/Controller/AdminController.php" afterPath="$PROJECT_DIR$/src/Reservable/ActivityBundle/Controller/AdminController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Reservable/ActivityBundle/Controller/RegistrationController.php" afterPath="$PROJECT_DIR$/src/Reservable/ActivityBundle/Controller/RegistrationController.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Reservable/ActivityBundle/Entity/FeaturesRepository.php" afterPath="$PROJECT_DIR$/src/Reservable/ActivityBundle/Entity/FeaturesRepository.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Reservable/ActivityBundle/Resources/views/Registration/adminFeatures.html.twig" afterPath="$PROJECT_DIR$/src/Reservable/ActivityBundle/Resources/views/Registration/adminFeatures.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Reservable/ActivityBundle/Resources/views/Registration/adminTypes.html.twig" afterPath="$PROJECT_DIR$/src/Reservable/ActivityBundle/Resources/views/Registration/adminTypes.html.twig" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Reservable/ActivityBundle/Resources/config/routing.yml" afterPath="$PROJECT_DIR$/src/Reservable/ActivityBundle/Resources/config/routing.yml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="almacen.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -35,8 +33,8 @@
       <file leaf-file-name="adminTypes.html.twig" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Reservable/ActivityBundle/Resources/views/Registration/adminTypes.html.twig">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="4.0" vertical-offset="3456" max-vertical-offset="4896">
-              <caret line="186" column="8" selection-start-line="186" selection-start-column="8" selection-end-line="210" selection-end-column="11" />
+            <state vertical-scroll-proportion="-14.0" vertical-offset="4104" max-vertical-offset="4896">
+              <caret line="249" column="11" selection-start-line="212" selection-start-column="8" selection-end-line="249" selection-end-column="11" />
               <folding>
                 <marker date="1442044020831" expanded="true" signature="9760:9772" placeholder="..." />
               </folding>
@@ -47,22 +45,13 @@
       <file leaf-file-name="adminFeatures.html.twig" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Reservable/ActivityBundle/Resources/views/Registration/adminFeatures.html.twig">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-15.185185" vertical-offset="1282" max-vertical-offset="1998">
-              <caret line="94" column="31" selection-start-line="94" selection-start-column="25" selection-end-line="94" selection-end-column="31" />
+            <state vertical-scroll-proportion="-16.88889" vertical-offset="3144" max-vertical-offset="3906">
+              <caret line="200" column="47" selection-start-line="200" selection-start-column="47" selection-end-line="200" selection-end-column="47" />
               <folding>
                 <element signature="e#1784#1804#0#HTML" expanded="true" />
                 <element signature="e#1906#1924#0#HTML" expanded="true" />
+                <marker date="1442048971331" expanded="true" signature="8088:8100" placeholder="..." />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="routing.yml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Reservable/ActivityBundle/Resources/config/routing.yml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-4.785714" vertical-offset="622" max-vertical-offset="3078">
-              <caret line="42" column="20" selection-start-line="42" selection-start-column="0" selection-end-line="42" selection-end-column="20" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -70,29 +59,43 @@
       <file leaf-file-name="AdminController.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Reservable/ActivityBundle/Controller/AdminController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.18446602" vertical-offset="12000" max-vertical-offset="12726">
-              <caret line="673" column="44" selection-start-line="673" selection-start-column="44" selection-end-line="673" selection-end-column="44" />
+            <state vertical-scroll-proportion="0.3592233" vertical-offset="12846" max-vertical-offset="13464">
+              <caret line="726" column="46" selection-start-line="726" selection-start-column="46" selection-end-line="726" selection-end-column="46" />
               <folding>
                 <element signature="e#56#106#0#PHP" expanded="true" />
-                <marker date="1442045677691" expanded="true" signature="4151:4391" placeholder="SELECT f.id,..ReservableActivityBundle..." />
-                <marker date="1442045677691" expanded="true" signature="4655:4879" placeholder="SELECT s.sta..ReservableActivityBundle..." />
-                <marker date="1442045677691" expanded="true" signature="5703:6118" placeholder="UPDATE Reser..." />
-                <marker date="1442045677691" expanded="true" signature="6944:7063" placeholder="DELETE FROM ..." />
-                <marker date="1442045677691" expanded="true" signature="7520:7641" placeholder="DELETE FROM ..." />
-                <marker date="1442045677691" expanded="true" signature="9199:9355" placeholder="UPDATE Reser..." />
-                <marker date="1442045677691" expanded="true" signature="10257:10413" placeholder="UPDATE Reser..." />
-                <marker date="1442045677691" expanded="true" signature="11960:12140" placeholder="SELECT u.ema..ReservableActivityBundle..." />
-                <marker date="1442045677691" expanded="true" signature="13719:14022" placeholder="SELECT r.com..RagingsRatingBundle..." />
-                <marker date="1442045677691" expanded="true" signature="14238:14619" placeholder="SELECT r.ubi..RagingsRatingBundle..." />
-                <marker date="1442045677691" expanded="true" signature="21198:21348" placeholder="DELETE FROM ..." />
-                <marker date="1442045677691" expanded="true" signature="21969:22145" placeholder="SELECT ttf.t..ReservableActivityBundle..." />
-                <marker date="1442045677691" expanded="true" signature="23208:23313" placeholder="DELETE FROM ..." />
-                <marker date="1442045677691" expanded="true" signature="23477:23584" placeholder="DELETE FROM ..." />
-                <marker date="1442045677691" expanded="true" signature="23748:23848" placeholder="DELETE FROM ..." />
-                <marker date="1442045677691" expanded="true" signature="24293:24636" placeholder="UPDATE Reser..." />
-                <marker date="1442045677691" expanded="true" signature="26088:26196" placeholder="DELETE FROM ..." />
-                <marker date="1442045677691" expanded="true" signature="26360:26472" placeholder="DELETE FROM ..." />
-                <marker date="1442045677691" expanded="true" signature="26636:26732" placeholder="DELETE FROM ..." />
+                <marker date="1442049089944" expanded="true" signature="4198:4438" placeholder="SELECT f.id,..ReservableActivityBundle..." />
+                <marker date="1442049089944" expanded="true" signature="4702:4926" placeholder="SELECT s.sta..ReservableActivityBundle..." />
+                <marker date="1442049089944" expanded="true" signature="5750:6165" placeholder="UPDATE Reser..." />
+                <marker date="1442049089944" expanded="true" signature="6991:7110" placeholder="DELETE FROM ..." />
+                <marker date="1442049089944" expanded="true" signature="7567:7688" placeholder="DELETE FROM ..." />
+                <marker date="1442049089944" expanded="true" signature="9246:9402" placeholder="UPDATE Reser..." />
+                <marker date="1442049089944" expanded="true" signature="10304:10460" placeholder="UPDATE Reser..." />
+                <marker date="1442049089944" expanded="true" signature="12007:12187" placeholder="SELECT u.ema..ReservableActivityBundle..." />
+                <marker date="1442049089944" expanded="true" signature="13766:14069" placeholder="SELECT r.com..RagingsRatingBundle..." />
+                <marker date="1442049089944" expanded="true" signature="14285:14666" placeholder="SELECT r.ubi..RagingsRatingBundle..." />
+                <marker date="1442049089944" expanded="true" signature="21245:21395" placeholder="DELETE FROM ..." />
+                <marker date="1442049089944" expanded="true" signature="22016:22192" placeholder="SELECT ttf.t..ReservableActivityBundle..." />
+                <marker date="1442049089944" expanded="true" signature="23255:23360" placeholder="DELETE FROM ..." />
+                <marker date="1442049089944" expanded="true" signature="23524:23631" placeholder="DELETE FROM ..." />
+                <marker date="1442049089944" expanded="true" signature="23795:23895" placeholder="DELETE FROM ..." />
+                <marker date="1442049089944" expanded="true" signature="24340:24683" placeholder="UPDATE Reser..." />
+                <marker date="1442049089944" expanded="true" signature="26135:26243" placeholder="DELETE FROM ..." />
+                <marker date="1442049089944" expanded="true" signature="26407:26519" placeholder="DELETE FROM ..." />
+                <marker date="1442049089944" expanded="true" signature="26683:26779" placeholder="DELETE FROM ..." />
+                <marker date="1442049089944" expanded="true" signature="27876:28068" placeholder="UPDATE Reser..." />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="FeaturesRepository.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Reservable/ActivityBundle/Entity/FeaturesRepository.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-17.222221" vertical-offset="57" max-vertical-offset="702">
+              <caret line="29" column="0" selection-start-line="29" selection-start-column="0" selection-end-line="29" selection-end-column="0" />
+              <folding>
+                <marker date="1442048001942" expanded="true" signature="383:443" placeholder="SELECT f.id,..ReservableActivityBundle..." />
+                <marker date="1442048001942" expanded="true" signature="617:745" placeholder="SELECT t.id ..ReservableActivityBundle..." />
               </folding>
             </state>
           </provider>
@@ -143,7 +146,6 @@
         <option value="$PROJECT_DIR$/src/User/UserBundle/Controller/ConsultController.php" />
         <option value="$PROJECT_DIR$/src/User/UserBundle/Resources/views/Consult/viewUsers.html.twig" />
         <option value="$PROJECT_DIR$/src/Bookings/BookingBundle/Controller/ConsultBookingsController.php" />
-        <option value="$PROJECT_DIR$/src/Reservable/ActivityBundle/Entity/FeaturesRepository.php" />
         <option value="$PROJECT_DIR$/src/Admin/AdminBundle/Resources/views/adminTypes.html.twig" />
         <option value="$PROJECT_DIR$/src/Reservable/ActivityBundle/Entity/TypeActivity.php" />
         <option value="$PROJECT_DIR$/src/Admin/AdminBundle/EventListener/SidebarNavigation.php" />
@@ -151,6 +153,7 @@
         <option value="$PROJECT_DIR$/src/Reservable/ActivityBundle/Entity/TypeActivityRepository.php" />
         <option value="$PROJECT_DIR$/src/Reservable/ActivityBundle/Controller/RegistrationController.php" />
         <option value="$PROJECT_DIR$/src/Reservable/ActivityBundle/Resources/views/Registration/adminTypes.html.twig" />
+        <option value="$PROJECT_DIR$/src/Reservable/ActivityBundle/Entity/FeaturesRepository.php" />
         <option value="$PROJECT_DIR$/src/Reservable/ActivityBundle/Resources/config/routing.yml" />
         <option value="$PROJECT_DIR$/src/Reservable/ActivityBundle/Resources/views/Registration/adminFeatures.html.twig" />
         <option value="$PROJECT_DIR$/src/Reservable/ActivityBundle/Controller/AdminController.php" />
@@ -982,13 +985,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Reservable/ActivityBundle/Entity/FeaturesRepository.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.57052296" vertical-offset="0" max-vertical-offset="631">
-          <caret line="20" column="0" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Reservable/ActivityBundle/Entity/TypeActivity.php">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-16.037037" vertical-offset="1601" max-vertical-offset="2232">
@@ -1038,13 +1034,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Reservable/ActivityBundle/Entity/TypeActivityRepository.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.80031693" vertical-offset="71" max-vertical-offset="864">
-          <caret line="32" column="31" selection-start-line="32" selection-start-column="20" selection-end-line="32" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Admin/AdminBundle/Resources/config/routing.yml">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="8" max-vertical-offset="990">
@@ -1063,60 +1052,81 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/Reservable/ActivityBundle/Entity/TypeActivityRepository.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-14.703704" vertical-offset="179" max-vertical-offset="864">
+          <caret line="32" column="4" selection-start-line="32" selection-start-column="4" selection-end-line="40" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Reservable/ActivityBundle/Entity/FeaturesRepository.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-17.222221" vertical-offset="57" max-vertical-offset="702">
+          <caret line="29" column="0" selection-start-line="29" selection-start-column="0" selection-end-line="29" selection-end-column="0" />
+          <folding>
+            <marker date="1442048001942" expanded="true" signature="383:443" placeholder="SELECT f.id,..ReservableActivityBundle..." />
+            <marker date="1442048001942" expanded="true" signature="617:745" placeholder="SELECT t.id ..ReservableActivityBundle..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/Reservable/ActivityBundle/Resources/views/Registration/adminTypes.html.twig">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="4.0" vertical-offset="3456" max-vertical-offset="4896">
-          <caret line="186" column="8" selection-start-line="186" selection-start-column="8" selection-end-line="210" selection-end-column="11" />
+        <state vertical-scroll-proportion="-14.0" vertical-offset="4104" max-vertical-offset="4896">
+          <caret line="249" column="11" selection-start-line="212" selection-start-column="8" selection-end-line="249" selection-end-column="11" />
           <folding>
             <marker date="1442044020831" expanded="true" signature="9760:9772" placeholder="..." />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Reservable/ActivityBundle/Resources/views/Registration/adminFeatures.html.twig">
+    <entry file="file://$PROJECT_DIR$/src/Reservable/ActivityBundle/Resources/config/routing.yml">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-15.185185" vertical-offset="1282" max-vertical-offset="1998">
-          <caret line="94" column="31" selection-start-line="94" selection-start-column="25" selection-end-line="94" selection-end-column="31" />
-          <folding>
-            <element signature="e#1784#1804#0#HTML" expanded="true" />
-            <element signature="e#1906#1924#0#HTML" expanded="true" />
-          </folding>
+        <state vertical-scroll-proportion="-15.428572" vertical-offset="936" max-vertical-offset="3366">
+          <caret line="76" column="77" selection-start-line="76" selection-start-column="60" selection-end-line="76" selection-end-column="77" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Reservable/ActivityBundle/Resources/config/routing.yml">
+    <entry file="file://$PROJECT_DIR$/src/Reservable/ActivityBundle/Resources/views/Registration/adminFeatures.html.twig">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-4.785714" vertical-offset="622" max-vertical-offset="3078">
-          <caret line="42" column="20" selection-start-line="42" selection-start-column="0" selection-end-line="42" selection-end-column="20" />
-          <folding />
+        <state vertical-scroll-proportion="-16.88889" vertical-offset="3144" max-vertical-offset="3906">
+          <caret line="200" column="47" selection-start-line="200" selection-start-column="47" selection-end-line="200" selection-end-column="47" />
+          <folding>
+            <element signature="e#1784#1804#0#HTML" expanded="true" />
+            <element signature="e#1906#1924#0#HTML" expanded="true" />
+            <marker date="1442048971331" expanded="true" signature="8088:8100" placeholder="..." />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Reservable/ActivityBundle/Controller/AdminController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.18446602" vertical-offset="12000" max-vertical-offset="12726">
-          <caret line="673" column="44" selection-start-line="673" selection-start-column="44" selection-end-line="673" selection-end-column="44" />
+        <state vertical-scroll-proportion="0.3592233" vertical-offset="12846" max-vertical-offset="13464">
+          <caret line="726" column="46" selection-start-line="726" selection-start-column="46" selection-end-line="726" selection-end-column="46" />
           <folding>
             <element signature="e#56#106#0#PHP" expanded="true" />
-            <marker date="1442045677691" expanded="true" signature="4151:4391" placeholder="SELECT f.id,..ReservableActivityBundle..." />
-            <marker date="1442045677691" expanded="true" signature="4655:4879" placeholder="SELECT s.sta..ReservableActivityBundle..." />
-            <marker date="1442045677691" expanded="true" signature="5703:6118" placeholder="UPDATE Reser..." />
-            <marker date="1442045677691" expanded="true" signature="6944:7063" placeholder="DELETE FROM ..." />
-            <marker date="1442045677691" expanded="true" signature="7520:7641" placeholder="DELETE FROM ..." />
-            <marker date="1442045677691" expanded="true" signature="9199:9355" placeholder="UPDATE Reser..." />
-            <marker date="1442045677691" expanded="true" signature="10257:10413" placeholder="UPDATE Reser..." />
-            <marker date="1442045677691" expanded="true" signature="11960:12140" placeholder="SELECT u.ema..ReservableActivityBundle..." />
-            <marker date="1442045677691" expanded="true" signature="13719:14022" placeholder="SELECT r.com..RagingsRatingBundle..." />
-            <marker date="1442045677691" expanded="true" signature="14238:14619" placeholder="SELECT r.ubi..RagingsRatingBundle..." />
-            <marker date="1442045677691" expanded="true" signature="21198:21348" placeholder="DELETE FROM ..." />
-            <marker date="1442045677691" expanded="true" signature="21969:22145" placeholder="SELECT ttf.t..ReservableActivityBundle..." />
-            <marker date="1442045677691" expanded="true" signature="23208:23313" placeholder="DELETE FROM ..." />
-            <marker date="1442045677691" expanded="true" signature="23477:23584" placeholder="DELETE FROM ..." />
-            <marker date="1442045677691" expanded="true" signature="23748:23848" placeholder="DELETE FROM ..." />
-            <marker date="1442045677691" expanded="true" signature="24293:24636" placeholder="UPDATE Reser..." />
-            <marker date="1442045677691" expanded="true" signature="26088:26196" placeholder="DELETE FROM ..." />
-            <marker date="1442045677691" expanded="true" signature="26360:26472" placeholder="DELETE FROM ..." />
-            <marker date="1442045677691" expanded="true" signature="26636:26732" placeholder="DELETE FROM ..." />
+            <marker date="1442049089944" expanded="true" signature="4198:4438" placeholder="SELECT f.id,..ReservableActivityBundle..." />
+            <marker date="1442049089944" expanded="true" signature="4702:4926" placeholder="SELECT s.sta..ReservableActivityBundle..." />
+            <marker date="1442049089944" expanded="true" signature="5750:6165" placeholder="UPDATE Reser..." />
+            <marker date="1442049089944" expanded="true" signature="6991:7110" placeholder="DELETE FROM ..." />
+            <marker date="1442049089944" expanded="true" signature="7567:7688" placeholder="DELETE FROM ..." />
+            <marker date="1442049089944" expanded="true" signature="9246:9402" placeholder="UPDATE Reser..." />
+            <marker date="1442049089944" expanded="true" signature="10304:10460" placeholder="UPDATE Reser..." />
+            <marker date="1442049089944" expanded="true" signature="12007:12187" placeholder="SELECT u.ema..ReservableActivityBundle..." />
+            <marker date="1442049089944" expanded="true" signature="13766:14069" placeholder="SELECT r.com..RagingsRatingBundle..." />
+            <marker date="1442049089944" expanded="true" signature="14285:14666" placeholder="SELECT r.ubi..RagingsRatingBundle..." />
+            <marker date="1442049089944" expanded="true" signature="21245:21395" placeholder="DELETE FROM ..." />
+            <marker date="1442049089944" expanded="true" signature="22016:22192" placeholder="SELECT ttf.t..ReservableActivityBundle..." />
+            <marker date="1442049089944" expanded="true" signature="23255:23360" placeholder="DELETE FROM ..." />
+            <marker date="1442049089944" expanded="true" signature="23524:23631" placeholder="DELETE FROM ..." />
+            <marker date="1442049089944" expanded="true" signature="23795:23895" placeholder="DELETE FROM ..." />
+            <marker date="1442049089944" expanded="true" signature="24340:24683" placeholder="UPDATE Reser..." />
+            <marker date="1442049089944" expanded="true" signature="26135:26243" placeholder="DELETE FROM ..." />
+            <marker date="1442049089944" expanded="true" signature="26407:26519" placeholder="DELETE FROM ..." />
+            <marker date="1442049089944" expanded="true" signature="26683:26779" placeholder="DELETE FROM ..." />
+            <marker date="1442049089944" expanded="true" signature="27876:28068" placeholder="UPDATE Reser..." />
           </folding>
         </state>
       </provider>

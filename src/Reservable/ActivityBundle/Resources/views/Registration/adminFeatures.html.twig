@@ -73,6 +73,57 @@
         </div><!-- /.modal -->
     </div>
 
+    <div class="modalAdd">
+    <div class="modal fade" id="modalAddType">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button aria-label="Close" data-dismiss="modal" class="close" type="button"><span aria-hidden="true">×</span></button>
+                    <h4 class="modal-title">{% trans %}Añadir caracteristica{% endtrans %}</h4>
+                </div>
+                <div class="modal-body">
+                    <div>{% trans %}Rellena el nombre de la característica a añadir{% endtrans %}</div>
+                    <div class="row">
+                        <div class="col-lg-2"></div>
+                        <div class="col-lg-8">
+                            <input type="text" name="nameType" id="nameType" placeholder="{% trans %}Nombre{% endtrans %}">
+                        </div>
+                        <div class="col-lg-2"></div>
+                    </div>
+                    <div class="modal-footer">
+                        <button data-dismiss="modal" class="btn btn-default pull-left" type="button">{% trans %}Cancelar{% endtrans %}</button>
+                        <button class="btn btn-success" type="button" id="addTypeButton" typeName="" typeModality="" typeIcon="">{% trans %}Aceptar{% endtrans %}</button>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+    </div>
+
+    <div class="modalModifyType">
+    <div class="modal fade" id="modalModifyType">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button aria-label="Close" data-dismiss="modal" class="close" type="button"><span aria-hidden="true">×</span></button>
+                    <h4 class="modal-title">{% trans %}Modificar caracteristica{% endtrans %}</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-lg-2"></div>
+                        <div class="col-lg-8">
+                            <input type="text" name="typeName" id="typeName" placeholder="{% trans %}Nombre{% endtrans %}">
+                        </div>
+                        <div class="col-lg-2"></div>
+                    </div>
+                    <div class="modal-footer">
+                        <button data-dismiss="modal" class="btn btn-default pull-left" type="button">{% trans %}Cancelar{% endtrans %}</button>
+                        <button class="btn btn-success" type="button" id="modifyTypeButton" typeId="" typeName="">{% trans %}Aceptar{% endtrans %}</button>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+    </div>
+
     <script>
 
         /* Eliminar */
@@ -97,6 +148,61 @@
                 success: function(response) {
                     console.log(response);
                     $("#" + response['idDelete']).detach();
+                }
+            });
+        });
+
+        /* Añadir */
+
+        $("#addType").click(function(){
+            $("#modalAddType").modal("show");
+        });
+        $("#addTypeButton").click(function(){
+            var typeName        = $('#nameType').val();
+            $("#modalAddType").modal("hide");
+            $.ajax({
+                url: '{{ path('add_admin_feature') }}',
+                data: { 'typeName':typeName },
+                type: "post",
+                success: function(response) {
+                    var html = '<tr class="pointerSelect" id="' + response['id'] + '">' +
+                            '<td></td>' +
+                            '<td>' + response['name'] + '</td>' +
+                            '<td style="color:green;" class="text-center modifyItem"><i class="fa fa-pencil"></i></td>' +
+                            '<td typename="' + response['name'] + '" typeid="' + response['id'] + '" style="color:red;" class="text-center deleteType"><i class="fa fa-minus-circle"></i></td>' +
+                            '</tr>';
+
+                    $("#typesTable tbody").append(html);
+                }
+            });
+        });
+
+        /* Modificar */
+
+        $(".modifyItem").click(function(){
+            var id          = $(this).attr('typeID');
+            var name        = $(this).attr('typeName');
+
+            $("#modifyTypeButton").attr('typeID', id);
+            $("#modifyTypeButton").attr('typeName', name);
+
+            $("#modalModifyType #typeName").val(name);
+            $("#modalModifyType").modal("show");
+        });
+        $("#modifyTypeButton").click(function(){
+
+            var typeId          = $("#modifyTypeButton").attr('typeID');
+            var typeIName       = $("#modalModifyType #typeName").val();
+
+            $("#modalModifyType").modal("hide");
+
+            $.ajax({
+                url: '{{ path('modify_admin_feature') }}',
+                data: { 'typeID': typeId, 'typeName': typeIName },
+                type: "post",
+                success: function(response) {
+                    console.log(response);
+                    $("#" + response['typeID'] + " .typeName").text(response['typeName']);
                 }
             });
         });

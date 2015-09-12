@@ -64,6 +64,22 @@ add_type:
     options:
         expose: true
 
+add_admin_feature:
+    path: /add-admin-feature
+    defaults: { _controller: ReservableActivityBundle:Admin:addAdminFeature }
+    requirements:
+        _method:  GET|POST
+    options:
+        expose: true
+
+modify_admin_feature:
+    path: /modif-admin-feature
+    defaults: { _controller: ReservableActivityBundle:Admin:modifAdminFeature }
+    requirements:
+        _method:  GET|POST
+    options:
+        expose: true
+
 admin_features:
     path: /admin-features
     defaults: { _controller: ReservableActivityBundle:Registration:adminFeatures }

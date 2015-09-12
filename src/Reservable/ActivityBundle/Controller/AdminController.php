@@ -4,6 +4,7 @@ namespace Reservable\ActivityBundle\Controller;
 
 use Reservable\ActivityBundle\Entity\TypeActivity;
 use Reservable\ActivityBundle\Entity\TypeToFeature;
+use Reservable\ActivityBundle\Entity\Features;
 use Reservable\ActivityBundle\Entity\ActivityyToType;
 use Reservable\ActivityBundle\Entity\ActivityToFeature;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -695,6 +696,46 @@ class AdminController extends Controller
                 ->getResult();
 
             return new JsonResponse(array('idDelete' => $_POST['typeID']));
+        }
+        else return new JsonResponse(array());
+    }
+
+    public function addAdminFeatureAction(){
+
+        if (isset($_POST['typeName'])) {
+
+            $newFeature = new Features();
+            $newFeature->setName($_POST['typeName']);
+
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($newFeature);
+            $em->flush();
+
+            $response = array();
+            $response['name'] = $_POST['typeName'];
+            $response['id'] = $this->getDoctrine()
+                ->getRepository('ReservableActivityBundle:Features')
+                ->getIdByName($_POST['typeName']);
+
+
+            return new JsonResponse($response);
+        }
+        else return new JsonResponse(array());
+
+    }
+
+    public function modifAdminFeatureAction(){
+
+        if (isset($_POST['typeName']) && isset($_POST['typeID'])) {
+
+            $resultQuery = $this->getDoctrine()
+                ->getManager()
+                ->createQuery("UPDATE  ReservableActivityBundle:Features ta
+                               SET   ta.name = '" . $_POST['typeName'] . "'
+                               WHERE ta.id = '" . $_POST['typeID'] . "'")
+                ->getResult();
+
+            return new JsonResponse(array('typeID' => $_POST['typeID'], 'typeName' => $_POST['typeName']));
         }
         else return new JsonResponse(array());
     }
