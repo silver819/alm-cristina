@@ -46,4 +46,63 @@ class DefaultController extends Controller
             'RagingsRatingBundle:Default:thanks.html.twig');
 
     }
+
+    public function statisticsAction(){
+
+        // Propiedades más reservados (por día y por hora)
+        $top5bookings = $this->getTop5Bookings();
+
+        // Alojamientos mejor valorados (por día y por hora)
+
+        // Clientes más activos
+
+
+        return $this->render(
+            'RagingsRatingBundle:Statistics:index.html.twig');
+
+    }
+
+    public function getTop5Bookings(){
+
+        $arrayReturn = array();
+
+        $results = $this->getDoctrine()
+                ->getManager()
+                ->createQuery('SELECT count(b.id) as numBookings, a.id, a.name, a.typeRent, a.ownerID
+                               FROM BookingsBookingBundle:Booking b
+                               INNER JOIN ReservableActivityBundle:Activity a
+                               WHERE b.activityID = a.id
+                               GROUP BY b.activityID
+                               ORDER BY numBookings DESC')
+                ->getResult();
+
+        //ldd($results);
+
+        if(!empty($results)){
+            foreach($results as $one){
+
+                if(!isset($arrayReturn[$one['typeRent']]) || count($arrayReturn[$one['typeRent']]) <= 5) {
+
+                    $ownerData = $this->getDoctrine()
+                        ->getRepository('UserUserBundle:Users')
+                        ->getUserByUserID($one['ownerID']);
+
+                    $aux = array();
+
+                    $aux['numBookins'] = $one['numBookings'];
+                    $aux['propertyId'] = $one['id'];
+                    $aux['propertyName'] = $one['name'];
+                    $aux['ownerEmail'] = $ownerData->getEmail();
+                    $aux['ownerName'] = $ownerData->getName();
+                    $aux['ownerSurname'] = $ownerData->getSurname();
+
+                    $arrayReturn[$one['typeRent']][] = $aux;
+                }
+            }
+        }
+
+        //ldd($arrayReturn);
+
+        return $arrayReturn;
+    }
 }

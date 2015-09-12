@@ -9,3 +9,7 @@ makeRating:
 register_questionaire:
     path:     /thanks-rating
     defaults: { _controller: RagingsRatingBundle:Default:saveQuestionaire }
+
+statistics:
+    path:     /statistics
+    defaults: { _controller: RagingsRatingBundle:Default:statistics }
