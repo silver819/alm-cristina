@@ -14,27 +14,29 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 
 class AdminController extends Controller
 {
-    public function viewDetailsAction($property, Request $request){
+    public function viewDetailsAction($property, Request $request)
+    {
 
         $result = $this->getDataLodging($property, $request);
 
         return $this->render('ReservableActivityBundle:Admin:adminDetailsProperty.html.twig',
             array(
-                'details'       => $result['details'],
-                'pictures'      => $result['arrayPictures'],
-                'type'          => $result['type'],
-                'features'      => $result['features'],
-                'comments'      => $result['comments'],
-                'ratings'       => $result['ratings'],
-                'totalRating'   => $result['totalRating'],
-                'chart'         => $result['ob'],
-                'seasons'       => $result['seasons'],
-                'map'           => $result['map']
+                'details' => $result['details'],
+                'pictures' => $result['arrayPictures'],
+                'type' => $result['type'],
+                'features' => $result['features'],
+                'comments' => $result['comments'],
+                'ratings' => $result['ratings'],
+                'totalRating' => $result['totalRating'],
+                'chart' => $result['ob'],
+                'seasons' => $result['seasons'],
+                'map' => $result['map']
             )
         );
     }
 
-    public function modifDetailsAction($property, Request $request){
+    public function modifDetailsAction($property, Request $request)
+    {
         $session = $request->getSession();
 
         $details = $this->getDoctrine()
@@ -42,7 +44,8 @@ class AdminController extends Controller
             ->findByPropertyID($property);
 
         // Mapa
-        $lat = $details->getLat();$lng = $details->getLng();
+        $lat = $details->getLat();
+        $lng = $details->getLng();
 
         $marker = $this->get('ivory_google_map.marker');
         $marker->setPosition($lat, $lng);
@@ -61,7 +64,7 @@ class AdminController extends Controller
             ->findAllByPropertyID($property);
 
         $arrayPictures = array();
-        foreach($pictures as $onePicture){
+        foreach ($pictures as $onePicture) {
             $arrayPictures[] = $onePicture['path'];
         }
 
@@ -74,9 +77,9 @@ class AdminController extends Controller
             ->getRepository('ReservableActivityBundle:ActivityyToType')
             ->getTypeSelected($property);
 
-        if($typeSelected){
-            foreach($types as $key => $oneType){
-                if($oneType['id'] == $typeSelected){
+        if ($typeSelected) {
+            foreach ($types as $key => $oneType) {
+                if ($oneType['id'] == $typeSelected) {
                     $types[$key]['selected'] = 1;
                 }
             }
@@ -84,16 +87,16 @@ class AdminController extends Controller
 
         // features
         $features = array();
-        if($typeSelected) {
+        if ($typeSelected) {
             $features = $this->getAllFeaturesByType($typeSelected);
 
             $featuresSelected = $this->getDoctrine()
                 ->getRepository('ReservableActivityBundle:ActivityToFeature')
                 ->getAllFeatures($details->getId());
 
-            if($featuresSelected){
-                foreach($features as $key => $oneFeature){
-                    if(in_array($oneFeature['id'], $featuresSelected)){
+            if ($featuresSelected) {
+                foreach ($features as $key => $oneFeature) {
+                    if (in_array($oneFeature['id'], $featuresSelected)) {
                         $features[$key]['selected'] = 1;
                     }
                 }
@@ -105,14 +108,15 @@ class AdminController extends Controller
 
         return $this->render('ReservableActivityBundle:Admin:modifDetailsProperty.html.twig',
             array('details' => $details,
-                'map'       => $map,
-                'pictures'  => $arrayPictures,
-                'types'     => $types,
-                'features'  => $features,
-                'seasons'   => $seasons));
+                'map' => $map,
+                'pictures' => $arrayPictures,
+                'types' => $types,
+                'features' => $features,
+                'seasons' => $seasons));
     }
 
-    private function getAllFeaturesByType($type){
+    private function getAllFeaturesByType($type)
+    {
         $features = $this->getDoctrine()
             ->getManager()
             ->createQuery("SELECT f.id, f.name
@@ -124,7 +128,8 @@ class AdminController extends Controller
         return $features;
     }
 
-    private function getAllSeasonsByPropertyId($propertyID){
+    private function getAllSeasonsByPropertyId($propertyID)
+    {
 
         $today = date('Ymd');
 
@@ -136,21 +141,22 @@ class AdminController extends Controller
                            AND s.endSeason > " . $today)
             ->getResult();
 
-        if(!empty($seasons)){
-            foreach($seasons as $key => $season){
+        if (!empty($seasons)) {
+            foreach ($seasons as $key => $season) {
                 $seasons[$key]['startSeason'] = substr($season['startSeason'], 6, 2) . '/' . substr($season['startSeason'], 4, 2) . '/' . substr($season['startSeason'], 0, 4);
-                $seasons[$key]['endSeason']   = substr($season['endSeason'], 6, 2) . '/' . substr($season['endSeason'], 4, 2) . '/' . substr($season['endSeason'], 0, 4);
+                $seasons[$key]['endSeason'] = substr($season['endSeason'], 6, 2) . '/' . substr($season['endSeason'], 4, 2) . '/' . substr($season['endSeason'], 0, 4);
             }
         }
 
         return $seasons;
     }
 
-    public function saveModifDetailsAction(Request $request){
+    public function saveModifDetailsAction(Request $request)
+    {
 
         $em = $this->getDoctrine()->getManager();
 
-        if($_POST['productID']){
+        if ($_POST['productID']) {
             // Información general
             $resultQuery = $this->getDoctrine()
                 ->getManager()
@@ -163,8 +169,8 @@ class AdminController extends Controller
                 ->getResult();
 
             // Temporadas
-            foreach($_POST['Seasons'] as $oneSeason){
-                if($oneSeason['From'] != '' && $oneSeason['To'] != '' && $oneSeason['Price'] != ''){
+            foreach ($_POST['Seasons'] as $oneSeason) {
+                if ($oneSeason['From'] != '' && $oneSeason['To'] != '' && $oneSeason['Price'] != '') {
                     $season = new Seasons();
                     $season->setActivityID($_POST['productID']);
                     $season->setStartSeason($this->FormatDate($oneSeason['From']));
@@ -176,7 +182,7 @@ class AdminController extends Controller
             }
 
             // Tipos y features
-            if(isset($_POST['type'])){
+            if (isset($_POST['type'])) {
                 $resultQuery = $this->getDoctrine()
                     ->getManager()
                     ->createQuery("DELETE FROM ReservableActivityBundle:ActivityyToType att
@@ -196,7 +202,7 @@ class AdminController extends Controller
                 ->createQuery("DELETE FROM ReservableActivityBundle:ActivityToFeature atf
                                        WHERE atf.activityID = " . $_POST['productID'])
                 ->getResult();
-            if(isset($_POST['feature']) && !empty($_POST['feature'])) {
+            if (isset($_POST['feature']) && !empty($_POST['feature'])) {
                 foreach ($_POST['feature'] as $oneFeature) {
                     $activityFeatureEquivalence = new ActivityToFeature();
                     $activityFeatureEquivalence->setActivityID($_POST['productID']);
@@ -213,23 +219,24 @@ class AdminController extends Controller
 
             return $this->render('ReservableActivityBundle:Admin:adminDetailsProperty.html.twig',
                 array(
-                    'details'       => $result['details'],
-                    'pictures'      => $result['arrayPictures'],
-                    'type'          => $result['type'],
-                    'features'      => $result['features'],
-                    'comments'      => $result['comments'],
-                    'ratings'       => $result['ratings'],
-                    'totalRating'   => $result['totalRating'],
-                    'chart'         => $result['ob'],
-                    'seasons'       => $result['seasons'],
-                    'map'           => $result['map']
+                    'details' => $result['details'],
+                    'pictures' => $result['arrayPictures'],
+                    'type' => $result['type'],
+                    'features' => $result['features'],
+                    'comments' => $result['comments'],
+                    'ratings' => $result['ratings'],
+                    'totalRating' => $result['totalRating'],
+                    'chart' => $result['ob'],
+                    'seasons' => $result['seasons'],
+                    'map' => $result['map']
                 )
             );
         }
     }
 
-    public function modifActiveAction($property){
-        if($property){
+    public function modifActiveAction($property)
+    {
+        if ($property) {
             $resultQuery = $this->getDoctrine()
                 ->getManager()
                 ->createQuery("UPDATE ReservableActivityBundle:Activity a
@@ -246,7 +253,7 @@ class AdminController extends Controller
                 ->findAllByPropertyID($property);
 
             $arrayPictures = array();
-            foreach($pictures as $onePicture){
+            foreach ($pictures as $onePicture) {
                 $arrayPictures[] = $onePicture['path'];
             }
 
@@ -255,8 +262,9 @@ class AdminController extends Controller
         }
     }
 
-    public function modifDeactiveAction($property){
-        if($property){
+    public function modifDeactiveAction($property)
+    {
+        if ($property) {
             $resultQuery = $this->getDoctrine()
                 ->getManager()
                 ->createQuery("UPDATE ReservableActivityBundle:Activity a
@@ -273,7 +281,7 @@ class AdminController extends Controller
                 ->findAllByPropertyID($property);
 
             $arrayPictures = array();
-            foreach($pictures as $onePicture){
+            foreach ($pictures as $onePicture) {
                 $arrayPictures[] = $onePicture['path'];
             }
 
@@ -282,11 +290,13 @@ class AdminController extends Controller
         }
     }
 
-    public function modifDeleteAction($property){
-        if($property){
-            if($this->getDoctrine()
+    public function modifDeleteAction($property)
+    {
+        if ($property) {
+            if ($this->getDoctrine()
                 ->getRepository('ReservableActivityBundle:Activity')
-                ->deleteProperty($property)){
+                ->deleteProperty($property)
+            ) {
 
                 $this->getDoctrine()
                     ->getRepository('ReservableActivityBundle:Picture')
@@ -294,7 +304,7 @@ class AdminController extends Controller
 
                 $allOwners = array();
 
-                if($this->get('security.context')->isGranted('ROLE_SUPER_ADMIN')){
+                if ($this->get('security.context')->isGranted('ROLE_SUPER_ADMIN')) {
 
                     $properties = $this->getDoctrine()
                         ->getRepository('ReservableActivityBundle:Activity')
@@ -309,12 +319,11 @@ class AdminController extends Controller
 										  GROUP BY u.id')
                         ->getResult();
 
-                    foreach($result as $oneResult){
+                    foreach ($result as $oneResult) {
                         $allOwners[$oneResult['id']]['email'] = $oneResult['email'];
                         $allOwners[$oneResult['id']]['ownerID'] = $oneResult['id'];
                     }
-                }
-                else{
+                } else {
                     $ownerID = $this->get('security.context')->getToken()->getUser()->getId();
 
                     $properties = $this->getDoctrine()
@@ -323,13 +332,13 @@ class AdminController extends Controller
                 }
 
                 $arrayPictures = array();
-                if(!empty($properties)){
-                    foreach($properties as $oneResult){
+                if (!empty($properties)) {
+                    foreach ($properties as $oneResult) {
                         $firstImage = $this->getDoctrine()
                             ->getRepository('ReservableActivityBundle:Picture')
                             ->findAllByPropertyID($oneResult->getId());
 
-                        if(!empty($firstImage[0]['path'])){
+                        if (!empty($firstImage[0]['path'])) {
                             $arrayPictures[$oneResult->getId()] = $firstImage[0]['path'];
                         }
                     }
@@ -342,7 +351,8 @@ class AdminController extends Controller
         }
     }
 
-    public function getComments($propertyID){
+    public function getComments($propertyID)
+    {
 
         $resultQuery = $this->getDoctrine()
             ->getManager()
@@ -356,7 +366,8 @@ class AdminController extends Controller
         return $resultQuery;
     }
 
-    public function getRatings($propertyID){
+    public function getRatings($propertyID)
+    {
 
         $resultQuery = $this->getDoctrine()
             ->getManager()
@@ -367,36 +378,43 @@ class AdminController extends Controller
                            AND r.comentarios != ''")
             ->getResult();
 
-        $mean   = array();
-        $mean['ubicacion']          = 0;
-        $mean['llegar']             = 0;
-        $mean['limpieza']           = 0;
-        $mean['material']           = 0;
-        $mean['caracteristicas']    = 0;
-        $mean['gestiones']          = 0;
-        $mean['usabilidad']         = 0;
-        $total  = 0;
-        $cont   = 0;
-        if(!empty($resultQuery)){
-            foreach($resultQuery as $oneResult){
-                $mean['ubicacion']          += $oneResult['ubicacion'];         $total += $oneResult['ubicacion'];
-                $mean['llegar']             += $oneResult['llegar'];            $total += $oneResult['llegar'];
-                $mean['limpieza']           += $oneResult['limpieza'];          $total += $oneResult['limpieza'];
-                $mean['material']           += $oneResult['material'];          $total += $oneResult['material'];
-                $mean['caracteristicas']    += $oneResult['caracteristicas'];   $total += $oneResult['caracteristicas'];
-                $mean['gestiones']          += $oneResult['gestiones'];         $total += $oneResult['gestiones'];
-                $mean['usabilidad']         += $oneResult['usabilidad'];        $total += $oneResult['usabilidad'];
+        $mean = array();
+        $mean['ubicacion'] = 0;
+        $mean['llegar'] = 0;
+        $mean['limpieza'] = 0;
+        $mean['material'] = 0;
+        $mean['caracteristicas'] = 0;
+        $mean['gestiones'] = 0;
+        $mean['usabilidad'] = 0;
+        $total = 0;
+        $cont = 0;
+        if (!empty($resultQuery)) {
+            foreach ($resultQuery as $oneResult) {
+                $mean['ubicacion'] += $oneResult['ubicacion'];
+                $total += $oneResult['ubicacion'];
+                $mean['llegar'] += $oneResult['llegar'];
+                $total += $oneResult['llegar'];
+                $mean['limpieza'] += $oneResult['limpieza'];
+                $total += $oneResult['limpieza'];
+                $mean['material'] += $oneResult['material'];
+                $total += $oneResult['material'];
+                $mean['caracteristicas'] += $oneResult['caracteristicas'];
+                $total += $oneResult['caracteristicas'];
+                $mean['gestiones'] += $oneResult['gestiones'];
+                $total += $oneResult['gestiones'];
+                $mean['usabilidad'] += $oneResult['usabilidad'];
+                $total += $oneResult['usabilidad'];
 
                 $cont++;
             }
 
-            $mean['ubicacion']          = $mean['ubicacion'] / $cont;
-            $mean['llegar']             = $mean['llegar'] / $cont;
-            $mean['limpieza']           = $mean['limpieza'] / $cont;
-            $mean['material']           = $mean['material'] / $cont;
-            $mean['caracteristicas']    = $mean['caracteristicas'] / $cont;
-            $mean['gestiones']          = $mean['gestiones'] / $cont;
-            $mean['usabilidad']         = $mean['usabilidad'] / $cont;
+            $mean['ubicacion'] = $mean['ubicacion'] / $cont;
+            $mean['llegar'] = $mean['llegar'] / $cont;
+            $mean['limpieza'] = $mean['limpieza'] / $cont;
+            $mean['material'] = $mean['material'] / $cont;
+            $mean['caracteristicas'] = $mean['caracteristicas'] / $cont;
+            $mean['gestiones'] = $mean['gestiones'] / $cont;
+            $mean['usabilidad'] = $mean['usabilidad'] / $cont;
 
             $total = $total / ($cont * count($mean));
         }
@@ -404,7 +422,8 @@ class AdminController extends Controller
         return array('ratings' => $mean, 'totalScore' => $total);
     }
 
-    private function getDataLodging($property, Request $request){
+    private function getDataLodging($property, Request $request)
+    {
         $session = $request->getSession();
 
         $details = $this->getDoctrine()
@@ -412,7 +431,8 @@ class AdminController extends Controller
             ->findByPropertyID($property);
 
         // Mapa
-        $lat = $details->getLat();$lng = $details->getLng();
+        $lat = $details->getLat();
+        $lng = $details->getLng();
 
         $marker = $this->get('ivory_google_map.marker');
         $marker->setPosition($lat, $lng);
@@ -431,12 +451,11 @@ class AdminController extends Controller
             ->findAllByPropertyID($property);
 
         $arrayPictures = array();
-        if(!empty($pictures)) {
+        if (!empty($pictures)) {
             foreach ($pictures as $onePicture) {
                 $arrayPictures[] = $onePicture['path'];
             }
-        }
-        else{
+        } else {
             $arrayPictures[] = 'no-photo.jpg';
         }
 
@@ -450,9 +469,9 @@ class AdminController extends Controller
             ->getTypeSelected($property);
 
         $type = '';
-        if($typeSelected){
-            foreach($types as $key => $oneType){
-                if($oneType['id'] == $typeSelected){
+        if ($typeSelected) {
+            foreach ($types as $key => $oneType) {
+                if ($oneType['id'] == $typeSelected) {
                     $type = $oneType['name'];
                 }
             }
@@ -460,16 +479,16 @@ class AdminController extends Controller
 
         // features
         $features = array();
-        if($typeSelected) {
+        if ($typeSelected) {
             $features = $this->getAllFeaturesByType($typeSelected);
 
             $featuresSelected = $this->getDoctrine()
                 ->getRepository('ReservableActivityBundle:ActivityToFeature')
                 ->getAllFeatures($details->getId());
 
-            if($featuresSelected){
-                foreach($features as $key => $oneFeature){
-                    if(in_array($oneFeature['id'], $featuresSelected)){
+            if ($featuresSelected) {
+                foreach ($features as $key => $oneFeature) {
+                    if (in_array($oneFeature['id'], $featuresSelected)) {
                         $features[$key]['selected'] = 1;
                     }
                 }
@@ -480,21 +499,21 @@ class AdminController extends Controller
         $seasons = $this->getAllSeasonsByPropertyId($property);
 
         // Comentarios y valoraciones
-        $comments       = $this->getComments($property);
-        $resultRatings  = $this->getRatings($property);
-        $ratings        = $resultRatings['ratings'];
-        $totalRating    = $resultRatings['totalScore'];
+        $comments = $this->getComments($property);
+        $resultRatings = $this->getRatings($property);
+        $ratings = $resultRatings['ratings'];
+        $totalRating = $resultRatings['totalScore'];
 
         // Chart
         $categories = array('Ubicación', 'Cómo llegar', 'Limpieza', 'Material', 'Características', 'Gestiones', 'Usabilidad');
         $data = array(
-            array('Ubicación',                                      $ratings['ubicacion']),
-            array('Cómo llegar',                                    $ratings['llegar']),
-            array('Limpieza',                                       $ratings['limpieza']),
-            array('Material proporcionado',                         $ratings['material']),
-            array('Características coindicen con las anunciadas',   $ratings['caracteristicas']),
-            array('Gestiones',                                      $ratings['gestiones']),
-            array('Usabilidad',                                     $ratings['usabilidad']),
+            array('Ubicación', $ratings['ubicacion']),
+            array('Cómo llegar', $ratings['llegar']),
+            array('Limpieza', $ratings['limpieza']),
+            array('Material proporcionado', $ratings['material']),
+            array('Características coindicen con las anunciadas', $ratings['caracteristicas']),
+            array('Gestiones', $ratings['gestiones']),
+            array('Usabilidad', $ratings['usabilidad']),
         );
 
         $ob = new Highchart();
@@ -502,65 +521,67 @@ class AdminController extends Controller
         $ob->chart->type('column');
         $ob->title->text('Resultados de la encuesta sobre 5 puntos');
         $ob->plotOptions->pie(array(
-            'allowPointSelect'  => true,
-            'cursor'            => 'pointer',
-            'dataLabels'        => array('enabled' => false),
-            'showInLegend'      => true
+            'allowPointSelect' => true,
+            'cursor' => 'pointer',
+            'dataLabels' => array('enabled' => false),
+            'showInLegend' => true
         ));
         $ob->xAxis->categories($categories);
-        $ob->series(array(array('type' => 'column','name' => 'Valoración media', 'data' => $data)));
+        $ob->series(array(array('type' => 'column', 'name' => 'Valoración media', 'data' => $data)));
 
         // Preparamos resultados para devolver
         $result = array();
-        $result['details']          = $details;
-        $result['arrayPictures']    = $arrayPictures;
-        $result['type']             = $type;
-        $result['features']         = $features;
-        $result['comments']         = $comments;
-        $result['ratings']          = $ratings;
-        $result['totalRating']      = $totalRating;
-        $result['ob']               = $ob;
-        $result['seasons']          = $seasons;
-        $result['map']              = $map;
+        $result['details'] = $details;
+        $result['arrayPictures'] = $arrayPictures;
+        $result['type'] = $type;
+        $result['features'] = $features;
+        $result['comments'] = $comments;
+        $result['ratings'] = $ratings;
+        $result['totalRating'] = $totalRating;
+        $result['ob'] = $ob;
+        $result['seasons'] = $seasons;
+        $result['map'] = $map;
 
         return $result;
     }
 
-    private function FormatDate($dateString){
+    private function FormatDate($dateString)
+    {
 
         list($day, $month, $year) = explode('/', $dateString);
         return $year . $month . $day;
     }
 
-    public function deleteFeatureAction(){
+    public function deleteFeatureAction()
+    {
 
-        if(isset($_POST['typeID']) && isset($_POST['featureID'])) {
+        if (isset($_POST['typeID']) && isset($_POST['featureID'])) {
             $resultQuery = $this->getDoctrine()
                 ->getManager()
                 ->createQuery("DELETE FROM ReservableActivityBundle:TypeToFeature ttf
                                WHERE ttf.typeID = " . $_POST['typeID'] . " AND ttf.featureID = " . $_POST['featureID'])
                 ->getResult();
 
-            return new JsonResponse(array('idDelete'=> "typeFeature-" .$_POST['typeID'] . "-" . $_POST['featureID']));
-        }
-        else return new JsonResponse(array());
+            return new JsonResponse(array('idDelete' => "typeFeature-" . $_POST['typeID'] . "-" . $_POST['featureID']));
+        } else return new JsonResponse(array());
     }
 
-    public function addFeatureAction(){
+    public function addFeatureAction()
+    {
 
         /*$_POST['typeID'] = 2;
         $_POST['featureID'] = 6;
         $_POST['featureName'] = 'nombre feature';
         $_POST['typeName'] = 'nombre tipo';*/
 
-        if(isset($_POST['typeID']) && isset($_POST['featureID'])) {
+        if (isset($_POST['typeID']) && isset($_POST['featureID'])) {
             $resultQuery = $this->getDoctrine()
                 ->getManager()
                 ->createQuery("SELECT ttf.typeID, ttf.featureID FROM ReservableActivityBundle:TypeToFeature ttf
                                WHERE ttf.typeID = " . $_POST['typeID'] . " AND ttf.featureID = " . $_POST['featureID'])
                 ->getResult();
 
-            if(empty($resultQuery)){
+            if (empty($resultQuery)) {
                 $typeToFeature = new TypeToFeature();
                 $typeToFeature->setTypeID($_POST['typeID']);
                 $typeToFeature->setFeatureID($_POST['featureID']);
@@ -571,22 +592,21 @@ class AdminController extends Controller
 
                 return new JsonResponse(
                     array(
-                        'typeID'=> $_POST['typeID'],
+                        'typeID' => $_POST['typeID'],
                         'featureID' => $_POST['featureID'],
                         'featureName' => $_POST['featureName'],
                         'typeName' => $_POST['typeName']
                     )
                 );
-            }
-        else return new JsonResponse(array());
+            } else return new JsonResponse(array());
 
-        }
-        else return new JsonResponse(array());
+        } else return new JsonResponse(array());
     }
 
-    public function deleteTypeAction(){
+    public function deleteTypeAction()
+    {
 
-        if(isset($_POST['typeID'])) {
+        if (isset($_POST['typeID'])) {
             $resultQuery = $this->getDoctrine()
                 ->getManager()
                 ->createQuery("DELETE FROM ReservableActivityBundle:TypeToFeature ttf
@@ -605,14 +625,14 @@ class AdminController extends Controller
                                WHERE ttf.id = " . $_POST['typeID'])
                 ->getResult();
 
-            return new JsonResponse(array('idDelete'=> $_POST['typeID'] ));
-        }
-        else return new JsonResponse(array());
+            return new JsonResponse(array('idDelete' => $_POST['typeID']));
+        } else return new JsonResponse(array());
     }
 
-    public function modifyTypeAction(){
+    public function modifyTypeAction()
+    {
 
-        if(isset($_POST['typeID']) && isset($_POST['typeIName']) && isset($_POST['typeModality'])) {
+        if (isset($_POST['typeID']) && isset($_POST['typeIName']) && isset($_POST['typeModality'])) {
 
             $resultQuery = $this->getDoctrine()
                 ->getManager()
@@ -623,14 +643,14 @@ class AdminController extends Controller
                                WHERE ta.id = '" . $_POST['typeID'] . "'")
                 ->getResult();
 
-            return new JsonResponse(array('typeID'=> $_POST['typeID'],  'typeName' => $_POST['typeIName'],  'typeModality' => $_POST['typeModality'],  'typeIcon' => $_POST['typeIcon']));
-        }
-        else return new JsonResponse(array());
+            return new JsonResponse(array('typeID' => $_POST['typeID'], 'typeName' => $_POST['typeIName'], 'typeModality' => $_POST['typeModality'], 'typeIcon' => $_POST['typeIcon']));
+        } else return new JsonResponse(array());
     }
 
-    public function addTypeAction(){
+    public function addTypeAction()
+    {
 
-        if(isset($_POST['typeName']) && isset($_POST['typeModality']) && isset($_POST['typeIcon']) && $_POST['typeName'] != '' && $_POST['typeModality'] != 'null'){
+        if (isset($_POST['typeName']) && isset($_POST['typeModality']) && isset($_POST['typeIcon']) && $_POST['typeName'] != '' && $_POST['typeModality'] != 'null') {
 
             $newType = new TypeActivity();
             $newType->setName($_POST['typeName']);
@@ -642,12 +662,39 @@ class AdminController extends Controller
             $em->flush();
 
             $response = array();
-            $response['name']       = $_POST['typeName'];
-            $response['modality']   = $_POST['typeModality'];
-            $response['icon']       = $_POST['typeIcon'];
-            $response['id']         = $this->getDoctrine()->getRepository('ReservableActivityBundle:TypeActivity')->getIdByName($_POST['typeName']);
+            $response['name'] = $_POST['typeName'];
+            $response['modality'] = $_POST['typeModality'];
+            $response['icon'] = $_POST['typeIcon'];
+            $response['id'] = $this->getDoctrine()->getRepository('ReservableActivityBundle:TypeActivity')->getIdByName($_POST['typeName']);
 
             return new JsonResponse($response);
+        } else return new JsonResponse(array());
+    }
+
+    public function deleteAdminFeatureAction()
+    {
+
+        if (isset($_POST['typeID'])) {
+
+            $resultQuery = $this->getDoctrine()
+                ->getManager()
+                ->createQuery("DELETE FROM ReservableActivityBundle:TypeToFeature ttf
+                               WHERE ttf.featureID = " . $_POST['typeID'])
+                ->getResult();
+
+            $resultQuery = $this->getDoctrine()
+                ->getManager()
+                ->createQuery("DELETE FROM ReservableActivityBundle:ActivityToFeature ttf
+                               WHERE ttf.featureID = " . $_POST['typeID'])
+                ->getResult();
+
+            $resultQuery = $this->getDoctrine()
+                ->getManager()
+                ->createQuery("DELETE FROM ReservableActivityBundle:Features ttf
+                               WHERE ttf.id = " . $_POST['typeID'])
+                ->getResult();
+
+            return new JsonResponse(array('idDelete' => $_POST['typeID']));
         }
         else return new JsonResponse(array());
     }

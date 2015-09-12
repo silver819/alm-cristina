@@ -145,8 +145,13 @@ class RegistrationController extends Controller
 
     public function adminFeaturesAction(){
 
+        // features
+        $allFeatures = $this->getDoctrine()
+            ->getRepository('ReservableActivityBundle:Features')
+            ->getAllFeatures();
+
         return $this->render('ReservableActivityBundle:Registration:adminFeatures.html.twig',
-            array()
+            array('features' => $allFeatures)
         );
     }
 }

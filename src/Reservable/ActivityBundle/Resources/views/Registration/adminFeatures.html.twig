@@ -6,6 +6,101 @@
 
 {% block page_content %}
 
+    <style>
+        .deleteType:hover, .modifyItem:hover{
+            font-size: 1.5em;
+            cursor:pointer;
+        }
+        #addType, #showHour, #showDay, #showAll{
+            cursor:pointer;
+        }
+    </style>
 
+    <div class="row">
+        {# Left col #}
+        <section class="col-lg-12 connectedSortable ui-sortable">
+            {# Tabla tipos #}
+            <div class="box">
+                <div class="box-header">
+                    <h3 class="box-title">{% trans %}Características{% endtrans %}</h3>
+                    <div class="box-tools pull-right">
+                        <span class="label label-success" id="addType"><i class="fa fa-plus"></i>{% trans %} Nuevo{% endtrans %}</span>
+                    </div>
+                </div><!-- /.box-header -->
+                <div class="box-body table-responsive no-padding">
+                    <table class="table" id="typesTable">
+                        <tbody><tr>
+                            <th></th>
+                            <th>{% trans %}Característica{% endtrans %}</th>
+                            <th class="text-center">{% trans %}Modificar{% endtrans %}</th>
+                            <th class="text-center">{% trans %}Eliminar{% endtrans %}</th>
+                        </tr>
+                        {% for feature in features %}
+                            <tr id="{{ feature.id }}">
+                                <td></td>
+                                <td class="typeName">{{ feature.name }}</td>
+                                <td class="text-center modifyItem" typeID="{{ feature.id }}" typeName="{{ feature.name }}" style="color:green;"><i class="fa fa-pencil"></i></td>
+                                <td class="text-center deleteType" style="color:red;" typeID="{{ feature.id }}" typeName="{{ feature.name }}"><i class="fa fa-minus-circle"></i></td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div><!-- /.box-body -->
+            </div><!-- /.box -->
+        </section>
+        {# Left col #}
+    </div>
+
+    {# MODALES #}
+
+    <div class="modalDelete">
+    <div class="modal fade" id="modalDeleteType">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button aria-label="Close" data-dismiss="modal" class="close" type="button"><span aria-hidden="true">×</span></button>
+                    <h4 class="modal-title">{% trans %}Eliminar característica{% endtrans %}</h4>
+                </div>
+                <div class="modal-body">
+                    <p>{% trans %}Se va a eliminar la característica {% endtrans %} "<span id="typeName"></span>"
+                    <p>{% trans %}NOTA: Si elimina esta característica, también se eliminarán todas las asociaciones con los tipos que tenga esta característica y propiedades{% endtrans %}</p>
+                    <div class="modal-footer">
+                        <button data-dismiss="modal" class="btn btn-default pull-left" type="button">{% trans %}Cancelar{% endtrans %}</button>
+                        <button class="btn btn-success" type="button" id="deleteType" typeID="" >{% trans %}Aceptar{% endtrans %}</button>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+    </div>
+
+    <script>
+
+        /* Eliminar */
+
+        $(".deleteType").click(function(e){
+
+            e.preventDefault();
+
+            var typeId      = $(this).attr('typeID');
+            var typeName    = $(this).attr('typeName');
+            $("#modalDeleteType #typeName").html(typeName);
+            $("#modalDeleteType #deleteType").attr('typeID', typeId);
+            $("#modalDeleteType").modal("show");
+        });
+        $("#deleteType").click(function(){
+            var typeId      = $(this).attr('typeID');
+            $("#modalDeleteType").modal("hide");
+            $.ajax({
+                url: '{{ path('delete_admin_feature') }}',
+                data: { 'typeID': typeId },
+                type: "post",
+                success: function(response) {
+                    console.log(response);
+                    $("#" + response['idDelete']).detach();
+                }
+            });
+        });
+
+    </script>
 
 {% endblock %}
