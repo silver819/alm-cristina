@@ -5,5 +5,74 @@
 {% endblock %}
 
 {% block page_content %}
+    <section class="content">
 
+        <div class="row">
+
+            {# Info boxes #}
+            <div class="row">
+                <div class="col-md-3 col-sm-6 col-xs-12">
+                    <div class="info-box">
+                        <span class="info-box-icon bg-aqua"><i class="fa fa-envelope-o"></i></span>
+                        <div class="info-box-content">
+                            <span class="info-box-text">{% trans %}Tipo{% endtrans %}</span>
+                            <span class="info-box-number">{{ type }}</span>
+                        </div><!-- /.info-box-content -->
+                    </div><!-- /.info-box -->
+                </div><!-- /.col -->
+                <div class="col-md-3 col-sm-6 col-xs-12">
+                    <div class="info-box">
+                        <span class="info-box-icon bg-green"><i class="fa fa-flag-o"></i></span>
+                        <div class="info-box-content">
+                            <span class="info-box-text">Modalidad</span>
+                            <span class="info-box-number">{% if fetails.typeRent == 'day' %}{% trans %}Por día{% endtrans %}{% else %}{% trans %}Por hora{% endtrans %}{% endif %}</span>
+                        </div><!-- /.info-box-content -->
+                    </div><!-- /.info-box -->
+                </div><!-- /.col -->
+                <div class="col-md-3 col-sm-6 col-xs-12">
+                    <div class="info-box">
+                        <span class="info-box-icon bg-yellow"><i class="fa fa-comment"></i></span>
+                        <div class="info-box-content">
+                            <span class="info-box-text">Comentarios</span>
+                            <span class="info-box-number">{{ comments | length }}</span>
+                        </div><!-- /.info-box-content -->
+                    </div><!-- /.info-box -->
+                </div><!-- /.col -->
+                <div class="col-md-3 col-sm-6 col-xs-12">
+                    <div class="info-box">
+                        <span class="info-box-icon bg-red"><i class="fa fa-star-o"></i></span>
+                        <div class="info-box-content">
+                            <span class="info-box-text">Valoración</span>
+                            <span class="info-box-number">{{ totalRating }}</span>
+                        </div><!-- /.info-box-content -->
+                    </div><!-- /.info-box -->
+                </div><!-- /.col -->
+            </div>
+
+            <section class="col-lg-6 connectedSortable ui-sortable">
+                {# Valoracion #}
+                <div class="box box-success">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">{% trans %}Top 5 propiedades más reservadas{% endtrans %}</h3>
+                        <div class="box-tools pull-right">
+                            <button data-widget="collapse" class="btn btn-box-tool"><i class="fa fa-minus"></i></button>
+                            <button data-widget="remove" class="btn btn-box-tool"><i class="fa fa-times"></i></button>
+                        </div>
+                    </div>
+                    <div class="box-body">
+                        <div class="chart">
+                            <div id="top5dailyBookingsProperties" style="min-width: 400px; height: 400px; margin: 0 auto"></div>
+                        </div>
+                    </div><!-- /.box-body -->
+                </div>
+            </section><!-- /.Left col -->
+
+            <!-- right col (We are only adding the ID to make the widgets sortable)-->
+            <section class="col-lg-6 connectedSortable ui-sortable">
+
+
+            </section><!-- right col -->
+
+        </div><!-- /.row (main row) -->
+    </section>
 {% endblock %}

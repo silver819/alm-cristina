@@ -5,6 +5,7 @@ namespace Ragings\RatingBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Ragings\RatingBundle\Entity\Rating;
+use Ob\HighchartsBundle\Highcharts\Highchart;
 
 class DefaultController extends Controller
 {
@@ -49,16 +50,41 @@ class DefaultController extends Controller
 
     public function statisticsAction(){
 
-        // Propiedades más reservados (por día y por hora)
+        ## Propiedades más reservados (por día y por hora)
         $top5bookings = $this->getTop5Bookings();
+        //ldd($top5bookings);
 
-        // Alojamientos mejor valorados (por día y por hora)
+        // Chart
+        $pieOptions = array(
+            'allowPointSelect'  => true,
+            'cursor'    => 'pointer',
+            'dataLabels'    => array('enabled' => false),
+            'showInLegend'  => true
+        );
 
-        // Clientes más activos
+        $ob1 = new Highchart();
+        $ob1->chart->renderTo('top5dailyBookingsProperties');
+        $ob1->title->text('Top 5 propiedades más reservadas por hora');
+        $ob1->plotOptions->pie($pieOptions);
+        $data = array();
+        foreach($top5bookings['day'] as $property){
+            $data[] = array(
+                $property['propertyName'] . ', ' . $property['ownerName'] . ' ' . $property['ownerSurname'] . ' (' . $property['ownerEmail'] . ' )',
+                (int)$property['numBookings']);
+        }
+
+        $ob1->series(array(array('type' => 'pie','name' => 'Reservas', 'data' => $data)));
+
+        ## Alojamientos mejor valorados (por día y por hora)
+
+        ## Clientes más activos
 
 
         return $this->render(
-            'RagingsRatingBundle:Statistics:index.html.twig');
+            'RagingsRatingBundle:Statistics:index.html.twig',
+            array(
+                'chart' => $ob1
+            ));
 
     }
 
@@ -89,12 +115,12 @@ class DefaultController extends Controller
 
                     $aux = array();
 
-                    $aux['numBookins'] = $one['numBookings'];
-                    $aux['propertyId'] = $one['id'];
-                    $aux['propertyName'] = $one['name'];
-                    $aux['ownerEmail'] = $ownerData->getEmail();
-                    $aux['ownerName'] = $ownerData->getName();
-                    $aux['ownerSurname'] = $ownerData->getSurname();
+                    $aux['numBookings']     = $one['numBookings'];
+                    $aux['propertyId']      = $one['id'];
+                    $aux['propertyName']    = $one['name'];
+                    $aux['ownerEmail']      = $ownerData->getEmail();
+                    $aux['ownerName']       = $ownerData->getName();
+                    $aux['ownerSurname']    = $ownerData->getSurname();
 
                     $arrayReturn[$one['typeRent']][] = $aux;
                 }
