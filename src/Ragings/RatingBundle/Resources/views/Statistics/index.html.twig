@@ -7,6 +7,11 @@
 {% block page_content %}
     <section class="content">
 
+        <script type="text/javascript">
+            {{ chart(chartTop5hourlyBooked) }}
+            {{ chart(chartTop5dailyBooked) }}
+        </script>
+
         <div class="row">
 
             {# Info boxes #}
@@ -49,7 +54,7 @@
                 </div><!-- /.col -->
             </div>
 
-            <section class="col-lg-6 connectedSortable ui-sortable">
+            <section class="col-lg-12 connectedSortable ui-sortable">
                 {# Valoracion #}
                 <div class="box box-success">
                     <div class="box-header with-border">
@@ -59,12 +64,27 @@
                             <button data-widget="remove" class="btn btn-box-tool"><i class="fa fa-times"></i></button>
                         </div>
                     </div>
+
                     <div class="box-body">
-                        <div class="chart">
-                            <div id="top5dailyBookingsProperties" style="min-width: 400px; height: 400px; margin: 0 auto"></div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="chart">
+                                    <div id="top5hourlyBookingsProperties" style="min-width: 400px; height: 400px; margin: 0 auto"></div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="chart">
+                                    <div id="top5dailyBookingsProperties" style="min-width: 400px; height: 400px; margin: 0 auto"></div>
+                                </div>
+                            </div>
                         </div>
                     </div><!-- /.box-body -->
                 </div>
+            </section><!-- /.Left col -->
+
+            <section class="col-lg-6 connectedSortable ui-sortable">
+
             </section><!-- /.Left col -->
 
             <!-- right col (We are only adding the ID to make the widgets sortable)-->

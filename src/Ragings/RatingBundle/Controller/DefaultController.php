@@ -57,23 +57,37 @@ class DefaultController extends Controller
         // Chart
         $pieOptions = array(
             'allowPointSelect'  => true,
-            'cursor'    => 'pointer',
-            'dataLabels'    => array('enabled' => false),
-            'showInLegend'  => true
+            'cursor'            => 'pointer',
+            'dataLabels'        => array('enabled' => false),
+            'showInLegend'      => true
         );
 
-        $ob1 = new Highchart();
-        $ob1->chart->renderTo('top5dailyBookingsProperties');
-        $ob1->title->text('Top 5 propiedades más reservadas por hora');
-        $ob1->plotOptions->pie($pieOptions);
-        $data = array();
-        foreach($top5bookings['day'] as $property){
-            $data[] = array(
+        $chartTop5hourlyBooked = new Highchart();
+        $chartTop5hourlyBooked->chart->renderTo('top5hourlyBookingsProperties');
+        $chartTop5hourlyBooked->title->text('Por hora');
+        $chartTop5hourlyBooked->plotOptions->pie($pieOptions);
+
+        $chartTop5dailyBooked = new Highchart();
+        $chartTop5dailyBooked->chart->renderTo('top5dailyBookingsProperties');
+        $chartTop5dailyBooked->title->text('Por día');
+        $chartTop5dailyBooked->plotOptions->pie($pieOptions);
+
+        $data1 = array();
+        foreach($top5bookings['hour'] as $property){
+            $data1[] = array(
                 $property['propertyName'] . ', ' . $property['ownerName'] . ' ' . $property['ownerSurname'] . ' (' . $property['ownerEmail'] . ' )',
                 (int)$property['numBookings']);
         }
 
-        $ob1->series(array(array('type' => 'pie','name' => 'Reservas', 'data' => $data)));
+        $data2 = array();
+        foreach($top5bookings['day'] as $property){
+            $data2[] = array(
+                $property['propertyName'] . ', ' . $property['ownerName'] . ' ' . $property['ownerSurname'] . ' (' . $property['ownerEmail'] . ' )',
+                (int)$property['numBookings']);
+        }
+
+        $chartTop5hourlyBooked->series(array(array('type' => 'pie','name' => 'Reservas', 'data' => $data1)));
+        $chartTop5dailyBooked->series(array(array('type' => 'pie','name' => 'Reservas', 'data' => $data2)));
 
         ## Alojamientos mejor valorados (por día y por hora)
 
@@ -83,7 +97,8 @@ class DefaultController extends Controller
         return $this->render(
             'RagingsRatingBundle:Statistics:index.html.twig',
             array(
-                'chart' => $ob1
+                'chartTop5hourlyBooked' => $chartTop5hourlyBooked,
+                'chartTop5dailyBooked'  => $chartTop5dailyBooked
             ));
 
     }
