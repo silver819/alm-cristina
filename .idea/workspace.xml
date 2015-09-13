@@ -28,40 +28,34 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="DefaultController.php" pinned="false" current-in-tab="false">
+      <file leaf-file-name="DefaultController.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Ragings/RatingBundle/Controller/DefaultController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-18.222221" vertical-offset="1686" max-vertical-offset="3978">
-              <caret line="121" column="65" selection-start-line="121" selection-start-column="65" selection-end-line="121" selection-end-column="65" />
+            <state vertical-scroll-proportion="0.63728815" vertical-offset="1892" max-vertical-offset="5220">
+              <caret line="126" column="0" selection-start-line="126" selection-start-column="0" selection-end-line="126" selection-end-column="0" />
               <folding>
                 <element signature="e#51#108#0#PHP" expanded="true" />
-                <marker date="1442137993229" expanded="true" signature="5850:6233" placeholder="SELECT count..BookingsBookingBundle..." />
-                <marker date="1442137993229" expanded="true" signature="7429:8111" placeholder="SELECT count..RagingsRatingBundle..." />
+                <marker date="1442140692338" expanded="true" signature="7872:8255" placeholder="SELECT count..BookingsBookingBundle..." />
+                <marker date="1442140692338" expanded="true" signature="9452:10134" placeholder="SELECT count..RagingsRatingBundle..." />
+                <marker date="1442140692338" expanded="true" signature="11350:11591" placeholder="SELECT count..BookingsBookingBundle..." />
+                <marker date="1442140692338" expanded="true" signature="11350:11715" placeholder="SELECT count..BookingsBookingBundle..." />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ActivityRepository.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Reservable/ActivityBundle/Entity/ActivityRepository.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-6.6666665" vertical-offset="1188" max-vertical-offset="2106">
-              <caret line="76" column="29" selection-start-line="76" selection-start-column="13" selection-end-line="76" selection-end-column="29" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="index.html.twig" pinned="false" current-in-tab="true">
+      <file leaf-file-name="index.html.twig" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Ragings/RatingBundle/Resources/views/Statistics/index.html.twig">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.14563107" vertical-offset="270" max-vertical-offset="1710">
-              <caret line="20" column="43" selection-start-line="20" selection-start-column="43" selection-end-line="20" selection-end-column="43" />
+            <state vertical-scroll-proportion="-18.222221" vertical-offset="1218" max-vertical-offset="2214">
+              <caret line="95" column="62" selection-start-line="95" selection-start-column="62" selection-end-line="95" selection-end-column="62" />
               <folding>
                 <element signature="n#style#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#1;n#div#0;n#section#0;n#div#0;n#section#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#div#0;n#div#0;n#div#1;n#div#0;n#div#1;n#div#0;n#section#0;n#div#0;n#section#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#1;n#div#1;n#section#0;n#div#0;n#section#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#div#0;n#div#0;n#div#1;n#div#0;n#div#1;n#div#1;n#section#0;n#div#0;n#section#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#1;n#div#2;n#section#0;n#div#0;n#section#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#div#0;n#div#0;n#div#1;n#div#0;n#div#1;n#div#2;n#section#0;n#div#0;n#section#0;n#!!top" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -134,8 +128,8 @@
         <option value="$PROJECT_DIR$/src/Reservable/ActivityBundle/Controller/AdminController.php" />
         <option value="$PROJECT_DIR$/src/Admin/AdminBundle/EventListener/SidebarNavigation.php" />
         <option value="$PROJECT_DIR$/src/Ragings/RatingBundle/Resources/config/routing.yml" />
-        <option value="$PROJECT_DIR$/src/Ragings/RatingBundle/Controller/DefaultController.php" />
         <option value="$PROJECT_DIR$/src/Ragings/RatingBundle/Resources/views/Statistics/index.html.twig" />
+        <option value="$PROJECT_DIR$/src/Ragings/RatingBundle/Controller/DefaultController.php" />
       </list>
     </option>
   </component>
@@ -1161,14 +1155,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Reservable/ActivityBundle/Entity/ActivityRepository.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-6.6666665" vertical-offset="1188" max-vertical-offset="2106">
-          <caret line="76" column="29" selection-start-line="76" selection-start-column="13" selection-end-line="76" selection-end-column="29" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Reservable/ActivityBundle/Controller/AdminController.php">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-4.8727274" vertical-offset="9128" max-vertical-offset="13464">
@@ -1179,27 +1165,39 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Ragings/RatingBundle/Controller/DefaultController.php">
+    <entry file="file://$PROJECT_DIR$/src/Reservable/ActivityBundle/Entity/ActivityRepository.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-18.222221" vertical-offset="1686" max-vertical-offset="3978">
-          <caret line="121" column="65" selection-start-line="121" selection-start-column="65" selection-end-line="121" selection-end-column="65" />
-          <folding>
-            <element signature="e#51#108#0#PHP" expanded="true" />
-            <marker date="1442137993229" expanded="true" signature="5850:6233" placeholder="SELECT count..BookingsBookingBundle..." />
-            <marker date="1442137993229" expanded="true" signature="7429:8111" placeholder="SELECT count..RagingsRatingBundle..." />
-          </folding>
+        <state vertical-scroll-proportion="0.28526148" vertical-offset="1188" max-vertical-offset="2106">
+          <caret line="76" column="29" selection-start-line="76" selection-start-column="13" selection-end-line="76" selection-end-column="29" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Ragings/RatingBundle/Resources/views/Statistics/index.html.twig">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.14563107" vertical-offset="270" max-vertical-offset="1710">
-          <caret line="20" column="43" selection-start-line="20" selection-start-column="43" selection-end-line="20" selection-end-column="43" />
+        <state vertical-scroll-proportion="-18.222221" vertical-offset="1218" max-vertical-offset="2214">
+          <caret line="95" column="62" selection-start-line="95" selection-start-column="62" selection-end-line="95" selection-end-column="62" />
           <folding>
             <element signature="n#style#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#1;n#div#0;n#section#0;n#div#0;n#section#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#div#0;n#div#0;n#div#1;n#div#0;n#div#1;n#div#0;n#section#0;n#div#0;n#section#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#1;n#div#1;n#section#0;n#div#0;n#section#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#div#0;n#div#0;n#div#1;n#div#0;n#div#1;n#div#1;n#section#0;n#div#0;n#section#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#1;n#div#2;n#section#0;n#div#0;n#section#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#0;n#div#0;n#div#1;n#div#0;n#div#1;n#div#2;n#section#0;n#div#0;n#section#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Ragings/RatingBundle/Controller/DefaultController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.63728815" vertical-offset="1892" max-vertical-offset="5220">
+          <caret line="126" column="0" selection-start-line="126" selection-start-column="0" selection-end-line="126" selection-end-column="0" />
+          <folding>
+            <element signature="e#51#108#0#PHP" expanded="true" />
+            <marker date="1442140692338" expanded="true" signature="7872:8255" placeholder="SELECT count..BookingsBookingBundle..." />
+            <marker date="1442140692338" expanded="true" signature="9452:10134" placeholder="SELECT count..RagingsRatingBundle..." />
+            <marker date="1442140692338" expanded="true" signature="11350:11591" placeholder="SELECT count..BookingsBookingBundle..." />
+            <marker date="1442140692338" expanded="true" signature="11350:11715" placeholder="SELECT count..BookingsBookingBundle..." />
           </folding>
         </state>
       </provider>

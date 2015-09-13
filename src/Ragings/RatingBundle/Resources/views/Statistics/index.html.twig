@@ -12,6 +12,8 @@
             {{ chart(chartTop5dailyBooked) }}
             {{ chart(chartTop5hourlyRated) }}
             {{ chart(chartTop5dailyRated) }}
+            {{ chart(chartTop10hourlyClients) }}
+            {{ chart(chartTop10dailyClients) }}
         </script>
 
         <div class="row">
@@ -20,7 +22,7 @@
                 {# Top 5 propiedades más reservadas #}
                 <div class="box box-warning">
                     <div class="box-header with-border">
-                        <h3 class="box-title">{% trans %}Top 5 propiedades más reservadas{% endtrans %}</h3>
+                        <h3 class="box-title">{% trans %}Top 10 propiedades más reservadas{% endtrans %}</h3>
                         <div class="box-tools pull-right">
                             <button data-widget="collapse" class="btn btn-box-tool"><i class="fa fa-minus"></i></button>
                             <button data-widget="remove" class="btn btn-box-tool"><i class="fa fa-times"></i></button>
@@ -47,7 +49,7 @@
                 {# Top 5 propiedades mejor valoradas #}
                 <div class="box box-success">
                     <div class="box-header with-border">
-                        <h3 class="box-title">{% trans %}Top 5 propiedades mejor valoradas{% endtrans %}</h3>
+                        <h3 class="box-title">{% trans %}Top 10 propiedades mejor valoradas{% endtrans %}</h3>
                         <div class="box-tools pull-right">
                             <button data-widget="collapse" class="btn btn-box-tool"><i class="fa fa-minus"></i></button>
                             <button data-widget="remove" class="btn btn-box-tool"><i class="fa fa-times"></i></button>
@@ -71,6 +73,32 @@
                     </div><!-- /.box-body -->
                 </div>
 
+                {# Top 10 clientes más activos #}
+                <div class="box box-success">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">{% trans %}Top 10 clientes más activos{% endtrans %}</h3>
+                        <div class="box-tools pull-right">
+                            <button data-widget="collapse" class="btn btn-box-tool"><i class="fa fa-minus"></i></button>
+                            <button data-widget="remove" class="btn btn-box-tool"><i class="fa fa-times"></i></button>
+                        </div>
+                    </div>
+
+                    <div class="box-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="chart">
+                                    <div id="top10hourlyClients" style="min-width: 400px; height: 400px; margin: 0 auto"></div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="chart">
+                                    <div id="top10dailyClients" style="min-width: 400px; height: 400px; margin: 0 auto"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div><!-- /.box-body -->
+                </div>
 
             </section><!-- /.Left col -->
 
