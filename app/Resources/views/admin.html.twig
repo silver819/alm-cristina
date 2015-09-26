@@ -91,6 +91,18 @@
             </li>
         </ul>
     </div>
+
+    <script>
+        $('.menuDropdown').click(function() {
+            if($('.menuDropdown').hasClass('open')) $(this).removeClass('open');
+            else                                    $(this).addClass('open');
+        });
+
+        $('.languageDropdown').click(function() {
+            if($('.menuDropdown').hasClass('open')) $(this).removeClass('open');
+            else                                    $(this).addClass('open');
+        });
+    </script>
 {% endblock %}
 
 {% block stylesheets %}
@@ -114,7 +126,6 @@
     <script src="{{ asset('js/jquery.js') }}"></script>
     <!-- Include all JavaScripts, compiled by Assetic -->
     <script src="{{ asset('js/bootstrap.js') }}"></script>
-    <script src="{{ asset('js/jquery-ui-1.11.1.custom/jquery-ui.js') }}" ></script>
     <script src="{{ asset('js/jquery-ui-1.11.1.custom/jquery-ui.js') }}" ></script>
 
     <script src="{{ asset('js/jquery-ui-1.11.1.custom/jquery.ui.datepicker-es.js') }}" ></script>
