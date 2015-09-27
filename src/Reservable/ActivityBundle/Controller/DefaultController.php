@@ -72,6 +72,32 @@ class DefaultController extends Controller
                                 $one['gestionesCount'] +
                                 $one['usabilidadCount']) / (7 * $one['numRatings']), 2) * 2;
 
+                    $aux['description'] = $this->getDoctrine()
+                        ->getManager()
+                        ->createQuery('SELECT MIN(a.description)
+                               FROM ReservableActivityBundle:Activity a
+                               WHERE a.id = ' . $one['activityID'])
+                        ->getResult()[0][1];
+
+                    $allImage = $this->getDoctrine()
+                        ->getRepository('ReservableActivityBundle:Picture')
+                        ->findAllByPropertyID($one['activityID']);
+
+                    $auxImages = array();
+
+                    if(!empty($allImage)) {
+                        foreach ($allImage as $oneImage) {
+                            $auxImages[] = $oneImage['path'];
+                        }
+                    }
+                    else{
+                        $auxImages[] = 'no-photo.jpg';
+                    }
+
+                    $aux['images'] = $auxImages;
+
+
+
                     $arrayReturn[$property->getTypeRent()][] = $aux;
                 }
             }

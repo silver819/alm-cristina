@@ -2,54 +2,171 @@
 
 {% block results %}
 
-    <div class="row">
+    <section class="content-header">
+        <h1>
+            <i class="fa fa-thumbs-up"></i>&nbsp;{% trans %}Te recomendamos{% endtrans %}
+        </h1>
 
-        <div class="col-md-6">
-            <div class="box box-success">
-                <div class="box-header with-border">
-                    <h3 class="box-title"><i class="fa fa-thumbs-up"></i>&nbsp;{% trans %}Alojamiento mejor valorado{% endtrans %}</h3>
-                    <div class="box-tools pull-right">
-                        <button data-widget="collapse" class="btn btn-box-tool"><i class="fa fa-minus"></i></button>
-                        <button data-widget="remove" class="btn btn-box-tool"><i class="fa fa-times"></i></button>
-                    </div>
-                </div><!-- /.box-header -->
-                <div class="box-body no-padding">
+    </section>
 
-                </div><!-- /.box-body -->
-                <div class="box-footer">
-                    <div class="row">
-                        <div class="col-sm-3 col-xs-6">
-                            <div class="description-block border-right">
-                                <span class="description-text">{% trans %}Desde{% endtrans %}</span>
-                                <h5 class="description-header">{{ top5.day.0.priceSince }} €</h5> <sub>{% trans %}por día{% endtrans %}</sub>
-                            </div><!-- /.description-block -->
-                        </div><!-- /.col -->
-                        <div class="col-sm-3 col-xs-6">
-                            <div class="description-block border-right">
-                                <span class="description-text">{% trans %}COMENTARIOS{% endtrans %}</span>
-                                <h5 class="description-header">{{ top5.day.0.numComments }}</h5>
-                            </div><!-- /.description-block -->
-                        </div><!-- /.col -->
-                        <div class="col-sm-3 col-xs-6">
-                            <div class="description-block border-right">
-                                <span class="description-text">{% trans %}VALORACIONES{% endtrans %}</span>
-                                <h5 class="description-header">{{ top5.day.0.numRatings }}</h5>
-                            </div><!-- /.description-block -->
-                        </div><!-- /.col -->
-                        <div class="col-sm-3 col-xs-6">
-                            <div class="description-block">
-                                <span class="description-text">{% trans %}NOTA{% endtrans %}</span>
-                                <h5 class="description-header">{{ top5.day.0.meanRating }}</h5>
-                            </div><!-- /.description-block -->
+    <section class="content">
+
+        <div class="row">
+
+            {# Por día #}
+            <div class="col-md-6">
+                <div class="box box-success">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">{{ top5.day.0.propertyName }}</h3>
+                        <div class="box-tools pull-right">
+                            <button data-widget="collapse" class="btn btn-box-tool"><i class="fa fa-minus"></i></button>
+                            <button data-widget="remove" class="btn btn-box-tool"><i class="fa fa-times"></i></button>
                         </div>
-                    </div><!-- /.row -->
+                    </div><!-- /.box-header -->
+                    <div class="box-body no-padding">
+
+                        <div class="col-md-12 column">
+                            <div class="carousel slide" id="carousel-details" style="height: 250px;">
+                                <ol class="carousel-indicators">
+                                    {% for onePicture in top5.day.0.images %}
+                                        {% if loop.index0 == 0 %}
+                                            <li class="active" data-slide-to="0" data-target="#carousel-details"></li>
+                                        {% else %}
+                                            <li data-slide-to="{{ loop.index0 }}" data-target="#carousel-details"></li>
+                                        {% endif %}
+                                    {% endfor %}
+                                </ol>
+                                <div class="carousel-inner">
+                                    {% for onePicture in top5.day.0.images %}
+                                        {% if loop.index0 == 0 %}
+                                            <div class="item active imageCarouselDetails">
+                                                <img alt="" src="/images/properties/{{ onePicture }}" style="height: 250px;margin:auto;"/>
+                                            </div>
+                                        {% else %}
+                                            <div class="item imageCarouselDetails">
+                                                <img alt="" src="/images/properties/{{ onePicture }}" style="height: 250px;margin:auto;"/>
+                                            </div>
+                                        {% endif %}
+                                    {% endfor %}
+                                </div>
+                                <a class="left carousel-control" href="#carousel-details" data-slide="prev"><span class="glyphicon glyphicon-chevron-left"></span></a>
+                                <a class="right carousel-control" href="#carousel-details" data-slide="next"><span class="glyphicon glyphicon-chevron-right"></span></a>
+                            </div>
+                        </div>
+
+                        <p class="message">
+                            {{ top5.day.0.description }}
+                        </p>
+
+                    </div><!-- /.box-body -->
+                    <div class="box-footer">
+                        <div class="row">
+                            <div class="col-sm-3 col-xs-6">
+                                <div class="description-block border-right">
+                                    <span class="description-text">{% trans %}Desde{% endtrans %}</span>
+                                    <h5 class="description-header">{{ top5.day.0.priceSince }} €</h5> <sub>{% trans %}por día{% endtrans %}</sub>
+                                </div><!-- /.description-block -->
+                            </div><!-- /.col -->
+                            <div class="col-sm-3 col-xs-6">
+                                <div class="description-block border-right">
+                                    <span class="description-text">{% trans %}COMENTARIOS{% endtrans %}</span>
+                                    <h5 class="description-header">{{ top5.day.0.numComments }}</h5>
+                                </div><!-- /.description-block -->
+                            </div><!-- /.col -->
+                            <div class="col-sm-3 col-xs-6">
+                                <div class="description-block border-right">
+                                    <span class="description-text">{% trans %}VALORACIONES{% endtrans %}</span>
+                                    <h5 class="description-header">{{ top5.day.0.numRatings }}</h5>
+                                </div><!-- /.description-block -->
+                            </div><!-- /.col -->
+                            <div class="col-sm-3 col-xs-6">
+                                <div class="description-block">
+                                    <span class="description-text">{% trans %}NOTA{% endtrans %}</span>
+                                    <h5 class="description-header">{{ top5.day.0.meanRating }}</h5>
+                                </div><!-- /.description-block -->
+                            </div>
+                        </div><!-- /.row -->
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <div class="col-md-6">
-            top2
-        </div>
+            {# Por hour #}
+            <div class="col-md-6">
+                <div class="box box-success">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">{{ top5.hour.0.propertyName }}</h3>
+                        <div class="box-tools pull-right">
+                            <button data-widget="collapse" class="btn btn-box-tool"><i class="fa fa-minus"></i></button>
+                            <button data-widget="remove" class="btn btn-box-tool"><i class="fa fa-times"></i></button>
+                        </div>
+                    </div><!-- /.box-header -->
+                    <div class="box-body no-padding">
 
-    </div>
+                        <div class="col-md-12 column">
+                            <div class="carousel slide" id="carousel-details" style="height: 250px;">
+                                <ol class="carousel-indicators">
+                                    {% for onePicture in top5.hour.0.images %}
+                                        {% if loop.index0 == 0 %}
+                                            <li class="active" data-slide-to="0" data-target="#carousel-details"></li>
+                                        {% else %}
+                                            <li data-slide-to="{{ loop.index0 }}" data-target="#carousel-details"></li>
+                                        {% endif %}
+                                    {% endfor %}
+                                </ol>
+                                <div class="carousel-inner">
+                                    {% for onePicture in top5.hour.0.images %}
+                                        {% if loop.index0 == 0 %}
+                                            <div class="item active imageCarouselDetails">
+                                                <img alt="" src="/images/properties/{{ onePicture }}" style="height: 250px;margin:auto;"/>
+                                            </div>
+                                        {% else %}
+                                            <div class="item imageCarouselDetails">
+                                                <img alt="" src="/images/properties/{{ onePicture }}" style="height: 250px;margin:auto;"/>
+                                            </div>
+                                        {% endif %}
+                                    {% endfor %}
+                                </div>
+                                <a class="left carousel-control" href="#carousel-details" data-slide="prev"><span class="glyphicon glyphicon-chevron-left"></span></a>
+                                <a class="right carousel-control" href="#carousel-details" data-slide="next"><span class="glyphicon glyphicon-chevron-right"></span></a>
+                            </div>
+                        </div>
+
+                        <p class="message">
+                            {{ top5.hour.0.description }}
+                        </p>
+
+                    </div><!-- /.box-body -->
+                    <div class="box-footer">
+                        <div class="row">
+                            <div class="col-sm-3 col-xs-6">
+                                <div class="description-block border-right">
+                                    <span class="description-text">{% trans %}Desde{% endtrans %}</span>
+                                    <h5 class="description-header">{{ top5.hour.0.priceSince }} €</h5> <sub>{% trans %}por hora{% endtrans %}</sub>
+                                </div><!-- /.description-block -->
+                            </div><!-- /.col -->
+                            <div class="col-sm-3 col-xs-6">
+                                <div class="description-block border-right">
+                                    <span class="description-text">{% trans %}COMENTARIOS{% endtrans %}</span>
+                                    <h5 class="description-header">{{ top5.hour.0.numComments }}</h5>
+                                </div><!-- /.description-block -->
+                            </div><!-- /.col -->
+                            <div class="col-sm-3 col-xs-6">
+                                <div class="description-block border-right">
+                                    <span class="description-text">{% trans %}VALORACIONES{% endtrans %}</span>
+                                    <h5 class="description-header">{{ top5.hour.0.numRatings }}</h5>
+                                </div><!-- /.description-block -->
+                            </div><!-- /.col -->
+                            <div class="col-sm-3 col-xs-6">
+                                <div class="description-block">
+                                    <span class="description-text">{% trans %}NOTA{% endtrans %}</span>
+                                    <h5 class="description-header">{{ top5.hour.0.meanRating }}</h5>
+                                </div><!-- /.description-block -->
+                            </div>
+                        </div><!-- /.row -->
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
 {% endblock %}
