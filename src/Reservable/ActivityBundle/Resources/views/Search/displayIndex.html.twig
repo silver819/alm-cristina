@@ -1,0 +1,55 @@
+{% extends '::base.html.twig' %}
+
+{% block results %}
+
+    <div class="row">
+
+        <div class="col-md-6">
+            <div class="box box-success">
+                <div class="box-header with-border">
+                    <h3 class="box-title"><i class="fa fa-thumbs-up"></i>&nbsp;{% trans %}Alojamiento mejor valorado{% endtrans %}</h3>
+                    <div class="box-tools pull-right">
+                        <button data-widget="collapse" class="btn btn-box-tool"><i class="fa fa-minus"></i></button>
+                        <button data-widget="remove" class="btn btn-box-tool"><i class="fa fa-times"></i></button>
+                    </div>
+                </div><!-- /.box-header -->
+                <div class="box-body no-padding">
+
+                </div><!-- /.box-body -->
+                <div class="box-footer">
+                    <div class="row">
+                        <div class="col-sm-3 col-xs-6">
+                            <div class="description-block border-right">
+                                <span class="description-text">{% trans %}Desde{% endtrans %}</span>
+                                <h5 class="description-header">{{ top5.day.0.priceSince }} €</h5> <sub>{% trans %}por día{% endtrans %}</sub>
+                            </div><!-- /.description-block -->
+                        </div><!-- /.col -->
+                        <div class="col-sm-3 col-xs-6">
+                            <div class="description-block border-right">
+                                <span class="description-text">{% trans %}COMENTARIOS{% endtrans %}</span>
+                                <h5 class="description-header">{{ top5.day.0.numComments }}</h5>
+                            </div><!-- /.description-block -->
+                        </div><!-- /.col -->
+                        <div class="col-sm-3 col-xs-6">
+                            <div class="description-block border-right">
+                                <span class="description-text">{% trans %}VALORACIONES{% endtrans %}</span>
+                                <h5 class="description-header">{{ top5.day.0.numRatings }}</h5>
+                            </div><!-- /.description-block -->
+                        </div><!-- /.col -->
+                        <div class="col-sm-3 col-xs-6">
+                            <div class="description-block">
+                                <span class="description-text">{% trans %}NOTA{% endtrans %}</span>
+                                <h5 class="description-header">{{ top5.day.0.meanRating }}</h5>
+                            </div><!-- /.description-block -->
+                        </div>
+                    </div><!-- /.row -->
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            top2
+        </div>
+
+    </div>
+{% endblock %}

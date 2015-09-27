@@ -10,26 +10,75 @@ class DefaultController extends Controller
 	public function homepageAction(){
         // Calculamos las mejores propiedades
 
-		return $this->render('ReservableActivityBundle:Default:index.html.twig');
+        $top5 = $this->getTop5Ratings();
+
+        //ldd($top5);
+
+		//return $this->render('ReservableActivityBundle:Default:index.html.twig', array('top5', $top5));
+		return $this->render('ReservableActivityBundle:Search:displayIndex.html.twig', array('top5' => $top5));
 	}
 
-    public function indexAction($name)
-	{
-		$product = new Activity();
-	    $product->setName('Test');
-	    $product->setPrice('19.99');
-	    $product->setOwnerID(1);
-	    $product->setTypeRent('hora');
-	    $product->setAddress('Direccion');
-	    $product->setLat(30.3446352);
-	    $product->setLng(64.3425425);
-	    $product->setDescription("Descripcion");
-	    $product->setActive(1);
+    public function getTop5Ratings(){
 
-	    $em = $this->getDoctrine()->getManager();
-	    $em->persist($product);
-	    $em->flush();
+        $arrayReturn = array();
 
-        return $this->render('ReservableActivityBundle:Default:index.html.twig', array('name' => $name));
+        $results = $this->getDoctrine()
+            ->getManager()
+            ->createQuery('SELECT count(r.id) as numRatings, SUM(r.ubicacion) as ubicacionCount,
+                               SUM(r.llegar) as llegarCount, SUM(r.limpieza) as limpiezaCount,
+                               SUM(r.material) as materialCount, SUM(r.caracteristicas) as caracteristicasCount,
+                               SUM(r.gestiones) as gestionesCount, SUM(r.usabilidad) as usabilidadCount,
+                               b.activityID
+                               FROM RagingsRatingBundle:Rating r
+                               INNER JOIN BookingsBookingBundle:Booking b
+                               WHERE b.id = r.reservationNumber
+                               GROUP BY b.activityID')
+            ->getResult();
+
+        //ldd($results);
+
+        if(!empty($results)){
+            foreach($results as $one){
+
+                $property = $this->getDoctrine()
+                    ->getRepository('ReservableActivityBundle:Activity')
+                    ->findByPropertyID($one['activityID']);
+
+                if(!isset($arrayReturn[$property->getTypeRent()]) || count($arrayReturn[$property->getTypeRent()]) <= 10) {
+
+                    $aux = array();
+
+                    $aux['propertyName']    = $property->getName();
+                    $aux['numRatings']      = $one['numRatings'];
+                    $aux['priceSince']      = $this->getDoctrine()
+                        ->getManager()
+                        ->createQuery('SELECT MIN(s.price)
+                               FROM ReservableActivityBundle:Seasons s
+                               WHERE s.activityID = ' . $one['activityID'] . ' AND s.endSeason > ' . date('Ymd'))
+                        ->getResult()[0][1];
+                    $aux['numComments']     = $this->getDoctrine()
+                        ->getManager()
+                        ->createQuery('SELECT count(r.comentarios)
+                               FROM RagingsRatingBundle:Rating r
+                               INNER JOIN BookingsBookingBundle:Booking b
+                               WHERE b.id = r.reservationNumber
+                               AND b.activityID = ' . $one['activityID'] . ' AND r.comentarios IS NOT NULL')
+                        ->getResult()[0][1];
+                    $aux['meanRating']      = round(($one['ubicacionCount'] +
+                                $one['llegarCount'] +
+                                $one['limpiezaCount'] +
+                                $one['materialCount'] +
+                                $one['caracteristicasCount'] +
+                                $one['gestionesCount'] +
+                                $one['usabilidadCount']) / (7 * $one['numRatings']), 2) * 2;
+
+                    $arrayReturn[$property->getTypeRent()][] = $aux;
+                }
+            }
+        }
+
+        //ldd($arrayReturn);
+
+        return $arrayReturn;
     }
 }
