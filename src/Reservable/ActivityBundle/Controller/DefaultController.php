@@ -8,6 +8,8 @@ use Reservable\ActivityBundle\Entity\Activity;
 class DefaultController extends Controller
 {
 	public function homepageAction(){
+        // Calculamos las mejores propiedades
+
 		return $this->render('ReservableActivityBundle:Default:index.html.twig');
 	}
 

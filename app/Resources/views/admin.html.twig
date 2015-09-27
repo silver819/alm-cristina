@@ -103,7 +103,8 @@
             else                                    $(this).addClass('open');
         });
 
-        $('.logo').attr("href", "{{ path('homepage') }}")
+        $('.logo').attr("href", "{{ path('homepage') }}");
+        setTimeout(function(){$('.main-footer').html('<div class="pull-right hidden-xs"><b>PFC Ingeniería Informática</b> Universidad de Cádiz </div> <strong>Cristina Sánchez García</strong> &copy; 2014-2015');}, 100);
     </script>
 {% endblock %}
 
