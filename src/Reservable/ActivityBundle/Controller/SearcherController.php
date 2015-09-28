@@ -121,9 +121,10 @@ class SearcherController extends Controller
 						->getRepository('ReservableActivityBundle:Activity')
 						->getPropertiesWhere($where);
 
-		$results = array();
+		$results    = array();
 
-		$images = array();
+		$images      = array();
+        $resultsAux2 = array();
 		if(!empty($resultsAux)){
 
             // Aplicamos los filtros
@@ -146,7 +147,7 @@ class SearcherController extends Controller
                     foreach ($results as $result) {
                         $validProperties[] = $result['activityID'];
                     }
-                    
+
                     foreach ($resultsAux as $result) {
                         if (in_array($result->getId(), $validProperties)) {
                             $resultsAux2[] = $result;
@@ -154,7 +155,9 @@ class SearcherController extends Controller
                     }
                 }
             }
-            else $resultsAux2 = $resultsAux;
+            else{
+                $resultsAux2 = $resultsAux;
+            }
 
 			foreach($resultsAux2 as $oneResult){
 				// Buscamos disponibilidad
