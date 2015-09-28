@@ -150,6 +150,9 @@
                         </tr>
                         <tr>
                             <th><label>{% trans %}Filtros{% endtrans %}</label></th>
+                            {% for filter in filters.hour %}
+                                &nbsp;<input type="checkbox" class="checkboxSearch" name="filterSearch[]" value="{{ filter.id }}">{{ filter.name }}<br/>
+                            {% endfor %}
                         </tr>
                     </table>
                 </div>
@@ -161,9 +164,10 @@
 
                     <br/>
                     <label>{% trans %}Filtros{% endtrans %}</label>
-                    <input type="checkbox" class="checkboxSearch" name="filterSearch[]" value="3"> Chalet<br/>
-                    <input type="checkbox" class="checkboxSearch" name="filterSearch[]" value="4"> Apartamento</br>
-                    <input type="checkbox" class="checkboxSearch" name="filterSearch[]" value="5"> Estudio
+                    <br/>
+                    {% for filter in filters.day %}
+                        &nbsp;<input type="checkbox" class="checkboxSearch" name="filterSearch[]" value="{{ filter.id }}">{{ filter.name }}<br/>
+                    {% endfor %}
                 </div>
             {% else %}
                 &nbsp;&nbsp;<input id="byHour" type="radio" name="type" value="hour" checked>{% trans %}Hora{% endtrans %}&nbsp;&nbsp;<input id="byDay" type="radio" name="type" value="day">{% trans %}Día{% endtrans %}
@@ -201,8 +205,9 @@
                         </tr>
                         <tr>
                             <td>
-                                <input type="checkbox" class="checkboxSearch" name="filterSearch[]" value="1"> Padel<br/>
-                                <input type="checkbox" class="checkboxSearch" name="filterSearch[]" value="2"> Tenis
+                                {% for filter in filters.hour %}
+                                    &nbsp;<input type="checkbox" class="checkboxSearch" name="filterSearch[]" value="{{ filter.id }}">{{ filter.name }}<br/>
+                                {% endfor %}
                             </td>
                         </tr>
                     </table>
@@ -214,10 +219,11 @@
                     <input class="thisInput" name="EndDate" type="text" id="dateByDayED">
 
                     <br/>
-                    <label>{% trans %}Filtros{% endtrans %}</label>
-                    <input type="checkbox" class="checkboxSearch" name="filterSearch[]" value="3"> Chalet<br/>
-                    <input type="checkbox" class="checkboxSearch" name="filterSearch[]" value="4"> Apartamento</br>
-                    <input type="checkbox" class="checkboxSearch" name="filterSearch[]" value="5"> Estudio
+                    <label>{% trans %}Filtros4{% endtrans %}</label>
+                    <br/>
+                    {% for filter in filters.day %}
+                        &nbsp;<input type="checkbox" class="checkboxSearch" name="filterSearch[]" value="{{ filter.id }}">{{ filter.name }}<br/>
+                    {% endfor %}
                 </div>
             {% endif %}
 

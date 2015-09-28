@@ -41,6 +41,9 @@ class SearcherController extends Controller
         $session->remove('searchEndDateYear');
         $session->remove('searchDays');
         $session->remove('searchTotalDays');
+        $session->remove('filterSearch');
+
+        $filters = $this->getFilters();
 
 		$where = "1=1";
 		$relevantFields = array("name", "type", "hour");
@@ -117,11 +120,41 @@ class SearcherController extends Controller
 		$resultsAux = $this->getDoctrine()
 						->getRepository('ReservableActivityBundle:Activity')
 						->getPropertiesWhere($where);
+
 		$results = array();
 
 		$images = array();
 		if(!empty($resultsAux)){
-			foreach($resultsAux as $oneResult){
+
+            // Aplicamos los filtros
+            if(!empty($_POST['filterSearch'])){
+
+                $session->set('filterSearch', $_POST['filterSearch']);
+
+                foreach($resultsAux as $result){
+                    $properties[] = $result->getId();
+                }
+
+                $results = $this->getDoctrine()
+                    ->getManager()
+                    ->createQuery('SELECT t.activityID FROM ReservableActivityBundle:ActivityyToType t WHERE t.activityID IN (' . implode(',', $properties) . ') AND t.typeID IN (' . implode(',', $_POST['filterSearch']) . ')')
+                    ->getResult();
+
+
+                $validProperties = array();
+                foreach($results as $result){
+                    $validProperties[] = $result['activityID'];
+                }
+
+                $resultsAux2 = array();
+                foreach($resultsAux as $result){
+                    if(in_array($result->getId(), $validProperties)){
+                        $resultsAux2[] = $result;
+                    }
+                }
+            }
+
+			foreach($resultsAux2 as $oneResult){
 				// Buscamos disponibilidad
 				$bookings = $this->getDoctrine()
 								 ->getRepository('BookingsBookingBundle:Booking')
@@ -160,6 +193,21 @@ class SearcherController extends Controller
         //ld($images);
 
 		return $this->render('ReservableActivityBundle:Search:displayResults.html.twig', 
-			array("results" => $results, 'images' => $images));
+			array("filters" => $filters, "results" => $results, 'images' => $images));
 	}
+
+    public function getFilters(){
+        $arrayReturn = array();
+
+        $results = $this->getDoctrine()
+            ->getManager()
+            ->createQuery('SELECT t.id, t.name, t.mode FROM ReservableActivityBundle:TypeActivity t')
+            ->getResult();
+
+        foreach($results as $result){
+            $arrayReturn[$result['mode']][] = array('id' => $result['id'], 'name' => $result['name']);
+        }
+
+        return $arrayReturn;
+    }
 }
