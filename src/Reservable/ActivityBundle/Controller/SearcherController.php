@@ -141,18 +141,20 @@ class SearcherController extends Controller
                     ->getResult();
 
 
-                $validProperties = array();
-                foreach($results as $result){
-                    $validProperties[] = $result['activityID'];
-                }
-
-                $resultsAux2 = array();
-                foreach($resultsAux as $result){
-                    if(in_array($result->getId(), $validProperties)){
-                        $resultsAux2[] = $result;
+                if(!empty($results)) {
+                    $validProperties = array();
+                    foreach ($results as $result) {
+                        $validProperties[] = $result['activityID'];
+                    }
+                    
+                    foreach ($resultsAux as $result) {
+                        if (in_array($result->getId(), $validProperties)) {
+                            $resultsAux2[] = $result;
+                        }
                     }
                 }
             }
+            else $resultsAux2 = $resultsAux;
 
 			foreach($resultsAux2 as $oneResult){
 				// Buscamos disponibilidad
