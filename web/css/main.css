@@ -319,16 +319,6 @@ h2{
     }
 }*/
 
-.mainSearch{
-    color:#fff;
-    padding-left:20px;
-    padding-top:70px;
-}
-
-.mainSearch input, select{
-    color: #000;
-}
-
 .totalPrice{
     font-size: 1.5em;
 }
@@ -343,4 +333,17 @@ h2{
 
 #questionaire textarea{
     width: 100%;
+}
+
+.searcherForm{
+    border: 0px !important;
+}
+
+.searcherForm input, .searcherForm label{
+    color: #999999 !important;
+}
+
+.searcherForm .checkbox{
+    margin-left: 20px;
+    color: #999;
 }
