@@ -195,6 +195,7 @@ class SearcherController extends Controller
 			}
 		}
 
+        //ldd($session->get('filterSearch'));
         //ld($images);
 
 		return $this->render('ReservableActivityBundle:Search:displayResults.html.twig', 

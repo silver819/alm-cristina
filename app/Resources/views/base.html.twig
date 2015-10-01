@@ -150,9 +150,21 @@
                         </tr>
                         <tr>
                             <th><label>{% trans %}Filtros{% endtrans %}</label></th>
-                            {% for filter in filters.hour %}
-                                &nbsp;<input type="checkbox" class="checkboxSearch" name="filterSearch[]" value="{{ filter.id }}">{{ filter.name }}<br/>
-                            {% endfor %}
+
+                        </tr>
+                        <tr>
+                            <td>
+                                {% for filter in filters.hour %}
+                                    {% set checked = '' %}
+                                    {% for filterSelected in app.session.get('filterSearch') %}
+                                        {% if filter.id == filterSelected %}
+                                            {% set checked = 'checked' %}
+                                        {% endif %}
+                                    {% endfor %}
+
+                                    &nbsp;<input type="checkbox" class="checkboxSearch" name="filterSearch[]" value="{{ filter.id }}" {{ checked }}>{{ filter.name }}<br/>
+                                {% endfor %}
+                            </td>
                         </tr>
                     </table>
                 </div>
@@ -166,7 +178,14 @@
                     <label>{% trans %}Filtros{% endtrans %}</label>
                     <br/>
                     {% for filter in filters.day %}
-                        &nbsp;<input type="checkbox" class="checkboxSearch" name="filterSearch[]" value="{{ filter.id }}">{{ filter.name }}<br/>
+                        {% set checked = '' %}
+                        {% for filterSelected in app.session.get('filterSearch') %}
+                            {% if filter.id == filterSelected %}
+                                {% set checked = 'checked' %}
+                            {% endif %}
+                        {% endfor %}
+
+                        &nbsp;<input type="checkbox" class="checkboxSearch" name="filterSearch[]" value="{{ filter.id }}" {{ checked }}>{{ filter.name }}<br/>
                     {% endfor %}
                 </div>
             {% else %}
@@ -201,12 +220,20 @@
                             <td>
                         </tr>
                         <tr>
-                            <th><label>{% trans %}Filtros{% endtrans %}</label></th>
+                            <th><label>{% trans %}Filtros1{% endtrans %}</label></th>
                         </tr>
                         <tr>
                             <td>
                                 {% for filter in filters.hour %}
-                                    &nbsp;<input type="checkbox" class="checkboxSearch" name="filterSearch[]" value="{{ filter.id }}">{{ filter.name }}<br/>
+
+                                    {% set checked = '' %}
+                                    {% for filterSelected in app.session.get('filterSearch') %}
+                                        {% if filter.id == filterSelected %}
+                                            {% set checked = 'checked' %}
+                                        {% endif %}
+                                    {% endfor %}
+
+                                    &nbsp;<input type="checkbox" class="checkboxSearch" name="filterSearch[]" value="{{ filter.id }}" {{ checked }}>{{ filter.name }}<br/>
                                 {% endfor %}
                             </td>
                         </tr>
@@ -219,10 +246,17 @@
                     <input class="thisInput" name="EndDate" type="text" id="dateByDayED">
 
                     <br/>
-                    <label>{% trans %}Filtros4{% endtrans %}</label>
+                    <label>{% trans %}Filtros{% endtrans %}</label>
                     <br/>
                     {% for filter in filters.day %}
-                        &nbsp;<input type="checkbox" class="checkboxSearch" name="filterSearch[]" value="{{ filter.id }}">{{ filter.name }}<br/>
+                        {% set checked = '' %}
+                        {% for filterSelected in app.session.get('filterSearch') %}
+                            {% if filter.id == filterSelected %}
+                                {% set checked = 'checked' %}
+                            {% endif %}
+                        {% endfor %}
+
+                        &nbsp;<input type="checkbox" class="checkboxSearch" name="filterSearch[]" value="{{ filter.id }}" {{ checked }}>{{ filter.name }}<br/>
                     {% endfor %}
                 </div>
             {% endif %}
@@ -302,7 +336,7 @@
         $("#dateByHour").datepicker({
             dateFormat: 		"dd/mm/yy",
             defaultDate: 		+2,
-            minDate: 			+2,
+            minDate: 			+2
         });
         $("#dateByHour").datepicker( "setDate", new Date(dateYear, dateMonth, dateDay));
 
@@ -343,8 +377,8 @@
 
         $("#dateByDayED").datepicker({
             dateFormat: 		"dd/mm/yy",
-            defaultDate: 		+3,
-            minDate: 			+3,
+            defaultDate: 		+6,
+            minDate: 			+6,
             onClose: function(selectedDate) {
                 $( "#dateByDaySD" ).datepicker( "option", "maxDate", selectedDate );
             }
