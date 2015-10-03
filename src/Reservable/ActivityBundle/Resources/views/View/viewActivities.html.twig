@@ -7,14 +7,28 @@
 {% block page_content %}
 
 	{% if is_granted("ROLE_SUPER_ADMIN") %}
-		<div class="ownerFilter">
-				{%trans%}Ver{%endtrans%} <select name="filterByOwner" id="filterByOwner">
-					<option value="0">{% trans %}todos los propietarios{% endtrans %}</option>
-					{% for oneEmail in allOwners %}
-						<option value="{{ oneEmail.ownerID }}">{{ oneEmail.email }}</option>
-					{% endfor %}
-				</select> 
-		</div>
+        <div class="row ownerFilter">
+            <div class="col-md-3">
+                &nbsp;
+            </div>
+            <div class="col-md-3">
+                {%trans%}Ver{%endtrans%} <select name="filterByOwner" id="filterByOwner">
+                    <option value="0">{% trans %}todos los propietarios{% endtrans %}</option>
+                    {% for oneEmail in allOwners %}
+                        <option value="{{ oneEmail.ownerID }}">{{ oneEmail.email }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-md-3">
+                {% trans %}Alquiler por{% endtrans %} &nbsp;
+                <input type="checkbox" name="typeRent" id="checkboxRentByHour" value="hour" checked>{% trans %}día{% endtrans %}
+                <input type="checkbox" name="typeRent" id="checkboxRentByDay" value="day" checked>{% trans %}hora{% endtrans %}
+            </div>
+            <div class="col-md-3">
+                &nbsp;
+            </div>
+        </div>
+        <br/>
 	{% endif %}
 
 	{% if properties is empty %}
@@ -24,7 +38,7 @@
 		</div>
 	{% else %}
 		{% for oneProperty in properties %}
-            <div class="box ownerEmail {{ oneProperty.ownerID }}">
+            <div class="box ownerEmail prop-{{ oneProperty.ownerID }} typeRent-{{ oneProperty.typeRent }}">
                 <div class="box-header with-border">
                     <h3 class="box-title"><a href="{{ path('adminDetails', {'property':oneProperty.id}) }}">{{ oneProperty.name }}</a></h3>
                     <div class="box-tools pull-right">
@@ -220,19 +234,36 @@
 	{% endif %}
 
 	<script>
-		var filterByOwner = document.getElementById("filterByOwner");
+        $("#filterByOwner").change(function(){
 
-		filterByOwner.onchange = function(){
-			var ownerID = filterByOwner.options[filterByOwner.selectedIndex].value;
+            var ownerID = $("#filterByOwner option:selected").val();
 
-			if(ownerID == 0){
-				$('.ownerEmail').show('slow');
-			}
-			else{
-				$('.ownerEmail').hide('slow');
- 				$('.'+ ownerID).show('slow');
- 			}
-  		}
+            if(ownerID == 0){
+                $('.ownerEmail').show('slow');
+            }
+            else{
+                $('.ownerEmail').hide('slow');
+                $('.prop-'+ ownerID).show('slow');
+            }
+        });
+
+        $("#checkboxRentByHour").click(function(){
+            if($(this).is(':checked')){
+                $('.typeRent-hour').show('slow');
+            }
+            else{
+                $('.typeRent-hour').hide('slow');
+            }
+        });
+
+        $("#checkboxRentByDay").click(function(){
+            if($(this).is(':checked')){
+                $('.typeRent-day').show('slow');
+            }
+            else{
+                $('.typeRent-day').hide('slow');
+            }
+        });
 	</script>
 
 {% endblock %}
