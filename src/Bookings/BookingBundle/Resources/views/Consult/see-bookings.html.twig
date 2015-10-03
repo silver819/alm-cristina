@@ -7,111 +7,136 @@
 {% block page_content %}
 
 	{% if is_granted("ROLE_SUPER_ADMIN") %}
-        <script>
-            var filterByOwner = document.getElementById("filterByOwner");
 
-            filterByOwner.onchange = function(){
-                var ownerID = filterByOwner.options[filterByOwner.selectedIndex].value;
-
-                if(ownerID == 0){
-                    $('.ownerEmail').show('slow');
-                }
-                else{
-                    $('.ownerEmail').hide('slow');
-                    $('.'+ ownerID).show('slow');
-                }
-            }
-        </script>
-
-		<div class="bookingsFilter">
-			<table style="align:right;">
-				<tr>
-					<td>
-						<form method="POST">
-							{% trans %}Nº reserva{% endtrans %} <input name="reservationID" type="text" size="5" maxlength="6">
-							<button type="submit" class="btn" value="Send">OK</button>
-						</form>
-					</td>
-					<td>
-						{%trans%}Ver{%endtrans%} <select name="filterByOwner" id="filterByOwner">
-							<option value="0">{% trans %}todos los propietarios{% endtrans %}</option>
-							{% for oneEmail in allOwners %}
-								<option value="{{ oneEmail.ownerID }}">{{ oneEmail.email }}</option>
-							{% endfor %}
-						</select> 
-					</td>
-				</tr>
-			</table>
-		</div>
-	{% endif %}
-
-	{% if bookings is empty %}
-		<div class="alert alert-danger text-center">
-			<h4>{% trans %}No tiene reservas{% endtrans %}</h4>
-		</div>
-	{% else %}
-		{% for oneBooking in bookings %}
-            <div class="box ownerEmail {{ oneProperty.ownerID }}">
-                <div class="box-header with-border">
-                    <h3 class="box-title">{{ oneBooking.propertyName }}</h3>
+        <div class="row bookingsFilter">
+            <div class="col-md-3">
+                {% trans %}Nº reserva{% endtrans %}
+                <input name="reservationID" id="filterByResInput" type="text" size="5" maxlength="6" style="width: 80px;text-align: center;">
+                <button type="submit" id="filterByRes" class="btn" value="Send" style="height:28px;padding-top:3px;">OK</button>
+            </div>
+            <div class="col-md-3">
+                <div class="col-md-2">
+                    {%trans%}Ver{%endtrans%}
                 </div>
-                <div class="box-body" style="display: block;">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="row clearfix">
-                                <div class="bookingData col-md-8 column">
-                                    <p><b>{% trans %}Nº reserva{% endtrans %}</b>: &nbsp;{{ oneBooking.bookingID }}</p>
-
-                                    {% if is_granted("ROLE_SUPER_ADMIN") %}
-                                        <p><b>{% trans %}Propietario{% endtrans %}</b>: {{ oneBooking.ownerEmail }}</p>
-                                    {% endif %}
-
-                                    <p><b>{% trans %}Precio{% endtrans %}</b>: &nbsp;{{ oneBooking.price }} &euro;</p>
-                                    {% if oneBooking.type == 'hour' %}
-                                        <p><b>{% trans %}Día{% endtrans %}</b> &nbsp;{{ oneBooking.startDateDay }}/{{ oneBooking.startDateMonth }}/{{ oneBooking.startDateYear }} <b>{% trans %}a las{% endtrans %}</b> {{ oneBooking.startDateHour }}</p>
-                                    {% else %}
-                                        <p><b>{% trans %}Entrada{% endtrans %}</b>: &nbsp;{{ oneBooking.startDateDay }}/{{ oneBooking.startDateMonth }}/{{ oneBooking.startDateYear }} </p>
-                                        <p><b>{% trans %}Salida{% endtrans %}</b>: &nbsp;{{ oneBooking.endDateDay }}/{{ oneBooking.endDateMonth }}/{{ oneBooking.endDateYear }}</p>
-                                    {% endif %}
-
-                                    <p><b>{% trans %}Cliente{% endtrans %}</b>: {{ oneBooking.clientName }} {{ oneBooking.clientSurname }}</p>
-                                    <p><b>{% trans %}Email{% endtrans %}</b>: {{ oneBooking.clientEmail }}</p>
-                                </div>
-
-                                <div class="col-md-4 column">
-                                    <div class="bookingCalendar">{{ oneBooking.calendar | raw }}</div>
-                                </div>
-                            </div>
-                        </div><!-- /.col -->
-                    </div><!-- /.row -->
-                </div>
-                <div class="box-footer" style="display: block;">
-                    <div class="row">
-                        <div class="col-sm-3 col-xs-6"></div><!-- /.col -->
-                        <div class="col-sm-3 col-xs-6">
-                            {% if is_granted("ROLE_SUPER_ADMIN") or is_granted("ROLE_ADMIN") %}
-                                <div class="col-md-6 column">
-                                    <form action={{ path('acceptBooking') }} method=POST>
-                                        <input type="hidden" name="bookingID" value="{{ oneBooking.bookingID }}">
-                                        <button value="Send" class="btn btn-success btnMargin pull-right" type="submit">
-                                            <i class="glyphicon glyphicon-ok"></i>&nbsp;{% trans %}Aceptar{% endtrans %}
-                                        </button>
-                                    </form>
-                                </div>
-                            {% endif %}
-                        </div><!-- /.col -->
-                        <div class="col-sm-3 col-xs-6">
-                            <form action={{ path('cancelBooking') }} method=POST>
-                                <input type="hidden" name="bookingID" value="{{ oneBooking.bookingID }}">
-                                <button value="Send" class="btn btn-danger btnMargin pull-left" type="submit">
-                                    <i class="glyphicon glyphicon-remove"></i>&nbsp;{% trans %}Cancelar{% endtrans %}
-                                </button>
-                            </form>
-                        </div><!-- /.col -->
-                        <div class="col-sm-3 col-xs-6"></div>
-                    </div><!-- /.row -->
+                <div class="col-md-10">
+                    <select name="filterByOwner" id="filterByOwner" >
+                        <option value="0">{% trans %}todos los propietarios{% endtrans %}</option>
+                        {% for oneEmail in allOwners %}
+                            <option value="{{ oneEmail.ownerID }}">{{ oneEmail.email }}</option>
+                        {% endfor %}
+                    </select>
                 </div>
             </div>
-		{% endfor %}
+            <div class="col-md-3">
+                **
+            </div>
+            <div class="col-md-3">
+                ++
+            </div>
+        </div>
+        <br/>
 	{% endif %}
+
+    <div class="row">
+        <div class="col-md-12">
+            {% if bookings is empty %}
+                <div class="alert alert-danger text-center">
+                    <h4>{% trans %}No tiene reservas{% endtrans %}</h4>
+                </div>
+            {% else %}
+                {% for oneBooking in bookings %}
+                    <div class="box ownerEmail prop-{{ oneBooking.ownerID }} res-{{ oneBooking.bookingID }}">
+                        <div class="box-header with-border">
+                            <h3 class="box-title">{{ oneBooking.propertyName }}</h3>
+                        </div>
+                        <div class="box-body" style="display: block;">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="row clearfix">
+                                        <div class="bookingData col-md-8 column">
+                                            <p><b>{% trans %}Nº reserva{% endtrans %}</b>: &nbsp;{{ oneBooking.bookingID }}</p>
+
+                                            {% if is_granted("ROLE_SUPER_ADMIN") %}
+                                                <p><b>{% trans %}Propietario{% endtrans %}</b>: {{ oneBooking.ownerEmail }}</p>
+                                            {% endif %}
+
+                                            <p><b>{% trans %}Precio{% endtrans %}</b>: &nbsp;{{ oneBooking.price }} &euro;</p>
+                                            {% if oneBooking.type == 'hour' %}
+                                                <p><b>{% trans %}Día{% endtrans %}</b> &nbsp;{{ oneBooking.startDateDay }}/{{ oneBooking.startDateMonth }}/{{ oneBooking.startDateYear }} <b>{% trans %}a las{% endtrans %}</b> {{ oneBooking.startDateHour }}</p>
+                                            {% else %}
+                                                <p><b>{% trans %}Entrada{% endtrans %}</b>: &nbsp;{{ oneBooking.startDateDay }}/{{ oneBooking.startDateMonth }}/{{ oneBooking.startDateYear }} </p>
+                                                <p><b>{% trans %}Salida{% endtrans %}</b>: &nbsp;{{ oneBooking.endDateDay }}/{{ oneBooking.endDateMonth }}/{{ oneBooking.endDateYear }}</p>
+                                            {% endif %}
+
+                                            <p><b>{% trans %}Cliente{% endtrans %}</b>: {{ oneBooking.clientName }} {{ oneBooking.clientSurname }}</p>
+                                            <p><b>{% trans %}Email{% endtrans %}</b>: {{ oneBooking.clientEmail }}</p>
+                                        </div>
+
+                                        <div class="col-md-4 column">
+                                            <div class="bookingCalendar">{{ oneBooking.calendar | raw }}</div>
+                                        </div>
+                                    </div>
+                                </div><!-- /.col -->
+                            </div><!-- /.row -->
+                        </div>
+                        <div class="box-footer" style="display: block;">
+                            <div class="row">
+                                <div class="col-sm-3 col-xs-6"></div><!-- /.col -->
+                                <div class="col-sm-3 col-xs-6">
+                                    {% if is_granted("ROLE_SUPER_ADMIN") or is_granted("ROLE_ADMIN") %}
+                                        <div class="col-md-6 column">
+                                            <form action={{ path('acceptBooking') }} method=POST>
+                                                <input type="hidden" name="bookingID" value="{{ oneBooking.bookingID }}">
+                                                <button value="Send" class="btn btn-success btnMargin pull-right" type="submit">
+                                                    <i class="glyphicon glyphicon-ok"></i>&nbsp;{% trans %}Aceptar{% endtrans %}
+                                                </button>
+                                            </form>
+                                        </div>
+                                    {% endif %}
+                                </div><!-- /.col -->
+                                <div class="col-sm-3 col-xs-6">
+                                    <form action={{ path('cancelBooking') }} method=POST>
+                                        <input type="hidden" name="bookingID" value="{{ oneBooking.bookingID }}">
+                                        <button value="Send" class="btn btn-danger btnMargin pull-left" type="submit">
+                                            <i class="glyphicon glyphicon-remove"></i>&nbsp;{% trans %}Cancelar{% endtrans %}
+                                        </button>
+                                    </form>
+                                </div><!-- /.col -->
+                                <div class="col-sm-3 col-xs-6"></div>
+                            </div><!-- /.row -->
+                        </div>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        </div>
+    </div>
+
+    <script>
+
+        $("#filterByOwner").change(function(){
+
+            var ownerID = $("#filterByOwner").options[filterByOwner.selectedIndex].value;
+
+            if(ownerID == 0){
+                $('.ownerEmail').show('slow');
+            }
+            else{
+                $('.ownerEmail').hide('slow');
+                $('.prop-'+ ownerID).show('slow');
+            }
+        });
+
+        $("#filterByRes").click(function(){
+
+            var resID = $("#filterByResInput").val();
+
+            if(resID == 0){
+                $('.ownerEmail').show('slow');
+            }
+            else{
+                $('.ownerEmail').hide('slow');
+                $('.res-'+ resID).show('slow');
+            }
+        });
+    </script>
 {% endblock %}
