@@ -337,6 +337,7 @@ h2{
 
 .searcherForm{
     border: 0px !important;
+    color: #999;
 }
 
 .searcherForm input, .searcherForm label{
@@ -346,4 +347,9 @@ h2{
 .searcherForm .checkbox{
     margin-left: 20px;
     color: #999;
+}
+
+.dateHourTable{
+    width:100%;
+    margin-top:10px;
 }

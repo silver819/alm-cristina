@@ -136,14 +136,12 @@
                         <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i></button>
                     </span>
                 </div>
-
-
-
+                <br/>
                 <label>{% trans %}Alquilar por{% endtrans %}</label><br/>
                 {% if app.session.get('searchType') == 'day' %}
                     &nbsp;&nbsp;<input id="byHour" type="radio" name="type" value="hour">{% trans %}Hora{% endtrans %}&nbsp;&nbsp;<input id="byDay" type="radio" name="type" value="day" checked>{% trans %}Día{% endtrans %}
-
                     <div id="byHourDiv" style="display:none">
+                        <br/>
                         <table class="dateHourTable">
                             <th><label>{% trans %}Fecha{% endtrans %}</label></th>
                             <th><label style="float: right;">{% trans %}Hora{% endtrans %}</label></th>
@@ -164,8 +162,9 @@
                                     </select>
                                 <td>
                             </tr>
+                            <tr><td>&nbsp;</td></tr>
                             <tr>
-                                <th><label>{% trans %}Filtros{% endtrans %}</label></th>
+                                <th><label>{% trans %}Filtros****{% endtrans %}</label></th>
 
                             </tr>
                             <tr>
@@ -217,7 +216,7 @@
                                     <input class="thisInput" style="width:115px;" name="date" type="text" id="dateByHour">
                                 </td>
                                 <td>
-                                    <select name="hour">
+                                    <select name="hour" class="form-control">
                                         {% if app.session.get('searchHour') == 09 %}<option value="09" selected>09:00</option>{% else %}<option value="09">09:00</option>{% endif %}
                                         {% if app.session.get('searchHour') == 10 %}<option value="10" selected>10:00</option>{% else %}<option value="10">10:00</option>{% endif %}
                                         {% if app.session.get('searchHour') == 11 %}<option value="11" selected>11:00</option>{% else %}<option value="11">11:00</option>{% endif %}
@@ -235,36 +234,42 @@
                                     </select>
                                 <td>
                             </tr>
+                            <tr><td>&nbsp;</td></tr>
                             <tr>
-                                <th><label>{% trans %}Filtros1{% endtrans %}</label></th>
+                                <th><label>{% trans %}Filtros{% endtrans %}</label></th>
                             </tr>
                             <tr>
                                 <td>
                                     <div class="input-group">
-                                    <div class="checkbox">
-                                        {% for filter in filters.hour %}
+                                        <div class="checkbox">
+                                            {% for filter in filters.hour %}
 
-                                            {% set checked = '' %}
-                                            {% for filterSelected in app.session.get('filterSearch') %}
-                                                {% if filter.id == filterSelected %}
-                                                    {% set checked = 'checked' %}
-                                                {% endif %}
+                                                {% set checked = '' %}
+                                                {% for filterSelected in app.session.get('filterSearch') %}
+                                                    {% if filter.id == filterSelected %}
+                                                        {% set checked = 'checked' %}
+                                                    {% endif %}
+                                                {% endfor %}
+
+                                                &nbsp;<input type="checkbox" class="checkboxSearch" name="filterSearch[]" value="{{ filter.id }}" {{ checked }}>{{ filter.name }}<br/>
                                             {% endfor %}
-
-                                            &nbsp;<input type="checkbox" class="checkboxSearch" name="filterSearch[]" value="{{ filter.id }}" {{ checked }}>{{ filter.name }}<br/>
-                                        {% endfor %}
-                                    </div>
+                                        </div>
                                     </div>
                                 </td>
                             </tr>
                         </table>
                     </div>
+                    <br/>
                     <div id="byDayDiv" style="display:none">
+                        <br/>
                         <label>{% trans %}Entrada{% endtrans %}</label>
                         <input class="thisInput" name="StartDate" type="text" id="dateByDaySD">
+                        <br/>
+                        <br/>
                         <label>{% trans %}Salida{% endtrans %}</label>
                         <input class="thisInput" name="EndDate" type="text" id="dateByDayED">
 
+                        <br/>
                         <br/>
                         <label>{% trans %}Filtros{% endtrans %}</label>
                         <br/>
@@ -282,7 +287,7 @@
                 {% endif %}
 
 
-
+                <br/>
                 <div class="text-center">
                     <button value="Send" class="btn btn-success" type="submit" name="_bookingSearch">
                         <i class="glyphicon glyphicon-search"></i>&nbsp;{% trans %}Buscar{% endtrans %}
