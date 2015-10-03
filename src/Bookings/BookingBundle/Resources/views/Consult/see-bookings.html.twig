@@ -10,6 +10,9 @@
 
         <div class="row bookingsFilter">
             <div class="col-md-3">
+                &nbsp;
+            </div>
+            <div class="col-md-3">
                 {% trans %}Nº reserva{% endtrans %}
                 <input name="reservationID" id="filterByResInput" type="text" size="5" maxlength="6" style="width: 80px;text-align: center;">
                 <button type="submit" id="filterByRes" class="btn" value="Send" style="height:28px;padding-top:3px;">OK</button>
@@ -28,10 +31,7 @@
                 </div>
             </div>
             <div class="col-md-3">
-                **
-            </div>
-            <div class="col-md-3">
-                ++
+                &nbsp;
             </div>
         </div>
         <br/>
@@ -115,7 +115,7 @@
 
         $("#filterByOwner").change(function(){
 
-            var ownerID = $("#filterByOwner").options[filterByOwner.selectedIndex].value;
+            var ownerID = $("#filterByOwner option:selected").val();
 
             if(ownerID == 0){
                 $('.ownerEmail').show('slow');
