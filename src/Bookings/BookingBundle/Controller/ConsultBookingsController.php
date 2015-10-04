@@ -714,7 +714,7 @@ echo "<br/>---------------------------------------------------------------------
             $this->getDoctrine()
                 ->getRepository('BookingsBookingBundle:Booking')
                 ->cancelBooking($_POST['reserveID']);
-            
+
             return new JsonResponse(array('idDelete' => $_POST['reserveID']));
         } else return new JsonResponse(array());
     }
