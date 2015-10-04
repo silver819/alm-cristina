@@ -55,6 +55,7 @@
                 });
             });
 
+            // Autocompletado de inputs dias
             $("#datepickerTo-0").change(function(){
                 $("#datepickerFrom-1").val($(this).val());
             });
@@ -66,6 +67,20 @@
             });
             $("#datepickerTo-3").change(function(){
                 $("#datepickerFrom-4").val($(this).val());
+            });
+
+            // Autocompletado de inputs horas
+            $("#hourpickerTo-0").change(function(){
+                $("#hourpickerFrom-1").val($(this).val());
+            });
+            $("#hourpickerTo-1").change(function(){
+                $("#hourpickerFrom-2").val($(this).val());
+            });
+            $("#hourpickerTo-2").change(function(){
+                $("#hourpickerFrom-3").val($(this).val());
+            });
+            $("#hourpickerTo-3").change(function(){
+                $("#hourpickerFrom-4").val($(this).val());
             });
 
         /***** DROPBOX *****/
@@ -194,7 +209,13 @@
                     {# Precios / temporadas #}
                     <div class="box">
                         <div class="box-header with-border">
-                            <h3 class="box-title">{% trans %}Precios y temporadas{% endtrans %}</h3>
+                            <h3 class="box-title">
+                                {% if details.typeRent == 'hour' %}
+                                    {% trans %}Precios y horas{% endtrans %}
+                                {% else %}
+                                    {% trans %}Precios y temporadas{% endtrans %}
+                                {% endif %}
+                            </h3>
                             <div class="box-tools pull-right">
                                 <button data-widget="collapse" class="btn btn-box-tool"><i class="fa fa-minus"></i></button>
                                 <button data-widget="remove" class="btn btn-box-tool"><i class="fa fa-times"></i></button>
@@ -203,8 +224,13 @@
                         <div class="box-body" style="display: block;">
                             <table class="table table-bordered text-center">
                                 <tr>
-                                    <th>{% trans %}Inicio{% endtrans %}</th>
-                                    <th>{% trans %}Fin{% endtrans %}</th>
+                                    {% if details.typeRent == 'hour' %}
+                                        <th>{% trans %}De{% endtrans %}</th>
+                                        <th>{% trans %}Hasta{% endtrans %}</th>
+                                    {% else %}
+                                        <th>{% trans %}Inicio{% endtrans %}</th>
+                                        <th>{% trans %}Fin{% endtrans %}</th>
+                                    {% endif %}
                                     <th>&euro;</th>
                                 </tr>
                                 {% for season in seasons %}
@@ -218,14 +244,37 @@
                                     <tr>
                                         <td>
                                             <div class="input-group">
-                                                <div class="input-group-addon"><i class="fa fa-calendar"></i></div>
-                                                <input type="text" id="datepickerFrom-{{ i }}" name="Seasons[{{ i }}][From]" class="form-control pull-right active datepickerClass">
+                                                <input type="hidden" value="{{ details.typeRent }}" name="typeRent">
+                                                {% if details.typeRent == 'hour' %}
+                                                    <div class="input-group-addon"><i class="fa fa-clock-o"></i></div>
+                                                    <select class="form-control" id="hourpickerFrom-{{ i }}" name="Seasons[{{ i }}][From]">
+                                                        <option></option><option>9:00</option><option>10:00</option>
+                                                        <option>11:00</option><option>12:00</option><option>13:00</option>
+                                                        <option>14:00</option><option>15:00</option><option>16:00</option>
+                                                        <option>17:00</option><option>18:00</option><option>19:00</option>
+                                                        <option>20:00</option><option>21:00</option><option>22:00</option>
+                                                    </select>
+                                                {% else %}
+                                                    <div class="input-group-addon"><i class="fa fa-calendar"></i></div>
+                                                    <input type="text"  class="form-control pull-right active datepickerClass">
+                                                {% endif %}
                                             </div>
                                         </td>
                                         <td>
                                             <div class="input-group">
-                                                <div class="input-group-addon"><i class="fa fa-calendar"></i></div>
-                                                <input type="text" id="datepickerTo-{{ i }}" name="Seasons[{{ i }}][To]" class="form-control pull-right active datepickerClass">
+                                                {% if details.typeRent == 'hour' %}
+                                                    <div class="input-group-addon"><i class="fa fa-clock-o"></i></div>
+                                                    <select class="form-control" id="hourpickerTo-{{ i }}" name="Seasons[{{ i }}][To]">
+                                                        <option></option><option>9:00</option><option>10:00</option>
+                                                        <option>11:00</option><option>12:00</option><option>13:00</option>
+                                                        <option>14:00</option><option>15:00</option><option>16:00</option>
+                                                        <option>17:00</option><option>18:00</option><option>19:00</option>
+                                                        <option>20:00</option><option>21:00</option><option>22:00</option>
+                                                    </select>
+                                                {% else %}
+                                                    <div class="input-group-addon"><i class="fa fa-calendar"></i></div>
+                                                    <input type="text" id="datepickerTo-{{ i }}" name="Seasons[{{ i }}][To]" class="form-control pull-right active datepickerClass">
+                                                {% endif %}
                                             </div>
                                         </td>
                                         <td>

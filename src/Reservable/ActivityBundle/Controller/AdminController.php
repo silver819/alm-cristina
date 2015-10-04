@@ -174,8 +174,14 @@ class AdminController extends Controller
                 if ($oneSeason['From'] != '' && $oneSeason['To'] != '' && $oneSeason['Price'] != '') {
                     $season = new Seasons();
                     $season->setActivityID($_POST['productID']);
-                    $season->setStartSeason($this->FormatDate($oneSeason['From']));
-                    $season->setEndSeason($this->FormatDate($oneSeason['To']));
+                    if($_POST['typeRent'] == 'hour'){
+                        $season->setStartSeason($oneSeason['From']);
+                        $season->setEndSeason($oneSeason['To']);
+                    }
+                    else {
+                        $season->setStartSeason($this->FormatDate($oneSeason['From']));
+                        $season->setEndSeason($this->FormatDate($oneSeason['To']));
+                    }
                     $season->setPrice($oneSeason['Price']);
 
                     $em->persist($season);
