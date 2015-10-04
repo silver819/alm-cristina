@@ -707,4 +707,23 @@ echo "<br/>---------------------------------------------------------------------
 
         return $stringCalendar;
     }
+
+    public function deleteReserveAction(){
+
+        if (isset($_POST['reserveID'])) {
+            $resultQueryDisponibility = $this->getDoctrine()
+                ->getManager()
+                ->createQuery("DELETE FROM BookingsBookingBundle:DisponibilityBooking d
+                               WHERE d.bookingID = " . $_POST['reserveID'])
+                ->getResult();
+
+            $resultQueryBookings = $this->getDoctrine()
+                ->getManager()
+                ->createQuery("DELETE FROM BookingsBookingBundle:Booking b
+                               WHERE b.id = " . $_POST['reserveID'])
+                ->getResult();
+
+            return new JsonResponse(array('idDelete' => $_POST['reserveID']));
+        } else return new JsonResponse(array());
+    }
 }

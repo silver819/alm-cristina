@@ -95,12 +95,10 @@
                                     {% endif %}
                                 </div><!-- /.col -->
                                 <div class="col-sm-3 col-xs-6">
-                                    <form action={{ path('cancelBooking') }} method=POST>
-                                        <input type="hidden" name="bookingID" value="{{ oneBooking.bookingID }}">
-                                        <button value="Send" class="btn btn-danger btnMargin pull-left" type="submit">
-                                            <i class="glyphicon glyphicon-remove"></i>&nbsp;{% trans %}Cancelar{% endtrans %}
-                                        </button>
-                                    </form>
+                                    <input type="hidden" name="bookingID" value="{{ oneBooking.bookingID }}">
+                                    <button value="Send" class="btn btn-danger btnMargin pull-left cancelReserve" type="button" reservationID="{{ oneBooking.bookingID }}">
+                                        <i class="glyphicon glyphicon-remove"></i>&nbsp;{% trans %}Cancelar reserva{% endtrans %}
+                                    </button>
                                 </div><!-- /.col -->
                                 <div class="col-sm-3 col-xs-6"></div>
                             </div><!-- /.row -->
@@ -110,6 +108,41 @@
             {% endif %}
         </div>
     </div>
+
+    {# Modal cancelar reserva #}
+    <div class="modal fade" id="modalCancelReserve">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">{% trans %}Cancelar reserva{% endtrans %}</h4>
+                </div>
+                <div class="modal-body">
+                    <p>{% trans %}¿Estas seguro de querer cancelar esta reserva?{% endtrans %}</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" reserveID="" id="cancelThisReserve" class="btn btn-danger">Cancelar reserva</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+    <div class="modal fade" id="modalCancelOK">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">{% trans %}Reserva cancelada{% endtrans %}</h4>
+                </div>
+                <div class="modal-body">
+                    <p>{% trans %}La reserva ha sido cancelada{% endtrans %}</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" reserveID="" id="cancelThisReserve" class="btn btn-danger">Cancelar reserva</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
 
     <script>
 
@@ -137,6 +170,28 @@
                 $('.ownerEmail').hide('slow');
                 $('.res-'+ resID).show('slow');
             }
+        });
+
+        // Modal
+        $('.cancelReserve').click(function(){
+            $('#cancelThisReserve').attr('reserveID', $(this).attr("reservationID"));
+            $('#modalCancelReserve').modal('show');
+        });
+
+        $("#cancelThisReserve").click(function(){
+            $('#modalCancelReserve').modal('show');
+            var reserveID   = $(this).attr('reserveID');
+            $("#modalDeleteFeature").modal("hide");
+            $.ajax({
+                url: '{{ path('delete_reserve') }}',
+                data: { 'reserveID': reserveID },
+                type: "post",
+                success: function(response) {
+                    $('#modalCancelOK').modal('show');
+                    setTimeout(function(){ $('#modalCancelOK').modal('hide'); }, 2000);
+                    $("#res-" + response['idDelete']).detach();
+                }
+            });
         });
     </script>
 {% endblock %}
