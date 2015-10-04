@@ -55,6 +55,19 @@
                 });
             });
 
+            $("#datepickerTo-0").change(function(){
+                $("#datepickerFrom-1").val($(this).val());
+            });
+            $("#datepickerTo-1").change(function(){
+                $("#datepickerFrom-2").val($(this).val());
+            });
+            $("#datepickerTo-2").change(function(){
+                $("#datepickerFrom-3").val($(this).val());
+            });
+            $("#datepickerTo-3").change(function(){
+                $("#datepickerFrom-4").val($(this).val());
+            });
+
         /***** DROPBOX *****/
             var options = {
 
