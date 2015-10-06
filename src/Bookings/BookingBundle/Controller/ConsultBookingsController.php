@@ -597,7 +597,7 @@ echo "<br/>---------------------------------------------------------------------
                 $stringCalendar .= '<td><span></span></td>';
             } else {
                 if($showPeriod && $SDday <= $currentDay && $currentDay < $EDday)
-                    $stringCalendar .= '<td><span class="selectedDay">' . $currentDay . '</span></td>';
+                    $stringCalendar .= '<td class="selectedDay"><span >' . $currentDay . '</span></td>';
                 else
                     $stringCalendar .= '<td><span>' . $currentDay . '</span></td>';
                 $currentDay++;
@@ -611,14 +611,14 @@ echo "<br/>---------------------------------------------------------------------
             if ($numDayWeek == 0)   $stringCalendar .= "<tr>";
 
             if($showPeriod && $SDday <= $currentDay && $currentDay < $EDday)
-                $stringCalendar .= '<td><span class="selectedDay">' . $currentDay . '</span></td>';
+                $stringCalendar .= '<td class="selectedDay"><span >' . $currentDay . '</span></td>';
             else{
                 $printDay = true;
                 foreach($bookings as $oneBooking){
                     if($oneBooking['from'] <= $currentDay && $currentDay < $oneBooking['to'] && !in_array($currentDay, $daysPrinted)){
                         $printDay = false;
                         $daysPrinted[] = $currentDay;
-                        $stringCalendar .= '<td><span title="' . $oneBooking['bookingID'] . '" class="bookedDay">' . $currentDay . '</span></td>';
+                        $stringCalendar .= '<td class="bookedDay"><span title="' . $oneBooking['bookingID'] . '" >' . $currentDay . '</span></td>';
                     }
                 }
 

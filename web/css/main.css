@@ -348,8 +348,31 @@ h2{
     margin-left: 20px;
     color: #999;
 }
+.searcherForm select{
+    background-color: #374850;
+    color: #999;
+    border: 0px;
+    height: 35px;
+}
 
 .dateHourTable{
     width:100%;
     margin-top:10px;
+}
+.selectedDay{
+    font-weight: bold;
+    background-color: #d9edf7;
+    border-color: #bce8f1;
+    color: #31708f;
+    margin: -3px;
+    padding: 3px;
+}
+
+.bookedDay{
+    font-weight: bold;
+    background-color: #dff0d8;
+    border-color: #d6e9c6;
+    color: #3c763d;
+    margin: -3px;
+    padding: 3px;
 }

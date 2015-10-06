@@ -148,7 +148,7 @@
                             </tr>
                             <tr>
                                 <td>
-                                    <input class="thisInput" style="width:115px;" name="date" type="text" id="dateByHour" value="{{ app.session.get('searchDate') }}">
+                                    <input class="thisInput form-control" style="width:115px;" name="date" type="text" id="dateByHour" value="{{ app.session.get('searchDate') }}">
                                 </td>
                                 <td>
                                     <select name="hour">
@@ -185,9 +185,9 @@
                     </div>
                     <div id="byDayDiv">
                         <label>{% trans %}Entrada{% endtrans %}</label>
-                        <input class="thisInput" name="StartDate" type="text" id="dateByDaySD" value="{{ app.session.get('searchStartDate') }}">
+                        <input class="thisInput form-control" name="StartDate" type="text" id="dateByDaySD" value="{{ app.session.get('searchStartDate') }}">
                         <label>{% trans %}Salida{% endtrans %}</label>
-                        <input class="thisInput" name="EndDate" type="text" id="dateByDayED" value="{{ app.session.get('searchEndDate') }}">
+                        <input class="thisInput form-control" name="EndDate" type="text" id="dateByDayED" value="{{ app.session.get('searchEndDate') }}">
 
                         <br/>
                         <label>{% trans %}Filtros{% endtrans %}</label>
@@ -213,7 +213,7 @@
                             </tr>
                             <tr>
                                 <td>
-                                    <input class="thisInput" style="width:115px;" name="date" type="text" id="dateByHour">
+                                    <input class="thisInput form-control" style="width:115px;" name="date" type="text" id="dateByHour">
                                 </td>
                                 <td>
                                     <select name="hour" class="form-control">
@@ -263,13 +263,10 @@
                     <div id="byDayDiv" style="display:none">
                         <br/>
                         <label>{% trans %}Entrada{% endtrans %}</label>
-                        <input class="thisInput" name="StartDate" type="text" id="dateByDaySD">
-                        <br/>
+                        <input class="thisInput form-control" name="StartDate" type="text" id="dateByDaySD">
                         <br/>
                         <label>{% trans %}Salida{% endtrans %}</label>
-                        <input class="thisInput" name="EndDate" type="text" id="dateByDayED">
-
-                        <br/>
+                        <input class="thisInput form-control" name="EndDate" type="text" id="dateByDayED">
                         <br/>
                         <label>{% trans %}Filtros{% endtrans %}</label>
                         <br/>
