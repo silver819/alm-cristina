@@ -152,7 +152,12 @@ class ConsultBookingsController extends Controller
                                                ->getRepository('UserUserBundle:Users')
                                                ->getEmail($propertyData->getOwnerID());
 
-                $aux['calendar']        = $this->showCalendar($aux['startDate'], $aux['endDate'], $request->getLocale(), $propertyData->getId());
+                if($propertyData->getTypeRent() == 'day') {
+                    $aux['calendar'] = $this->showCalendar($aux['startDate'], $aux['endDate'], $request->getLocale(), $propertyData->getId());
+                }
+                else {
+                    $aux['calendar'] = $this->showCalendarByWeek($aux['startDate'], false, $request->getLocale(), $propertyData->getId());
+                }
 
                 $results[] = $aux;
             }
@@ -706,6 +711,59 @@ echo "<br/>---------------------------------------------------------------------
         $stringCalendar .= '</table>';
 
         return $stringCalendar;
+    }
+
+    public function showCalendarByWeek($since, $to = 0, $Lang = 'es', $propertyID)
+    {
+
+        $year   = (int)substr($since, 0, 4);
+        $month  = (int)substr($since, 4, 2);
+        $day    = (int)substr($since, 6, 2);
+        $hour   = (int)substr($since, 8, 2);
+
+        // HORAS
+        $arrayHours = array();
+        if ($hour <= 15) {
+            // Tramo de la mañana
+            $arrayHours = array(0, 9, 10, 11, 12, 13, 14, 15);
+        } else {
+            // Tramo de la tarde
+            $arrayHours = array(0, 16, 17, 18, 19, 20, 21, 22);
+        }
+
+        // DIAS
+        $numberDay = date('N', strtotime($year . '-' . $month . '-' . $day));
+        $numDaysBefore = $numberDay - 1;
+        $numDaysAfter = 8 - $numberDay;
+
+        $arrayDays = array();
+
+        if ($numDaysBefore > 0) {
+            for ($i = $numDaysBefore; $i > 0; $i--) {
+                $arrayDays[] = date('Ymd', mktime(0, 0, 0, $month, $day - $i, $year));
+            }
+        }
+        $arrayDays[] = date('Ymd', mktime(0, 0, 0, $month, $day, $year));
+        if ($numDaysAfter > 0) {
+            for ($i = 1; $i < $numDaysAfter; $i++) {
+                $arrayDays[] = date('Ymd', mktime(0, 0, 0, $month, $day + $i, $year));
+            }
+        }
+
+        $calendar = '<table>';
+        foreach ($arrayHours as $hour) {
+
+            $calendar .= '<tr>';
+            $calendar .= ($hour > 0) ? '<td>' . $hour . ':00</td>' : '<td></td>' ;
+
+            foreach ($arrayDays as $day) {
+                $calendar .= '<td> - </td>';
+            }
+            $calendar .= '</tr>';
+        }
+        $calendar .= '</table>';
+
+        return $calendar;
     }
 
     public function deleteReserveAction(){
