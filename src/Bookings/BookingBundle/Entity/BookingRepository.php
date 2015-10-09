@@ -114,4 +114,32 @@ class BookingRepository extends EntityRepository
 
       return $results;
     }
+
+    function getAllBookingsInPeriod($from, $to, $arrayProperties){
+        $results = array();
+
+        if(!empty($arrayProperties)) {
+            $bookings = $this->getEntityManager()
+                ->createQuery('SELECT b.id, b.startDate, b.endDate
+                                        FROM BookingsBookingBundle:Booking b
+                                        WHERE b.activityID IN (' . implode(',', $arrayProperties) . ')
+                                        AND b.startDate >= ' . $from . '
+                                        AND b.startDate < ' . $to)
+                ->getResult();
+
+            foreach ($bookings as $oneBooking) {
+                $aux['bookingID'] = $oneBooking['id'];
+                $aux['year'] = substr($oneBooking['startDate'], 0, 4);
+                $aux['month'] = substr($oneBooking['startDate'], 4, 2);
+                $aux['from'] = substr($oneBooking['startDate'], 6, 2);
+                $aux['hour'] = substr($oneBooking['startDate'], 8, 2);
+                $monthStart = substr($oneBooking['startDate'], 4, 2);
+                $monthEnd = substr($oneBooking['endDate'], 4, 2);
+                $aux['to'] = ($monthEnd == $monthStart) ? substr($oneBooking['endDate'], 6, 2) : 50;
+                $results[] = $aux;
+            }
+        }
+
+      return $results;
+    }
 }

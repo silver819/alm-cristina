@@ -725,10 +725,10 @@ echo "<br/>---------------------------------------------------------------------
         $arrayHours = array();
         if ($hour <= 15) {
             // Tramo de la mañana
-            $arrayHours = array(0, 9, 10, 11, 12, 13, 14, 15);
+            $arrayHours = array(9, 10, 11, 12, 13, 14, 15);
         } else {
             // Tramo de la tarde
-            $arrayHours = array(0, 16, 17, 18, 19, 20, 21, 22);
+            $arrayHours = array(16, 17, 18, 19, 20, 21, 22);
         }
 
         // DIAS
@@ -737,6 +737,7 @@ echo "<br/>---------------------------------------------------------------------
         $numDaysAfter = 8 - $numberDay;
 
         $arrayDays = array();
+        $arrayDays[] = 0;
 
         if ($numDaysBefore > 0) {
             for ($i = $numDaysBefore; $i > 0; $i--) {
@@ -750,14 +751,34 @@ echo "<br/>---------------------------------------------------------------------
             }
         }
 
-        $calendar = '<table>';
-        foreach ($arrayHours as $hour) {
+        // RESERVAS
+        $bookings       = $this->getDoctrine()
+            ->getRepository('BookingsBookingBundle:Booking')
+            ->getAllBookingsInPeriod($arrayDays[1].'00', $arrayDays[7].'00', array($propertyID));
 
+        $calendar = '<table class="table table-bordered text-center">';
+        $calendar .= '<tr><th colspan="8">' . $this->nameMonths($month, $Lang) . ' ' . $year . '</th></tr><tr><td></td>';
+        foreach ($arrayDays as $day) {
             $calendar .= '<tr>';
-            $calendar .= ($hour > 0) ? '<td>' . $hour . ':00</td>' : '<td></td>' ;
+            $calendar .= ($day > 0) ? '<td>' . substr($day, 6, 2) . ' / ' . substr($day, 4, 2) . '</td>' : '<td></td>' ;
+            foreach ($arrayHours as $hour) {
+                if($day == 0) {
+                    $calendar .= '<td>' . $hour . ':00</td>';
+                }
+                else {
+                    $available = true;
 
-            foreach ($arrayDays as $day) {
-                $calendar .= '<td> - </td>';
+                    foreach($bookings as $booking){
+                        if((int)$booking['hour'] == $hour && $booking['year'].$booking['month'].$booking['from'] == $day){
+                            $available = false;
+                            $calendar .= '<td class="selectedDay">' . $booking['bookingID'] . '</td>';
+                        }
+                    }
+
+                    if(!$available){
+                        $calendar .= '<td></td>';
+                    }
+                }
             }
             $calendar .= '</tr>';
         }
