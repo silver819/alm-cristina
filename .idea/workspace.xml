@@ -33,12 +33,12 @@
       <file leaf-file-name="ConsultBookingsController.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Bookings/BookingBundle/Controller/ConsultBookingsController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.5389755" vertical-offset="13088" max-vertical-offset="14508">
-              <caret line="759" column="106" selection-start-line="759" selection-start-column="106" selection-end-line="759" selection-end-column="106" />
+            <state vertical-scroll-proportion="0.77951" vertical-offset="13304" max-vertical-offset="14508">
+              <caret line="783" column="23" selection-start-line="783" selection-start-column="23" selection-end-line="783" selection-end-column="23" />
               <folding>
-                <marker date="1444410828629" expanded="true" signature="1208:1533" placeholder="SELECT u.ema..ReservableActivityBundle..." />
-                <marker date="1444410828629" expanded="true" signature="2818:3375" placeholder="SELECT b.id,..BookingsBookingBundle..." />
-                <marker date="1444410828629" expanded="true" signature="9299:9856" placeholder="SELECT b.id,..BookingsBookingBundle..." />
+                <marker date="1444411300587" expanded="true" signature="1208:1533" placeholder="SELECT u.ema..ReservableActivityBundle..." />
+                <marker date="1444411300587" expanded="true" signature="2818:3375" placeholder="SELECT b.id,..BookingsBookingBundle..." />
+                <marker date="1444411300587" expanded="true" signature="9299:9856" placeholder="SELECT b.id,..BookingsBookingBundle..." />
               </folding>
             </state>
           </provider>
@@ -1060,12 +1060,12 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Bookings/BookingBundle/Controller/ConsultBookingsController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.5389755" vertical-offset="13088" max-vertical-offset="14508">
-          <caret line="759" column="106" selection-start-line="759" selection-start-column="106" selection-end-line="759" selection-end-column="106" />
+        <state vertical-scroll-proportion="0.77951" vertical-offset="13304" max-vertical-offset="14508">
+          <caret line="783" column="23" selection-start-line="783" selection-start-column="23" selection-end-line="783" selection-end-column="23" />
           <folding>
-            <marker date="1444410828629" expanded="true" signature="1208:1533" placeholder="SELECT u.ema..ReservableActivityBundle..." />
-            <marker date="1444410828629" expanded="true" signature="2818:3375" placeholder="SELECT b.id,..BookingsBookingBundle..." />
-            <marker date="1444410828629" expanded="true" signature="9299:9856" placeholder="SELECT b.id,..BookingsBookingBundle..." />
+            <marker date="1444411300587" expanded="true" signature="1208:1533" placeholder="SELECT u.ema..ReservableActivityBundle..." />
+            <marker date="1444411300587" expanded="true" signature="2818:3375" placeholder="SELECT b.id,..BookingsBookingBundle..." />
+            <marker date="1444411300587" expanded="true" signature="9299:9856" placeholder="SELECT b.id,..BookingsBookingBundle..." />
           </folding>
         </state>
       </provider>
