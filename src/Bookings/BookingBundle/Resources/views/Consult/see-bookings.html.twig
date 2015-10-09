@@ -81,26 +81,22 @@
                         </div>
                         <div class="box-footer" style="display: block;">
                             <div class="row">
-                                <div class="col-sm-3 col-xs-6"></div><!-- /.col -->
-                                <div class="col-sm-3 col-xs-6">
+                                <div class="col-md-6 column">
                                     {% if is_granted("ROLE_SUPER_ADMIN") or is_granted("ROLE_ADMIN") %}
-                                        <div class="col-md-6 column">
-                                            <form action={{ path('acceptBooking') }} method=POST>
-                                                <input type="hidden" name="bookingID" value="{{ oneBooking.bookingID }}">
-                                                <button value="Send" class="btn btn-success btnMargin pull-right" type="submit">
-                                                    <i class="glyphicon glyphicon-ok"></i>&nbsp;{% trans %}Aceptar{% endtrans %}
-                                                </button>
-                                            </form>
-                                        </div>
+                                        <form action={{ path('acceptBooking') }} method=POST>
+                                            <input type="hidden" name="bookingID" value="{{ oneBooking.bookingID }}">
+                                            <button value="Send" class="btn btn-success btnMargin pull-right" type="submit">
+                                                <i class="glyphicon glyphicon-ok"></i>&nbsp;{% trans %}Aceptar reserva{% endtrans %}
+                                            </button>
+                                        </form>
                                     {% endif %}
                                 </div><!-- /.col -->
-                                <div class="col-sm-3 col-xs-6">
+                                <div class="col-md-6 column">
                                     <input type="hidden" name="bookingID" value="{{ oneBooking.bookingID }}">
                                     <button value="Send" class="btn btn-danger btnMargin pull-left cancelReserve" type="button" reservationID="{{ oneBooking.bookingID }}">
                                         <i class="glyphicon glyphicon-remove"></i>&nbsp;{% trans %}Cancelar reserva{% endtrans %}
                                     </button>
                                 </div><!-- /.col -->
-                                <div class="col-sm-3 col-xs-6"></div>
                             </div><!-- /.row -->
                         </div>
                     </div>
