@@ -757,10 +757,16 @@ echo "<br/>---------------------------------------------------------------------
             ->getAllBookingsInPeriod($arrayDays[1].'00', $arrayDays[7].'00', array($propertyID));
 
         $calendar = '<table class="table table-bordered text-center">';
-        $calendar .= '<tr><th colspan="8">' . $this->nameMonths($month, $Lang) . ' ' . $year . '</th></tr><tr><td></td>';
+        $calendar .= '<tr><th colspan="8">' . $this->nameMonths($month, $Lang) . ' ' . $year . '</th></tr>';
         foreach ($arrayDays as $day) {
             $calendar .= '<tr>';
-            $calendar .= ($day > 0) ? '<td>' . substr($day, 6, 2) . ' / ' . substr($day, 4, 2) . '</td>' : '<td></td>' ;
+            if($day > 0){
+                $calendar .= '<td>' . substr($day, 6, 2) . ' / ' . substr($day, 4, 2) . '</td>' ;
+            }
+            else{
+                $calendar .= '<td></td>';
+            }
+
             foreach ($arrayHours as $hour) {
                 if($day == 0) {
                     $calendar .= '<td>' . $hour . ':00</td>';

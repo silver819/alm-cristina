@@ -5,7 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0ca3c09d-9b70-4edd-bbfb-2d0f972bbd20" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Bookings/BookingBundle/Resources/views/Consult/see-bookings.html.twig" afterPath="$PROJECT_DIR$/src/Bookings/BookingBundle/Resources/views/Consult/see-bookings.html.twig" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Bookings/BookingBundle/Controller/ConsultBookingsController.php" afterPath="$PROJECT_DIR$/src/Bookings/BookingBundle/Controller/ConsultBookingsController.php" />
     </list>
     <ignored path="almacen.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -30,15 +30,15 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="ConsultBookingsController.php" pinned="false" current-in-tab="false">
+      <file leaf-file-name="ConsultBookingsController.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Bookings/BookingBundle/Controller/ConsultBookingsController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-19.925926" vertical-offset="13034" max-vertical-offset="14400">
-              <caret line="759" column="67" selection-start-line="759" selection-start-column="67" selection-end-line="759" selection-end-column="67" />
+            <state vertical-scroll-proportion="0.5389755" vertical-offset="13088" max-vertical-offset="14508">
+              <caret line="759" column="106" selection-start-line="759" selection-start-column="106" selection-end-line="759" selection-end-column="106" />
               <folding>
-                <marker date="1444410278974" expanded="true" signature="1208:1533" placeholder="SELECT u.ema..ReservableActivityBundle..." />
-                <marker date="1444410278974" expanded="true" signature="2818:3375" placeholder="SELECT b.id,..BookingsBookingBundle..." />
-                <marker date="1444410278974" expanded="true" signature="9299:9856" placeholder="SELECT b.id,..BookingsBookingBundle..." />
+                <marker date="1444410828629" expanded="true" signature="1208:1533" placeholder="SELECT u.ema..ReservableActivityBundle..." />
+                <marker date="1444410828629" expanded="true" signature="2818:3375" placeholder="SELECT b.id,..BookingsBookingBundle..." />
+                <marker date="1444410828629" expanded="true" signature="9299:9856" placeholder="SELECT b.id,..BookingsBookingBundle..." />
               </folding>
             </state>
           </provider>
@@ -109,10 +109,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="see-bookings.html.twig" pinned="false" current-in-tab="true">
+      <file leaf-file-name="see-bookings.html.twig" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Bookings/BookingBundle/Resources/views/Consult/see-bookings.html.twig">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.6229885" vertical-offset="1222" max-vertical-offset="3546">
+            <state vertical-scroll-proportion="-13.781818" vertical-offset="1006" max-vertical-offset="3546">
               <caret line="98" column="52" selection-start-line="98" selection-start-column="52" selection-end-line="98" selection-end-column="52" />
               <folding />
             </state>
@@ -176,8 +176,8 @@
         <option value="$PROJECT_DIR$/web/css/main.css" />
         <option value="$PROJECT_DIR$/app/Resources/views/base.html.twig" />
         <option value="$PROJECT_DIR$/src/Bookings/BookingBundle/Entity/BookingRepository.php" />
-        <option value="$PROJECT_DIR$/src/Bookings/BookingBundle/Controller/ConsultBookingsController.php" />
         <option value="$PROJECT_DIR$/src/Bookings/BookingBundle/Resources/views/Consult/see-bookings.html.twig" />
+        <option value="$PROJECT_DIR$/src/Bookings/BookingBundle/Controller/ConsultBookingsController.php" />
       </list>
     </option>
   </component>
@@ -1050,23 +1050,23 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Bookings/BookingBundle/Controller/ConsultBookingsController.php">
+    <entry file="file://$PROJECT_DIR$/src/Bookings/BookingBundle/Resources/views/Consult/see-bookings.html.twig">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-19.925926" vertical-offset="13034" max-vertical-offset="14400">
-          <caret line="759" column="67" selection-start-line="759" selection-start-column="67" selection-end-line="759" selection-end-column="67" />
-          <folding>
-            <marker date="1444410278974" expanded="true" signature="1208:1533" placeholder="SELECT u.ema..ReservableActivityBundle..." />
-            <marker date="1444410278974" expanded="true" signature="2818:3375" placeholder="SELECT b.id,..BookingsBookingBundle..." />
-            <marker date="1444410278974" expanded="true" signature="9299:9856" placeholder="SELECT b.id,..BookingsBookingBundle..." />
-          </folding>
+        <state vertical-scroll-proportion="-13.781818" vertical-offset="1006" max-vertical-offset="3546">
+          <caret line="98" column="52" selection-start-line="98" selection-start-column="52" selection-end-line="98" selection-end-column="52" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Bookings/BookingBundle/Resources/views/Consult/see-bookings.html.twig">
+    <entry file="file://$PROJECT_DIR$/src/Bookings/BookingBundle/Controller/ConsultBookingsController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.6229885" vertical-offset="1222" max-vertical-offset="3546">
-          <caret line="98" column="52" selection-start-line="98" selection-start-column="52" selection-end-line="98" selection-end-column="52" />
-          <folding />
+        <state vertical-scroll-proportion="0.5389755" vertical-offset="13088" max-vertical-offset="14508">
+          <caret line="759" column="106" selection-start-line="759" selection-start-column="106" selection-end-line="759" selection-end-column="106" />
+          <folding>
+            <marker date="1444410828629" expanded="true" signature="1208:1533" placeholder="SELECT u.ema..ReservableActivityBundle..." />
+            <marker date="1444410828629" expanded="true" signature="2818:3375" placeholder="SELECT b.id,..BookingsBookingBundle..." />
+            <marker date="1444410828629" expanded="true" signature="9299:9856" placeholder="SELECT b.id,..BookingsBookingBundle..." />
+          </folding>
         </state>
       </provider>
     </entry>
