@@ -6,8 +6,11 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Response;
 use Bookings\BookingBundle\Entity\Booking;
 use Bookings\BookingBundle\Entity\DisponibilityBooking;
+use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\Filesystem\Exception\IOExceptionInterface;
 
 class ConsultBookingsController extends Controller
 {
@@ -361,7 +364,6 @@ echo pageFooter(__FILE__);
 
 echo "<br/>---------------------------------------------------------------------------<br/>";
 */
-
         $selector   = array();
         $calendar   = '';
         $todayMonth = date("m");
@@ -423,6 +425,21 @@ echo "<br/>---------------------------------------------------------------------
                 $calendar .= $this->showCalendar(date("Ymd", mktime(0, 0, 0, $todayMonth + 11, 1, $todayYear)), false, $request->getLocale(), $selector[0]['id']);
                 $calendar .= '</div></div>';
             }
+        }
+
+        // Creamos ics
+        $fromThisDate   = date('Ymd') . '00';
+        $toThisDate     = date('Ymd', strtotime('+ 1 year')) . '00';
+
+        foreach($properties as $key => $oneProperty){
+
+            $selector[$key]['bookings'] = $this->getDoctrine()
+                ->getRepository('BookingsBookingBundle:Booking')
+                ->getBookingsInPeriod($fromThisDate, $toThisDate, array($oneProperty->getId()));
+        }
+
+        foreach($selector as $key => $data){
+            $selector[$key]['icalPath'] = $this->getIcs($data);
         }
 
         return $this->render('BookingsBookingBundle:Consult:calendar-bookings.html.twig',
@@ -802,5 +819,56 @@ echo "<br/>---------------------------------------------------------------------
 
             return new JsonResponse(array('idDelete' => $_POST['reserveID']));
         } else return new JsonResponse(array());
+    }
+
+    public function getIcs($data)
+    {
+        $provider = $this->get('bomo_ical.ics_provider');
+
+        $tz = $provider->createTimezone();
+        $tz->setTzid('Europe/Madrid');
+        $tz->setProperty('X-LIC-LOCATION', $tz->getTzid());
+
+        $cal = $provider->createCalendar($tz);
+
+        //$cal->setName($data['name'] . ' iCal');
+        //$cal->setDescription($data['name'] . ' iCal from www.elalmacendelocio.es');
+
+        foreach($data['bookings'] as $booking){
+            if($data['type'] == 'hour'){
+                $startDate = new \Datetime($booking['year'] . '-' . $booking['month'] . '-' . $booking['from'] . ' ' . $booking['hour'] . ':00:00');
+                $endDate   = new \Datetime($booking['year'] . '-' . $booking['month'] . '-' . $booking['from'] . ' ' . ((int)$booking['hour']+1) . ':00:00');
+            }
+            else{
+                $startDate = new \Datetime($booking['year'] . '-' . $booking['month'] . '-' . $booking['from'] . ' 00:00:00');
+                $endDate   = new \Datetime($booking['year'] . '-' . $booking['month'] . '-' . $booking['to'] . ' 00:00:00');
+            }
+
+            $event = $cal->newEvent();
+            $event->setStartDate($startDate);
+            $event->setEndDate($endDate);
+            $event->setDescription('El almacen del ocio # ' . $data['name'] . ' # ' . $booking['bookingID']);
+        }
+
+        $fs = new Filesystem();
+
+        try {
+            $fs->exists('/var/www/almacen/web/icals');
+        } catch (IOExceptionInterface $e) {
+            echo "No existe el directorio " . $e->getPath();
+        }
+
+        $fileName = 'propID' . $data['id'];
+        $fs->dumpFile('/var/www/almacen/web/icals/' . $fileName . '.ics', $cal->returnCalendar());
+
+        return '/var/www/almacen/web/icals/' . $fileName . '.ics';
+        /*return new Response(
+            $calStr,
+            200,
+            array(
+                'Content-Type' => 'text/calendar; charset=utf-8',
+                'Content-Disposition' => 'attachment; filename="calendar.ics"',
+            )
+        );*/
     }
 }

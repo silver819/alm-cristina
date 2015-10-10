@@ -59,7 +59,8 @@
         "ob/highcharts-bundle": "^1.2",
         "egeloen/google-map-bundle": "^2.2",
         "willdurand/geocoder": "^3.0",
-        "widop/http-adapter-bundle": "^1.2"
+        "widop/http-adapter-bundle": "^1.2",
+        "bomo/ical-bundle": "1.0.*"
     },
     "scripts": {
         "post-install-cmd": [

@@ -29,6 +29,7 @@ class AppKernel extends Kernel
             new Ragings\RatingBundle\RagingsRatingBundle(),
             new Ob\HighchartsBundle\ObHighchartsBundle(),
             new Ivory\GoogleMapBundle\IvoryGoogleMapBundle(),
+            new BOMO\IcalBundle\BOMOIcalBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

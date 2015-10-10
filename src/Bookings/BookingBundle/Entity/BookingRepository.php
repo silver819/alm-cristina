@@ -107,6 +107,8 @@ class BookingRepository extends EntityRepository
                 $aux['hour'] = substr($oneBooking['startDate'], 8, 2);
                 $monthStart = substr($oneBooking['startDate'], 4, 2);
                 $monthEnd = substr($oneBooking['endDate'], 4, 2);
+                $aux['month'] = $monthStart;
+                $aux['year'] = substr($oneBooking['startDate'], 0, 4);
                 $aux['to'] = ($monthEnd == $monthStart) ? substr($oneBooking['endDate'], 6, 2) : 50;
                 $results[] = $aux;
             }
