@@ -407,3 +407,15 @@ h2{
 .passedDay{
     text-decoration: line-through;
 }
+
+.monthName{
+    background-color: #00AB45;
+    border-color: #00AB45;
+    color: white;
+}
+
+.weekName{
+    background-color: #D4AA00;
+    border-color: #D4AA00;
+    color: white;
+}

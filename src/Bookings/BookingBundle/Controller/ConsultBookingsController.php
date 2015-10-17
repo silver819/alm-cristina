@@ -772,11 +772,11 @@ echo "<br/>---------------------------------------------------------------------
         $stringCalendar .= '<table class="table table-bordered text-center"><tbody>';
 
         // Cabecera
-        $stringCalendar .= '<tr><th colspan="7">' . $this->nameMonths($month, $Lang) . ' ' . $year . '</th></tr>';
+        $stringCalendar .= '<tr class="monthName"><th colspan="7">' . $this->nameMonths($month, $Lang) . ' ' . $year . '</th></tr>';
 
         // Días de la semana
         $nameDayShort = array('es' => array('L','M','X','J','V','S','D'), 'en' => array('M','T','W','T','F','S','S'));
-        $stringCalendar .= '<tr><th>' . $nameDayShort[$Lang][0] . '</th><th>' . $nameDayShort[$Lang][1] . '</th><th>' . $nameDayShort[$Lang][2] . '</th><th>' . $nameDayShort[$Lang][3] . '</th><th>' . $nameDayShort[$Lang][4] . '</th><th>' . $nameDayShort[$Lang][5] . '</th><th>' . $nameDayShort[$Lang][6] . '</th></tr>';
+        $stringCalendar .= '<tr class="weekName"><th>' . $nameDayShort[$Lang][0] . '</th><th>' . $nameDayShort[$Lang][1] . '</th><th>' . $nameDayShort[$Lang][2] . '</th><th>' . $nameDayShort[$Lang][3] . '</th><th>' . $nameDayShort[$Lang][4] . '</th><th>' . $nameDayShort[$Lang][5] . '</th><th>' . $nameDayShort[$Lang][6] . '</th></tr>';
         
         $currentDay         = 1;
         $numDayWeek         = $this->numDayOfWeek(1,$month,$year);
@@ -904,11 +904,11 @@ echo "<br/>---------------------------------------------------------------------
 
         $stringCalendar .= '<table class="table table-bordered text-center">';
         // Cabecera
-        $stringCalendar .= '<tr><th colspan="32">' . $this->nameMonths($month, $Lang) . ' ' . $year . '</th></tr><tr><td></td>';
+        $stringCalendar .= '<tr class="monthName"><th colspan="32">' . $this->nameMonths($month, $Lang) . ' ' . $year . '</th></tr><tr><td></td>';
         // Días
         for($i=1 ; $i <= 31 ; $i++) {
             if($i <= $lastDayOfMonth) {
-                $stringCalendar .= '<th class="cabeceraCalendar borderTD">' . $i . '</th>';
+                $stringCalendar .= '<th class="cabeceraCalendar borderTD weekName">' . $i . '</th>';
             }
             else {
                 $stringCalendar .= '<th class="noAvailableDay">&nbsp;</th>';
@@ -917,7 +917,7 @@ echo "<br/>---------------------------------------------------------------------
         $stringCalendar .= '</tr>';
         // Horas
         for($j=9 ; $j<=22 ; $j++){
-            $stringCalendar .= '<tr><th class="cabeceraCalendar borderTD">' . $j . ':00</th>';
+            $stringCalendar .= '<tr><th class="cabeceraCalendar borderTD weekName">' . $j . ':00</th>';
             for($i=1 ; $i <=31 ; $i++){
                 $class = '';
                 $title = '';
