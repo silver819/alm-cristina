@@ -6,12 +6,29 @@
 
 {% block page_content %}
     <div class="row clearfix">
-        <div class="col-md-12 column text-center">
-            <select onchange="changeCalendar(this)">
+        <div class="col-md-4 column text-center"></div>
+        <div class="col-md-4 column text-center">
+            <select onchange="changeCalendar(this)" class="form-control">
             {% for selection in selector %}
                 <option value="{{ selection.id }}">{{ selection.name }}</option>
             {% endfor %}
             </select>
+        </div>
+        <div class="col-md-4 column text-center"></div>
+    </div>
+    <br/>
+    <div class="row clearfix">
+        <div class="col-md-4 column text-center">
+            <a href="/icals/propID{{ selector.0.id }}.ics" id="exportICS" class="btn btn-success" role="button">{% trans %}Descarga tu calendario .ics para exportar{% endtrans %}</a>
+        </div>
+        <div class="col-md-1 column text-right"></div>
+        <div class="col-md-7 column text-right">
+            <div class="input-group">
+                <input class="form-control" type="text" name="importICSinput" id="importICSinput" placeholder="{% trans %}Importa tu calencario .ics{% endtrans %}">
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-success" id="importICSbutton" propID="{{ selector.0.id }}">{% trans %}Importar{% endtrans %}</button>
+                    </span>
+            </div><!-- /input-group -->
         </div>
     </div>
     <br/>
@@ -38,10 +55,29 @@
                 success: function($response) {
                     document.getElementById('nameLodgingContainer').innerHTML   = $response['nameLodging'];
                     document.getElementById('calendarContainer').innerHTML      = $response['calendar'];
+                    document.getElementById('exportICS').href                   = $response['downloadICS'];
+                    document.getElementById('importICSbutton').setAttribute('propID', $response['importICS']);
                 }
             });
 
         }
+
+        $("#importICSbutton").click(function(){
+            var pathICS = document.getElementById('importICSinput').value;
+            var propID = document.getElementById('importICSinput').getAttribute('propID');
+
+            if(!pathICS){document.getElementById('importICSinput').style.border = "1px solid red";}
+            else{
+                $.ajax({
+                    url: '{{ path('importCalendarFromURI') }}',
+                    data: {'pathICS': pathICS, 'propID': propID},
+                    type: "post",
+                    success: function($response) {
+                        alert("BIEN");
+                    }
+                });
+            }
+        });
     </script>
 
 {% endblock %}

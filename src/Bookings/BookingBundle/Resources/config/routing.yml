@@ -42,6 +42,14 @@ calculateCalendar:
     options:
         expose: true
 
+importCalendarFromURI:
+    pattern: /importCalendarFromURI
+    defaults: { _controller: BookingsBookingBundle:ConsultBookings:importCalendarFromURI }
+    requirements:
+        _method:  GET|POST
+    options:
+        expose: true
+
 delete_reserve:
     path: /delete_reserve
     defaults: { _controller: BookingsBookingBundle:ConsultBookings:deleteReserve }
