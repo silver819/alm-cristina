@@ -888,6 +888,8 @@ echo "<br/>---------------------------------------------------------------------
         $todayDay = date('d');
         $todayMonth = date('m');
 
+        $numDaysInThisMonth = cal_days_in_month(CAL_GREGORIAN, $SDmonth, $SDyear);
+
         if($to != 0){
             $EDday      = substr($to, 6, 2);
             $EDmonth    = substr($to, 4, 2);
@@ -907,9 +909,9 @@ echo "<br/>---------------------------------------------------------------------
 
         $stringCalendar .= '<table class="table table-bordered text-center">';
         // Cabecera
-        $stringCalendar .= '<tr class="monthName"><th colspan="32">' . $this->nameMonths($month, $Lang) . ' ' . $year . '</th></tr><tr><td></td>';
+        $stringCalendar .= '<tr class="monthName"><th colspan="' . ($numDaysInThisMonth+1) . '">' . $this->nameMonths($month, $Lang) . ' ' . $year . '</th></tr><tr><td></td>';
         // Días
-        for($i=1 ; $i <= 31 ; $i++) {
+        for($i=1 ; $i <= $numDaysInThisMonth ; $i++) {
             $classPassed = '';
             if($month == $todayMonth && $i < $todayDay){
                 $classPassed = 'passedDay';
@@ -926,7 +928,7 @@ echo "<br/>---------------------------------------------------------------------
         // Horas
         for($j=9 ; $j<=22 ; $j++){
             $stringCalendar .= '<tr><th class="cabeceraCalendar borderTD weekName">' . $j . ':00</th>';
-            for($i=1 ; $i <=31 ; $i++){
+            for($i=1 ; $i <=$numDaysInThisMonth ; $i++){
                 $classPassed = '';
                 if($month == $todayMonth && $i < $todayDay){
                     $classPassed = 'passedDay';
