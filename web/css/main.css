@@ -406,6 +406,7 @@ h2{
 
 .passedDay{
     text-decoration: line-through;
+    background-color: #d6d4d4;
 }
 
 .monthName{

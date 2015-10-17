@@ -885,6 +885,9 @@ echo "<br/>---------------------------------------------------------------------
         $SDmonth        = substr($since, 4, 2);
         $SDyear         = substr($since, 0, 4);
 
+        $todayDay = date('d');
+        $todayMonth = date('m');
+
         if($to != 0){
             $EDday      = substr($to, 6, 2);
             $EDmonth    = substr($to, 4, 2);
@@ -907,11 +910,16 @@ echo "<br/>---------------------------------------------------------------------
         $stringCalendar .= '<tr class="monthName"><th colspan="32">' . $this->nameMonths($month, $Lang) . ' ' . $year . '</th></tr><tr><td></td>';
         // Días
         for($i=1 ; $i <= 31 ; $i++) {
+            $classPassed = '';
+            if($month == $todayMonth && $i < $todayDay){
+                $classPassed = 'passedDay';
+            }
+
             if($i <= $lastDayOfMonth) {
-                $stringCalendar .= '<th class="cabeceraCalendar borderTD weekName">' . $i . '</th>';
+                $stringCalendar .= '<th class="cabeceraCalendar borderTD weekName ' . $classPassed . '">' . $i . '</th>';
             }
             else {
-                $stringCalendar .= '<th class="noAvailableDay">&nbsp;</th>';
+                $stringCalendar .= '<th class="noAvailableDay ' . $classPassed . '">&nbsp;</th>';
             }
         }
         $stringCalendar .= '</tr>';
@@ -919,6 +927,11 @@ echo "<br/>---------------------------------------------------------------------
         for($j=9 ; $j<=22 ; $j++){
             $stringCalendar .= '<tr><th class="cabeceraCalendar borderTD weekName">' . $j . ':00</th>';
             for($i=1 ; $i <=31 ; $i++){
+                $classPassed = '';
+                if($month == $todayMonth && $i < $todayDay){
+                    $classPassed = 'passedDay';
+                }
+
                 $class = '';
                 $title = '';
                 $text  = '';
@@ -931,10 +944,10 @@ echo "<br/>---------------------------------------------------------------------
                 }
 
                 if($i <= $lastDayOfMonth) {
-                    $stringCalendar .= '<td class="borderTD ' . $class . '"' . $class . ' ' . $title . '>' . $text . '</td>';
+                    $stringCalendar .= '<td class="borderTD ' . $class . ' ' . $classPassed . '"' . $class . ' ' . $title . '>' . $text . '</td>';
                 }
                 else {
-                    $stringCalendar .= '<td class="noAvailableDay">&nbsp;</td>';
+                    $stringCalendar .= '<td class="noAvailableDay ' . $classPassed . '">&nbsp;</td>';
                 }
             }
             $stringCalendar .= '</tr>';
