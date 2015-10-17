@@ -509,9 +509,6 @@ echo "<br/>---------------------------------------------------------------------
 
     public function importCalendarFromURIAction(){
 
-        $_POST['pathICS'] = 'https://calendar.google.com/calendar/ical/3ikhnokttve640jvcmgstn20dk%40group.calendar.google.com/public/basic.ics';
-        $_POST['propID']  = 3;
-
         $return = array();
 
         // Transformamos los eventos del ical en array
@@ -551,8 +548,8 @@ echo "<br/>---------------------------------------------------------------------
                     $thisBooking = new Booking();
                     $thisBooking->setActivityID($_POST['propID'])
                         ->setClientID($this->get('security.context')->getToken()->getUser()->getId())
-                        ->setStartDate($dateStart)
-                        ->setEndDate($dateEnd)
+                        ->setStartDate((string)($dateStart . '00'))
+                        ->setEndDate((string)($dateEnd . '00'))
                         ->setPrice(-1)
                         ->setStatus(0)
                         ->setOwnerBooking(1)
@@ -790,8 +787,31 @@ echo "<br/>---------------------------------------------------------------------
             } else {
                 if($showPeriod && $SDday <= $currentDay && $currentDay < $EDday)
                     $stringCalendar .= '<td class="selectedDay"><span >' . $currentDay . '</span></td>';
-                else
-                    $stringCalendar .= '<td><span>' . $currentDay . '</span></td>';
+                else{
+                    $printDay = true;
+                    foreach($bookings as $oneBooking){
+                        if(
+                            (
+                                ($oneBooking['month'] == $oneBooking['toMonth'] && $oneBooking['from'] <= $currentDay && $currentDay < $oneBooking['toDay'])
+                                || ($oneBooking['month'] != $oneBooking['toMonth'] && $oneBooking['month'] == $month && $oneBooking['from'] <= $currentDay)
+                                || ($oneBooking['month'] != $oneBooking['toMonth'] && $oneBooking['toMonth'] == $month && $currentDay < $oneBooking['toDay'])
+                            )
+                            && (!in_array($currentDay, $daysPrinted))
+                        )
+                        {
+
+                            $printDay       = false;
+                            $daysPrinted[]  = $currentDay;
+                            $class          = 'bookedDay';
+                            if($oneBooking['ownerBooking'] && $oneBooking['ownerConfirm'])      $class = 'blockedDay';
+                            if(!$oneBooking['ownerBooking'] && !$oneBooking['ownerConfirm'])    $class = 'pendingDay';
+
+                            $stringCalendar .= '<td class="' . $class . '"><span title="' . $oneBooking['bookingID'] . '" >' . $currentDay . '</span></td>';
+                        }
+                    }
+
+                    if($printDay) $stringCalendar .= '<td><span>' . $currentDay . '</span></td>';
+                }
                 $currentDay++;
             }
         }
@@ -803,14 +823,27 @@ echo "<br/>---------------------------------------------------------------------
             if ($numDayWeek == 0)   $stringCalendar .= "<tr>";
 
             if($showPeriod && $SDday <= $currentDay && $currentDay < $EDday)
-                $stringCalendar .= '<td class="selectedDay"><span >' . $currentDay . '</span></td>';
+                $stringCalendar .= '<td class="selectedDay"><span>' . $currentDay . '</span></td>';
             else{
                 $printDay = true;
                 foreach($bookings as $oneBooking){
-                    if($oneBooking['from'] <= $currentDay && $currentDay < $oneBooking['to'] && !in_array($currentDay, $daysPrinted)){
-                        $printDay = false;
-                        $daysPrinted[] = $currentDay;
-                        $stringCalendar .= '<td class="bookedDay"><span title="' . $oneBooking['bookingID'] . '" >' . $currentDay . '</span></td>';
+                    if(
+                        (
+                            ($oneBooking['month'] == $oneBooking['toMonth'] && $oneBooking['from'] <= $currentDay && $currentDay < $oneBooking['toDay'])
+                            || ($oneBooking['month'] != $oneBooking['toMonth'] && $oneBooking['month'] == $month && $oneBooking['from'] <= $currentDay)
+                            || ($oneBooking['month'] != $oneBooking['toMonth'] && $oneBooking['toMonth'] == $month && $currentDay < $oneBooking['toDay'])
+                        )
+                        && (!in_array($currentDay, $daysPrinted))
+                    )
+                    {
+
+                        $printDay       = false;
+                        $daysPrinted[]  = $currentDay;
+                        $class          = 'bookedDay';
+                        if($oneBooking['ownerBooking'] && $oneBooking['ownerConfirm'])      $class = 'blockedDay';
+                        if(!$oneBooking['ownerBooking'] && !$oneBooking['ownerConfirm'])    $class = 'pendingDay';
+
+                        $stringCalendar .= '<td class="' . $class . '"><span title="' . $oneBooking['bookingID'] . '" >' . $currentDay . '</span></td>';
                     }
                 }
 
@@ -1011,7 +1044,7 @@ echo "<br/>---------------------------------------------------------------------
             }
             else{
                 $startDate = new \Datetime($booking['year'] . '-' . $booking['month'] . '-' . $booking['from'] . ' 00:00:00');
-                $endDate   = new \Datetime($booking['year'] . '-' . $booking['month'] . '-' . $booking['to'] . ' 00:00:00');
+                $endDate   = new \Datetime($booking['toYear'] . '-' . $booking['toMonth'] . '-' . $booking['toDay'] . ' 00:00:00');
             }
 
             $event = $cal->newEvent();

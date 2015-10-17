@@ -376,3 +376,21 @@ h2{
     margin: -3px;
     padding: 3px;
 }
+
+.blockedDay{
+    font-weight: bold;
+    background-color: #fcabc7;
+    border-color: red;
+    color: red;
+    margin: -3px;
+    padding: 3px;
+}
+
+.pendingDay{
+    font-weight: bold;
+    background-color: #f9f495;
+    border-color: yellow;
+    color: yellow;
+    margin: -3px;
+    padding: 3px;
+}

@@ -92,25 +92,40 @@ class BookingRepository extends EntityRepository
         $results = array();
 
         if(!empty($arrayProperties)) {
-            $bookings = $this->getEntityManager()
-                ->createQuery('SELECT b.id, b.startDate, b.endDate
-                                        FROM BookingsBookingBundle:Booking b
-                                        WHERE b.activityID IN (' . implode(',', $arrayProperties) . ')
-                                        AND b.startDate >= ' . $from . ' 
-                                        AND b.startDate < ' . $to . '
-                                        AND b.ownerConfirm = 1')
-                ->getResult();
 
-            foreach ($bookings as $oneBooking) {
-                $aux['bookingID'] = $oneBooking['id'];
-                $aux['from'] = substr($oneBooking['startDate'], 6, 2);
-                $aux['hour'] = substr($oneBooking['startDate'], 8, 2);
-                $monthStart = substr($oneBooking['startDate'], 4, 2);
-                $monthEnd = substr($oneBooking['endDate'], 4, 2);
-                $aux['month'] = $monthStart;
-                $aux['year'] = substr($oneBooking['startDate'], 0, 4);
-                $aux['to'] = ($monthEnd == $monthStart) ? substr($oneBooking['endDate'], 6, 2) : 50;
-                $results[] = $aux;
+            $bookingsAffected = $this->getEntityManager()
+                ->createQuery('SELECT d.bookingID FROM BookingsBookingBundle:DisponibilityBooking d
+                               WHERE d.date >= ' . $from . " AND d.date < " . $to . " GROUP BY d.bookingID")->getResult();
+
+            if(!empty($bookingsAffected)){
+
+                $arrayBookings = array();
+                foreach($bookingsAffected as $booking){
+                    $arrayBookings[] = $booking['bookingID'];
+                }
+
+                $bookings = $this->getEntityManager()
+                    ->createQuery('SELECT b.id, b.startDate, b.endDate, b.ownerBooking, b.ownerConfirm
+                                   FROM BookingsBookingBundle:Booking b
+                                   WHERE b.activityID IN (' . implode(',', $arrayProperties) . ')
+                                   AND b.id IN (' . implode(',', $arrayBookings) .')')->getResult();
+
+                foreach ($bookings as $oneBooking) {
+                    $aux['bookingID']       = $oneBooking['id'];
+                    $aux['from']            = substr($oneBooking['startDate'], 6, 2);
+                    $aux['hour']            = substr($oneBooking['startDate'], 8, 2);
+                    $monthStart             = substr($oneBooking['startDate'], 4, 2);
+                    $monthEnd               = substr($oneBooking['endDate'], 4, 2);
+                    $aux['month']           = $monthStart;
+                    $aux['year']            = substr($oneBooking['startDate'], 0, 4);
+                    $aux['to']              = ($monthEnd == $monthStart) ? substr($oneBooking['endDate'], 6, 2) : 50;
+                    $aux['toDay']           = substr($oneBooking['endDate'], 6, 2);
+                    $aux['toMonth']         = substr($oneBooking['endDate'], 4, 2);
+                    $aux['toYear']          = substr($oneBooking['endDate'], 0, 4);
+                    $aux['ownerBooking']    = $oneBooking['ownerBooking'];
+                    $aux['ownerConfirm']    = $oneBooking['ownerConfirm'];
+                    $results[] = $aux;
+                }
             }
         }
 
