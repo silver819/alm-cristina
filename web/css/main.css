@@ -394,3 +394,16 @@ h2{
     margin: -3px;
     padding: 3px;
 }
+
+.noDay{
+    font-weight: bold;
+    background-color: #efeded;
+    border-color: yellow;
+    color: yellow;
+    margin: -3px;
+    padding: 3px;
+}
+
+.passedDay{
+    text-decoration: line-through;
+}

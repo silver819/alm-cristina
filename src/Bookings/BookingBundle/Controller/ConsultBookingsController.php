@@ -746,6 +746,9 @@ echo "<br/>---------------------------------------------------------------------
         $SDmonth    = substr($since, 4, 2);
         $SDyear     = substr($since, 0, 4);
 
+        $todayDay   = date('d');
+        $todayMonth = date('m');
+
         if($to != 0){
             $showPeriod = true;
             $EDday      = substr($to, 6, 2);
@@ -783,8 +786,13 @@ echo "<br/>---------------------------------------------------------------------
         $stringCalendar .= "<tr>";
         for ($i=0;$i<7;$i++){
             if ($i < $numDayWeek){
-                $stringCalendar .= '<td><span></span></td>';
+                $stringCalendar .= '<td class="noDay"><span></span></td>';
             } else {
+                $classPassed = '';
+                if($month == $todayMonth && $currentDay < $todayDay){
+                    $classPassed = 'passedDay';
+                }
+
                 if($showPeriod && $SDday <= $currentDay && $currentDay < $EDday)
                     $stringCalendar .= '<td class="selectedDay"><span >' . $currentDay . '</span></td>';
                 else{
@@ -806,11 +814,11 @@ echo "<br/>---------------------------------------------------------------------
                             if($oneBooking['ownerBooking'] && $oneBooking['ownerConfirm'])      $class = 'blockedDay';
                             if(!$oneBooking['ownerBooking'] && !$oneBooking['ownerConfirm'])    $class = 'pendingDay';
 
-                            $stringCalendar .= '<td class="' . $class . '"><span title="' . $oneBooking['bookingID'] . '" >' . $currentDay . '</span></td>';
+                            $stringCalendar .= '<td class="' . $class . ' ' . $classPassed . '"><span title="' . $oneBooking['bookingID'] . '" >' . $currentDay . '</span></td>';
                         }
                     }
 
-                    if($printDay) $stringCalendar .= '<td><span>' . $currentDay . '</span></td>';
+                    if($printDay) $stringCalendar .= '<td class="' . $classPassed . '"><span>' . $currentDay . '</span></td>';
                 }
                 $currentDay++;
             }
@@ -820,6 +828,11 @@ echo "<br/>---------------------------------------------------------------------
         // Resto de días
         $numDayWeek = 0;
         while ($currentDay <= $lastDayOfMonth){
+            $classPassed = '';
+            if($month == $todayMonth && $currentDay < $todayDay){
+                $classPassed = 'passedDay';
+            }
+
             if ($numDayWeek == 0)   $stringCalendar .= "<tr>";
 
             if($showPeriod && $SDday <= $currentDay && $currentDay < $EDday)
@@ -843,11 +856,11 @@ echo "<br/>---------------------------------------------------------------------
                         if($oneBooking['ownerBooking'] && $oneBooking['ownerConfirm'])      $class = 'blockedDay';
                         if(!$oneBooking['ownerBooking'] && !$oneBooking['ownerConfirm'])    $class = 'pendingDay';
 
-                        $stringCalendar .= '<td class="' . $class . '"><span title="' . $oneBooking['bookingID'] . '" >' . $currentDay . '</span></td>';
+                        $stringCalendar .= '<td class="' . $class . ' ' . $classPassed . '"><span title="' . $oneBooking['bookingID'] . '" >' . $currentDay . '</span></td>';
                     }
                 }
 
-                if($printDay) $stringCalendar .= '<td><span>' . $currentDay . '</span></td>';
+                if($printDay) $stringCalendar .= '<td class="' . $classPassed . '"><span>' . $currentDay . '</span></td>';
             }
 
             $currentDay++;
@@ -857,7 +870,7 @@ echo "<br/>---------------------------------------------------------------------
         }
         
         // Completo la tabla con días vacíos
-        for ($i=$numDayWeek;$i<7;$i++)  $stringCalendar .= '<td><span></span></td>';
+        for ($i=$numDayWeek;$i<7;$i++)  $stringCalendar .= '<td class="noDay"><span></span></td>';
         
         $stringCalendar .= "</tr>";
         $stringCalendar .= "</tbody></table>";
