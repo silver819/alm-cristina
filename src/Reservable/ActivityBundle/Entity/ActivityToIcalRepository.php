@@ -20,7 +20,7 @@ class ActivityToIcalRepository extends EntityRepository
         $icals = $this->getEntityManager()
             ->createQuery('SELECT ati.id, ati.icalUrl
                            FROM ReservableActivityBundle:ActivityToIcal ati
-                           WHERE ati.id = ' . $activityID)
+                           WHERE ati.activityID = ' . $activityID)
             ->getResult();
 
         if(!empty($icals)){
@@ -34,6 +34,13 @@ class ActivityToIcalRepository extends EntityRepository
         }
 
         return $return;
+    }
+
+    function deleteIcal($activityID){
+        return $this->getEntityManager()
+            ->createQuery('DELETE FROM ReservableActivityBundle:ActivityToIcal ati
+                		   WHERE ati.id = ' . $activityID)
+            ->getResult();
     }
 
 }

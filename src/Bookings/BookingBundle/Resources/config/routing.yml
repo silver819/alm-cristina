@@ -58,6 +58,14 @@ refreshIcal:
     options:
         expose: true
 
+deleteIcal:
+    pattern: /deleteIcal
+    defaults: { _controller: BookingsBookingBundle:ConsultBookings:deleteIcal }
+    requirements:
+        _method:  GET|POST
+    options:
+        expose: true
+
 delete_reserve:
     path: /delete_reserve
     defaults: { _controller: BookingsBookingBundle:ConsultBookings:deleteReserve }

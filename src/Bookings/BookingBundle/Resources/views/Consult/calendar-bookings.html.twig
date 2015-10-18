@@ -85,6 +85,8 @@
                     type: "post",
                     success: function($response) {
                         console.log($response);
+                        $('#importICSinput').val("");
+                        $("#importedIcalContainer").append($response['newRow']);
                     }
                 });
             }
@@ -112,9 +114,17 @@
         // Borrar ICS
         $(".deleteIcal").live("click", function(){
 
-            icalToDelete = $(this).attr('icalID');
+            var icalToDelete = $(this).attr('icalID');
 
-           alert(icalToDelete);
+            $.ajax({
+                url: '{{ path('deleteIcal') }}',
+                data: {'icalToDelete': icalToDelete},
+                type: "post",
+                success: function($response) {
+                    console.log($response);
+                    $("#" + $response['divToDelete']).detach();
+                }
+            });
         });
 
     </script>

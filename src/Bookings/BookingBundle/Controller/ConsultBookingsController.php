@@ -538,6 +538,13 @@ echo "<br/>---------------------------------------------------------------------
 
             // Actualizamos el calendario
             $return = $this->updateIcalCalendar($_POST['pathICS'], $_POST['propID']);
+
+            $namesPart  = explode('/', $_POST['pathICS']);
+            $name       = $namesPart[2];
+            $thisIcal    = $this->getDoctrine()->getRepository('ReservableActivityBundle:ActivityToIcal')
+                        ->findOneBy(array('activityID' => $_POST['propID'], 'icalUrl' => $_POST['pathICS']));
+
+            $return['newRow'] = "<div class='row' id='ical-" . $thisIcal->getId() . "'><div class='col-md-8'></div><div class='col-md-2 text-center nameIcal' title='" . $_POST['pathICS'] . "'>" . $name . "</div><div class='col-md-1 text-right deleteIcal' icalID='" . $thisIcal->getId() . "'><i class='fa fa-trash-o'></i></div><div class='col-md-1 text-left refreshIcal' icalID='" . $thisIcal->getId() . "'><i class='fa fa-refresh'></i></div></div>";
         }
 
         return new JsonResponse($return);
@@ -555,6 +562,21 @@ echo "<br/>---------------------------------------------------------------------
             $return = $this->updateIcalCalendar($data->getIcalUrl(), $data->getActivityID());
             $return['divUpdated'] = 'ical-' . $_POST['icalToUpdate'];
             $return['innerHTML'] = "<i class='fa fa-check'>";
+        }
+
+        return new JsonResponse($return);
+    }
+
+    public function deleteIcalAction(){
+
+        $return = array();
+
+        if(isset($_POST['icalToDelete']) && $_POST['icalToDelete']){
+            $data = $this->getDoctrine()
+                ->getRepository('ReservableActivityBundle:ActivityToIcal')
+                ->deleteIcal($_POST['icalToDelete']);
+
+            $return['divToDelete'] = 'ical-' . $_POST['icalToDelete'];
         }
 
         return new JsonResponse($return);
