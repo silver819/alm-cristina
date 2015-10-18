@@ -543,7 +543,24 @@ echo "<br/>---------------------------------------------------------------------
         return new JsonResponse($return);
     }
 
-    private function updateIcalCalendar($url, $propID){
+    public function refreshIcalAction(){
+
+        $return = array();
+
+        if(isset($_POST['icalToUpdate']) && $_POST['icalToUpdate']){
+            $data = $this->getDoctrine()
+                ->getRepository('ReservableActivityBundle:ActivityToIcal')
+                ->findOneBy(array('id' => $_POST['icalToUpdate']));
+
+            $return = $this->updateIcalCalendar($data->getIcalUrl(), $data->getActivityID());
+            $return['divUpdated'] = 'ical-' . $_POST['icalToUpdate'];
+            $return['innerHTML'] = "<i class='fa fa-check'>";
+        }
+
+        return new JsonResponse($return);
+    }
+
+    public function updateIcalCalendar($url, $propID){
 
         // Entity Manager
         $em     = $this->getDoctrine()->getManager();

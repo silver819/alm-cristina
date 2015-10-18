@@ -93,9 +93,20 @@
         // Actualizar ICS
         $(".refreshIcal").live("click", function(){
 
-            icalToUpdate = $(this).attr('icalID');
+            var icalToUpdate = $(this).attr('icalID');
 
-            alert(icalToUpdate);
+            $.ajax({
+                url: '{{ path('refreshIcal') }}',
+                data: {'icalToUpdate': icalToUpdate},
+                type: "post",
+                success: function($response) {
+                    console.log($response);
+                    $("#" + $response['divUpdated'] + " .refreshIcal").html($response['innerHTML']);
+                    $("#" + $response['divUpdated'] + " .refreshIcal").addClass("updatedIcal");
+                    $("#" + $response['divUpdated'] + " .refreshIcal").removeClass("refreshIcal");
+                }
+            });
+
         });
 
         // Borrar ICS

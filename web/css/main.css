@@ -439,6 +439,12 @@ h2{
     font-size:1.7em;
 }
 
+.updatedIcal{
+    color:green;
+    font-size:1.3em;
+    font-weight: bold;
+}
+
 .nameIcal{
     cursor: help;
     vertical-align: middle;

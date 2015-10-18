@@ -50,6 +50,14 @@ importCalendarFromURI:
     options:
         expose: true
 
+refreshIcal:
+    pattern: /refreshIcal
+    defaults: { _controller: BookingsBookingBundle:ConsultBookings:refreshIcal }
+    requirements:
+        _method:  GET|POST
+    options:
+        expose: true
+
 delete_reserve:
     path: /delete_reserve
     defaults: { _controller: BookingsBookingBundle:ConsultBookings:deleteReserve }

@@ -5,12 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0ca3c09d-9b70-4edd-bbfb-2d0f972bbd20" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Bookings/BookingBundle/Entity/BookingRepository.php" afterPath="$PROJECT_DIR$/src/Bookings/BookingBundle/Entity/BookingRepository.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Bookings/BookingBundle/Controller/ConsultBookingsController.php" afterPath="$PROJECT_DIR$/src/Bookings/BookingBundle/Controller/ConsultBookingsController.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Bookings/BookingBundle/Resources/views/Consult/calendar-bookings.html.twig" afterPath="$PROJECT_DIR$/src/Bookings/BookingBundle/Resources/views/Consult/calendar-bookings.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/composer.lock" afterPath="$PROJECT_DIR$/composer.lock" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/css/main.css" afterPath="$PROJECT_DIR$/web/css/main.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Bookings/BookingBundle/Resources/config/routing.yml" afterPath="$PROJECT_DIR$/src/Bookings/BookingBundle/Resources/config/routing.yml" />
     </list>
     <ignored path="almacen.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -38,14 +36,16 @@
       <file leaf-file-name="ConsultBookingsController.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Bookings/BookingBundle/Controller/ConsultBookingsController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-11.818182" vertical-offset="8692" max-vertical-offset="29340">
-              <caret line="519" column="8" selection-start-line="519" selection-start-column="8" selection-end-line="519" selection-end-column="8" />
+            <state vertical-scroll-proportion="-7.2363634" vertical-offset="9610" max-vertical-offset="29646">
+              <caret line="556" column="61" selection-start-line="556" selection-start-column="61" selection-end-line="556" selection-end-column="61" />
               <folding>
                 <element signature="e#53#105#0#PHP" expanded="true" />
-                <marker date="1445160852197" expanded="true" signature="1371:1696" placeholder="SELECT u.ema..ReservableActivityBundle..." />
-                <marker date="1445160852197" expanded="true" signature="2981:3538" placeholder="SELECT b.id,..BookingsBookingBundle..." />
-                <marker date="1445160852197" expanded="true" signature="9462:10019" placeholder="SELECT b.id,..BookingsBookingBundle..." />
-                <marker date="1445160852197" expanded="true" signature="30874:31227" placeholder="SELECT d.dat..BookingsBookingBundle..." />
+                <marker date="1445161979411" expanded="true" signature="1371:1696" placeholder="SELECT u.ema..ReservableActivityBundle..." />
+                <marker date="1445161979411" expanded="true" signature="2981:3538" placeholder="SELECT b.id,..BookingsBookingBundle..." />
+                <marker date="1445161979411" expanded="true" signature="9462:10019" placeholder="SELECT b.id,..BookingsBookingBundle..." />
+                <marker date="1445161979411" expanded="true" signature="31483:31836" placeholder="SELECT d.dat..BookingsBookingBundle..." />
+                <marker date="1445161979411" expanded="true" signature="42289:42392" placeholder="..." />
+                <marker date="1445161979411" expanded="true" signature="44804:44920" placeholder="..." />
               </folding>
             </state>
           </provider>
@@ -54,8 +54,8 @@
       <file leaf-file-name="ActivityToIcalRepository.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Reservable/ActivityBundle/Entity/ActivityToIcalRepository.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-20.666666" vertical-offset="0" max-vertical-offset="810">
-              <caret line="31" column="348" selection-start-line="31" selection-start-column="337" selection-end-line="31" selection-end-column="348" />
+            <state vertical-scroll-proportion="-14.666667" vertical-offset="162" max-vertical-offset="810">
+              <caret line="31" column="404" selection-start-line="31" selection-start-column="379" selection-end-line="31" selection-end-column="404" />
               <folding>
                 <marker date="1445160417543" expanded="true" signature="440:584" placeholder="SELECT ati.i..ReservableActivityBundle..." />
                 <marker date="1445160417543" expanded="true" signature="440:585" placeholder="SELECT ati.i..ReservableActivityBundle..." />
@@ -67,8 +67,8 @@
       <file leaf-file-name="main.css" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/web/css/main.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="7108" max-vertical-offset="8136">
-              <caret line="431" column="11" selection-start-line="431" selection-start-column="1" selection-end-line="431" selection-end-column="11" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="7540" max-vertical-offset="8244">
+              <caret line="442" column="4" selection-start-line="442" selection-start-column="4" selection-end-line="442" selection-end-column="4" />
               <folding />
             </state>
           </provider>
@@ -86,21 +86,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="calendar-bookings.html.twig" pinned="false" current-in-tab="true">
+      <file leaf-file-name="calendar-bookings.html.twig" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Bookings/BookingBundle/Resources/views/Consult/calendar-bookings.html.twig">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.5241379" vertical-offset="1218" max-vertical-offset="2088">
-              <caret line="93" column="51" selection-start-line="93" selection-start-column="51" selection-end-line="93" selection-end-column="51" />
+            <state vertical-scroll-proportion="-6.6545453" vertical-offset="1650" max-vertical-offset="2286">
+              <caret line="112" column="22" selection-start-line="112" selection-start-column="12" selection-end-line="112" selection-end-column="22" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="routing.yml" pinned="false" current-in-tab="false">
+      <file leaf-file-name="routing.yml" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Bookings/BookingBundle/Resources/config/routing.yml">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="387" max-vertical-offset="1152">
-              <caret line="46" column="88" selection-start-line="46" selection-start-column="88" selection-end-line="46" selection-end-column="88" />
+            <state vertical-scroll-proportion="0.69730586" vertical-offset="532" max-vertical-offset="1296">
+              <caret line="54" column="78" selection-start-line="54" selection-start-column="78" selection-end-line="54" selection-end-column="78" />
               <folding />
             </state>
           </provider>
@@ -158,12 +158,12 @@
         <option value="$PROJECT_DIR$/src/Bookings/BookingBundle/Resources/views/Consult/see-bookings.html.twig" />
         <option value="$PROJECT_DIR$/composer.json" />
         <option value="$PROJECT_DIR$/app/AppKernel.php" />
-        <option value="$PROJECT_DIR$/src/Bookings/BookingBundle/Resources/config/routing.yml" />
         <option value="$PROJECT_DIR$/src/Bookings/BookingBundle/Entity/DisponibilityBookingRepository.php" />
         <option value="$PROJECT_DIR$/src/Bookings/BookingBundle/Entity/BookingRepository.php" />
-        <option value="$PROJECT_DIR$/web/css/main.css" />
         <option value="$PROJECT_DIR$/src/Reservable/ActivityBundle/Entity/ActivityToIcalRepository.php" />
+        <option value="$PROJECT_DIR$/src/Bookings/BookingBundle/Resources/config/routing.yml" />
         <option value="$PROJECT_DIR$/src/Bookings/BookingBundle/Controller/ConsultBookingsController.php" />
+        <option value="$PROJECT_DIR$/web/css/main.css" />
         <option value="$PROJECT_DIR$/src/Bookings/BookingBundle/Resources/views/Consult/calendar-bookings.html.twig" />
       </list>
     </option>
@@ -461,6 +461,7 @@
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.31813473" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -471,7 +472,6 @@
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32953367" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -791,14 +791,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Bookings/BookingBundle/Resources/config/routing.yml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="387" max-vertical-offset="1152">
-          <caret line="46" column="88" selection-start-line="46" selection-start-column="88" selection-end-line="46" selection-end-column="88" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Bookings/BookingBundle/Entity/BookingRepository.php">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-10.472727" vertical-offset="108" max-vertical-offset="3186">
@@ -863,18 +855,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/web/css/main.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="7108" max-vertical-offset="8136">
-          <caret line="431" column="11" selection-start-line="431" selection-start-column="1" selection-end-line="431" selection-end-column="11" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Reservable/ActivityBundle/Entity/ActivityToIcalRepository.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-20.666666" vertical-offset="0" max-vertical-offset="810">
-          <caret line="31" column="348" selection-start-line="31" selection-start-column="337" selection-end-line="31" selection-end-column="348" />
+        <state vertical-scroll-proportion="-14.666667" vertical-offset="162" max-vertical-offset="810">
+          <caret line="31" column="404" selection-start-line="31" selection-start-column="379" selection-end-line="31" selection-end-column="404" />
           <folding>
             <marker date="1445160417543" expanded="true" signature="440:584" placeholder="SELECT ati.i..ReservableActivityBundle..." />
             <marker date="1445160417543" expanded="true" signature="440:585" placeholder="SELECT ati.i..ReservableActivityBundle..." />
@@ -884,22 +868,40 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Bookings/BookingBundle/Controller/ConsultBookingsController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-11.818182" vertical-offset="8692" max-vertical-offset="29340">
-          <caret line="519" column="8" selection-start-line="519" selection-start-column="8" selection-end-line="519" selection-end-column="8" />
+        <state vertical-scroll-proportion="-7.2363634" vertical-offset="9610" max-vertical-offset="29646">
+          <caret line="556" column="61" selection-start-line="556" selection-start-column="61" selection-end-line="556" selection-end-column="61" />
           <folding>
             <element signature="e#53#105#0#PHP" expanded="true" />
-            <marker date="1445160852197" expanded="true" signature="1371:1696" placeholder="SELECT u.ema..ReservableActivityBundle..." />
-            <marker date="1445160852197" expanded="true" signature="2981:3538" placeholder="SELECT b.id,..BookingsBookingBundle..." />
-            <marker date="1445160852197" expanded="true" signature="9462:10019" placeholder="SELECT b.id,..BookingsBookingBundle..." />
-            <marker date="1445160852197" expanded="true" signature="30874:31227" placeholder="SELECT d.dat..BookingsBookingBundle..." />
+            <marker date="1445161979411" expanded="true" signature="1371:1696" placeholder="SELECT u.ema..ReservableActivityBundle..." />
+            <marker date="1445161979411" expanded="true" signature="2981:3538" placeholder="SELECT b.id,..BookingsBookingBundle..." />
+            <marker date="1445161979411" expanded="true" signature="9462:10019" placeholder="SELECT b.id,..BookingsBookingBundle..." />
+            <marker date="1445161979411" expanded="true" signature="31483:31836" placeholder="SELECT d.dat..BookingsBookingBundle..." />
+            <marker date="1445161979411" expanded="true" signature="42289:42392" placeholder="..." />
+            <marker date="1445161979411" expanded="true" signature="44804:44920" placeholder="..." />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/css/main.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="7540" max-vertical-offset="8244">
+          <caret line="442" column="4" selection-start-line="442" selection-start-column="4" selection-end-line="442" selection-end-column="4" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Bookings/BookingBundle/Resources/views/Consult/calendar-bookings.html.twig">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.5241379" vertical-offset="1218" max-vertical-offset="2088">
-          <caret line="93" column="51" selection-start-line="93" selection-start-column="51" selection-end-line="93" selection-end-column="51" />
+        <state vertical-scroll-proportion="-6.6545453" vertical-offset="1650" max-vertical-offset="2286">
+          <caret line="112" column="22" selection-start-line="112" selection-start-column="12" selection-end-line="112" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Bookings/BookingBundle/Resources/config/routing.yml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.69730586" vertical-offset="532" max-vertical-offset="1296">
+          <caret line="54" column="78" selection-start-line="54" selection-start-column="78" selection-end-line="54" selection-end-column="78" />
           <folding />
         </state>
       </provider>
