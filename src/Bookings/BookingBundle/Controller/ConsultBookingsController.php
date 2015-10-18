@@ -2,11 +2,11 @@
 
 namespace Bookings\BookingBundle\Controller;
 
+use Reservable\ActivityBundle\Entity\ActivityToIcal;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\Response;
 use Bookings\BookingBundle\Entity\Booking;
 use Bookings\BookingBundle\Entity\DisponibilityBooking;
 use Symfony\Component\Filesystem\Filesystem;
@@ -427,6 +427,10 @@ echo "<br/>---------------------------------------------------------------------
             }
         }
 
+        $importedCalendar = $this->getDoctrine()
+            ->getRepository('ReservableActivityBundle:ActivityToIcal')
+            ->getAllIcsFromActivityFormatted($selector[0]['id']);
+
         // Creamos ics
         $fromThisDate   = date('Ymd') . '00';
         $toThisDate     = date('Ymd', strtotime('+ 1 year')) . '00';
@@ -442,8 +446,10 @@ echo "<br/>---------------------------------------------------------------------
             $selector[$key]['icalPath'] = $this->getIcs($data);
         }
 
+        //ldd($selector);
+
         return $this->render('BookingsBookingBundle:Consult:calendar-bookings.html.twig',
-            array('calendar'     => $calendar, 'selector'  => $selector));
+            array('calendar'     => $calendar, 'importedCalendar' => $importedCalendar, 'selector'  => $selector));
     }
 
     public function calculateCalendarAction(){
@@ -501,38 +507,74 @@ echo "<br/>---------------------------------------------------------------------
             $calendar .= '</div></div>';
         }
 
-        return new JsonResponse(array('calendar'=> $calendar,
-            'nameLodging' => $nameLodging,
-            'downloadICS' => '/icals/propID' . $activityID . '.ics',
-            'importICS' => $activityID));
+        $importedCalendar = $this->getDoctrine()
+            ->getRepository('ReservableActivityBundle:ActivityToIcal')
+            ->getAllIcsFromActivityFormatted($activityID);
+
+        return new JsonResponse(array(
+            'calendar'          => $calendar,
+            'nameLodging'       => $nameLodging,
+            'downloadICS'       => '/icals/propID' . $activityID . '.ics',
+            'importICS'         => $activityID,
+            'importedCalendar'  => $importedCalendar)
+        );
     }
 
     public function importCalendarFromURIAction(){
 
         $return = array();
 
+        if(isset($_POST['propID']) && isset($_POST['pathICS']) && !empty($_POST['pathICS']) && !empty($_POST['propID'])) {
+
+            // Entity Manager
+            $em = $this->getDoctrine()->getManager();
+
+            // Guardamos la url que hemos importado
+            $activityToIcal = new ActivityToIcal();
+            $activityToIcal->setActivityID($_POST['propID']);
+            $activityToIcal->setIcalUrl($_POST['pathICS']);
+            $em->persist($activityToIcal);
+            $em->flush();
+
+            // Actualizamos el calendario
+            $return = $this->updateIcalCalendar($_POST['pathICS'], $_POST['propID']);
+        }
+
+        return new JsonResponse($return);
+    }
+
+    private function updateIcalCalendar($url, $propID){
+
+        // Entity Manager
+        $em     = $this->getDoctrine()->getManager();
+        $return = array();
+
         // Transformamos los eventos del ical en array
-        $arrayEvents = $this->getEventsFromIcal($_POST['pathICS']);
+        $arrayEvents = $this->getEventsFromIcal($url);
 
         // Recorremos el array y hacemos las reservas de cada evento
-        if(isset($arrayEvents['VEVENT']) && !empty($arrayEvents['VEVENT'])){
-            foreach($arrayEvents['VEVENT'] as $event){
-                $dateStartYear  = substr($event['DTSTART'], 0, 4);$dateStartMonth = substr($event['DTSTART'], 4, 2);$dateStartDay = substr($event['DTSTART'], 6, 2);
-                $dateEndYear    = substr($event['DTEND'], 0, 4);    $dateEndMonth = substr($event['DTEND'], 4, 2);    $dateEndDay = substr($event['DTEND'], 6, 2);
-                $dateStart      = (int)($dateStartYear . $dateStartMonth . $dateStartDay);
-                $dateEnd        = (int)($dateEndYear . $dateEndMonth . $dateEndDay);
+        if (isset($arrayEvents['VEVENT']) && !empty($arrayEvents['VEVENT'])) {
+            foreach ($arrayEvents['VEVENT'] as $event) {
+                $dateStartYear = substr($event['DTSTART'], 0, 4);
+                $dateStartMonth = substr($event['DTSTART'], 4, 2);
+                $dateStartDay = substr($event['DTSTART'], 6, 2);
+                $dateEndYear = substr($event['DTEND'], 0, 4);
+                $dateEndMonth = substr($event['DTEND'], 4, 2);
+                $dateEndDay = substr($event['DTEND'], 6, 2);
+                $dateStart = (int)($dateStartYear . $dateStartMonth . $dateStartDay);
+                $dateEnd = (int)($dateEndYear . $dateEndMonth . $dateEndDay);
 
                 // Dias entre el inicio y el final del evento
-                $arrayDays  = array();
+                $arrayDays = array();
                 $currentDay = $dateStart;
-                while($currentDay < $dateEnd){
+                while ($currentDay < $dateEnd) {
                     $arrayDays[] = $currentDay . '00';
 
-                    $day    = substr($currentDay, 6, 2);
-                    $month  = substr($currentDay, 4, 2);
-                    $year   = substr($currentDay, 0, 4);
+                    $day = substr($currentDay, 6, 2);
+                    $month = substr($currentDay, 4, 2);
+                    $year = substr($currentDay, 0, 4);
 
-                    $currentDay = date('Ymd', mktime(0, 0, 0, $month, $day+1, $year));
+                    $currentDay = date('Ymd', mktime(0, 0, 0, $month, $day + 1, $year));
                 }
 
                 // Comprobamos disponibilidad
@@ -540,10 +582,10 @@ echo "<br/>---------------------------------------------------------------------
                     ->createQuery('SELECT d.date, d.bookingID, b.id as propertyID
                                    FROM BookingsBookingBundle:Booking b
                                    INNER JOIN BookingsBookingBundle:DisponibilityBooking d
-                                   WHERE b.id = d.bookingID AND b.activityID = ' . $_POST['propID'] . ' AND d.date IN (' . implode(',', $arrayDays) . ')')
+                                   WHERE b.id = d.bookingID AND b.activityID = ' . $propID . ' AND d.date IN (' . implode(',', $arrayDays) . ')')
                     ->getResult();
 
-                if(empty($daysOcuppated)){
+                if (empty($daysOcuppated)) {
                     // Si hay disponibilidad, hacemos la reserva
                     $thisBooking = new Booking();
                     $thisBooking->setActivityID($_POST['propID'])
@@ -555,37 +597,47 @@ echo "<br/>---------------------------------------------------------------------
                         ->setOwnerBooking(1)
                         ->setOwnerConfirm(1);
 
-                    $em = $this->getDoctrine()->getManager();
+
                     $em->persist($thisBooking);
 
                     $lastBookingID = $this->getDoctrine()->getRepository('BookingsBookingBundle:Booking')->getLastBookingID();
-                    if(empty($lastBookingID)) 	$thisBookingID = 1;
-                    else 						$thisBookingID = $lastBookingID[0][1] + 1;
+                    if (empty($lastBookingID)) $thisBookingID = 1;
+                    else                        $thisBookingID = $lastBookingID[0][1] + 1;
 
-                    foreach($arrayDays as $oneDay){
+                    foreach ($arrayDays as $oneDay) {
                         $oneItem = new DisponibilityBooking();
                         $oneItem->setBookingID($thisBookingID)->setDate($oneDay);
 
                         $em->persist($oneItem);
                     }
 
-                    $em->flush();
-
                     $return['Done'][] = array('dateStart' => $dateStart, 'dateEnd' => $dateEnd);
-                }
-                else{
-                    // Si no hay disponibilidad, marcamos como no posible
+
+                } else {
+                    // Si no hay disponibilidad, comprobamos que sea un bloqueo de portal
                     $arrayCoincidences = array();
-                    foreach($daysOcuppated as $dayOcuppated){
+                    foreach ($daysOcuppated as $dayOcuppated) {
                         $arrayCoincidences[$dayOcuppated['bookingID']] = 1;
                     }
 
-                    $return['Error'][] = array('dateStart' => $dateStart, 'dateEnd' => $dateEnd, 'coincidences' => implode(', ', array_keys($arrayCoincidences)));
+                    foreach($arrayCoincidences as $coincidence){
+
+                        $isIcalSync = $this->getDoctrine()->getRepository('BookingsBookingBundle:Booking')->isIcalSync($coincidence);
+
+                        if($isIcalSync){
+                            $return['AlreadySynced'][] = array('dateStart' => $dateStart, 'dateEnd' => $dateEnd, 'coincidences' => $coincidence);
+                        }
+                        else{
+                            $return['Error'][] = array('dateStart' => $dateStart, 'dateEnd' => $dateEnd, 'coincidences' => $coincidence);
+                        }
+                    }
                 }
             }
         }
 
-        return new JsonResponse($return);
+        $em->flush();
+
+        return $return;
     }
 
     private function getEventsFromIcal($url){
@@ -885,8 +937,9 @@ echo "<br/>---------------------------------------------------------------------
         $SDmonth        = substr($since, 4, 2);
         $SDyear         = substr($since, 0, 4);
 
-        $todayDay = date('d');
-        $todayMonth = date('m');
+        $todayDay       = date('d');
+        $todayMonth     = date('m');
+        $todayHour      = date('H');
 
         $numDaysInThisMonth = cal_days_in_month(CAL_GREGORIAN, $SDmonth, $SDyear);
 
@@ -930,7 +983,7 @@ echo "<br/>---------------------------------------------------------------------
             $stringCalendar .= '<tr><th class="cabeceraCalendar borderTD weekName">' . $j . ':00</th>';
             for($i=1 ; $i <=$numDaysInThisMonth ; $i++){
                 $classPassed = '';
-                if($month == $todayMonth && $i < $todayDay){
+                if(($month == $todayMonth && $i < $todayDay) || ($month == $todayMonth && $i == $todayDay && $j < $todayHour)){
                     $classPassed = 'passedDay';
                 }
 

@@ -32,14 +32,22 @@
         </div>
     </div>
     <br/>
-	<div class="row clearfix">
+
+    <div class="row clearfix">
         <div class="col-xs-12">
             <div class="box box-primary">
                 <div class="box-header">
                     <h3 class="box-title" id="nameLodgingContainer">{{ selector.0.name }}</h3>
                 </div><!-- /.box-header -->
-                <div class="box-body table-responsive no-padding" id="calendarContainer">
-                    {{ calendar | raw }}
+                <div class="box-body table-responsive no-padding">
+                    <div class="col-md-12" id="importedIcalContainer">
+                        {{ importedCalendar | raw }}
+                    </div>
+                    <br/>
+                    <br/>
+                    <div class="col-md-12" id="calendarContainer">
+                        {{ calendar | raw }}
+                    </div>
                 </div><!-- /.box-body -->
             </div><!-- /.box -->
         </div>
@@ -48,6 +56,7 @@
     <script>
         function changeCalendar(id){
 
+            // Caldular calendario
             $.ajax({
                 url: '{{ path('calculateCalendar') }}',
                 data: {'activityID': id.value},
@@ -55,6 +64,7 @@
                 success: function($response) {
                     document.getElementById('nameLodgingContainer').innerHTML   = $response['nameLodging'];
                     document.getElementById('calendarContainer').innerHTML      = $response['calendar'];
+                    document.getElementById('importedIcalContainer').innerHTML  = $response['importedCalendar'];
                     document.getElementById('exportICS').href                   = $response['downloadICS'];
                     document.getElementById('importICSbutton').setAttribute('propID', $response['importICS']);
                 }
@@ -62,9 +72,10 @@
 
         }
 
+        // Importar ICS
         $("#importICSbutton").click(function(){
             var pathICS = document.getElementById('importICSinput').value;
-            var propID = document.getElementById('importICSinput').getAttribute('propID');
+            var propID = document.getElementById('importICSbutton').getAttribute('propID');
 
             if(!pathICS){document.getElementById('importICSinput').style.border = "1px solid red";}
             else{
@@ -73,11 +84,28 @@
                     data: {'pathICS': pathICS, 'propID': propID},
                     type: "post",
                     success: function($response) {
-                        alert("BIEN");
+                        console.log($response);
                     }
                 });
             }
         });
+
+        // Actualizar ICS
+        $(".refreshIcal").live("click", function(){
+
+            icalToUpdate = $(this).attr('icalID');
+
+            alert(icalToUpdate);
+        });
+
+        // Borrar ICS
+        $(".deleteIcal").live("click", function(){
+
+            icalToDelete = $(this).attr('icalID');
+
+           alert(icalToDelete);
+        });
+
     </script>
 
 {% endblock %}

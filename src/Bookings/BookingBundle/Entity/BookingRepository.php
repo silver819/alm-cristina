@@ -37,6 +37,16 @@ class BookingRepository extends EntityRepository
             		->getResult();
 	}
 
+    function isIcalSync($bookingID){
+		$result =  $this->getEntityManager()
+            	    ->createQuery('SELECT b.status, b.ownerBooking, b.ownerConfirm, b.price
+            	   				   FROM BookingsBookingBundle:Booking b
+            	   				   WHERE b.id = ' . $bookingID . " AND b.status = 1 AND b.ownerBooking = 1 AND b.ownerConfirm = 1 AND b.price = -1")
+            		->getResult();
+
+        return (count($result) == 1);
+	}
+
     function getBookingsFromProperties($arrayProperties){
         if(!empty($arrayProperties)) {
             return $this->getEntityManager()

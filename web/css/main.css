@@ -420,3 +420,27 @@ h2{
     border-color: #D4AA00;
     color: white;
 }
+
+.refreshIcal{
+    color:orange;
+}
+
+.deleteIcal{
+    color:red;
+}
+
+.deleteIcal, .refreshIcal{
+    cursor:pointer;
+    font-size:1.3em;
+    font-weight: bold;
+}
+
+.deleteIcal:hover, .refreshIcal:hover{
+    font-size:1.7em;
+}
+
+.nameIcal{
+    cursor: help;
+    vertical-align: middle;
+}
+
