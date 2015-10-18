@@ -450,3 +450,7 @@ h2{
     vertical-align: middle;
 }
 
+.inputError{
+    border: 1px solid red;
+}
+

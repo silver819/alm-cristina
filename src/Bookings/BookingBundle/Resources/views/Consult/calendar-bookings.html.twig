@@ -73,11 +73,22 @@
         }
 
         // Importar ICS
-        $("#importICSbutton").click(function(){
-            var pathICS = document.getElementById('importICSinput').value;
-            var propID = document.getElementById('importICSbutton').getAttribute('propID');
+        $("#importICSinput").click(function(){
+            $(this).removeClass("inputError");
+        });
 
-            if(!pathICS){document.getElementById('importICSinput').style.border = "1px solid red";}
+        $("#importICSbutton").click(function(){
+            var pathICS     = document.getElementById('importICSinput').value;
+            var propID      = document.getElementById('importICSbutton').getAttribute('propID');
+            var validICS    = false;
+
+            if(/^(http|https|ftp):\/\/[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/i.test(pathICS) && pathICS.indexOf('.ics') !== -1){
+                validICS = true;
+            }
+
+            if(!pathICS || !validICS){
+                $('#importICSinput').addClass("inputError");
+            }
             else{
                 $.ajax({
                     url: '{{ path('importCalendarFromURI') }}',
