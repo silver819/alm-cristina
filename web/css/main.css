@@ -448,6 +448,7 @@ h2{
 .nameIcal{
     cursor: help;
     vertical-align: middle;
+    padding-bottom: 20px;
 }
 
 .inputError{

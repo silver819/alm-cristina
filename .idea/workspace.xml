@@ -5,7 +5,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0ca3c09d-9b70-4edd-bbfb-2d0f972bbd20" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Bookings/BookingBundle/Resources/views/Consult/calendar-bookings.html.twig" afterPath="$PROJECT_DIR$/src/Bookings/BookingBundle/Resources/views/Consult/calendar-bookings.html.twig" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/css/main.css" afterPath="$PROJECT_DIR$/web/css/main.css" />
     </list>
     <ignored path="almacen.iws" />
@@ -73,11 +72,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="main.css" pinned="false" current-in-tab="false">
+      <file leaf-file-name="main.css" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/web/css/main.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="7559" max-vertical-offset="8316">
-              <caret line="453" column="26" selection-start-line="453" selection-start-column="26" selection-end-line="453" selection-end-column="26" />
+            <state vertical-scroll-proportion="0.85736924" vertical-offset="7559" max-vertical-offset="8334">
+              <caret line="450" column="25" selection-start-line="450" selection-start-column="25" selection-end-line="450" selection-end-column="25" />
               <folding />
             </state>
           </provider>
@@ -95,10 +94,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="calendar-bookings.html.twig" pinned="false" current-in-tab="true">
+      <file leaf-file-name="calendar-bookings.html.twig" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Bookings/BookingBundle/Resources/views/Consult/calendar-bookings.html.twig">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.13676731" vertical-offset="1309" max-vertical-offset="2664">
+            <state vertical-scroll-proportion="-1.4" vertical-offset="1309" max-vertical-offset="2664">
               <caret line="77" column="11" selection-start-line="77" selection-start-column="11" selection-end-line="77" selection-end-column="11" />
               <folding />
             </state>
@@ -172,8 +171,8 @@
         <option value="$PROJECT_DIR$/src/Bookings/BookingBundle/Resources/config/routing.yml" />
         <option value="$PROJECT_DIR$/src/Reservable/ActivityBundle/Entity/ActivityToIcalRepository.php" />
         <option value="$PROJECT_DIR$/src/Bookings/BookingBundle/Controller/ConsultBookingsController.php" />
-        <option value="$PROJECT_DIR$/web/css/main.css" />
         <option value="$PROJECT_DIR$/src/Bookings/BookingBundle/Resources/views/Consult/calendar-bookings.html.twig" />
+        <option value="$PROJECT_DIR$/web/css/main.css" />
       </list>
     </option>
   </component>
@@ -862,16 +861,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Bookings/BookingBundle/Controller/DefaultController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-47.333332" vertical-offset="0" max-vertical-offset="2970">
-          <caret line="71" column="0" selection-start-line="71" selection-start-column="0" selection-end-line="71" selection-end-column="0" />
-          <folding>
-            <element signature="e#53#121#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Reservable/ActivityBundle/Entity/ActivityToIcalRepository.php">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-6.3454547" vertical-offset="83" max-vertical-offset="936">
@@ -881,14 +870,6 @@
             <marker date="1445164043769" expanded="true" signature="440:593" placeholder="SELECT ati.i..ReservableActivityBundle..." />
             <marker date="1445164043769" expanded="true" signature="1399:1491" placeholder="DELETE FROM ..." />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/css/main.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="7559" max-vertical-offset="8316">
-          <caret line="453" column="26" selection-start-line="453" selection-start-column="26" selection-end-line="453" selection-end-column="26" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -910,8 +891,26 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Bookings/BookingBundle/Resources/views/Consult/calendar-bookings.html.twig">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.13676731" vertical-offset="1309" max-vertical-offset="2664">
+        <state vertical-scroll-proportion="-1.4" vertical-offset="1309" max-vertical-offset="2664">
           <caret line="77" column="11" selection-start-line="77" selection-start-column="11" selection-end-line="77" selection-end-column="11" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Bookings/BookingBundle/Controller/DefaultController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-47.333332" vertical-offset="0" max-vertical-offset="2970">
+          <caret line="71" column="0" selection-start-line="71" selection-start-column="0" selection-end-line="71" selection-end-column="0" />
+          <folding>
+            <element signature="e#53#121#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/css/main.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.85736924" vertical-offset="7559" max-vertical-offset="8334">
+          <caret line="450" column="25" selection-start-line="450" selection-start-column="25" selection-end-line="450" selection-end-column="25" />
           <folding />
         </state>
       </provider>
