@@ -455,3 +455,27 @@ h2{
     border: 1px solid red;
 }
 
+.classCountry{
+    padding-left: 40px;
+}
+
+.classComunity{
+    padding-left: 80px;
+}
+
+.classProvince{
+    padding-left: 120px;
+}
+
+.classCity{
+    padding-left: 160px;
+}
+
+.fa-rotate-90 {
+    -webkit-transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+    -o-transform: rotate(90deg);
+    transform: rotate(90deg);
+}
+

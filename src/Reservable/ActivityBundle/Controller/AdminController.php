@@ -745,5 +745,4 @@ class AdminController extends Controller
         }
         else return new JsonResponse(array());
     }
-
 }

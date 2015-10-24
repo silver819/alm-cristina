@@ -46,9 +46,10 @@ class SidebarNavigation
         }
         $rootItems[] = $addProperty        = new MenuItemModel('add-property',     'Nueva propiedad',           'new_activity',    $menu, 'glyphicon glyphicon-plus');
         if($this->context->isGranted('ROLE_SUPER_ADMIN')){
-            $rootItems[] = $viewOwners      = new MenuItemModel('admin-types',     'Gestionar tipos',          'admin_types',      $menu, 'fa fa-text-width');
-            $rootItems[] = $viewOwners      = new MenuItemModel('admin-features',  'Gestionar características','admin_features',   $menu, 'fa fa-th-list');
-            $rootItems[] = $viewOwners      = new MenuItemModel('types-features',  'Tipos y características',  'new_features',     $menu, 'fa fa-exchange');
+            $rootItems[] = $viewOwners      = new MenuItemModel('admin-types',     'Gestionar tipos',           'admin_types',      $menu, 'fa fa-text-width');
+            $rootItems[] = $viewOwners      = new MenuItemModel('admin-features',  'Gestionar características', 'admin_features',   $menu, 'fa fa-th-list');
+            $rootItems[] = $viewOwners      = new MenuItemModel('types-features',  'Tipos y características',   'new_features',     $menu, 'fa fa-exchange');
+            $rootItems[] = $viewOwners      = new MenuItemModel('admin-zones',     'Gestionar zonas',           'admin_zones',      $menu, 'fa fa-map-o');
         }
         if($this->context->isGranted('ROLE_ADMIN')) {
             $rootItems[] = $statistics = new MenuItemModel('statistics', 'Estadísticas', 'statistics', $menu, 'fa fa-bar-chart');

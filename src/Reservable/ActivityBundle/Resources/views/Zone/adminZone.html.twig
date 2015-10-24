@@ -1,0 +1,53 @@
+{% extends '::admin.html.twig' %}
+
+{% block page_title %}
+    {% trans %}Gestionar zonas{% endtrans %}
+{% endblock %}
+
+{% block page_content %}
+    <div class="row">
+        <div class="col-md-3">
+            Filtro 1
+        </div>
+        <div class="col-md-3">
+            Filtro 2
+        </div>
+        <div class="col-md-3">
+            Filtro 3
+        </div>
+        <div class="col-md-3">
+            Filtro 4
+        </div>
+    </div>
+    <br/>
+    <div class="row">
+        <div class="col-md-12">
+            {# Continentes #}
+            <ul class="list-group">
+            {% for continent in zonesTree %}
+                <li class="list-group-item">{{ continent.name }}</li>
+                <ul class="list-group">
+                    {% for country in continent.countries %}
+                        <li class="list-group-item list-group-item-info classCountry"><i class="fa fa-level-up fa-rotate-90"></i>&nbsp;{{ country.name }}</li>
+                        <ul class="list-group">
+                            {% for comunity in country.comunities %}
+                                <li class="list-group-item list-group-item-warning classComunity"><i class="fa fa-level-up fa-rotate-90"></i>&nbsp;{{ comunity.name }}</li>
+                                <ul class="list-group">
+                                    {% for province in comunity.provinces %}
+                                        <li class="list-group-item list-group-item-danger classProvince"><i class="fa fa-level-up fa-rotate-90"></i>&nbsp;{{ province.name }}</li>
+                                        <ul class="list-group">
+                                            {% for city in province.cities %}
+                                                <li class="list-group-item list-group-item-success classCity"><i class="fa fa-level-up fa-rotate-90"></i>&nbsp;{{ city }}</li>
+                                            {% endfor %}
+                                        </ul>
+                                    {% endfor %}
+                                </ul>
+                            {% endfor %}
+                        </ul>
+                    {% endfor %}
+                </ul>
+            {% endfor %}
+            </ul>
+        </div>
+    </div>
+{% endblock %}
