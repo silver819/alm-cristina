@@ -25,23 +25,23 @@ class ZoneController extends Controller
 
 
         // Continentes
-        $arrayContinents = $this->getDoctrine()->getRepository('ReservableActivityBundle:Zone')->findBy(array('fatherZone' => 0));
+        $arrayContinents = $this->getDoctrine()->getRepository('ReservableActivityBundle:Zone')->findBy(array('fatherZone' => 0), array('name' => 'ASC'));
         $continents = array();
         foreach($arrayContinents as $continent){
             // Paises
-            $arrayCountries = $this->getDoctrine()->getRepository('ReservableActivityBundle:Zone')->findBy(array('fatherZone' => $continent->getId()));
+            $arrayCountries = $this->getDoctrine()->getRepository('ReservableActivityBundle:Zone')->findBy(array('fatherZone' => $continent->getId()), array('name' => 'ASC'));
             $countries = array();
             foreach($arrayCountries as $country){
                 // Comunidades
-                $arrayComunities = $this->getDoctrine()->getRepository('ReservableActivityBundle:Zone')->findBy(array('fatherZone' => $country->getId()));
+                $arrayComunities = $this->getDoctrine()->getRepository('ReservableActivityBundle:Zone')->findBy(array('fatherZone' => $country->getId()), array('name' => 'ASC'));
                 $comunities = array();
                 foreach($arrayComunities as $comunity) {
                     // Provincias
-                    $arrayProvinces = $this->getDoctrine()->getRepository('ReservableActivityBundle:Zone')->findBy(array('fatherZone' => $comunity->getId()));
+                    $arrayProvinces = $this->getDoctrine()->getRepository('ReservableActivityBundle:Zone')->findBy(array('fatherZone' => $comunity->getId()), array('name' => 'ASC'));
                     $provinces = array();
                     foreach($arrayProvinces as $province) {
                         // Ciudades
-                        $arrayCities = $this->getDoctrine()->getRepository('ReservableActivityBundle:Zone')->findBy(array('fatherZone' => $province->getId()));
+                        $arrayCities = $this->getDoctrine()->getRepository('ReservableActivityBundle:Zone')->findBy(array('fatherZone' => $province->getId()), array('name' => 'ASC'));
                         $cities = array();
                         foreach($arrayCities as $city) {
                             $numProperties  = count($this->getDoctrine()->getRepository('ReservableActivityBundle:Activity')->findBy(array('zone' => $city->getId())));
@@ -49,13 +49,15 @@ class ZoneController extends Controller
                         }
                         $provinces[$province->getId()] = array('name' => $province->getName(), 'id' => $province->getId(), 'cities' => $cities, 'numProperties' => $this->countPropiertiesFromCities($cities));
                     }
-                    $comunities[$comunity->getId()] = array('name' => $comunity->getName(), 'provinces' => $provinces, 'numProperties' => $this->countPropiertiesFromCities($provinces));
+                    $comunities[$comunity->getId()] = array('name' => $comunity->getName(), 'id' => $comunity->getId(), 'provinces' => $provinces, 'numProperties' => $this->countPropiertiesFromCities($provinces));
                 }
-                $countries[$country->getId()] = array('name' => $country->getName(), 'comunities' => $comunities, 'numProperties' => $this->countPropiertiesFromCities($comunities));
+                $countries[$country->getId()] = array('name' => $country->getName(), 'id' => $country->getId(), 'comunities' => $comunities, 'numProperties' => $this->countPropiertiesFromCities($comunities));
             }
-            $continents[$continent->getId()] = array('name' => $continent->getName(), 'countries' => $countries, 'numProperties' => $this->countPropiertiesFromCities($countries));
+            $continents[$continent->getId()] = array('name' => $continent->getName(), 'id' => $continent->getId(), 'countries' => $countries, 'numProperties' => $this->countPropiertiesFromCities($countries));
         }
-//ldd($continents);
+
+        //ldd($continents);
+
         return $this->render('ReservableActivityBundle:Zone:adminZone.html.twig',
             array('zoneTypes' => $zoneTypes, 'zonesTree' => $continents));
     }
@@ -73,11 +75,11 @@ class ZoneController extends Controller
 
         $return = array();
 
-        if($_POST['cityName'] && $_POST['provinceID']){
+        if($_POST['cityName'] && $_POST['provinceID'] && $_POST['typeID']){
             $newCity = new Zone();
             $newCity->setName($_POST['cityName']);
             $newCity->setFatherZone($_POST['provinceID']);
-            $newCity->setType(5);
+            $newCity->setType($_POST['typeID']);
 
             $em = $this->getDoctrine()->getManager();
             $em->persist($newCity);
@@ -85,7 +87,7 @@ class ZoneController extends Controller
 
             $return['cityName'] = $_POST['cityName'];
             $return['provinceID'] = $_POST['provinceID'];
-            $return['type'] = 5;
+            $return['type'] = $_POST['typeID'];
         }
 
         return new JsonResponse($return);

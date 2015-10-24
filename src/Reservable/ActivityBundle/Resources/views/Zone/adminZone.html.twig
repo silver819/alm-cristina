@@ -57,20 +57,20 @@
                                         {% if comunity.numProperties == 0 %}
                                             <span class="label label-danger deleteComunity" title="{% trans %}Eliminar{% endtrans %}"><i class="fa fa-trash"></i>&nbsp;{% trans %}Eliminar{% endtrans %}</span>
                                         {% endif %}
-                                        <span class="label label-success addProvince" title="{% trans %}Añadir provincia{% endtrans %}"><i class="fa fa-plus"></i>&nbsp;{% trans %}Nueva provincia{% endtrans %}</span>
+                                        <span class="label label-success addProvince" comunityID="{{ comunity.id }}" typeID="4" title="{% trans %}Añadir provincia{% endtrans %}"><i class="fa fa-plus"></i>&nbsp;{% trans %}Nueva provincia{% endtrans %}</span>
                                         <span class="badge" title="{% trans %}Número de propiedades registradas{% endtrans %}">{{ comunity.numProperties }}</span>
                                     </div>
                                 </li>
-                                <ul class="list-group">
+                                <ul class="list-group" id="comunity-{{ comunity.id }}">
                                     {# Provincias #}
                                     {% for province in comunity.provinces %}
-                                        <li class="list-group-item list-group-item-danger classProvince">
+                                        <li class="list-group-item list-group-item-danger classProvince" id="{{ province.name }}-4">
                                             <i class="fa fa-level-up fa-rotate-90"></i>&nbsp;{{ province.name }}
                                             <div class="box-tools pull-right">
                                                 {% if province.numProperties == 0 %}
-                                                    <span class="label label-danger deleteProvince" title="{% trans %}Eliminar{% endtrans %}"><i class="fa fa-trash"></i>&nbsp;{% trans %}Eliminar{% endtrans %}</span>
+                                                    <span class="label label-danger deleteProvince" nameProvince="{{ province.name }}" typeDelete="4" title="{% trans %}Eliminar{% endtrans %}"><i class="fa fa-trash"></i>&nbsp;{% trans %}Eliminar{% endtrans %}</span>
                                                 {% endif %}
-                                                <span class="label label-success addCity" provinceID="{{ province.id }}" title="{% trans %}Añadir ciudad/pueblo{% endtrans %}"><i class="fa fa-plus"></i>&nbsp;{% trans %}Nueva ciudad{% endtrans %}</span>
+                                                <span class="label label-success addCity" provinceID="{{ province.id }}" typeID="5" title="{% trans %}Añadir ciudad/pueblo{% endtrans %}"><i class="fa fa-plus"></i>&nbsp;{% trans %}Nueva ciudad{% endtrans %}</span>
                                                 <span class="badge" title="{% trans %}Número de propiedades registradas{% endtrans %}">{{ province.numProperties }}</span>
                                             </div>
                                         </li>
@@ -118,7 +118,31 @@
                 </div>
                 <div class="modal-footer">
                     <button data-dismiss="modal" class="btn btn-default pull-left" type="button">{% trans %}Cancelar{% endtrans %}</button>
-                    <button class="btn btn-success" type="button" id="addCityButton" provinceID="" >{% trans %}Aceptar{% endtrans %}</button>
+                    <button class="btn btn-success" type="button" id="addCityButton" provinceID="" typeID="" >{% trans %}Aceptar{% endtrans %}</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+    <div class="modal fade" id="modalAddProvince">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button aria-label="Close" data-dismiss="modal" class="close" type="button"><span aria-hidden="true">×</span></button>
+                    <h4 class="modal-title">{% trans %}Añadir provincia{% endtrans %}</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-lg-2"></div>
+                        <div class="col-lg-8">
+                            <input type="text" name="typeName" id="addProvinceName" style="width:100%;" placeholder="{% trans %}Nombre{% endtrans %}">
+                        </div>
+                        <div class="col-lg-2"></div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button data-dismiss="modal" class="btn btn-default pull-left" type="button">{% trans %}Cancelar{% endtrans %}</button>
+                    <button class="btn btn-success" type="button" id="addProvinceButton" comunityID="" typeID="">{% trans %}Aceptar{% endtrans %}</button>
                 </div>
             </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
@@ -150,7 +174,9 @@
         // Añadir ciudad
         $(".addCity").live('click', function(){
             var provinceID = $(this).attr('provinceID');
+            var typeID = $(this).attr('typeID');
             $("#addCityButton").attr('provinceID', provinceID);
+            $("#addCityButton").attr('typeID', typeID);
             $("#modalAddCity").modal("show");
         });
 
@@ -163,9 +189,10 @@
             else{
                 $("#modalAddCity").modal("hide");
                 var provinceID = $(this).attr('provinceID');
+                var typeID = $(this).attr('typeID');
                 $.ajax({
                     url: '{{ path('adminAddCity') }}',
-                    data: { 'cityName': cityName , 'provinceID': provinceID},
+                    data: { 'cityName': cityName , 'provinceID': provinceID, 'typeID': typeID},
                     type: "post",
                     success: function(response) {
                         var html = '<li class="list-group-item list-group-item-success classCity" id="' + response['cityName'] + '-' + response['type'] + '">' +
@@ -214,13 +241,60 @@
 
         // Añadir provincia
         $(".addProvince").live('click', function(){
-            alert("nueva provincia");
+            var comunityID = $(this).attr('comunityID');
+            var typeID = $(this).attr('typeID');
+            $("#addProvinceButton").attr('comunityID', comunityID);
+            $("#addProvinceButton").attr('typeID', typeID);
+            $("#modalAddProvince").modal("show");
         });
 
+        $("#addProvinceButton").live('click', function(){
+            var provinceName = $("#addProvinceName").val();
+
+            if(provinceName == ''){
+                $("#addProvinceName").addClass('inputError');
+            }
+            else{
+                $("#modalAddProvince").modal("hide");
+                var comunityID = $(this).attr('comunityID');
+                var typeID = $(this).attr('typeID');
+                $.ajax({
+                    url: '{{ path('adminAddCity') }}',
+                    data: { 'cityName': provinceName , 'provinceID': comunityID, 'typeID': typeID},
+                    type: "post",
+                    success: function(response) {
+                        var html = '<li class="list-group-item list-group-item-danger classProvince" id="' + response['cityName'] + '-' + response['type'] + '">' +
+                                '       <i class="fa fa-level-up fa-rotate-90"></i>&nbsp; ' + response['cityName'] +
+                                        '<div class="box-tools pull-right"> ' +
+                                            '<span class="label label-danger deleteProvince" nameprovince="' + response['cityName'] + '" typedelete="' + response['type'] + '" title="Eliminar"><i class="fa fa-trash"></i>&nbsp;Eliminar</span>' +
+                                            '<span class="label label-success addCity" provinceid="20" typeid="' + response['type'] + '" title="Añadir ciudad/pueblo"><i class="fa fa-plus"></i>&nbsp;Nueva ciudad</span>' +
+                                            '<span class="badge" title="Número de propiedades registradas">0</span>' +
+                                        '</div>' +
+                                    '</li>';
+
+                        $("#comunity-" + response['provinceID']).append(html);
+                    }
+                });
+            }
+        });
+
+        // Borrar provincia
+        $(".deleteProvince").live('click', function(){
+            var cityName = $(this).attr('nameProvince');
+            var typeDelete = $(this).attr('typeDelete');
+            $("#modalDelete h4").html("Eliminar provincia");
+            $("#modalDelete #textModalDelete").html("¿Estas seguro de querer eliminar " + cityName + " ?");
+            $("#deleteCityButton").attr('nameDelete', cityName);
+            $("#deleteCityButton").attr('typeDelete', typeDelete);
+            $("#modalDelete").modal("show");
+        });
+
+        // Añadir comunidad
         $(".addComunity").live('click', function(){
             alert("nueva comunidad");
         });
 
+        // Añadir pais
         $(".addCountry").live('click', function(){
             alert("nueva pais");
         });
