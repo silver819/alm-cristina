@@ -47,7 +47,7 @@ class ZoneController extends Controller
                             $numProperties  = count($this->getDoctrine()->getRepository('ReservableActivityBundle:Activity')->findBy(array('zone' => $city->getId())));
                             $cities[$city->getId()] = array('id' => $city->getId(), 'name' => $city->getName(), 'numProperties' => $numProperties);
                         }
-                        $provinces[$province->getId()] = array('name' => $province->getName(), 'cities' => $cities, 'numProperties' => $this->countPropiertiesFromCities($cities));
+                        $provinces[$province->getId()] = array('name' => $province->getName(), 'id' => $province->getId(), 'cities' => $cities, 'numProperties' => $this->countPropiertiesFromCities($cities));
                     }
                     $comunities[$comunity->getId()] = array('name' => $comunity->getName(), 'provinces' => $provinces, 'numProperties' => $this->countPropiertiesFromCities($provinces));
                 }
@@ -67,6 +67,45 @@ class ZoneController extends Controller
             $total += $city['numProperties'];
         }
         return $total;
+    }
+
+    public function adminAddCityAction(){
+
+        $return = array();
+
+        if($_POST['cityName'] && $_POST['provinceID']){
+            $newCity = new Zone();
+            $newCity->setName($_POST['cityName']);
+            $newCity->setFatherZone($_POST['provinceID']);
+            $newCity->setType(5);
+
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($newCity);
+            $em->flush();
+
+            $return['cityName'] = $_POST['cityName'];
+            $return['provinceID'] = $_POST['provinceID'];
+            $return['type'] = 5;
+        }
+
+        return new JsonResponse($return);
+    }
+
+    public function adminDeleleZoneAction(){
+        $return = array();
+
+        if($_POST['name'] && $_POST['type']){
+            $resultQuery = $this->getDoctrine()
+                ->getManager()
+                ->createQuery("DELETE FROM ReservableActivityBundle:Zone z
+                               WHERE z.name LIKE '" . $_POST['name'] . "' AND z.type = " . $_POST['type'])
+                ->getResult();
+
+            $return['name'] = $_POST['name'];
+            $return['type'] = $_POST['type'];
+        }
+
+        return new JsonResponse($return);
     }
 
 }

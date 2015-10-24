@@ -183,3 +183,19 @@ loadImages:
         _method:  GET|POST
     options:
         expose: true
+
+adminAddCity:
+    pattern: /adminAddCity
+    defaults: { _controller: ReservableActivityBundle:Zone:adminAddCity }
+    requirements:
+        _method:  GET|POST
+    options:
+        expose: true
+
+adminDeleleZone:
+    pattern: /adminDeleleZone
+    defaults: { _controller: ReservableActivityBundle:Zone:adminDeleleZone }
+    requirements:
+        _method:  GET|POST
+    options:
+        expose: true

@@ -479,3 +479,15 @@ h2{
     transform: rotate(90deg);
 }
 
+.deleteCity,
+.addCity,
+.deleteProvince,
+.addProvince,
+.deleteComunity,
+.addComunity,
+.deleteCountry,
+.addCountry,
+.deleteContinent{
+    cursor:pointer;
+}
+

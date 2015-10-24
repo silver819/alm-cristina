@@ -26,42 +26,65 @@
             <ul class="list-group">
             {% for continent in zonesTree %}
                 <li class="list-group-item">
-                    {% if continent.numProperties > 0 %}
-                        <span class="badge" title="{% trans %}Número de propiedades registradas{% endtrans %}">{{ continent.numProperties }}</span>
-                    {% endif %}
                     {{ continent.name }}
+                    <div class="box-tools pull-right">
+                        {% if continent.numProperties == 0 %}
+                            <span class="label label-danger deleteContinent" title="{% trans %}Eliminar{% endtrans %}"><i class="fa fa-trash"></i>&nbsp;{% trans %}Eliminar{% endtrans %}</span>
+                        {% endif %}
+                        <span class="label label-success addCountry" title="{% trans %}Añadir Pais{% endtrans %}"><i class="fa fa-plus"></i>&nbsp;{% trans %}Nuevo país{% endtrans %}</span>
+                        <span class="badge" title="{% trans %}Número de propiedades registradas{% endtrans %}">{{ continent.numProperties }}</span>
+                    </div>
                 </li>
                 <ul class="list-group">
+                    {# Paises #}
                     {% for country in continent.countries %}
                         <li class="list-group-item list-group-item-info classCountry">
-                            {% if country.numProperties > 0 %}
-                                <span class="badge" title="{% trans %}Número de propiedades registradas{% endtrans %}">{{ country.numProperties }}</span>
-                            {% endif %}
                             <i class="fa fa-level-up fa-rotate-90"></i>&nbsp;{{ country.name }}
+                            <div class="box-tools pull-right">
+                                {% if country.numProperties == 0 %}
+                                    <span class="label label-danger deleteCountry" title="{% trans %}Eliminar{% endtrans %}"><i class="fa fa-trash"></i>&nbsp;{% trans %}Eliminar{% endtrans %}</span>
+                                {% endif %}
+                                <span class="label label-success addComunity" title="{% trans %}Añadir Comunidad{% endtrans %}"><i class="fa fa-plus"></i>&nbsp;{% trans %}Nueva comunidad{% endtrans %}</span>
+                                <span class="badge" title="{% trans %}Número de propiedades registradas{% endtrans %}">{{ country.numProperties }}</span>
+                            </div>
                         </li>
                         <ul class="list-group">
+                            {# Comunidades #}
                             {% for comunity in country.comunities %}
                                 <li class="list-group-item list-group-item-warning classComunity">
-                                    {% if comunity.numProperties > 0 %}
-                                        <span class="badge" title="{% trans %}Número de propiedades registradas{% endtrans %}">{{ comunity.numProperties }}</span>
-                                    {% endif %}
                                     <i class="fa fa-level-up fa-rotate-90"></i>&nbsp;{{ comunity.name }}
+                                    <div class="box-tools pull-right">
+                                        {% if comunity.numProperties == 0 %}
+                                            <span class="label label-danger deleteComunity" title="{% trans %}Eliminar{% endtrans %}"><i class="fa fa-trash"></i>&nbsp;{% trans %}Eliminar{% endtrans %}</span>
+                                        {% endif %}
+                                        <span class="label label-success addProvince" title="{% trans %}Añadir provincia{% endtrans %}"><i class="fa fa-plus"></i>&nbsp;{% trans %}Nueva provincia{% endtrans %}</span>
+                                        <span class="badge" title="{% trans %}Número de propiedades registradas{% endtrans %}">{{ comunity.numProperties }}</span>
+                                    </div>
                                 </li>
                                 <ul class="list-group">
+                                    {# Provincias #}
                                     {% for province in comunity.provinces %}
                                         <li class="list-group-item list-group-item-danger classProvince">
-                                            {% if province.numProperties > 0 %}
-                                                <span class="badge" title="{% trans %}Número de propiedades registradas{% endtrans %}">{{ province.numProperties }}</span>
-                                            {% endif %}
                                             <i class="fa fa-level-up fa-rotate-90"></i>&nbsp;{{ province.name }}
+                                            <div class="box-tools pull-right">
+                                                {% if province.numProperties == 0 %}
+                                                    <span class="label label-danger deleteProvince" title="{% trans %}Eliminar{% endtrans %}"><i class="fa fa-trash"></i>&nbsp;{% trans %}Eliminar{% endtrans %}</span>
+                                                {% endif %}
+                                                <span class="label label-success addCity" provinceID="{{ province.id }}" title="{% trans %}Añadir ciudad/pueblo{% endtrans %}"><i class="fa fa-plus"></i>&nbsp;{% trans %}Nueva ciudad{% endtrans %}</span>
+                                                <span class="badge" title="{% trans %}Número de propiedades registradas{% endtrans %}">{{ province.numProperties }}</span>
+                                            </div>
                                         </li>
-                                        <ul class="list-group">
+                                        <ul class="list-group" id="province-{{ province.id }}">
+                                            {# Ciudades #}
                                             {% for city in province.cities %}
-                                                <li class="list-group-item list-group-item-success classCity">
-                                                    {% if province.numProperties > 0 %}
-                                                        <span class="badge" title="{% trans %}Número de propiedades registradas{% endtrans %}">{{ city.numProperties }}</span>
-                                                    {% endif %}
+                                                <li class="list-group-item list-group-item-success classCity" id="{{ city.name }}-5">
                                                     <i class="fa fa-level-up fa-rotate-90"></i>&nbsp;{{ city.name }}
+                                                    <div class="box-tools pull-right">
+                                                        {% if city.numProperties == 0 %}
+                                                            <span class="label label-danger deleteCity" nameCity="{{ city.name }}" typeDelete="5" title="{% trans %}Eliminar{% endtrans %}"><i class="fa fa-trash"></i>&nbsp;{% trans %}Eliminar{% endtrans %}</span>
+                                                        {% endif %}
+                                                        <span class="badge" title="{% trans %}Número de propiedades registradas{% endtrans %}">{{ city.numProperties }}</span>
+                                                    </div>
                                                 </li>
                                             {% endfor %}
                                         </ul>
@@ -75,4 +98,131 @@
             </ul>
         </div>
     </div>
+
+    {# MODALES #}
+    <div class="modal fade" id="modalAddCity">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button aria-label="Close" data-dismiss="modal" class="close" type="button"><span aria-hidden="true">×</span></button>
+                    <h4 class="modal-title">{% trans %}Añadir ciudad{% endtrans %}</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-lg-2"></div>
+                        <div class="col-lg-8">
+                            <input type="text" name="typeName" id="addCityName" style="width:100%;" placeholder="{% trans %}Nombre{% endtrans %}">
+                        </div>
+                        <div class="col-lg-2"></div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button data-dismiss="modal" class="btn btn-default pull-left" type="button">{% trans %}Cancelar{% endtrans %}</button>
+                    <button class="btn btn-success" type="button" id="addCityButton" provinceID="" >{% trans %}Aceptar{% endtrans %}</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+    <div class="modal fade" id="modalDelete">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button aria-label="Close" data-dismiss="modal" class="close" type="button"><span aria-hidden="true">×</span></button>
+                    <h4 class="modal-title"></h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-lg-2"></div>
+                        <div class="col-lg-8" id="textModalDelete"></div>
+                        <div class="col-lg-2"></div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button data-dismiss="modal" class="btn btn-default pull-left" type="button">{% trans %}Cancelar{% endtrans %}</button>
+                    <button class="btn btn-success" type="button" id="deleteCityButton" nameDelete="" typeDelete="">{% trans %}Aceptar{% endtrans %}</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+    <script>
+        // Añadir ciudad
+        $(".addCity").live('click', function(){
+            var provinceID = $(this).attr('provinceID');
+            $("#addCityButton").attr('provinceID', provinceID);
+            $("#modalAddCity").modal("show");
+        });
+
+        $("#addCityButton").live('click', function(){
+            var cityName = $("#addCityName").val();
+
+            if(cityName == ''){
+                $("#addCityName").addClass('inputError');
+            }
+            else{
+                $("#modalAddCity").modal("hide");
+                var provinceID = $(this).attr('provinceID');
+                $.ajax({
+                    url: '{{ path('adminAddCity') }}',
+                    data: { 'cityName': cityName , 'provinceID': provinceID},
+                    type: "post",
+                    success: function(response) {
+                        var html = '<li class="list-group-item list-group-item-success classCity" id="' + response['cityName'] + '-' + response['type'] + '">' +
+                                '<i class="fa fa-level-up fa-rotate-90"></i>&nbsp;' + response['cityName'] +
+                                '<div class="box-tools pull-right">' +
+                                '<span class="label label-danger deleteCity" namecity="' + response['cityName'] + '" typedelete="5" title="Eliminar">' +
+                                '<i class="fa fa-trash"></i>&nbsp;Eliminar</span>' +
+                                '<span class="badge" title="Número de propiedades registradas">0</span>' +
+                                '</div>' +
+                                '</li>';
+
+                        $("#province-" + response['provinceID']).append(html);
+                    }
+                });
+            }
+        });
+
+        $("#addCityName").live('click', function(){
+            $(this).removeClass('inputError');
+        });
+
+        // Borrar ciudad
+        $(".deleteCity").live('click', function(){
+            var cityName = $(this).attr('nameCity');
+            var typeDelete = $(this).attr('typeDelete');
+            $("#modalDelete h4").html("Eliminar ciudad");
+            $("#modalDelete #textModalDelete").html("¿Estas seguro de querer eliminar " + cityName + " ?");
+            $("#deleteCityButton").attr('nameDelete', cityName);
+            $("#deleteCityButton").attr('typeDelete', typeDelete);
+            $("#modalDelete").modal("show");
+        });
+
+        $("#deleteCityButton").live('click', function(){
+            var deleteName = $(this).attr('nameDelete');
+            var typeName = $(this).attr('typeDelete');
+            $.ajax({
+                url: '{{ path('adminDeleleZone') }}',
+                data: { 'name': deleteName , 'type': typeName},
+                type: "post",
+                success: function(response) {
+                    $("#modalDelete").modal("hide");
+                    $("#" + response['name'] + "-" + response['type']).detach();
+                }
+            });
+        });
+
+        // Añadir provincia
+        $(".addProvince").live('click', function(){
+            alert("nueva provincia");
+        });
+
+        $(".addComunity").live('click', function(){
+            alert("nueva comunidad");
+        });
+
+        $(".addCountry").live('click', function(){
+            alert("nueva pais");
+        });
+    </script>
 {% endblock %}
