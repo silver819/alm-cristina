@@ -30,6 +30,13 @@ class Activity
     private $name;
 
     /**
+     * @var integer
+     *
+     * @ORM\Column(name="zone", type="integer")
+     */
+    private $zone;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="price", type="decimal")
@@ -126,6 +133,29 @@ class Activity
     public function getName()
     {
         return $this->name;
+    }
+
+    /**
+     * Set zone
+     *
+     * @param int $zone
+     * @return Activity
+     */
+    public function setZone($zone)
+    {
+        $this->zone = $zone;
+
+        return $this;
+    }
+
+    /**
+     * Get name
+     *
+     * @return int
+     */
+    public function getZone()
+    {
+        return $this->zone;
     }
 
     /**

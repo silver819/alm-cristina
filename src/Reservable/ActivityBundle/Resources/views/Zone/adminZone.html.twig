@@ -25,19 +25,44 @@
             {# Continentes #}
             <ul class="list-group">
             {% for continent in zonesTree %}
-                <li class="list-group-item">{{ continent.name }}</li>
+                <li class="list-group-item">
+                    {% if continent.numProperties > 0 %}
+                        <span class="badge" title="{% trans %}Número de propiedades registradas{% endtrans %}">{{ continent.numProperties }}</span>
+                    {% endif %}
+                    {{ continent.name }}
+                </li>
                 <ul class="list-group">
                     {% for country in continent.countries %}
-                        <li class="list-group-item list-group-item-info classCountry"><i class="fa fa-level-up fa-rotate-90"></i>&nbsp;{{ country.name }}</li>
+                        <li class="list-group-item list-group-item-info classCountry">
+                            {% if country.numProperties > 0 %}
+                                <span class="badge" title="{% trans %}Número de propiedades registradas{% endtrans %}">{{ country.numProperties }}</span>
+                            {% endif %}
+                            <i class="fa fa-level-up fa-rotate-90"></i>&nbsp;{{ country.name }}
+                        </li>
                         <ul class="list-group">
                             {% for comunity in country.comunities %}
-                                <li class="list-group-item list-group-item-warning classComunity"><i class="fa fa-level-up fa-rotate-90"></i>&nbsp;{{ comunity.name }}</li>
+                                <li class="list-group-item list-group-item-warning classComunity">
+                                    {% if comunity.numProperties > 0 %}
+                                        <span class="badge" title="{% trans %}Número de propiedades registradas{% endtrans %}">{{ comunity.numProperties }}</span>
+                                    {% endif %}
+                                    <i class="fa fa-level-up fa-rotate-90"></i>&nbsp;{{ comunity.name }}
+                                </li>
                                 <ul class="list-group">
                                     {% for province in comunity.provinces %}
-                                        <li class="list-group-item list-group-item-danger classProvince"><i class="fa fa-level-up fa-rotate-90"></i>&nbsp;{{ province.name }}</li>
+                                        <li class="list-group-item list-group-item-danger classProvince">
+                                            {% if province.numProperties > 0 %}
+                                                <span class="badge" title="{% trans %}Número de propiedades registradas{% endtrans %}">{{ province.numProperties }}</span>
+                                            {% endif %}
+                                            <i class="fa fa-level-up fa-rotate-90"></i>&nbsp;{{ province.name }}
+                                        </li>
                                         <ul class="list-group">
                                             {% for city in province.cities %}
-                                                <li class="list-group-item list-group-item-success classCity"><i class="fa fa-level-up fa-rotate-90"></i>&nbsp;{{ city }}</li>
+                                                <li class="list-group-item list-group-item-success classCity">
+                                                    {% if province.numProperties > 0 %}
+                                                        <span class="badge" title="{% trans %}Número de propiedades registradas{% endtrans %}">{{ city.numProperties }}</span>
+                                                    {% endif %}
+                                                    <i class="fa fa-level-up fa-rotate-90"></i>&nbsp;{{ city.name }}
+                                                </li>
                                             {% endfor %}
                                         </ul>
                                     {% endfor %}

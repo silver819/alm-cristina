@@ -44,20 +44,29 @@ class ZoneController extends Controller
                         $arrayCities = $this->getDoctrine()->getRepository('ReservableActivityBundle:Zone')->findBy(array('fatherZone' => $province->getId()));
                         $cities = array();
                         foreach($arrayCities as $city) {
-                            $cities[$city->getId()] = $city->getName();
+                            $numProperties  = count($this->getDoctrine()->getRepository('ReservableActivityBundle:Activity')->findBy(array('zone' => $city->getId())));
+                            $cities[$city->getId()] = array('id' => $city->getId(), 'name' => $city->getName(), 'numProperties' => $numProperties);
                         }
-                        $provinces[$province->getId()] = array('name' => $province->getName(), 'cities' => $cities);
+                        $provinces[$province->getId()] = array('name' => $province->getName(), 'cities' => $cities, 'numProperties' => $this->countPropiertiesFromCities($cities));
                     }
-                    $comunities[$comunity->getId()] = array('name' => $comunity->getName(), 'provinces' => $provinces);
+                    $comunities[$comunity->getId()] = array('name' => $comunity->getName(), 'provinces' => $provinces, 'numProperties' => $this->countPropiertiesFromCities($provinces));
                 }
-                $countries[$country->getId()] = array('name' => $country->getName(), 'comunities' => $comunities);
+                $countries[$country->getId()] = array('name' => $country->getName(), 'comunities' => $comunities, 'numProperties' => $this->countPropiertiesFromCities($comunities));
             }
-            $continents[$continent->getId()] = array('name' => $continent->getName(), 'countries' => $countries);
+            $continents[$continent->getId()] = array('name' => $continent->getName(), 'countries' => $countries, 'numProperties' => $this->countPropiertiesFromCities($countries));
         }
 //ldd($continents);
         return $this->render('ReservableActivityBundle:Zone:adminZone.html.twig',
             array('zoneTypes' => $zoneTypes, 'zonesTree' => $continents));
     }
 
+    private function countPropiertiesFromCities($cities){
+
+        $total = 0;
+        foreach($cities as $city){
+            $total += $city['numProperties'];
+        }
+        return $total;
+    }
 
 }
