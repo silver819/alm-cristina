@@ -491,3 +491,7 @@ h2{
     cursor:pointer;
 }
 
+.noMarginButton{
+    margin-bottom: 0px !important;
+}
+
