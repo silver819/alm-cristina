@@ -3,6 +3,7 @@ registerActivity:
         name: Nombre
         price: Precio
         type: Alquiler por
+        zone: Ciudad
         address: Dirección
         description: Descripción
         hour: Hora

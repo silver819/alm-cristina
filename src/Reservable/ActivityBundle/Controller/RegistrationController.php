@@ -12,6 +12,13 @@ class RegistrationController extends Controller
 {
     public function newAction()
 	{
+
+        $arrayCitiesQuery = $this->getDoctrine()->getRepository('ReservableActivityBundle:Zone')->findBy(array('type' => 5));
+        $arrayCities = array();
+        foreach($arrayCitiesQuery as $city){
+            $arrayCities[$city->getId()] = $city->getName();
+        }
+
 		// crea una task y le asigna algunos datos ficticios para este ejemplo
         $activity= new Activity();
         $activity->setOwnerID($this->get('security.context')->getToken()->getUser()->getId());
@@ -30,7 +37,7 @@ class RegistrationController extends Controller
         $activity->getPictures()->add($picture5);
         $activity->getPictures()->add($picture6);
 
-        $form = $this->createForm(new ActivityType(), $activity);
+        $form = $this->createForm(new ActivityType(), $activity, array('attr' => array('zones' => $arrayCities)));
 
         return $this->render('ReservableActivityBundle:Registration:registerActivity.html.twig', 
         	array('form' => $form->createView(),
@@ -39,10 +46,16 @@ class RegistrationController extends Controller
 
     public function registerActivityAction(){
 
+        $arrayCitiesQuery = $this->getDoctrine()->getRepository('ReservableActivityBundle:Zone')->findBy(array('type' => 5));
+        $arrayCities = array();
+        foreach($arrayCitiesQuery as $city){
+            $arrayCities[$city->getId()] = $city->getName();
+        }
+
         $dm = $this->getDoctrine()->getManager();
         $activity = new Activity();
-        $form = $this->createForm(new ActivityType(), $activity);
-        $form->bind($this->getRequest());
+        $form = $this->createForm(new ActivityType(), $activity, array('attr' => array('zones' => $arrayCities)));
+        $form->submit($this->getRequest());
 
         if ($form->isValid()) {
             $property = $form->getData();

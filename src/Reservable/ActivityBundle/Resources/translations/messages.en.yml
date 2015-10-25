@@ -4,6 +4,7 @@ registerActivity:
         price: Price
         type: Rent by
         address: Address
+        zone: City
         description: Description
         hour: Hour
         day: Day
