@@ -5,12 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0ca3c09d-9b70-4edd-bbfb-2d0f972bbd20" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Reservable/ActivityBundle/Form/Type/ActivityType.php" afterPath="$PROJECT_DIR$/src/Reservable/ActivityBundle/Form/Type/ActivityType.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Reservable/ActivityBundle/Controller/RegistrationController.php" afterPath="$PROJECT_DIR$/src/Reservable/ActivityBundle/Controller/RegistrationController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Reservable/ActivityBundle/Resources/translations/messages.en.yml" afterPath="$PROJECT_DIR$/src/Reservable/ActivityBundle/Resources/translations/messages.en.yml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Reservable/ActivityBundle/Resources/translations/messages.es.yml" afterPath="$PROJECT_DIR$/src/Reservable/ActivityBundle/Resources/translations/messages.es.yml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Reservable/ActivityBundle/Resources/views/Registration/registerActivity.html.twig" afterPath="$PROJECT_DIR$/src/Reservable/ActivityBundle/Resources/views/Registration/registerActivity.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Reservable/ActivityBundle/Resources/views/Registration/registrationSuccess.html.twig" afterPath="$PROJECT_DIR$/src/Reservable/ActivityBundle/Resources/views/Registration/registrationSuccess.html.twig" />
     </list>
     <ignored path="almacen.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -75,18 +71,28 @@
       <file leaf-file-name="registerActivity.html.twig" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Reservable/ActivityBundle/Resources/views/Registration/registerActivity.html.twig">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-20.0" vertical-offset="1854" max-vertical-offset="2898">
-              <caret line="133" column="0" selection-start-line="133" selection-start-column="0" selection-end-line="133" selection-end-column="0" />
+            <state vertical-scroll-proportion="-13.925926" vertical-offset="1640" max-vertical-offset="3204">
+              <caret line="112" column="4" selection-start-line="112" selection-start-column="4" selection-end-line="116" selection-end-column="38" />
               <folding>
-                <element signature="e#3747#3781#0#HTML" expanded="true" />
-                <element signature="e#3828#3862#0#HTML" expanded="true" />
-                <element signature="e#3910#3944#0#HTML" expanded="true" />
-                <element signature="e#3995#4029#0#HTML" expanded="true" />
-                <element signature="e#4079#4113#0#HTML" expanded="true" />
-                <element signature="e#4160#4194#0#HTML" expanded="true" />
-                <element signature="e#4542#4576#0#HTML" expanded="true" />
-                <element signature="e#4820#4854#0#HTML" expanded="true" />
+                <element signature="e#4018#4052#0#HTML" expanded="true" />
+                <element signature="e#4141#4175#0#HTML" expanded="true" />
+                <element signature="e#4267#4301#0#HTML" expanded="true" />
+                <element signature="e#4396#4430#0#HTML" expanded="true" />
+                <element signature="e#4518#4552#0#HTML" expanded="true" />
+                <element signature="e#4643#4677#0#HTML" expanded="true" />
+                <element signature="e#5132#5166#0#HTML" expanded="true" />
+                <element signature="e#5514#5548#0#HTML" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="registrationSuccess.html.twig" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/Reservable/ActivityBundle/Resources/views/Registration/registrationSuccess.html.twig">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.21734358" vertical-offset="0" max-vertical-offset="911">
+              <caret line="11" column="51" selection-start-line="11" selection-start-column="51" selection-end-line="11" selection-end-column="51" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -101,10 +107,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="RegistrationController.php" pinned="false" current-in-tab="true">
+      <file leaf-file-name="RegistrationController.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Reservable/ActivityBundle/Controller/RegistrationController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="1.1855104" vertical-offset="0" max-vertical-offset="3096">
+            <state vertical-scroll-proportion="-40.0" vertical-offset="0" max-vertical-offset="3096">
               <caret line="64" column="60" selection-start-line="64" selection-start-column="59" selection-end-line="64" selection-end-column="60" />
               <folding>
                 <marker date="1445765818917" expanded="true" signature="5626:5866" placeholder="SELECT f.id,..ReservableActivityBundle..." />
@@ -121,7 +127,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/Admin/AdminBundle/Resources/config/services.yml" />
         <option value="$PROJECT_DIR$/src/User/UserBundle/Resources/views/Consult/viewUsersModif.html.twig" />
         <option value="$PROJECT_DIR$/src/User/UserBundle/Controller/ConsultController.php" />
         <option value="$PROJECT_DIR$/src/User/UserBundle/Resources/views/Consult/viewUsers.html.twig" />
@@ -169,9 +174,10 @@
         <option value="$PROJECT_DIR$/src/Admin/AdminBundle/EventListener/SidebarNavigation.php" />
         <option value="$PROJECT_DIR$/src/Reservable/ActivityBundle/Resources/translations/messages.es.yml" />
         <option value="$PROJECT_DIR$/src/Reservable/ActivityBundle/Resources/translations/messages.en.yml" />
-        <option value="$PROJECT_DIR$/src/Reservable/ActivityBundle/Resources/views/Registration/registerActivity.html.twig" />
         <option value="$PROJECT_DIR$/src/Reservable/ActivityBundle/Form/Type/ActivityType.php" />
         <option value="$PROJECT_DIR$/src/Reservable/ActivityBundle/Controller/RegistrationController.php" />
+        <option value="$PROJECT_DIR$/src/Reservable/ActivityBundle/Resources/views/Registration/registerActivity.html.twig" />
+        <option value="$PROJECT_DIR$/src/Reservable/ActivityBundle/Resources/views/Registration/registrationSuccess.html.twig" />
       </list>
     </option>
   </component>
@@ -572,13 +578,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/Reservable/ActivityBundle/Resources/views/View/detailsProperty.html.twig">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-31.333334" vertical-offset="324" max-vertical-offset="1764">
-          <caret line="65" column="22" selection-start-line="34" selection-start-column="16" selection-end-line="65" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Reservable/ActivityBundle/Controller/ViewController.php">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.9121622" vertical-offset="396" max-vertical-offset="3924">
@@ -928,23 +927,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Reservable/ActivityBundle/Resources/views/Registration/registerActivity.html.twig">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-20.0" vertical-offset="1854" max-vertical-offset="2898">
-          <caret line="133" column="0" selection-start-line="133" selection-start-column="0" selection-end-line="133" selection-end-column="0" />
-          <folding>
-            <element signature="e#3747#3781#0#HTML" expanded="true" />
-            <element signature="e#3828#3862#0#HTML" expanded="true" />
-            <element signature="e#3910#3944#0#HTML" expanded="true" />
-            <element signature="e#3995#4029#0#HTML" expanded="true" />
-            <element signature="e#4079#4113#0#HTML" expanded="true" />
-            <element signature="e#4160#4194#0#HTML" expanded="true" />
-            <element signature="e#4542#4576#0#HTML" expanded="true" />
-            <element signature="e#4820#4854#0#HTML" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Reservable/ActivityBundle/Form/Type/ActivityType.php">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-28.407408" vertical-offset="97" max-vertical-offset="1116">
@@ -957,11 +939,36 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Reservable/ActivityBundle/Controller/RegistrationController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="1.1855104" vertical-offset="0" max-vertical-offset="3096">
+        <state vertical-scroll-proportion="-40.0" vertical-offset="0" max-vertical-offset="3096">
           <caret line="64" column="60" selection-start-line="64" selection-start-column="59" selection-end-line="64" selection-end-column="60" />
           <folding>
             <marker date="1445765818917" expanded="true" signature="5626:5866" placeholder="SELECT f.id,..ReservableActivityBundle..." />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Reservable/ActivityBundle/Resources/views/Registration/registerActivity.html.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-13.925926" vertical-offset="1640" max-vertical-offset="3204">
+          <caret line="112" column="4" selection-start-line="112" selection-start-column="4" selection-end-line="116" selection-end-column="38" />
+          <folding>
+            <element signature="e#4018#4052#0#HTML" expanded="true" />
+            <element signature="e#4141#4175#0#HTML" expanded="true" />
+            <element signature="e#4267#4301#0#HTML" expanded="true" />
+            <element signature="e#4396#4430#0#HTML" expanded="true" />
+            <element signature="e#4518#4552#0#HTML" expanded="true" />
+            <element signature="e#4643#4677#0#HTML" expanded="true" />
+            <element signature="e#5132#5166#0#HTML" expanded="true" />
+            <element signature="e#5514#5548#0#HTML" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Reservable/ActivityBundle/Resources/views/Registration/registrationSuccess.html.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.21734358" vertical-offset="0" max-vertical-offset="911">
+          <caret line="11" column="51" selection-start-line="11" selection-start-column="51" selection-end-line="11" selection-end-column="51" />
+          <folding />
         </state>
       </provider>
     </entry>

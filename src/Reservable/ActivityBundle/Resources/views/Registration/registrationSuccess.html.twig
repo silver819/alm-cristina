@@ -6,9 +6,20 @@
 
 {% block page_content %}
 
-	<div class="alert alert-success text-center">
-	<h4>{% trans %}¡La propiedad ha sido registrada con exito!{% endtrans %}</h4>
-	<p><a class="alertAnchor" href="{{ path('view_activities') }}">{% trans %}Ver todas las instalaciones{% endtrans %}</a></p>
-	</div>
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+            <div class="box box-success text-center">
+                <div class="box-header with-border">
+                    <h4>{% trans %}¡La propiedad ha sido registrada con exito!{% endtrans %}</h4>
+                </div>
+                <div class="box-body">
+
+                    <p><a class="alertAnchor" href="{{ path('view_activities') }}">{% trans %}Ver todas las instalaciones{% endtrans %}</a></p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-2"></div>
+    </div>
 
 {% endblock %}

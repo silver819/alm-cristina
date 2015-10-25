@@ -110,47 +110,64 @@
 		}
 	</script>
 
-	<form action="{{ path('register_activity') }}" method="POST" {{ form_enctype(form) }}>
-	    
-		{{ bootstrap_set_style('horizontal') }}
-		{{ form_errors(form) }}
+    <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-10">
+            <div class="box box-success">
+                <div class="box-body">
+                    <form action="{{ path('register_activity') }}" method="POST" {{ form_enctype(form) }}>
+                        {{ bootstrap_set_style('horizontal') }}
+                        {{ form_errors(form) }}
 
-		{{ form_row(form.name) }}
-		
-		<div style="clear: both; height: 10px;"></div>
-		{{ form_row(form.price) }}
-		
-		<div style="clear: both; height: 10px;"></div>
-		{{ form_row(form.typeRent) }}
+                        {{ form_row(form.name) }}
 
-		<div style="clear: both; height: 10px;"></div>
-		{{ form_row(form.description) }}
+                        <div style="clear: both; height: 10px;"></div>
+                        {{ form_row(form.price) }}
 
-		<div style="clear: both; height: 10px;"></div>
-		{{ form_row(form.zone) }}
+                        <div style="clear: both; height: 10px;"></div>
+                        {{ form_row(form.typeRent) }}
 
-        <div style="clear: both; height: 10px;"></div>
-		{{ form_row(form.address) }}
+                        <div style="clear: both; height: 10px;"></div>
+                        {{ form_row(form.description) }}
 
-		<div style="clear: both; height: 10px;"></div>
+                        <div style="clear: both; height: 10px;"></div>
+                        {{ form_row(form.zone) }}
 
-		<div class="text-center">
-	    	<button type="button" value="Buscar" class="btn btn-primary" onclick="codeAddress()"><i class="glyphicon glyphicon-chevron-down"></i>&nbsp;{% trans %}Buscar dirección en el mapa{% endtrans %}&nbsp;<i class="glyphicon glyphicon-chevron-down"></i></button>
-	    </div>
-		<div id="map_canvas"></div>
+                        <div style="clear: both; height: 10px;"></div>
+                        {{ form_row(form.address) }}
 
-		<div style="clear: both; height: 10px;"></div>
-		{{ form_label(form.pictures) }}
-		<span class="noteSpan">
-		{% trans %}Estos campos no son obligatorios, pero si lo desea puede añadir hasta seis imágenes de su propiedad{% endtrans %}</span>
-		{{ form_widget(form.pictures) }}
-		<div style="clear: both; height: 10px;"></div>
+                        <div style="clear: both; height: 10px;"></div>
 
-		{{ form_rest(form) }}
+                        <div class="text-center">
+                            <button type="button" value="Buscar" class="btn btn-primary" onclick="codeAddress()"><i class="glyphicon glyphicon-chevron-down"></i>&nbsp;{% trans %}Buscar dirección en el mapa{% endtrans %}&nbsp;<i class="glyphicon glyphicon-chevron-down"></i></button>
+                        </div>
+                        <div id="map_canvas"></div>
 
-	    <div class="text-center">
-			<button value="Send" class="btn btn-success" type="submit" name="_registerActivity"><i class="glyphicon glyphicon-inbox"></i>&nbsp;{% trans %}Registrar propiedad{% endtrans %}</button>
-		</div>
-	</form>
+                        <div style="clear: both; height: 10px;"></div>
+                        {{ form_label(form.pictures) }}
+                        <span class="noteSpan">
+		                {% trans %}Estos campos no son obligatorios, pero si lo desea puede añadir hasta seis imágenes de su propiedad{% endtrans %}</span>
+                        {{ form_widget(form.pictures) }}
+                        <div style="clear: both; height: 10px;"></div>
+
+                        {{ form_rest(form) }}
+
+                        <div class="text-center">
+                            <button value="Send" class="btn btn-success" type="submit" name="_registerActivity"><i class="glyphicon glyphicon-inbox"></i>&nbsp;{% trans %}Registrar propiedad{% endtrans %}</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-1"></div>
+    </div>
+
+
+
+
+
+
+
+
 
 {% endblock %}
