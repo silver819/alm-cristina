@@ -5,10 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0ca3c09d-9b70-4edd-bbfb-2d0f972bbd20" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Reservable/ActivityBundle/Controller/ZoneController.php" afterPath="$PROJECT_DIR$/src/Reservable/ActivityBundle/Controller/ZoneController.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Admin/AdminBundle/EventListener/SidebarNavigation.php" afterPath="$PROJECT_DIR$/src/Admin/AdminBundle/EventListener/SidebarNavigation.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Reservable/ActivityBundle/Resources/views/Zone/adminZone.html.twig" afterPath="$PROJECT_DIR$/src/Reservable/ActivityBundle/Resources/views/Zone/adminZone.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/css/main.css" afterPath="$PROJECT_DIR$/web/css/main.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Reservable/ActivityBundle/Resources/config/routing.yml" afterPath="$PROJECT_DIR$/src/Reservable/ActivityBundle/Resources/config/routing.yml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="almacen.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -36,39 +35,34 @@
       <file leaf-file-name="ZoneController.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Reservable/ActivityBundle/Controller/ZoneController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-15.888889" vertical-offset="1137" max-vertical-offset="2088">
-              <caret line="87" column="31" selection-start-line="87" selection-start-column="31" selection-end-line="87" selection-end-column="31" />
+            <state vertical-scroll-proportion="-8.666667" vertical-offset="0" max-vertical-offset="2124">
+              <caret line="13" column="45" selection-start-line="13" selection-start-column="45" selection-end-line="13" selection-end-column="45" />
               <folding>
-                <element signature="e#56#106#0#PHP" expanded="true" />
-                <marker date="1445689028320" expanded="true" signature="4722:4815" placeholder="DELETE FROM ..." />
-                <marker date="1445689028320" expanded="true" signature="4722:4816" placeholder="DELETE FROM ..." />
-                <marker date="1445689028320" expanded="true" signature="4722:4852" placeholder="DELETE FROM ..." />
-                <marker date="1445689028320" expanded="true" signature="4722:4853" placeholder="DELETE FROM ..." />
+                <marker date="1445697268204" expanded="true" signature="4986:5079" placeholder="DELETE FROM ..." />
+                <marker date="1445697268204" expanded="true" signature="4986:5080" placeholder="DELETE FROM ..." />
+                <marker date="1445697268204" expanded="true" signature="4986:5116" placeholder="DELETE FROM ..." />
+                <marker date="1445697268204" expanded="true" signature="4986:5117" placeholder="DELETE FROM ..." />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="adminZone.html.twig" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/Reservable/ActivityBundle/Resources/views/Zone/adminZone.html.twig">
+      <file leaf-file-name="SidebarNavigation.php" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/Admin/AdminBundle/EventListener/SidebarNavigation.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.3285968" vertical-offset="2875" max-vertical-offset="4212">
-              <caret line="170" column="149" selection-start-line="170" selection-start-column="149" selection-end-line="170" selection-end-column="149" />
-              <folding>
-                <element signature="n#style#0;n#input#0;n#div#1;n#div#0;n#div#1;n#div#0;n#div#0;n#div#2;n#!!top" expanded="true" />
-              </folding>
+            <state vertical-scroll-proportion="0.26057908" vertical-offset="288" max-vertical-offset="1530">
+              <caret line="31" column="45" selection-start-line="31" selection-start-column="39" selection-end-line="31" selection-end-column="55" />
+              <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="adminFeatures.html.twig" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Reservable/ActivityBundle/Resources/views/Registration/adminFeatures.html.twig">
+      <file leaf-file-name="ActivityType.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Reservable/ActivityBundle/Form/Type/ActivityType.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-3.4" vertical-offset="2945" max-vertical-offset="3906">
-              <caret line="174" column="49" selection-start-line="174" selection-start-column="43" selection-end-line="174" selection-end-column="49" />
-              <folding>
-                <marker date="1442048971331" expanded="true" signature="8088:8100" placeholder="..." />
-              </folding>
+            <state vertical-scroll-proportion="-4.0" vertical-offset="0" max-vertical-offset="972">
+              <caret line="6" column="8" selection-start-line="6" selection-start-column="8" selection-end-line="11" selection-end-column="12" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -76,39 +70,26 @@
       <file leaf-file-name="routing.yml" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Reservable/ActivityBundle/Resources/config/routing.yml">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="2969" max-vertical-offset="3726">
-              <caret line="196" column="74" selection-start-line="196" selection-start-column="74" selection-end-line="196" selection-end-column="74" />
+            <state vertical-scroll-proportion="-4.5" vertical-offset="0" max-vertical-offset="3726">
+              <caret line="7" column="10" selection-start-line="7" selection-start-column="10" selection-end-line="7" selection-end-column="23" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Activity.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Reservable/ActivityBundle/Entity/Activity.php">
+      <file leaf-file-name="registerActivity.html.twig" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Reservable/ActivityBundle/Resources/views/Registration/registerActivity.html.twig">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-24.481482" vertical-offset="2075" max-vertical-offset="6444">
-              <caret line="153" column="18" selection-start-line="153" selection-start-column="18" selection-end-line="153" selection-end-column="18" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="main.css" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/web/css/main.css">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-10.821428" vertical-offset="7851" max-vertical-offset="8982">
-              <caret line="453" column="11" selection-start-line="453" selection-start-column="1" selection-end-line="453" selection-end-column="11" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="viewUsers.html.twig" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/User/UserBundle/Resources/views/Consult/viewUsers.html.twig">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="90" max-vertical-offset="3582">
-              <caret line="5" column="0" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
-              <folding />
+            <state vertical-scroll-proportion="-84.666664" vertical-offset="18" max-vertical-offset="2844">
+              <caret line="128" column="0" selection-start-line="128" selection-start-column="0" selection-end-line="128" selection-end-column="0" />
+              <folding>
+                <element signature="e#3828#3862#0#HTML" expanded="true" />
+                <element signature="e#3910#3944#0#HTML" expanded="true" />
+                <element signature="e#3995#4029#0#HTML" expanded="true" />
+                <element signature="e#4076#4110#0#HTML" expanded="true" />
+                <element signature="e#4458#4492#0#HTML" expanded="true" />
+                <element signature="e#4736#4770#0#HTML" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -116,19 +97,21 @@
       <file leaf-file-name="AdminController.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Reservable/ActivityBundle/Controller/AdminController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-4.7090907" vertical-offset="10667" max-vertical-offset="13392">
-              <caret line="616" column="12" selection-start-line="616" selection-start-column="12" selection-end-line="620" selection-end-column="30" />
+            <state vertical-scroll-proportion="-10.259259" vertical-offset="8399" max-vertical-offset="13392">
+              <caret line="491" column="32" selection-start-line="491" selection-start-column="32" selection-end-line="493" selection-end-column="52" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Zone.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Reservable/ActivityBundle/Entity/Zone.php">
+      <file leaf-file-name="RegistrationController.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Reservable/ActivityBundle/Controller/RegistrationController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-16.0" vertical-offset="324" max-vertical-offset="2340">
-              <caret line="42" column="24" selection-start-line="42" selection-start-column="24" selection-end-line="42" selection-end-column="24" />
-              <folding />
+            <state vertical-scroll-proportion="-5.3333335" vertical-offset="36" max-vertical-offset="2862">
+              <caret line="14" column="4" selection-start-line="14" selection-start-column="4" selection-end-line="14" selection-end-column="4" />
+              <folding>
+                <marker date="1445764270601" expanded="true" signature="4975:5215" placeholder="SELECT f.id,..ReservableActivityBundle..." />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -141,10 +124,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/Ragings/RatingBundle/Resources/views/Default/makeQuestionaire.html.twig" />
-        <option value="$PROJECT_DIR$/src/Ragings/RatingBundle/Entity/Rating.php" />
-        <option value="$PROJECT_DIR$/src/Reservable/ActivityBundle/Controller/ViewController.php" />
-        <option value="$PROJECT_DIR$/src/Reservable/ActivityBundle/Entity/Seasons.php" />
         <option value="$PROJECT_DIR$/src/Admin/AdminBundle/Resources/config/services.yml" />
         <option value="$PROJECT_DIR$/src/User/UserBundle/Resources/views/Consult/viewUsersModif.html.twig" />
         <option value="$PROJECT_DIR$/src/User/UserBundle/Controller/ConsultController.php" />
@@ -153,7 +132,6 @@
         <option value="$PROJECT_DIR$/src/Reservable/ActivityBundle/Entity/TypeActivity.php" />
         <option value="$PROJECT_DIR$/src/Reservable/ActivityBundle/Resources/views/Registration/newFeatureForm.html.twig" />
         <option value="$PROJECT_DIR$/src/Reservable/ActivityBundle/Entity/TypeActivityRepository.php" />
-        <option value="$PROJECT_DIR$/src/Reservable/ActivityBundle/Controller/RegistrationController.php" />
         <option value="$PROJECT_DIR$/src/Reservable/ActivityBundle/Resources/views/Registration/adminTypes.html.twig" />
         <option value="$PROJECT_DIR$/src/Reservable/ActivityBundle/Entity/FeaturesRepository.php" />
         <option value="$PROJECT_DIR$/src/Ragings/RatingBundle/Resources/config/routing.yml" />
@@ -184,14 +162,19 @@
         <option value="$PROJECT_DIR$/src/Bookings/BookingBundle/Resources/views/Consult/calendar-bookings.html.twig" />
         <option value="$PROJECT_DIR$/vendor/avanzu/admin-theme-bundle/Resources/views/layout/login-layout.html.twig" />
         <option value="$PROJECT_DIR$/vendor/avanzu/admin-theme-bundle/Resources/views/layout/base-layout.html.twig" />
-        <option value="$PROJECT_DIR$/src/Admin/AdminBundle/EventListener/SidebarNavigation.php" />
         <option value="$PROJECT_DIR$/src/Reservable/ActivityBundle/Controller/AdminController.php" />
         <option value="$PROJECT_DIR$/src/Reservable/ActivityBundle/Entity/Activity.php" />
-        <option value="$PROJECT_DIR$/web/css/main.css" />
         <option value="$PROJECT_DIR$/src/Reservable/ActivityBundle/Resources/views/Registration/adminFeatures.html.twig" />
         <option value="$PROJECT_DIR$/src/Reservable/ActivityBundle/Resources/config/routing.yml" />
         <option value="$PROJECT_DIR$/src/Reservable/ActivityBundle/Controller/ZoneController.php" />
+        <option value="$PROJECT_DIR$/web/css/main.css" />
         <option value="$PROJECT_DIR$/src/Reservable/ActivityBundle/Resources/views/Zone/adminZone.html.twig" />
+        <option value="$PROJECT_DIR$/src/Admin/AdminBundle/EventListener/SidebarNavigation.php" />
+        <option value="$PROJECT_DIR$/src/Reservable/ActivityBundle/Resources/translations/messages.es.yml" />
+        <option value="$PROJECT_DIR$/src/Reservable/ActivityBundle/Resources/translations/messages.en.yml" />
+        <option value="$PROJECT_DIR$/src/Reservable/ActivityBundle/Form/Type/ActivityType.php" />
+        <option value="$PROJECT_DIR$/src/Reservable/ActivityBundle/Resources/views/Registration/registerActivity.html.twig" />
+        <option value="$PROJECT_DIR$/src/Reservable/ActivityBundle/Controller/RegistrationController.php" />
       </list>
     </option>
   </component>
@@ -311,40 +294,6 @@
               <option name="myItemId" value="views" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Zone" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="almacen" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="almacen" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Reservable" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ActivityBundle" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Resources" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="views" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
@@ -405,14 +354,6 @@
               <option name="myItemId" value="Resources" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="views" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Admin" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
@@ -439,6 +380,10 @@
               <option name="myItemId" value="Resources" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="config" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
@@ -462,7 +407,11 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="Entity" />
+              <option name="myItemId" value="Form" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Type" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -554,12 +503,12 @@
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.31813473" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.31813473" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Framework" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.1970181" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.20127796" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -591,46 +540,11 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="1" />
+      <option name="time" value="2" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/Ragings/RatingBundle/Resources/views/Statistics/index.html.twig">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="324" max-vertical-offset="2214">
-          <caret line="18" column="25" selection-start-line="18" selection-start-column="25" selection-end-line="18" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/config/routing.yml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="407" max-vertical-offset="1134">
-          <caret line="34" column="15" selection-start-line="34" selection-start-column="15" selection-end-line="34" selection-end-column="15" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Reservable/ActivityBundle/ReservableActivityBundle.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="619">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Ragings/RatingBundle/Controller/DefaultController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="4019" max-vertical-offset="5220">
-          <caret line="234" column="41" selection-start-line="234" selection-start-column="41" selection-end-line="234" selection-end-column="41" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Resources/views/normal.html.twig">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="2012" max-vertical-offset="3798">
-          <caret line="130" column="37" selection-start-line="130" selection-start-column="37" selection-end-line="130" selection-end-column="37" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Reservable/ActivityBundle/Resources/views/View/detailsProperty.html.twig">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-31.333334" vertical-offset="324" max-vertical-offset="1764">
@@ -877,13 +791,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Admin/AdminBundle/EventListener/SidebarNavigation.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-17.333334" vertical-offset="414" max-vertical-offset="1530">
-          <caret line="51" column="113" selection-start-line="51" selection-start-column="113" selection-end-line="51" selection-end-column="124" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Reservable/ActivityBundle/Resources/views/Admin/adminDetailsProperty.html.twig">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-0.0" vertical-offset="0" max-vertical-offset="4518">
@@ -901,75 +808,129 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Reservable/ActivityBundle/Entity/Activity.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-24.481482" vertical-offset="2075" max-vertical-offset="6444">
+        <state vertical-scroll-proportion="0.0" vertical-offset="2075" max-vertical-offset="6444">
           <caret line="153" column="18" selection-start-line="153" selection-start-column="18" selection-end-line="153" selection-end-column="18" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/css/main.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-10.821428" vertical-offset="7851" max-vertical-offset="8982">
-          <caret line="453" column="11" selection-start-line="453" selection-start-column="1" selection-end-line="453" selection-end-column="11" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Reservable/ActivityBundle/Entity/Zone.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-16.0" vertical-offset="324" max-vertical-offset="2340">
+        <state vertical-scroll-proportion="0.0" vertical-offset="324" max-vertical-offset="2340">
           <caret line="42" column="24" selection-start-line="42" selection-start-column="24" selection-end-line="42" selection-end-column="24" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Reservable/ActivityBundle/Resources/config/routing.yml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="2969" max-vertical-offset="3726">
-          <caret line="196" column="74" selection-start-line="196" selection-start-column="74" selection-end-line="196" selection-end-column="74" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Reservable/ActivityBundle/Controller/AdminController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-4.7090907" vertical-offset="10667" max-vertical-offset="13392">
-          <caret line="616" column="12" selection-start-line="616" selection-start-column="12" selection-end-line="620" selection-end-column="30" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Reservable/ActivityBundle/Resources/views/Registration/adminFeatures.html.twig">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-3.4" vertical-offset="2945" max-vertical-offset="3906">
+        <state vertical-scroll-proportion="0.0" vertical-offset="2945" max-vertical-offset="3906">
           <caret line="174" column="49" selection-start-line="174" selection-start-column="43" selection-end-line="174" selection-end-column="49" />
           <folding>
-            <marker date="1442048971331" expanded="true" signature="8088:8100" placeholder="..." />
+            <marker date="1442048971331" expanded="true" signature="-1:-1" placeholder="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/css/main.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="8042" max-vertical-offset="9054">
+          <caret line="494" column="33" selection-start-line="494" selection-start-column="33" selection-end-line="494" selection-end-column="33" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Reservable/ActivityBundle/Resources/views/Zone/adminZone.html.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.16035634" vertical-offset="0" max-vertical-offset="7740">
+          <caret line="8" column="31" selection-start-line="8" selection-start-column="31" selection-end-line="8" selection-end-column="31" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Reservable/ActivityBundle/Resources/translations/messages.es.yml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.09594883" vertical-offset="0" max-vertical-offset="938">
+          <caret line="5" column="20" selection-start-line="5" selection-start-column="20" selection-end-line="5" selection-end-column="20" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Reservable/ActivityBundle/Resources/translations/messages.en.yml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.11513859" vertical-offset="0" max-vertical-offset="938">
+          <caret line="6" column="18" selection-start-line="6" selection-start-column="18" selection-end-line="6" selection-end-column="18" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Reservable/ActivityBundle/Controller/AdminController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-10.259259" vertical-offset="8399" max-vertical-offset="13392">
+          <caret line="491" column="32" selection-start-line="491" selection-start-column="32" selection-end-line="493" selection-end-column="52" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Reservable/ActivityBundle/Form/Type/ActivityType.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-4.0" vertical-offset="0" max-vertical-offset="972">
+          <caret line="6" column="8" selection-start-line="6" selection-start-column="8" selection-end-line="11" selection-end-column="12" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Reservable/ActivityBundle/Resources/config/routing.yml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-4.5" vertical-offset="0" max-vertical-offset="3726">
+          <caret line="7" column="10" selection-start-line="7" selection-start-column="10" selection-end-line="7" selection-end-column="23" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Reservable/ActivityBundle/Resources/views/Registration/registerActivity.html.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-84.666664" vertical-offset="18" max-vertical-offset="2844">
+          <caret line="128" column="0" selection-start-line="128" selection-start-column="0" selection-end-line="128" selection-end-column="0" />
+          <folding>
+            <element signature="e#3828#3862#0#HTML" expanded="true" />
+            <element signature="e#3910#3944#0#HTML" expanded="true" />
+            <element signature="e#3995#4029#0#HTML" expanded="true" />
+            <element signature="e#4076#4110#0#HTML" expanded="true" />
+            <element signature="e#4458#4492#0#HTML" expanded="true" />
+            <element signature="e#4736#4770#0#HTML" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Reservable/ActivityBundle/Controller/RegistrationController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-5.3333335" vertical-offset="36" max-vertical-offset="2862">
+          <caret line="14" column="4" selection-start-line="14" selection-start-column="4" selection-end-line="14" selection-end-column="4" />
+          <folding>
+            <marker date="1445764270601" expanded="true" signature="4975:5215" placeholder="SELECT f.id,..ReservableActivityBundle..." />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Reservable/ActivityBundle/Controller/ZoneController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-15.888889" vertical-offset="1137" max-vertical-offset="2088">
-          <caret line="87" column="31" selection-start-line="87" selection-start-column="31" selection-end-line="87" selection-end-column="31" />
+        <state vertical-scroll-proportion="-8.666667" vertical-offset="0" max-vertical-offset="2124">
+          <caret line="13" column="45" selection-start-line="13" selection-start-column="45" selection-end-line="13" selection-end-column="45" />
           <folding>
-            <element signature="e#56#106#0#PHP" expanded="true" />
-            <marker date="1445689028320" expanded="true" signature="4722:4815" placeholder="DELETE FROM ..." />
-            <marker date="1445689028320" expanded="true" signature="4722:4816" placeholder="DELETE FROM ..." />
-            <marker date="1445689028320" expanded="true" signature="4722:4852" placeholder="DELETE FROM ..." />
-            <marker date="1445689028320" expanded="true" signature="4722:4853" placeholder="DELETE FROM ..." />
+            <marker date="1445697268204" expanded="true" signature="4986:5079" placeholder="DELETE FROM ..." />
+            <marker date="1445697268204" expanded="true" signature="4986:5080" placeholder="DELETE FROM ..." />
+            <marker date="1445697268204" expanded="true" signature="4986:5116" placeholder="DELETE FROM ..." />
+            <marker date="1445697268204" expanded="true" signature="4986:5117" placeholder="DELETE FROM ..." />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Reservable/ActivityBundle/Resources/views/Zone/adminZone.html.twig">
+    <entry file="file://$PROJECT_DIR$/src/Admin/AdminBundle/EventListener/SidebarNavigation.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.3285968" vertical-offset="2875" max-vertical-offset="4212">
-          <caret line="170" column="149" selection-start-line="170" selection-start-column="149" selection-end-line="170" selection-end-column="149" />
-          <folding>
-            <element signature="n#style#0;n#input#0;n#div#1;n#div#0;n#div#1;n#div#0;n#div#0;n#div#2;n#!!top" expanded="true" />
-          </folding>
+        <state vertical-scroll-proportion="0.26057908" vertical-offset="288" max-vertical-offset="1530">
+          <caret line="31" column="45" selection-start-line="31" selection-start-column="39" selection-end-line="31" selection-end-column="55" />
+          <folding />
         </state>
       </provider>
     </entry>
