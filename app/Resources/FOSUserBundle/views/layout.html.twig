@@ -1,4 +1,10 @@
-{% extends '::admin.html.twig' %}
+{% if 'es/login' in app.request.uri %}
+    {% set template = '::base.html.twig' %}
+{% else %}
+    {% set template = '::admin.html.twig' %}
+{% endif %}
+
+{% extends template %}
 
 {% block page_content %}
 
