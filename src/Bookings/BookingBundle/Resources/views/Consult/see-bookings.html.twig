@@ -40,9 +40,24 @@
     <div class="row">
         <div class="col-md-12">
             {% if bookings is empty %}
-                <div class="alert alert-danger text-center">
-                    <h4>{% trans %}No tiene reservas{% endtrans %}</h4>
+
+                <div class="row">
+                    <div class="col-md-3"></div>
+                    <div class="col-md-6">
+                        <div class="box box-danger text-center">
+                            <div class="box-heaer">
+                                <h4><i class="fa fa-exclamation-triangle" style="color:red;"></i>&nbsp;&nbsp;{% trans %}No tiene reservas en este momento{%  endtrans %}</h4>
+                            </div>
+                            <div class="box-body">
+                                <p>Comprueba que tus alojamientos están activos y tienes definidos precios y temporadas en tus alojamientos, sin precios no podrá aparecer en las búsquedas.</p>
+                                <br/>
+                                <p><span style="font-weight: bold;">TIP:</span>{% trans %}Prueba a modificar los precios de sus alojamientos para que la oferta sea más competitiva{% endtrans %}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3"></div>
                 </div>
+
             {% else %}
                 {% for oneBooking in bookings %}
                     <div class="box ownerEmail prop-{{ oneBooking.ownerID }}" id="res-{{ oneBooking.bookingID }}">
