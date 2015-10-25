@@ -53,6 +53,54 @@
         </div>
 	</div>
 
+    <div class="modal fade" id="modalDelete">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button aria-label="Close" data-dismiss="modal" class="close" type="button"><span aria-hidden="true">×</span></button>
+                    <h4 class="modal-title">Eliminar importación</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-lg-2"></div>
+                        <div class="col-lg-8">
+                            <p>{% trans %}¿Estas seguro de querer eliminar este calendario?{% endtrans %}</p>
+                            <p>{% trans %}Si elimina este calendario, también se eliminarán todos los bloqueos importados.{% endtrans %}</p>
+                        </div>
+                        <div class="col-lg-2"></div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button data-dismiss="modal" class="btn btn-default pull-left" type="button">{% trans %}Cancelar{% endtrans %}</button>
+                    <button class="btn btn-success" type="button" id="sureDeleteIcal" icalID="">{% trans %}Aceptar{% endtrans %}</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+    <div class="modal fade" id="modalReapeted">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button aria-label="Close" data-dismiss="modal" class="close" type="button"><span aria-hidden="true">×</span></button>
+                    <h4 class="modal-title">Calendario sincronizado</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-lg-2"></div>
+                        <div class="col-lg-8">
+                            <p>{% trans %}Este iCal ya está sincronizado con tu calendario, para actualizarlo, pulsa sobre el icono de actualizar.{% endtrans %}</p>
+                        </div>
+                        <div class="col-lg-2"></div>
+                    </div>
+                </div>
+                <div class="modal-footer text-center">
+                    <button class="btn btn-success" type="button" id="understanded">{% trans %}Entendido{% endtrans %}</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
     <script>
         function changeCalendar(id){
 
@@ -94,10 +142,16 @@
                     url: '{{ path('importCalendarFromURI') }}',
                     data: {'pathICS': pathICS, 'propID': propID},
                     type: "post",
-                    success: function($response) {
-                        console.log($response);
-                        $('#importICSinput').val("");
-                        $("#importedIcalContainer").append($response['newRow']);
+                    success: function(response) {
+                        console.log(response);
+                        if(response['reapeted'] == true){
+                            $("#modalReapeted").modal('show');
+                        }
+                        else{
+                            $('#importICSinput').val("");
+                            $("#importedIcalContainer").append(response['newRow']);
+                            $("#calendarContainer").html(response['newCalendar']);
+                        }
                     }
                 });
             }
@@ -117,13 +171,25 @@
                     $("#" + $response['divUpdated'] + " .refreshIcal").html($response['innerHTML']);
                     $("#" + $response['divUpdated'] + " .refreshIcal").addClass("updatedIcal");
                     $("#" + $response['divUpdated'] + " .refreshIcal").removeClass("refreshIcal");
+                    $("#calendarContainer").html($response['newCalendar']);
                 }
             });
 
         });
 
+        $("#understanded").live("click", function(){
+            $('#importICSinput').val("");
+            $("#modalReapeted").modal('hide');
+        });
+
         // Borrar ICS
         $(".deleteIcal").live("click", function(){
+            var icalToDelete = $(this).attr('icalID');
+            $("#sureDeleteIcal").attr('icalID', icalToDelete);
+
+            $("#modalDelete").modal('show');
+        });
+        $("#sureDeleteIcal").live("click", function(){
 
             var icalToDelete = $(this).attr('icalID');
 
@@ -132,8 +198,10 @@
                 data: {'icalToDelete': icalToDelete},
                 type: "post",
                 success: function($response) {
+                    $("#modalDelete").modal('hide');
                     console.log($response);
                     $("#" + $response['divToDelete']).detach();
+                    $("#calendarContainer").html($response['newCalendar']);
                 }
             });
         });

@@ -520,11 +520,17 @@ echo "<br/>---------------------------------------------------------------------
         );
     }
 
-    public function importCalendarFromURIAction(){
+    public function importCalendarFromURIAction(Request $request){
 
         $return = array();
 
         if(isset($_POST['propID']) && isset($_POST['pathICS']) && !empty($_POST['pathICS']) && !empty($_POST['propID'])) {
+
+            // Comprobamos que no existe el calendario
+            $icalFounded    = $this->getDoctrine()->getRepository('ReservableActivityBundle:ActivityToIcal')->findOneBy(array('activityID' => $_POST['propID'], 'icalUrl' => $_POST['pathICS']));
+            if(is_object($icalFounded)){
+                return new JsonResponse(array('reapeted' => true));
+            }
 
             // Entity Manager
             $em = $this->getDoctrine()->getManager();
@@ -537,20 +543,62 @@ echo "<br/>---------------------------------------------------------------------
             $em->flush();
 
             // Actualizamos el calendario
-            $return = $this->updateIcalCalendar($_POST['pathICS'], $_POST['propID']);
+            $return['results'] = $this->updateIcalCalendar($_POST['pathICS'], $_POST['propID'], $activityToIcal->getId());
 
             $namesPart  = explode('/', $_POST['pathICS']);
             $name       = $namesPart[2];
-            $thisIcal    = $this->getDoctrine()->getRepository('ReservableActivityBundle:ActivityToIcal')
-                        ->findOneBy(array('activityID' => $_POST['propID'], 'icalUrl' => $_POST['pathICS']));
+            $thisIcal    = $this->getDoctrine()->getRepository('ReservableActivityBundle:ActivityToIcal')->findOneBy(array('activityID' => $_POST['propID'], 'icalUrl' => $_POST['pathICS']));
 
             $return['newRow'] = "<div class='row' id='ical-" . $thisIcal->getId() . "'><div class='col-md-8'></div><div class='col-md-2 text-center nameIcal' title='" . $_POST['pathICS'] . "'>" . $name . "</div><div class='col-md-1 text-right deleteIcal' icalID='" . $thisIcal->getId() . "'><i class='fa fa-trash-o'></i></div><div class='col-md-1 text-left refreshIcal' icalID='" . $thisIcal->getId() . "'><i class='fa fa-refresh'></i></div></div>";
+
+            // Recargo calendario
+            $selector = $this->getDoctrine()->getRepository('ReservableActivityBundle:Activity')->findOneBy(array('id' => $_POST['propID']));
+
+            $todayYear = date('Y');
+            $todayMonth = date('m');
+            $calendar = '';
+            if ($selector->getTypeRent() == 'hour') {
+                $calendar .= '<div class="row clearfix"><div class="col-md-12 column">';
+                $calendar .= $this->showCalendarByDay($todayYear . $todayMonth . "0100", false, $request->getLocale(), $selector->getId());
+                $calendar .= '</div><div class="col-md-12 column"><br/>';
+                $calendar .= $this->showCalendarByDay(date("Ymd", mktime(0, 0, 0, $todayMonth + 1, 1, $todayYear)), false, $request->getLocale(), $selector->getId());
+                $calendar .= '</div><div class="col-md-12 column"><br/>';
+                $calendar .= $this->showCalendarByDay(date("Ymd", mktime(0, 0, 0, $todayMonth + 2, 1, $todayYear)), false, $request->getLocale(), $selector->getId());
+                $calendar .= '</div></div>';
+            } else {
+                $calendar .= '<div class="row clearfix"><div class="col-md-4 column">';
+                $calendar .= $this->showCalendar($todayYear . $todayMonth . "0100", false, $request->getLocale(), $selector->getId());
+                $calendar .= '</div><div class="col-md-4 column">';
+                $calendar .= $this->showCalendar(date("Ymd", mktime(0, 0, 0, $todayMonth + 1, 1, $todayYear)), false, $request->getLocale(), $selector->getId());
+                $calendar .= '</div><div class="col-md-4 column">';
+                $calendar .= $this->showCalendar(date("Ymd", mktime(0, 0, 0, $todayMonth + 2, 1, $todayYear)), false, $request->getLocale(), $selector->getId());
+                $calendar .= '</div></div><div class="row clearfix"><div class="col-md-4 column">';
+                $calendar .= $this->showCalendar(date("Ymd", mktime(0, 0, 0, $todayMonth + 3, 1, $todayYear)), false, $request->getLocale(), $selector->getId());
+                $calendar .= '</div><div class="col-md-4 column">';
+                $calendar .= $this->showCalendar(date("Ymd", mktime(0, 0, 0, $todayMonth + 4, 1, $todayYear)), false, $request->getLocale(), $selector->getId());
+                $calendar .= '</div><div class="col-md-4 column">';
+                $calendar .= $this->showCalendar(date("Ymd", mktime(0, 0, 0, $todayMonth + 5, 1, $todayYear)), false, $request->getLocale(), $selector->getId());
+                $calendar .= '</div></div><div class="row clearfix"><div class="col-md-4 column">';
+                $calendar .= $this->showCalendar(date("Ymd", mktime(0, 0, 0, $todayMonth + 6, 1, $todayYear)), false, $request->getLocale(), $selector->getId());
+                $calendar .= '</div><div class="col-md-4 column">';
+                $calendar .= $this->showCalendar(date("Ymd", mktime(0, 0, 0, $todayMonth + 7, 1, $todayYear)), false, $request->getLocale(), $selector->getId());
+                $calendar .= '</div><div class="col-md-4 column">';
+                $calendar .= $this->showCalendar(date("Ymd", mktime(0, 0, 0, $todayMonth + 8, 1, $todayYear)), false, $request->getLocale(), $selector->getId());
+                $calendar .= '</div></div><div class="row clearfix"><div class="col-md-4 column">';
+                $calendar .= $this->showCalendar(date("Ymd", mktime(0, 0, 0, $todayMonth + 9, 1, $todayYear)), false, $request->getLocale(), $selector->getId());
+                $calendar .= '</div><div class="col-md-4 column">';
+                $calendar .= $this->showCalendar(date("Ymd", mktime(0, 0, 0, $todayMonth + 10, 1, $todayYear)), false, $request->getLocale(), $selector->getId());
+                $calendar .= '</div><div class="col-md-4 column">';
+                $calendar .= $this->showCalendar(date("Ymd", mktime(0, 0, 0, $todayMonth + 11, 1, $todayYear)), false, $request->getLocale(), $selector->getId());
+                $calendar .= '</div></div>';
+            }
+            $return['newCalendar'] = $calendar;
         }
 
         return new JsonResponse($return);
     }
 
-    public function refreshIcalAction(){
+    public function refreshIcalAction(Request $request){
 
         $return = array();
 
@@ -559,30 +607,130 @@ echo "<br/>---------------------------------------------------------------------
                 ->getRepository('ReservableActivityBundle:ActivityToIcal')
                 ->findOneBy(array('id' => $_POST['icalToUpdate']));
 
-            $return = $this->updateIcalCalendar($data->getIcalUrl(), $data->getActivityID());
+            $return = $this->updateIcalCalendar($data->getIcalUrl(), $data->getActivityID(), $data->getId());
             $return['divUpdated'] = 'ical-' . $_POST['icalToUpdate'];
             $return['innerHTML'] = "<i class='fa fa-check'>";
+
+            // Recargo calendario
+            $selector = $this->getDoctrine()->getRepository('ReservableActivityBundle:Activity')->findOneBy(array('id' => $data->getActivityID()));
+            $todayYear = date('Y');
+            $todayMonth = date('m');
+            $calendar = '';
+            if ($selector->getTypeRent() == 'hour') {
+                $calendar .= '<div class="row clearfix"><div class="col-md-12 column">';
+                $calendar .= $this->showCalendarByDay($todayYear . $todayMonth . "0100", false, $request->getLocale(), $selector->getId());
+                $calendar .= '</div><div class="col-md-12 column"><br/>';
+                $calendar .= $this->showCalendarByDay(date("Ymd", mktime(0, 0, 0, $todayMonth + 1, 1, $todayYear)), false, $request->getLocale(), $selector->getId());
+                $calendar .= '</div><div class="col-md-12 column"><br/>';
+                $calendar .= $this->showCalendarByDay(date("Ymd", mktime(0, 0, 0, $todayMonth + 2, 1, $todayYear)), false, $request->getLocale(), $selector->getId());
+                $calendar .= '</div></div>';
+            } else {
+                $calendar .= '<div class="row clearfix"><div class="col-md-4 column">';
+                $calendar .= $this->showCalendar($todayYear . $todayMonth . "0100", false, $request->getLocale(), $selector->getId());
+                $calendar .= '</div><div class="col-md-4 column">';
+                $calendar .= $this->showCalendar(date("Ymd", mktime(0, 0, 0, $todayMonth + 1, 1, $todayYear)), false, $request->getLocale(), $selector->getId());
+                $calendar .= '</div><div class="col-md-4 column">';
+                $calendar .= $this->showCalendar(date("Ymd", mktime(0, 0, 0, $todayMonth + 2, 1, $todayYear)), false, $request->getLocale(), $selector->getId());
+                $calendar .= '</div></div><div class="row clearfix"><div class="col-md-4 column">';
+                $calendar .= $this->showCalendar(date("Ymd", mktime(0, 0, 0, $todayMonth + 3, 1, $todayYear)), false, $request->getLocale(), $selector->getId());
+                $calendar .= '</div><div class="col-md-4 column">';
+                $calendar .= $this->showCalendar(date("Ymd", mktime(0, 0, 0, $todayMonth + 4, 1, $todayYear)), false, $request->getLocale(), $selector->getId());
+                $calendar .= '</div><div class="col-md-4 column">';
+                $calendar .= $this->showCalendar(date("Ymd", mktime(0, 0, 0, $todayMonth + 5, 1, $todayYear)), false, $request->getLocale(), $selector->getId());
+                $calendar .= '</div></div><div class="row clearfix"><div class="col-md-4 column">';
+                $calendar .= $this->showCalendar(date("Ymd", mktime(0, 0, 0, $todayMonth + 6, 1, $todayYear)), false, $request->getLocale(), $selector->getId());
+                $calendar .= '</div><div class="col-md-4 column">';
+                $calendar .= $this->showCalendar(date("Ymd", mktime(0, 0, 0, $todayMonth + 7, 1, $todayYear)), false, $request->getLocale(), $selector->getId());
+                $calendar .= '</div><div class="col-md-4 column">';
+                $calendar .= $this->showCalendar(date("Ymd", mktime(0, 0, 0, $todayMonth + 8, 1, $todayYear)), false, $request->getLocale(), $selector->getId());
+                $calendar .= '</div></div><div class="row clearfix"><div class="col-md-4 column">';
+                $calendar .= $this->showCalendar(date("Ymd", mktime(0, 0, 0, $todayMonth + 9, 1, $todayYear)), false, $request->getLocale(), $selector->getId());
+                $calendar .= '</div><div class="col-md-4 column">';
+                $calendar .= $this->showCalendar(date("Ymd", mktime(0, 0, 0, $todayMonth + 10, 1, $todayYear)), false, $request->getLocale(), $selector->getId());
+                $calendar .= '</div><div class="col-md-4 column">';
+                $calendar .= $this->showCalendar(date("Ymd", mktime(0, 0, 0, $todayMonth + 11, 1, $todayYear)), false, $request->getLocale(), $selector->getId());
+                $calendar .= '</div></div>';
+            }
+            $return['newCalendar'] = $calendar;
         }
 
         return new JsonResponse($return);
     }
 
-    public function deleteIcalAction(){
+    public function deleteIcalAction(Request $request){
 
         $return = array();
 
         if(isset($_POST['icalToDelete']) && $_POST['icalToDelete']){
+
+            $thisIcal = $this->getDoctrine()->getRepository('ReservableActivityBundle:ActivityToIcal')->findOneBy(array('id' => $_POST['icalToDelete']));
+            $propID   = $thisIcal->getActivityID();
+
+            // Primero borramos las reserbas y disponibilidad
+            $bookings = $this->getDoctrine()->getRepository('BookingsBookingBundle:Booking')->findBy(array('fromiCalID' => $_POST['icalToDelete']));
+            foreach($bookings as $booking){
+                $deleteDispo = $this->getDoctrine()->getManager()
+                    ->createQuery("DELETE FROM BookingsBookingBundle:DisponibilityBooking db
+                                   WHERE db.bookingID = " . $booking->getId())->getResult();
+            }
+
+            $deleteBookings = $this->getDoctrine()->getManager()
+                ->createQuery("DELETE FROM BookingsBookingBundle:Booking b
+                                   WHERE b.fromiCalID = " . $_POST['icalToDelete'])->getResult();
+
             $data = $this->getDoctrine()
                 ->getRepository('ReservableActivityBundle:ActivityToIcal')
                 ->deleteIcal($_POST['icalToDelete']);
 
             $return['divToDelete'] = 'ical-' . $_POST['icalToDelete'];
+
+            // Recargo calendario
+            $selector = $this->getDoctrine()->getRepository('ReservableActivityBundle:Activity')->findOneBy(array('id' => $propID));
+            $todayYear = date('Y');
+            $todayMonth = date('m');
+            $calendar = '';
+            if ($selector->getTypeRent() == 'hour') {
+                $calendar .= '<div class="row clearfix"><div class="col-md-12 column">';
+                $calendar .= $this->showCalendarByDay($todayYear . $todayMonth . "0100", false, $request->getLocale(), $selector->getId());
+                $calendar .= '</div><div class="col-md-12 column"><br/>';
+                $calendar .= $this->showCalendarByDay(date("Ymd", mktime(0, 0, 0, $todayMonth + 1, 1, $todayYear)), false, $request->getLocale(), $selector->getId());
+                $calendar .= '</div><div class="col-md-12 column"><br/>';
+                $calendar .= $this->showCalendarByDay(date("Ymd", mktime(0, 0, 0, $todayMonth + 2, 1, $todayYear)), false, $request->getLocale(), $selector->getId());
+                $calendar .= '</div></div>';
+            } else {
+                $calendar .= '<div class="row clearfix"><div class="col-md-4 column">';
+                $calendar .= $this->showCalendar($todayYear . $todayMonth . "0100", false, $request->getLocale(), $selector->getId());
+                $calendar .= '</div><div class="col-md-4 column">';
+                $calendar .= $this->showCalendar(date("Ymd", mktime(0, 0, 0, $todayMonth + 1, 1, $todayYear)), false, $request->getLocale(), $selector->getId());
+                $calendar .= '</div><div class="col-md-4 column">';
+                $calendar .= $this->showCalendar(date("Ymd", mktime(0, 0, 0, $todayMonth + 2, 1, $todayYear)), false, $request->getLocale(), $selector->getId());
+                $calendar .= '</div></div><div class="row clearfix"><div class="col-md-4 column">';
+                $calendar .= $this->showCalendar(date("Ymd", mktime(0, 0, 0, $todayMonth + 3, 1, $todayYear)), false, $request->getLocale(), $selector->getId());
+                $calendar .= '</div><div class="col-md-4 column">';
+                $calendar .= $this->showCalendar(date("Ymd", mktime(0, 0, 0, $todayMonth + 4, 1, $todayYear)), false, $request->getLocale(), $selector->getId());
+                $calendar .= '</div><div class="col-md-4 column">';
+                $calendar .= $this->showCalendar(date("Ymd", mktime(0, 0, 0, $todayMonth + 5, 1, $todayYear)), false, $request->getLocale(), $selector->getId());
+                $calendar .= '</div></div><div class="row clearfix"><div class="col-md-4 column">';
+                $calendar .= $this->showCalendar(date("Ymd", mktime(0, 0, 0, $todayMonth + 6, 1, $todayYear)), false, $request->getLocale(), $selector->getId());
+                $calendar .= '</div><div class="col-md-4 column">';
+                $calendar .= $this->showCalendar(date("Ymd", mktime(0, 0, 0, $todayMonth + 7, 1, $todayYear)), false, $request->getLocale(), $selector->getId());
+                $calendar .= '</div><div class="col-md-4 column">';
+                $calendar .= $this->showCalendar(date("Ymd", mktime(0, 0, 0, $todayMonth + 8, 1, $todayYear)), false, $request->getLocale(), $selector->getId());
+                $calendar .= '</div></div><div class="row clearfix"><div class="col-md-4 column">';
+                $calendar .= $this->showCalendar(date("Ymd", mktime(0, 0, 0, $todayMonth + 9, 1, $todayYear)), false, $request->getLocale(), $selector->getId());
+                $calendar .= '</div><div class="col-md-4 column">';
+                $calendar .= $this->showCalendar(date("Ymd", mktime(0, 0, 0, $todayMonth + 10, 1, $todayYear)), false, $request->getLocale(), $selector->getId());
+                $calendar .= '</div><div class="col-md-4 column">';
+                $calendar .= $this->showCalendar(date("Ymd", mktime(0, 0, 0, $todayMonth + 11, 1, $todayYear)), false, $request->getLocale(), $selector->getId());
+                $calendar .= '</div></div>';
+            }
+            $return['newCalendar'] = $calendar;
         }
 
         return new JsonResponse($return);
     }
 
-    public function updateIcalCalendar($url, $propID){
+    public function updateIcalCalendar($url, $propID, $icalID){
 
         // Entity Manager
         $em     = $this->getDoctrine()->getManager();
@@ -627,14 +775,15 @@ echo "<br/>---------------------------------------------------------------------
                 if (empty($daysOcuppated)) {
                     // Si hay disponibilidad, hacemos la reserva
                     $thisBooking = new Booking();
-                    $thisBooking->setActivityID($_POST['propID'])
+                    $thisBooking->setActivityID($propID)
                         ->setClientID($this->get('security.context')->getToken()->getUser()->getId())
                         ->setStartDate((string)($dateStart . '00'))
                         ->setEndDate((string)($dateEnd . '00'))
                         ->setPrice(-1)
                         ->setStatus(0)
                         ->setOwnerBooking(1)
-                        ->setOwnerConfirm(1);
+                        ->setOwnerConfirm(1)
+                        ->setFromIcalID($icalID);
 
 
                     $em->persist($thisBooking);

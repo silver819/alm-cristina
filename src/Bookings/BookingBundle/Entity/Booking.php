@@ -77,6 +77,13 @@ class Booking
      */
     private $ownerConfirm;
 
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="fromiCalID", type="integer")
+     */
+    private $fromiCalID;
+
 
     /**
      * Get id
@@ -270,5 +277,28 @@ class Booking
     public function getOwnerConfirm()
     {
         return $this->ownerConfirm;
+    }
+
+    /**
+     * Set fromiCalID
+     *
+     * @param integer $fromiCalID
+     * @return Booking
+     */
+    public function setFromIcalID($icalID)
+    {
+        $this->fromiCalID = $icalID;
+
+        return $this;
+    }
+
+    /**
+     * Get fromiCalID
+     *
+     * @return integer
+     */
+    public function getFromIcalID()
+    {
+        return $this->fromiCalID;
     }
 }
