@@ -10,13 +10,16 @@ class DefaultController extends Controller
 	public function homepageAction(){
         // Calculamos las mejores propiedades
 
-        $filters = $this->getFilters();
-        $top5 = $this->getTop5Ratings();
+        $filters    = $this->getFilters();
+        $top5       = $this->getTop5Ratings();
 
-        //ldd($top5);
+        $arrayCitiesQuery = $this->getDoctrine()->getRepository('ReservableActivityBundle:Zone')->findBy(array('type' => 5), array('name' => 'ASC'));
+        $cities = array();
+        foreach($arrayCitiesQuery as $city){
+            $cities[] = array('id' => $city->getId(), 'name' => $city->getName());
+        }
 
-		//return $this->render('ReservableActivityBundle:Default:index.html.twig', array('top5', $top5));
-		return $this->render('ReservableActivityBundle:Search:displayIndex.html.twig', array('filters'=> $filters, 'top5' => $top5));
+		return $this->render('ReservableActivityBundle:Search:displayIndex.html.twig', array('cities' => $cities, 'filters'=> $filters, 'top5' => $top5));
 	}
 
     public function getFilters(){

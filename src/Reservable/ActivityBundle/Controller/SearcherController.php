@@ -17,6 +17,7 @@ class SearcherController extends Controller
         //ladybug_dump($_POST);die();
 
         // Borramos datos que tengamos anteriormente en la sesion
+        $session->remove('searchCity');
         $session->remove('searchName');
         $session->remove('searchHour');
         $session->remove('searchType');
@@ -46,12 +47,18 @@ class SearcherController extends Controller
         $filters = $this->getFilters();
 
 		$where = "1=1";
-		$relevantFields = array("name", "type", "hour");
+		$relevantFields = array("city", "name", "type", "hour");
 
 		foreach($_POST as $field => $value){
 			if($value != '' && in_array($field, $relevantFields)){
 				switch ($field){
-					case "name":
+					case "city":
+						$where .= " AND p.zone = " . $value;
+						$session->set('searchCity', $value);
+
+						break;
+
+                    case "name":
 						$where .= " AND p.name LIKE '%" . $value . "%'";
 						$session->set('searchName', $value);
 
@@ -198,8 +205,14 @@ class SearcherController extends Controller
         //ldd($session->get('filterSearch'));
         //ld($images);
 
+        $arrayCitiesQuery = $this->getDoctrine()->getRepository('ReservableActivityBundle:Zone')->findBy(array('type' => 5), array('name' => 'ASC'));
+        $cities = array();
+        foreach($arrayCitiesQuery as $city){
+            $cities[] = array('id' => $city->getId(), 'name' => $city->getName());
+        }
+
 		return $this->render('ReservableActivityBundle:Search:displayResults.html.twig', 
-			array("filters" => $filters, "results" => $results, 'images' => $images));
+			array("cities" => $cities, "filters" => $filters, "results" => $results, 'images' => $images));
 	}
 
     public function getFilters(){

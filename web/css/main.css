@@ -355,6 +355,14 @@ h2{
     height: 35px;
 }
 
+.searcherForm select option, .searcherForm select:active{
+    background-color: white;
+    font-size: 1em;
+    color: #999;
+    border: 0px;
+    height: 35px;
+}
+
 .dateHourTable{
     width:100%;
     margin-top:10px;

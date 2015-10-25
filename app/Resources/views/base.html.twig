@@ -130,13 +130,27 @@
                 </div> #}
 
                 <div class="input-group">
-                    <input class="thisInput form-control" type="text" name="name" value="{{ app.session.get('searchName') }}" placeholder="{% trans %}Nombre{% endtrans %}">
+                    {#<input class="thisInput form-control" type="text" name="city" value="{{ app.session.get('searchCity') }}" placeholder="{% trans %}Lugar{% endtrans %}">#}
+                    <select name="city" class="form-control" style="width:210px;">
+                        <option value="0" disabled="disabled" selected>{% trans %}Elige tu ciudad{% endtrans %}</option>
+                        {% for city in cities %}
+                            <option value="{{ city.id }}" {% if app.session.get('searchCity') == city.id%}selected{% endif %}>{{ city.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <br/>
+
+                <div class="input-group">
+                    <input class="thisInput form-control" type="text" name="name" value="{{ app.session.get('searchName') }}" placeholder="{% trans %}Actividad o propiedad{% endtrans %}">
                     {# <label>{% trans %}Nombre{% endtrans %}</label> #}
                     <span class="input-group-btn">
                         <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i></button>
                     </span>
                 </div>
+
                 <br/>
+
                 <label>{% trans %}Alquilar por{% endtrans %}</label><br/>
                 {% if app.session.get('searchType') == 'day' %}
                     &nbsp;&nbsp;<input id="byHour" type="radio" name="type" value="hour">{% trans %}Hora{% endtrans %}&nbsp;&nbsp;<input id="byDay" type="radio" name="type" value="day" checked>{% trans %}Día{% endtrans %}
@@ -164,7 +178,7 @@
                             </tr>
                             <tr><td>&nbsp;</td></tr>
                             <tr>
-                                <th><label>{% trans %}Filtros****{% endtrans %}</label></th>
+                                <th><label>{% trans %}Filtros{% endtrans %}</label></th>
 
                             </tr>
                             <tr>
