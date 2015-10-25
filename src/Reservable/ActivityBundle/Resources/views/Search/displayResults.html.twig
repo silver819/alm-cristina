@@ -3,11 +3,23 @@
 {% block results %}
 
 		{% if results is empty %}
-			<div class="alert alert-danger text-center">
-				<h4>¡No hemos encontrado ninguna propiedad que se ajuste a tu búsqueda!</h4>
-				<p>Intentalo de nuevo usando el buscador</p>
-			</div>
+
+            <div class="row">
+                <div class="col-md-1"></div>
+                <div class="col-md-10">
+                    <div class="box box-danger text-center">
+                        <div class="box-heaer">
+                            <h4><i class="fa fa-exclamation-triangle" style="color:red;"></i>&nbsp;&nbsp;{% trans %}¡No hemos encontrado ninguna propiedad que se ajuste a tu búsqueda!{% endtrans %}</h4>
+                        </div>
+                        <div class="box-body">
+                            <p>Intentalo de nuevo usando el buscador</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
 		{% else %}
+
 			{% for oneResult in results %}
 				<form method="POST" action="{{ path('book') }}">
                     <div class="box ownerEmail {{ oneProperty.ownerID }}">
@@ -105,8 +117,9 @@
                         </div>
                     </div>
 				</form>
-			{% endfor %}
-		{% endif %}
 
+			{% endfor %}
+
+		{% endif %}
 
 {% endblock %}
