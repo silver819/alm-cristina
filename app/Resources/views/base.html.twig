@@ -373,7 +373,8 @@
         $("#dateByHour").datepicker({
             dateFormat: 		"dd/mm/yy",
             defaultDate: 		+2,
-            minDate: 			+2
+            minDate: 			+2,
+            firstDay: 1
         });
         $("#dateByHour").datepicker( "setDate", new Date(dateYear, dateMonth, dateDay));
 
@@ -406,6 +407,7 @@
             dateFormat: 		"dd/mm/yy",
             defaultDate: 		+2,
             minDate: 			+2,
+            firstDay:           1,
             onClose: function(selectedDate) {
                 $("#dateByDayED").datepicker("option", "minDate", selectedDate );
             }
@@ -416,6 +418,7 @@
             dateFormat: 		"dd/mm/yy",
             defaultDate: 		+6,
             minDate: 			+6,
+            firstDay:           1,
             onClose: function(selectedDate) {
                 $( "#dateByDaySD" ).datepicker( "option", "maxDate", selectedDate );
             }

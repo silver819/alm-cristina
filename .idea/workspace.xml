@@ -5,9 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0ca3c09d-9b70-4edd-bbfb-2d0f972bbd20" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Bookings/BookingBundle/Entity/Booking.php" afterPath="$PROJECT_DIR$/src/Bookings/BookingBundle/Entity/Booking.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Bookings/BookingBundle/Controller/ConsultBookingsController.php" afterPath="$PROJECT_DIR$/src/Bookings/BookingBundle/Controller/ConsultBookingsController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Bookings/BookingBundle/Resources/views/Consult/calendar-bookings.html.twig" afterPath="$PROJECT_DIR$/src/Bookings/BookingBundle/Resources/views/Consult/calendar-bookings.html.twig" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Resources/views/base.html.twig" afterPath="$PROJECT_DIR$/app/Resources/views/base.html.twig" />
     </list>
     <ignored path="almacen.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -35,9 +33,10 @@
       <file leaf-file-name="ZoneController.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Reservable/ActivityBundle/Controller/ZoneController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-8.666667" vertical-offset="0" max-vertical-offset="2124">
-              <caret line="13" column="45" selection-start-line="13" selection-start-column="45" selection-end-line="13" selection-end-column="45" />
+            <state vertical-scroll-proportion="-11.333333" vertical-offset="0" max-vertical-offset="2124">
+              <caret line="17" column="1" selection-start-line="17" selection-start-column="1" selection-end-line="17" selection-end-column="1" />
               <folding>
+                <element signature="e#56#106#0#PHP" expanded="true" />
                 <marker date="1445697268204" expanded="true" signature="4986:5079" placeholder="DELETE FROM ..." />
                 <marker date="1445697268204" expanded="true" signature="4986:5080" placeholder="DELETE FROM ..." />
                 <marker date="1445697268204" expanded="true" signature="4986:5116" placeholder="DELETE FROM ..." />
@@ -47,70 +46,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="calendar-bookings.html.twig" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/Bookings/BookingBundle/Resources/views/Consult/calendar-bookings.html.twig">
+      <file leaf-file-name="base.html.twig" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/Resources/views/base.html.twig">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.32994923" vertical-offset="1335" max-vertical-offset="3888">
-              <caret line="85" column="67" selection-start-line="85" selection-start-column="67" selection-end-line="85" selection-end-column="67" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ConsultBookingsController.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Bookings/BookingBundle/Controller/ConsultBookingsController.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-5.0363636" vertical-offset="9299" max-vertical-offset="32724">
-              <caret line="532" column="13" selection-start-line="532" selection-start-column="13" selection-end-line="532" selection-end-column="13" />
-              <folding>
-                <element signature="e#53#105#0#PHP" expanded="true" />
-                <marker date="1445776031167" expanded="true" signature="1371:1696" placeholder="SELECT u.ema..ReservableActivityBundle..." />
-                <marker date="1445776031167" expanded="true" signature="2981:3538" placeholder="SELECT b.id,..BookingsBookingBundle..." />
-                <marker date="1445776031167" expanded="true" signature="9462:10019" placeholder="SELECT b.id,..BookingsBookingBundle..." />
-                <marker date="1445776031167" expanded="true" signature="39844:39958" placeholder="DELETE FROM ..." />
-                <marker date="1445776031167" expanded="true" signature="39844:39979" placeholder="DELETE FROM ..." />
-                <marker date="1445776031167" expanded="true" signature="40106:40206" placeholder="DELETE FROM ..." />
-                <marker date="1445776031167" expanded="true" signature="46317:46670" placeholder="SELECT d.dat..BookingsBookingBundle..." />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ActivityToIcal.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Reservable/ActivityBundle/Entity/ActivityToIcal.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-3.490909" vertical-offset="996" max-vertical-offset="1800">
-              <caret line="66" column="33" selection-start-line="66" selection-start-column="20" selection-end-line="66" selection-end-column="33" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Booking.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Bookings/BookingBundle/Entity/Booking.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-12.37037" vertical-offset="4976" max-vertical-offset="5580">
-              <caret line="295" column="21" selection-start-line="295" selection-start-column="21" selection-end-line="295" selection-end-column="21" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Activity.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Reservable/ActivityBundle/Entity/Activity.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-3.490909" vertical-offset="3822" max-vertical-offset="6444">
-              <caret line="224" column="31" selection-start-line="224" selection-start-column="20" selection-end-line="224" selection-end-column="31" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="AdminController.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Reservable/ActivityBundle/Controller/AdminController.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-4.3" vertical-offset="9750" max-vertical-offset="13392">
-              <caret line="565" column="27" selection-start-line="565" selection-start-column="27" selection-end-line="569" selection-end-column="30" />
+            <state vertical-scroll-proportion="0.3321492" vertical-offset="6185" max-vertical-offset="8028">
+              <caret line="354" column="16" selection-start-line="354" selection-start-column="5" selection-end-line="354" selection-end-column="16" />
               <folding />
             </state>
           </provider>
@@ -169,12 +109,12 @@
         <option value="$PROJECT_DIR$/src/Reservable/ActivityBundle/Controller/DefaultController.php" />
         <option value="$PROJECT_DIR$/src/Reservable/ActivityBundle/Controller/SearcherController.php" />
         <option value="$PROJECT_DIR$/web/css/main.css" />
-        <option value="$PROJECT_DIR$/app/Resources/views/base.html.twig" />
         <option value="$PROJECT_DIR$/src/Reservable/ActivityBundle/Resources/views/Search/displayResults.html.twig" />
         <option value="$PROJECT_DIR$/src/Bookings/BookingBundle/Resources/views/Consult/see-bookings.html.twig" />
         <option value="$PROJECT_DIR$/src/Bookings/BookingBundle/Entity/Booking.php" />
         <option value="$PROJECT_DIR$/src/Bookings/BookingBundle/Controller/ConsultBookingsController.php" />
         <option value="$PROJECT_DIR$/src/Bookings/BookingBundle/Resources/views/Consult/calendar-bookings.html.twig" />
+        <option value="$PROJECT_DIR$/app/Resources/views/base.html.twig" />
       </list>
     </option>
   </component>
@@ -832,19 +772,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Reservable/ActivityBundle/Controller/ZoneController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-8.666667" vertical-offset="0" max-vertical-offset="2124">
-          <caret line="13" column="45" selection-start-line="13" selection-start-column="45" selection-end-line="13" selection-end-column="45" />
-          <folding>
-            <marker date="1445697268204" expanded="true" signature="4986:5079" placeholder="DELETE FROM ..." />
-            <marker date="1445697268204" expanded="true" signature="4986:5080" placeholder="DELETE FROM ..." />
-            <marker date="1445697268204" expanded="true" signature="4986:5116" placeholder="DELETE FROM ..." />
-            <marker date="1445697268204" expanded="true" signature="4986:5117" placeholder="DELETE FROM ..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/vendor/sensio/generator-bundle/Sensio/Bundle/GeneratorBundle/Resources/skeleton/controller/Template.html.php.twig">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="631">
@@ -876,17 +803,6 @@
         <state vertical-scroll-proportion="0.0" vertical-offset="5774" max-vertical-offset="9198">
           <caret line="359" column="16" selection-start-line="359" selection-start-column="16" selection-end-line="359" selection-end-column="16" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Resources/views/base.html.twig">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-8.872727" vertical-offset="4678" max-vertical-offset="7974">
-          <caret line="287" column="50" selection-start-line="287" selection-start-column="50" selection-end-line="287" selection-end-column="50" />
-          <folding>
-            <element signature="n#style#0;n#select#0;n#div#0;n#form#0;n#section#0;n#aside#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#5;n#form#0;n#section#0;n#aside#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -992,13 +908,13 @@
           <caret line="532" column="13" selection-start-line="532" selection-start-column="13" selection-end-line="532" selection-end-column="13" />
           <folding>
             <element signature="e#53#105#0#PHP" expanded="true" />
-            <marker date="1445776031167" expanded="true" signature="1371:1696" placeholder="SELECT u.ema..ReservableActivityBundle..." />
-            <marker date="1445776031167" expanded="true" signature="2981:3538" placeholder="SELECT b.id,..BookingsBookingBundle..." />
-            <marker date="1445776031167" expanded="true" signature="9462:10019" placeholder="SELECT b.id,..BookingsBookingBundle..." />
-            <marker date="1445776031167" expanded="true" signature="39844:39958" placeholder="DELETE FROM ..." />
-            <marker date="1445776031167" expanded="true" signature="39844:39979" placeholder="DELETE FROM ..." />
-            <marker date="1445776031167" expanded="true" signature="40106:40206" placeholder="DELETE FROM ..." />
-            <marker date="1445776031167" expanded="true" signature="46317:46670" placeholder="SELECT d.dat..BookingsBookingBundle..." />
+            <marker date="1445776031167" expanded="true" signature="-1:-1" placeholder="SELECT u.ema..ReservableActivityBundle..." />
+            <marker date="1445776031167" expanded="true" signature="-1:-1" placeholder="SELECT b.id,..BookingsBookingBundle..." />
+            <marker date="1445776031167" expanded="true" signature="-1:-1" placeholder="SELECT b.id,..BookingsBookingBundle..." />
+            <marker date="1445776031167" expanded="true" signature="-1:-1" placeholder="DELETE FROM ..." />
+            <marker date="1445776031167" expanded="true" signature="-1:-1" placeholder="DELETE FROM ..." />
+            <marker date="1445776031167" expanded="true" signature="-1:-1" placeholder="DELETE FROM ..." />
+            <marker date="1445776031167" expanded="true" signature="-1:-1" placeholder="SELECT d.dat..BookingsBookingBundle..." />
           </folding>
         </state>
       </provider>
@@ -1007,6 +923,28 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.32994923" vertical-offset="1335" max-vertical-offset="3888">
           <caret line="85" column="67" selection-start-line="85" selection-start-column="67" selection-end-line="85" selection-end-column="67" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Reservable/ActivityBundle/Controller/ZoneController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-11.333333" vertical-offset="0" max-vertical-offset="2124">
+          <caret line="17" column="1" selection-start-line="17" selection-start-column="1" selection-end-line="17" selection-end-column="1" />
+          <folding>
+            <element signature="e#56#106#0#PHP" expanded="true" />
+            <marker date="1445697268204" expanded="true" signature="4986:5079" placeholder="DELETE FROM ..." />
+            <marker date="1445697268204" expanded="true" signature="4986:5080" placeholder="DELETE FROM ..." />
+            <marker date="1445697268204" expanded="true" signature="4986:5116" placeholder="DELETE FROM ..." />
+            <marker date="1445697268204" expanded="true" signature="4986:5117" placeholder="DELETE FROM ..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Resources/views/base.html.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.3321492" vertical-offset="6185" max-vertical-offset="8028">
+          <caret line="354" column="16" selection-start-line="354" selection-start-column="5" selection-end-line="354" selection-end-column="16" />
           <folding />
         </state>
       </provider>
