@@ -14,7 +14,7 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
  */
 class Picture
 {
-    const DIRECTORYIMAGES = "/var/www/almacen/web/images/properties";
+    const DIRECTORYIMAGES = "images/properties";
 
     /**
      * @ORM\Id
