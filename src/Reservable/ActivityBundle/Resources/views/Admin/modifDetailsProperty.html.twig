@@ -155,7 +155,7 @@
                             {% if cont < 10 %}
                                 <div class="item">
                                     <span id="dropboxContainer"></span>
-                                    <input type="button" id="dropboxContainerTest" value="Test">
+                                    {#<input type="button" id="dropboxContainerTest" value="Test">#}
                                 </div>
                             {% endif %}
                         </div>
@@ -175,7 +175,7 @@
                             </div>
                         </div>
                         <div class="box-body" style="display: block;">
-                            <textarea style="width:100%;" name="description">{{ details.description | trim }}</textarea>
+                            <textarea style="width:100%;" name="description" rows="10">{{ details.description | trim }}</textarea>
                         </div><!-- /.col -->
                     </div>
 
@@ -299,6 +299,13 @@
                             </div>
                         </div>
                         <div class="box-body" style="display: block;">
+                            <div class="row">
+                                <div class="col-lg-12" >
+                                    <div class="text-center">
+                                        <h3>{{ zoneName }}</h3>
+                                    </div>
+                                </div>
+                            </div>
                             <div class="row">
                                 <div class="col-lg-12" >
                                     <div class="input-group">

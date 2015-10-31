@@ -45,8 +45,10 @@ class AdminController extends Controller
             ->findByPropertyID($property);
 
         // Mapa
-        $lat = $details->getLat();
-        $lng = $details->getLng();
+        $zone       = $this->getDoctrine()->getRepository('ReservableActivityBundle:Zone')->findOneBy(array('id' => $details->getZone()));
+        $zoneName   = $zone->getName();
+        $lat        = $details->getLat();
+        $lng        = $details->getLng();
 
         $marker = $this->get('ivory_google_map.marker');
         $marker->setPosition($lat, $lng);
@@ -110,6 +112,7 @@ class AdminController extends Controller
         return $this->render('ReservableActivityBundle:Admin:modifDetailsProperty.html.twig',
             array('details' => $details,
                 'map' => $map,
+                'zoneName' => $zoneName,
                 'pictures' => $arrayPictures,
                 'types' => $types,
                 'features' => $features,
