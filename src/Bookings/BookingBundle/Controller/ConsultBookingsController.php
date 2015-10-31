@@ -1327,15 +1327,15 @@ echo "<br/>---------------------------------------------------------------------
         $fs = new Filesystem();
 
         try {
-            $fs->exists('/var/www/almacen/web/icals');
+            $fs->exists('icals');
         } catch (IOExceptionInterface $e) {
             echo "No existe el directorio " . $e->getPath();
         }
 
         $fileName = 'propID' . $data['id'];
-        $fs->dumpFile('/var/www/almacen/web/icals/' . $fileName . '.ics', $cal->returnCalendar());
+        $fs->dumpFile('icals/' . $fileName . '.ics', $cal->returnCalendar());
 
-        return '/var/www/almacen/web/icals/' . $fileName . '.ics';
+        return 'icals/' . $fileName . '.ics';
         /*return new Response(
             $calStr,
             200,
