@@ -666,7 +666,7 @@ echo "<br/>---------------------------------------------------------------------
             $thisIcal = $this->getDoctrine()->getRepository('ReservableActivityBundle:ActivityToIcal')->findOneBy(array('id' => $_POST['icalToDelete']));
             $propID   = $thisIcal->getActivityID();
 
-            // Primero borramos las reserbas y disponibilidad
+            // Primero borramos las reservas y disponibilidad
             $bookings = $this->getDoctrine()->getRepository('BookingsBookingBundle:Booking')->findBy(array('fromiCalID' => $_POST['icalToDelete']));
             foreach($bookings as $booking){
                 $deleteDispo = $this->getDoctrine()->getManager()
@@ -730,11 +730,29 @@ echo "<br/>---------------------------------------------------------------------
         return new JsonResponse($return);
     }
 
+    private function deleteBookingsFromIcalID($icalID){
+
+        // Primero borramos las reservas y disponibilidad
+        $bookings = $this->getDoctrine()->getRepository('BookingsBookingBundle:Booking')->findBy(array('fromiCalID' => $icalID));
+        foreach($bookings as $booking){
+            $deleteDispo = $this->getDoctrine()->getManager()
+                ->createQuery("DELETE FROM BookingsBookingBundle:DisponibilityBooking db
+                                   WHERE db.bookingID = " . $booking->getId())->getResult();
+        }
+
+        $deleteBookings = $this->getDoctrine()->getManager()
+            ->createQuery("DELETE FROM BookingsBookingBundle:Booking b
+                                   WHERE b.fromiCalID = " . $icalID)->getResult();
+    }
+
     public function updateIcalCalendar($url, $propID, $icalID){
 
         // Entity Manager
         $em     = $this->getDoctrine()->getManager();
         $return = array();
+
+        // Limpiamos los eventos que tengamos guardados anteriormente para sincronizar
+        $this->deleteBookingsFromIcalID($icalID);
 
         // Transformamos los eventos del ical en array
         $arrayEvents = $this->getEventsFromIcal($url);
@@ -750,7 +768,6 @@ echo "<br/>---------------------------------------------------------------------
                 $dateEndDay = substr($event['DTEND'], 6, 2);
                 $dateStart = (int)($dateStartYear . $dateStartMonth . $dateStartDay);
                 $dateEnd = (int)($dateEndYear . $dateEndMonth . $dateEndDay);
-
                 // Dias entre el inicio y el final del evento
                 $arrayDays = array();
                 $currentDay = $dateStart;
@@ -763,7 +780,6 @@ echo "<br/>---------------------------------------------------------------------
 
                     $currentDay = date('Ymd', mktime(0, 0, 0, $month, $day + 1, $year));
                 }
-
                 // Comprobamos disponibilidad
                 $daysOcuppated = $this->getDoctrine()->getManager()
                     ->createQuery('SELECT d.date, d.bookingID, b.id as propertyID
@@ -787,14 +803,13 @@ echo "<br/>---------------------------------------------------------------------
 
 
                     $em->persist($thisBooking);
-
-                    $lastBookingID = $this->getDoctrine()->getRepository('BookingsBookingBundle:Booking')->getLastBookingID();
-                    if (empty($lastBookingID)) $thisBookingID = 1;
-                    else                        $thisBookingID = $lastBookingID[0][1] + 1;
+                    $em->flush();
 
                     foreach ($arrayDays as $oneDay) {
+
                         $oneItem = new DisponibilityBooking();
-                        $oneItem->setBookingID($thisBookingID)->setDate($oneDay);
+                        $oneItem->setBookingID($thisBooking->getId());
+                        $oneItem->setDate($oneDay);
 
                         $em->persist($oneItem);
                     }
