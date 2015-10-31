@@ -532,18 +532,18 @@ echo "<br/>---------------------------------------------------------------------
             // Comprobamos que no existe el calendario
             $icalFounded    = $this->getDoctrine()->getRepository('ReservableActivityBundle:ActivityToIcal')->findOneBy(array('activityID' => $_POST['propID'], 'icalUrl' => $_POST['pathICS']));
             if(is_object($icalFounded)){
-                //return new JsonResponse(array('reapeted' => true));
+                return new JsonResponse(array('reapeted' => true));
             }
 
             // Entity Manager
             $em = $this->getDoctrine()->getManager();
 
             // Guardamos la url que hemos importado
-            /*$activityToIcal = new ActivityToIcal();
+            $activityToIcal = new ActivityToIcal();
             $activityToIcal->setActivityID($_POST['propID']);
             $activityToIcal->setIcalUrl($_POST['pathICS']);
             $em->persist($activityToIcal);
-            $em->flush();*/
+            $em->flush();
             $activityToIcal = $icalFounded;
 
             // Actualizamos el calendario
