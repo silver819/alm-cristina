@@ -132,6 +132,7 @@ class BookingRepository extends EntityRepository
                     $aux['toDay']           = substr($oneBooking['endDate'], 6, 2);
                     $aux['toMonth']         = substr($oneBooking['endDate'], 4, 2);
                     $aux['toYear']          = substr($oneBooking['endDate'], 0, 4);
+                    $aux['toHour']          = substr($oneBooking['endDate'], 8, 4);
                     $aux['ownerBooking']    = $oneBooking['ownerBooking'];
                     $aux['ownerConfirm']    = $oneBooking['ownerConfirm'];
                     $results[] = $aux;

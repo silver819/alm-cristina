@@ -524,23 +524,27 @@ echo "<br/>---------------------------------------------------------------------
 
         $return = array();
 
+        //$_POST['propID'] = 1;
+        //$_POST['pathICS'] = "https://calendar.google.com/calendar/ical/3ikhnokttve640jvcmgstn20dk%40group.calendar.google.com/public/basic.ics";
+
         if(isset($_POST['propID']) && isset($_POST['pathICS']) && !empty($_POST['pathICS']) && !empty($_POST['propID'])) {
 
             // Comprobamos que no existe el calendario
             $icalFounded    = $this->getDoctrine()->getRepository('ReservableActivityBundle:ActivityToIcal')->findOneBy(array('activityID' => $_POST['propID'], 'icalUrl' => $_POST['pathICS']));
             if(is_object($icalFounded)){
-                return new JsonResponse(array('reapeted' => true));
+                //return new JsonResponse(array('reapeted' => true));
             }
 
             // Entity Manager
             $em = $this->getDoctrine()->getManager();
 
             // Guardamos la url que hemos importado
-            $activityToIcal = new ActivityToIcal();
+            /*$activityToIcal = new ActivityToIcal();
             $activityToIcal->setActivityID($_POST['propID']);
             $activityToIcal->setIcalUrl($_POST['pathICS']);
             $em->persist($activityToIcal);
-            $em->flush();
+            $em->flush();*/
+            $activityToIcal = $icalFounded;
 
             // Actualizamos el calendario
             $return['results'] = $this->updateIcalCalendar($_POST['pathICS'], $_POST['propID'], $activityToIcal->getId());
@@ -757,81 +761,116 @@ echo "<br/>---------------------------------------------------------------------
         // Transformamos los eventos del ical en array
         $arrayEvents = $this->getEventsFromIcal($url);
 
+        // Obtengo el objeto actividad
+        $activity = $this->getDoctrine()->getRepository('ReservableActivityBundle:Activity')->findOneBy(array('id' => $propID));
+
         // Recorremos el array y hacemos las reservas de cada evento
         if (isset($arrayEvents['VEVENT']) && !empty($arrayEvents['VEVENT'])) {
+
+
             foreach ($arrayEvents['VEVENT'] as $event) {
+
                 $dateStartYear = substr($event['DTSTART'], 0, 4);
                 $dateStartMonth = substr($event['DTSTART'], 4, 2);
                 $dateStartDay = substr($event['DTSTART'], 6, 2);
                 $dateEndYear = substr($event['DTEND'], 0, 4);
                 $dateEndMonth = substr($event['DTEND'], 4, 2);
                 $dateEndDay = substr($event['DTEND'], 6, 2);
-                $dateStart = (int)($dateStartYear . $dateStartMonth . $dateStartDay);
-                $dateEnd = (int)($dateEndYear . $dateEndMonth . $dateEndDay);
-                // Dias entre el inicio y el final del evento
+
+                if($activity->getTypeRent()=='hour'){
+                    $dateStartHour = (int)substr($event['DTSTART'], 9, 2) + 1;
+                    $dateEndHour = (int)substr($event['DTEND'], 9, 2) + 1;
+                }
+                else{
+                    $dateStartHour = '00';
+                    $dateEndHour = '00';
+                }
+
+                $dateStart = (int)($dateStartYear . $dateStartMonth . $dateStartDay . $dateStartHour);
+                $dateEnd = (int)($dateEndYear . $dateEndMonth . $dateEndDay . $dateEndHour);
+
                 $arrayDays = array();
                 $currentDay = $dateStart;
-                while ($currentDay < $dateEnd) {
-                    $arrayDays[] = $currentDay . '00';
+                if($activity->getTypeRent()=='hour') {
+                    // Horas entre el inicio y el final del evento
+                    while ($currentDay < $dateEnd) {
+                        $arrayDays[] = (int)$currentDay;
 
-                    $day = substr($currentDay, 6, 2);
-                    $month = substr($currentDay, 4, 2);
-                    $year = substr($currentDay, 0, 4);
+                        $day = substr($currentDay, 6, 2);
+                        $month = substr($currentDay, 4, 2);
+                        $year = substr($currentDay, 0, 4);
+                        $hour = substr($currentDay, 8, 2);
 
-                    $currentDay = date('Ymd', mktime(0, 0, 0, $month, $day + 1, $year));
+                        $currentDay = date('YmdH', mktime($hour + 1, 0, 0, $month, $day, $year));
+                    }
                 }
-                // Comprobamos disponibilidad
-                $daysOcuppated = $this->getDoctrine()->getManager()
-                    ->createQuery('SELECT d.date, d.bookingID, b.id as propertyID
+                else{
+                    // Dias entre el inicio y el final del evento
+                    while ($currentDay < $dateEnd) {
+                        $arrayDays[] = (int)$currentDay;
+
+                        $day = substr($currentDay, 6, 2);
+                        $month = substr($currentDay, 4, 2);
+                        $year = substr($currentDay, 0, 4);
+
+                        $currentDay = date('Ymd', mktime(0, 0, 0, $month, $day + 1, $year));
+                    }
+                }
+
+                if(!empty($arrayDays)) {
+
+                    // Comprobamos disponibilidad
+                    $daysOcuppated = $this->getDoctrine()->getManager()
+                        ->createQuery('SELECT d.date, d.bookingID, b.id as propertyID
                                    FROM BookingsBookingBundle:Booking b
                                    INNER JOIN BookingsBookingBundle:DisponibilityBooking d
                                    WHERE b.id = d.bookingID AND b.activityID = ' . $propID . ' AND d.date IN (' . implode(',', $arrayDays) . ')')
-                    ->getResult();
+                        ->getResult();
 
-                if (empty($daysOcuppated)) {
-                    // Si hay disponibilidad, hacemos la reserva
-                    $thisBooking = new Booking();
-                    $thisBooking->setActivityID($propID)
-                        ->setClientID($this->get('security.context')->getToken()->getUser()->getId())
-                        ->setStartDate((string)($dateStart . '00'))
-                        ->setEndDate((string)($dateEnd . '00'))
-                        ->setPrice(-1)
-                        ->setStatus(0)
-                        ->setOwnerBooking(1)
-                        ->setOwnerConfirm(1)
-                        ->setFromIcalID($icalID);
+                    if (empty($daysOcuppated)) {
+                        // Si hay disponibilidad, hacemos la reserva
+                        $thisBooking = new Booking();
+                        $thisBooking->setActivityID($propID)
+                            ->setClientID($this->get('security.context')->getToken()->getUser()->getId())
+                            ->setStartDate((string)($dateStart))
+                            ->setEndDate((string)($dateEnd))
+                            ->setPrice(-1)
+                            ->setStatus(0)
+                            ->setOwnerBooking(1)
+                            ->setOwnerConfirm(1)
+                            ->setFromIcalID($icalID);
 
 
-                    $em->persist($thisBooking);
-                    $em->flush();
+                        $em->persist($thisBooking);
+                        $em->flush();
 
-                    foreach ($arrayDays as $oneDay) {
+                        foreach ($arrayDays as $oneDay) {
 
-                        $oneItem = new DisponibilityBooking();
-                        $oneItem->setBookingID($thisBooking->getId());
-                        $oneItem->setDate($oneDay);
+                            $oneItem = new DisponibilityBooking();
+                            $oneItem->setBookingID($thisBooking->getId());
+                            $oneItem->setDate($oneDay);
 
-                        $em->persist($oneItem);
-                    }
-
-                    $return['Done'][] = array('dateStart' => $dateStart, 'dateEnd' => $dateEnd);
-
-                } else {
-                    // Si no hay disponibilidad, comprobamos que sea un bloqueo de portal
-                    $arrayCoincidences = array();
-                    foreach ($daysOcuppated as $dayOcuppated) {
-                        $arrayCoincidences[$dayOcuppated['bookingID']] = 1;
-                    }
-
-                    foreach($arrayCoincidences as $coincidence){
-
-                        $isIcalSync = $this->getDoctrine()->getRepository('BookingsBookingBundle:Booking')->isIcalSync($coincidence);
-
-                        if($isIcalSync){
-                            $return['AlreadySynced'][] = array('dateStart' => $dateStart, 'dateEnd' => $dateEnd, 'coincidences' => $coincidence);
+                            $em->persist($oneItem);
                         }
-                        else{
-                            $return['Error'][] = array('dateStart' => $dateStart, 'dateEnd' => $dateEnd, 'coincidences' => $coincidence);
+
+                        $return['Done'][] = array('dateStart' => $dateStart, 'dateEnd' => $dateEnd);
+
+                    } else {
+                        // Si no hay disponibilidad, comprobamos que sea un bloqueo de portal
+                        $arrayCoincidences = array();
+                        foreach ($daysOcuppated as $dayOcuppated) {
+                            $arrayCoincidences[$dayOcuppated['bookingID']] = 1;
+                        }
+
+                        foreach ($arrayCoincidences as $coincidence) {
+
+                            $isIcalSync = $this->getDoctrine()->getRepository('BookingsBookingBundle:Booking')->isIcalSync($coincidence);
+
+                            if ($isIcalSync) {
+                                $return['AlreadySynced'][] = array('dateStart' => $dateStart, 'dateEnd' => $dateEnd, 'coincidences' => $coincidence);
+                            } else {
+                                $return['Error'][] = array('dateStart' => $dateStart, 'dateEnd' => $dateEnd, 'coincidences' => $coincidence);
+                            }
                         }
                     }
                 }
@@ -1194,7 +1233,7 @@ echo "<br/>---------------------------------------------------------------------
                 $title = '';
                 $text  = '';
                 foreach($bookings as $oneBooking){
-                    if($oneBooking['from'] == $i && $j == $oneBooking['hour']){
+                    if($oneBooking['from'] == $i && $j >= $oneBooking['hour'] && $j < $oneBooking['toHour']){
                         $title = 'title="' . $oneBooking['bookingID'] . '"';
                         $class = 'bookedDay';
                         $text  = $oneBooking['bookingID'];
