@@ -32,7 +32,8 @@ class AdminController extends Controller
                 'totalRating' => $result['totalRating'],
                 'chart' => $result['ob'],
                 'seasons' => $result['seasons'],
-                'map' => $result['map']
+                'map' => $result['map'],
+                'cityName' => $result['cityName']
             )
         );
     }
@@ -387,8 +388,15 @@ class AdminController extends Controller
                     }
                 }
 
+                $cities = $this->getDoctrine()->getRepository("ReservableActivityBundle:Zone")->findBy(array("type" => 5));
+                $cityNames = array();
+                foreach($cities as $city){
+                    $cityNames[$city->getId()]['name'] = $city->getName();
+                    $cityNames[$city->getId()]['id'] = $city->getId();
+                }
+
                 return $this->render('ReservableActivityBundle:View:viewActivities.html.twig',
-                    array('properties' => $properties, 'pictures' => $arrayPictures, 'allOwners' => $allOwners));
+                    array('properties' => $properties, 'pictures' => $arrayPictures, 'allOwners' => $allOwners, 'cityNames' => $cityNames));
 
             }
         }
@@ -474,19 +482,27 @@ class AdminController extends Controller
             ->findByPropertyID($property);
 
         // Mapa
+        $map = $this->get('ivory_google_map.map');
+        $map->setStylesheetOptions(array('width' => '100%'));
+        $city = $this->getDoctrine()->getRepository('ReservableActivityBundle:Zone')->findOneBy(array('id' => $details->getZone()));
+        $cityName = $city->getName();
+
         $lat = $details->getLat();
         $lng = $details->getLng();
+        if($lat && $lng){
+            $marker = $this->get('ivory_google_map.marker');
+            $marker->setPosition($lat, $lng);
+            //ldd($marker);
 
-        $marker = $this->get('ivory_google_map.marker');
-        $marker->setPosition($lat, $lng);
-        //ldd($marker);
-
-        $map = $this->get('ivory_google_map.map');
-        $map->setCenter($lat, $lng);
-        $map->addMarker($marker);
-        $map->setMapOptions(array('zoom' => 13));
-        $map->setStylesheetOptions(array('width' => '100%'));
-        //ldd($map);
+            $map->setMapOptions(array('zoom' => 13));
+            $map->setCenter($lat, $lng);
+            $map->addMarker($marker);
+            //ldd($map);
+        }
+        else{
+            $map->setCenter(37.333351, -4.5765007);
+            $map->setMapOptions(array('zoom' => 7));
+        }
 
         // Imagenes
         $pictures = $this->getDoctrine()
@@ -502,7 +518,7 @@ class AdminController extends Controller
             $arrayPictures[] = 'no-photo.jpg';
         }
 
-        // tipos
+        // Tipos
         $types = $this->getDoctrine()
             ->getRepository('ReservableActivityBundle:TypeActivity')
             ->getAllTypes($details->getTypeRent());
@@ -520,7 +536,7 @@ class AdminController extends Controller
             }
         }
 
-        // features
+        // Features
         $features = array();
         if ($typeSelected) {
             $features = $this->getAllFeaturesByType($typeSelected);
@@ -584,6 +600,7 @@ class AdminController extends Controller
         $result['ob'] = $ob;
         $result['seasons'] = $seasons;
         $result['map'] = $map;
+        $result['cityName'] = $cityName;
 
         return $result;
     }

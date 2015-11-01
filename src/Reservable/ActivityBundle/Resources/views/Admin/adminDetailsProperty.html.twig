@@ -62,7 +62,7 @@
                         <span class="info-box-icon bg-green"><i class="fa fa-flag-o"></i></span>
                         <div class="info-box-content">
                             <span class="info-box-text">Modalidad</span>
-                            <span class="info-box-number">{% if fetails.typeRent == 'day' %}{% trans %}Por día{% endtrans %}{% else %}{% trans %}Por hora{% endtrans %}{% endif %}</span>
+                            <span class="info-box-number">{% if details.typeRent == 'day' %}{% trans %}Por día{% endtrans %}{% else %}{% trans %}Por hora{% endtrans %}{% endif %}</span>
                         </div><!-- /.info-box-content -->
                     </div><!-- /.info-box -->
                 </div><!-- /.col -->
@@ -160,6 +160,9 @@
                         </div>
                     </div>
                     <div class="box-body" style="display: block;">
+                        <div class="text-center">
+                            <h4>{{ cityName }}</h4>
+                        </div>
                         {{ google_map(map) }}
                     </div><!-- /.col -->
                 </div>

@@ -25,7 +25,12 @@
                 <input type="checkbox" name="typeRent" id="checkboxRentByDay" value="day" checked>{% trans %}hora{% endtrans %}
             </div>
             <div class="col-md-3">
-                &nbsp;
+                {%trans%}Ver{%endtrans%} <select name="filterByZone" id="filterByZone">
+                    <option value="0">{% trans %}todas las zonas{% endtrans %}</option>
+                    {% for city in cityNames %}
+                        <option value="{{ city.id }}">{{ city.name }}</option>
+                    {% endfor %}
+                </select>
             </div>
         </div>
         <br/>
@@ -38,7 +43,7 @@
 		</div>
 	{% else %}
 		{% for oneProperty in properties %}
-            <div class="box ownerEmail prop-{{ oneProperty.ownerID }} typeRent-{{ oneProperty.typeRent }}">
+            <div class="box ownerEmail prop-{{ oneProperty.ownerID }} typeRent-{{ oneProperty.typeRent }} zone-{{ oneProperty.zone }}">
                 <div class="box-header with-border">
                     <h3 class="box-title"><a href="{{ path('adminDetails', {'property':oneProperty.id}) }}">{{ oneProperty.name }}</a></h3>
                     <div class="box-tools pull-right">
@@ -96,6 +101,7 @@
                                     <p><i class="fa fa-user" title="{% trans %}Propietario{% endtrans %}"></i>&nbsp;{{ allOwners[oneProperty.ownerID].email }}</p>
                                     <p><i class="fa fa-map-pin" title="{% trans %}Ciudad{% endtrans %}"></i>&nbsp;{{ cityNames[oneProperty.zone].name }}</p>
                                 {% endif %}
+                                <p><i class="fa fa-info" title="{% trans %}Modalidad{% endtrans %}"></i>&nbsp;{% if oneProperty.typeRent == 'hour' %}{% trans %}Modalidad por hora{% endtrans %}{% else %}{% trans %}Modalidad por día{% endtrans %}{% endif %}</p>
                                 <p><i class="fa fa-file-text" title="{% trans %}Descripción{% endtrans %}"></i>&nbsp;{{ oneProperty.description }}</p>
                             </span>
                         </div><!-- /.col -->
@@ -245,6 +251,19 @@
             else{
                 $('.ownerEmail').hide('slow');
                 $('.prop-'+ ownerID).show('slow');
+            }
+        });
+
+        $("#filterByZone").change(function(){
+
+            var zoneID = $("#filterByZone option:selected").val();
+
+            if(zoneID == 0){
+                $('.ownerEmail').show('slow');
+            }
+            else{
+                $('.ownerEmail').hide('slow');
+                $('.zone-'+ zoneID).show('slow');
             }
         });
 

@@ -69,6 +69,7 @@ class ViewController extends Controller
         $cityNames = array();
         foreach($cities as $city){
             $cityNames[$city->getId()]['name'] = $city->getName();
+            $cityNames[$city->getId()]['id'] = $city->getId();
         }
 
 		return $this->render('ReservableActivityBundle:View:viewActivities.html.twig', 
