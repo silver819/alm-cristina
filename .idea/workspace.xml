@@ -7,8 +7,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0ca3c09d-9b70-4edd-bbfb-2d0f972bbd20" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Reservable/ActivityBundle/Controller/AdminController.php" afterPath="$PROJECT_DIR$/src/Reservable/ActivityBundle/Controller/AdminController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/almacen.iml" afterPath="$PROJECT_DIR$/.idea/almacen.iml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Reservable/ActivityBundle/Resources/views/Admin/modifDetailsProperty.html.twig" afterPath="$PROJECT_DIR$/src/Reservable/ActivityBundle/Resources/views/Admin/modifDetailsProperty.html.twig" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
@@ -50,10 +48,10 @@
       <file leaf-file-name="modifDetailsProperty.html.twig" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Reservable/ActivityBundle/Resources/views/Admin/modifDetailsProperty.html.twig">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.54468805" vertical-offset="4915" max-vertical-offset="7326">
-              <caret line="291" column="124" selection-start-line="291" selection-start-column="124" selection-end-line="291" selection-end-column="124" />
+            <state vertical-scroll-proportion="0.48397976" vertical-offset="5167" max-vertical-offset="7308">
+              <caret line="303" column="60" selection-start-line="303" selection-start-column="60" selection-end-line="303" selection-end-column="60" />
               <folding>
-                <element signature="e#23260#23283#0#HTML" expanded="true" />
+                <element signature="e#23227#23250#0#HTML" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -913,10 +911,10 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Reservable/ActivityBundle/Resources/views/Admin/modifDetailsProperty.html.twig">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.54468805" vertical-offset="4915" max-vertical-offset="7326">
-          <caret line="291" column="124" selection-start-line="291" selection-start-column="124" selection-end-line="291" selection-end-column="124" />
+        <state vertical-scroll-proportion="0.48397976" vertical-offset="5167" max-vertical-offset="7308">
+          <caret line="303" column="60" selection-start-line="303" selection-start-column="60" selection-end-line="303" selection-end-column="60" />
           <folding>
-            <element signature="e#23260#23283#0#HTML" expanded="true" />
+            <element signature="e#23227#23250#0#HTML" expanded="true" />
           </folding>
         </state>
       </provider>
