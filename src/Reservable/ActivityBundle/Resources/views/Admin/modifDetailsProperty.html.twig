@@ -235,13 +235,75 @@
                                     <th>&euro;</th>
                                 </tr>
                                 {% for season in seasons %}
+                                    {% set i = loop.index0 %}
                                     <tr>
-                                        <td>{{ season.startSeason }}</td>
-                                        <td>{{ season.endSeason }}</td>
-                                        <td>{{ season.price }}</td>
+                                        <td>
+                                            <div class="input-group">
+                                                <input type="hidden" value="{{ details.typeRent }}" name="typeRent">
+                                                {% if details.typeRent == 'hour' %}
+                                                    <div class="input-group-addon"><i class="fa fa-clock-o"></i></div>
+                                                    <select class="form-control" id="hourpickerFrom-{{ i }}" name="Seasons[{{ i }}][From]">
+                                                        <option></option>
+                                                        <option {% if season.startSeason == '9:00'%}selected{% endif %}>9:00</option>
+                                                        <option {% if season.startSeason == '10:00'%}selected{% endif %}>10:00</option>
+                                                        <option {% if season.startSeason == '11:00'%}selected{% endif %}>11:00</option>
+                                                        <option {% if season.startSeason == '12:00'%}selected{% endif %}>12:00</option>
+                                                        <option {% if season.startSeason == '13:00'%}selected{% endif %}>13:00</option>
+                                                        <option {% if season.startSeason == '14:00'%}selected{% endif %}>14:00</option>
+                                                        <option {% if season.startSeason == '15:00'%}selected{% endif %}>15:00</option>
+                                                        <option {% if season.startSeason == '16:00'%}selected{% endif %}>16:00</option>
+                                                        <option {% if season.startSeason == '17:00'%}selected{% endif %}>17:00</option>
+                                                        <option {% if season.startSeason == '18:00'%}selected{% endif %}>18:00</option>
+                                                        <option {% if season.startSeason == '19:00'%}selected{% endif %}>19:00</option>
+                                                        <option {% if season.startSeason == '20:00'%}selected{% endif %}>20:00</option>
+                                                        <option {% if season.startSeason == '21:00'%}selected{% endif %}>21:00</option>
+                                                        <option {% if season.startSeason == '22:00'%}selected{% endif %}>22:00</option>
+                                                    </select>
+                                                {% else %}
+                                                    <div class="input-group-addon"><i class="fa fa-calendar"></i></div>
+                                                    <input type="text" id="datepickerFrom-{{ i }}" name="Seasons[{{ i }}][From]" value="{{ season.startSeason }}" class="form-control pull-right active datepickerClass">
+                                                {% endif %}
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="input-group">
+                                                <input type="hidden" value="{{ details.typeRent }}" name="typeRent">
+                                                {% if details.typeRent == 'hour' %}
+                                                    <div class="input-group-addon"><i class="fa fa-clock-o"></i></div>
+                                                    <select class="form-control" id="hourpickerFrom-{{ i }}" name="Seasons[{{ i }}][To]">
+                                                        <option></option>
+                                                        <option {% if season.endSeason == '9:00'%}selected{% endif %}>9:00</option>
+                                                        <option {% if season.endSeason == '10:00'%}selected{% endif %}>10:00</option>
+                                                        <option {% if season.endSeason == '11:00'%}selected{% endif %}>11:00</option>
+                                                        <option {% if season.endSeason == '12:00'%}selected{% endif %}>12:00</option>
+                                                        <option {% if season.endSeason == '13:00'%}selected{% endif %}>13:00</option>
+                                                        <option {% if season.endSeason == '14:00'%}selected{% endif %}>14:00</option>
+                                                        <option {% if season.endSeason == '15:00'%}selected{% endif %}>15:00</option>
+                                                        <option {% if season.endSeason == '16:00'%}selected{% endif %}>16:00</option>
+                                                        <option {% if season.endSeason == '17:00'%}selected{% endif %}>17:00</option>
+                                                        <option {% if season.endSeason == '18:00'%}selected{% endif %}>18:00</option>
+                                                        <option {% if season.endSeason == '19:00'%}selected{% endif %}>19:00</option>
+                                                        <option {% if season.endSeason == '20:00'%}selected{% endif %}>20:00</option>
+                                                        <option {% if season.endSeason == '21:00'%}selected{% endif %}>21:00</option>
+                                                        <option {% if season.endSeason == '22:00'%}selected{% endif %}>22:00</option>
+                                                    </select>
+                                                {% else %}
+                                                    <div class="input-group-addon"><i class="fa fa-calendar"></i></div>
+                                                    <input type="text" id="datepickerFrom-{{ i }}" name="Seasons[{{ i }}][To]" value="{{ season.endSeason }}" class="form-control pull-right active datepickerClass">
+                                                {% endif %}
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="input-group">
+                                                <div class="input-group-addon"><i class="fa fa-eur"></i></div>
+                                                <input type="text" id="Pride" name="Seasons[{{ i }}][Price]" value="{{ season.price }}" class="form-control pull-right active">
+                                            </div>
+                                        </td>
                                     </tr>
                                 {% endfor %}
-                                {% for i in 0..4 %}
+                                {% set i = seasons|length %}
+                                {% set k = i + 4 %}
+                                {% for j in i..k %}
                                     <tr>
                                         <td>
                                             <div class="input-group">

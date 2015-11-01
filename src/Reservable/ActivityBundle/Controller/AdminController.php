@@ -138,19 +138,31 @@ class AdminController extends Controller
 
         $today = date('Ymd');
 
-        $seasons = $this->getDoctrine()
-            ->getManager()
-            ->createQuery("SELECT s.startSeason, s.endSeason, s.price
+        $activity = $this->getDoctrine()->getRepository('ReservableActivityBundle:Activity')->findOneBy(array('id' => $propertyID));
+
+        if($activity->getTypeRent() == 'day') {
+            $seasons = $this->getDoctrine()
+                ->getManager()
+                ->createQuery("SELECT s.startSeason, s.endSeason, s.price
                            FROM ReservableActivityBundle:Seasons s
                            WHERE s.activityID =  " . $propertyID . "
                            AND s.endSeason > " . $today)
-            ->getResult();
+                ->getResult();
 
-        if (!empty($seasons)) {
-            foreach ($seasons as $key => $season) {
-                $seasons[$key]['startSeason'] = substr($season['startSeason'], 6, 2) . '/' . substr($season['startSeason'], 4, 2) . '/' . substr($season['startSeason'], 0, 4);
-                $seasons[$key]['endSeason'] = substr($season['endSeason'], 6, 2) . '/' . substr($season['endSeason'], 4, 2) . '/' . substr($season['endSeason'], 0, 4);
+            if (!empty($seasons)) {
+                foreach ($seasons as $key => $season) {
+                    $seasons[$key]['startSeason'] = substr($season['startSeason'], 6, 2) . '/' . substr($season['startSeason'], 4, 2) . '/' . substr($season['startSeason'], 0, 4);
+                    $seasons[$key]['endSeason'] = substr($season['endSeason'], 6, 2) . '/' . substr($season['endSeason'], 4, 2) . '/' . substr($season['endSeason'], 0, 4);
+                }
             }
+        }
+        else{
+            $seasons = $this->getDoctrine()
+                ->getManager()
+                ->createQuery("SELECT s.startSeason, s.endSeason, s.price
+                           FROM ReservableActivityBundle:Seasons s
+                           WHERE s.activityID =  " . $propertyID)
+                ->getResult();
         }
 
         return $seasons;
@@ -174,21 +186,29 @@ class AdminController extends Controller
                 ->getResult();
 
             // Temporadas
-            foreach ($_POST['Seasons'] as $oneSeason) {
-                if ($oneSeason['From'] != '' && $oneSeason['To'] != '' && $oneSeason['Price'] != '') {
-                    $season = new Seasons();
-                    $season->setActivityID($_POST['productID']);
-                    if($_POST['typeRent'] == 'hour'){
-                        $season->setStartSeason($oneSeason['From']);
-                        $season->setEndSeason($oneSeason['To']);
-                    }
-                    else {
-                        $season->setStartSeason($this->FormatDate($oneSeason['From']));
-                        $season->setEndSeason($this->FormatDate($oneSeason['To']));
-                    }
-                    $season->setPrice($oneSeason['Price']);
+            if( isset($_POST['Seasons']) && !empty($_POST['Seasons'])) {
 
-                    $em->persist($season);
+                // Borramos las temporadas anteriores
+                $resultQuery = $this->getDoctrine()->getManager()
+                    ->createQuery("DELETE FROM  ReservableActivityBundle:Seasons s WHERE s.activityID = " . $_POST['productID'])
+                    ->getResult();
+
+                foreach ($_POST['Seasons'] as $oneSeason) {
+                    if ($oneSeason['From'] != '' && $oneSeason['To'] != '' && $oneSeason['Price'] != '') {
+                        $season = new Seasons();
+                        $season->setActivityID($_POST['productID']);
+                        if ($_POST['typeRent'] == 'hour') {
+                            $season->setStartSeason($oneSeason['From']);
+                            $season->setEndSeason($oneSeason['To']);
+                        } else {
+                            $season->setStartSeason($this->FormatDate($oneSeason['From']));
+                            $season->setEndSeason($this->FormatDate($oneSeason['To']));
+                        }
+                        $season->setPrice($oneSeason['Price']);
+
+                        $em->persist($season);
+                        $em->flush();
+                    }
                 }
             }
 
@@ -230,16 +250,17 @@ class AdminController extends Controller
 
                     $pictureObject = $this->getDoctrine()->getRepository('ReservableActivityBundle:Picture')->findOneBy(array('path' => $picture));
                     $em->remove($pictureObject);
-                    $em->flush();
                 }
             }
 
             $em->flush();
 
-            // ****   RECOPILO INFO   ****
-            $result = $this->getDataLodging($_POST['productID'], $request);
+            return $this->redirect($this->generateUrl('adminDetails', array('property' => $_POST['productID'])));
 
-            return $this->render('ReservableActivityBundle:Admin:adminDetailsProperty.html.twig',
+            // ****   RECOPILO INFO   ****
+            //$result = $this->getDataLodging($_POST['productID'], $request);
+
+            /*return $this->render('ReservableActivityBundle:Admin:adminDetailsProperty.html.twig',
                 array(
                     'details' => $result['details'],
                     'pictures' => $result['arrayPictures'],
@@ -252,7 +273,7 @@ class AdminController extends Controller
                     'seasons' => $result['seasons'],
                     'map' => $result['map']
                 )
-            );
+            );*/
         }
     }
 
@@ -521,10 +542,10 @@ class AdminController extends Controller
         $seasons = $this->getAllSeasonsByPropertyId($property);
 
         // Comentarios y valoraciones
-        $comments = $this->getComments($property);
-        $resultRatings = $this->getRatings($property);
-        $ratings = $resultRatings['ratings'];
-        $totalRating = $resultRatings['totalScore'];
+        $comments       = $this->getComments($property);
+        $resultRatings  = $this->getRatings($property);
+        $ratings        = $resultRatings['ratings'];
+        $totalRating    = $resultRatings['totalScore'];
 
         // Chart
         $categories = array('Ubicación', 'Cómo llegar', 'Limpieza', 'Material', 'Características', 'Gestiones', 'Usabilidad');
