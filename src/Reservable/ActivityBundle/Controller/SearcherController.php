@@ -132,6 +132,7 @@ class SearcherController extends Controller
 
 		$images      = array();
         $resultsAux2 = array();
+        $arrayPrices = array();
 		if(!empty($resultsAux)){
 
             // Aplicamos los filtros
@@ -178,6 +179,13 @@ class SearcherController extends Controller
 
 				// Tenemos disponibilidad
 				if(empty($dispo)){
+
+                    // Calculamos precio
+                    $thisPrices = $this->getPriceActivityByRange($oneResult->getId(), $thisRange);
+                    if(!empty($thisPrices)){
+                        $arrayPrices[$oneResult->getId()] = $thisPrices;
+                    }
+
 					$results[] = $oneResult;
 
                     $pictures = $this->getDoctrine()
@@ -187,21 +195,19 @@ class SearcherController extends Controller
                     foreach($pictures as $onePicture){
                         $images[$oneResult->getId()][] = $onePicture['path'];
                     }
-
-
-
-
-					/*$firstImage = $this->getDoctrine()
-									   ->getRepository('ReservableActivityBundle:Picture')
-									   ->findAllByPropertyID($oneResult->getId());
-
-					if(!empty($firstImage[0]['path'])){
-						$images[$oneResult->getId()] = $firstImage[0]['path'];
-					}*/
 				}
 			}
 		}
 
+        // Resultados definitivos con precios
+        $resultsFromatted = array();
+        foreach($results as $result){
+            if(array_key_exists($result->getId(), $arrayPrices)){
+                $resultsFromatted[] = $result;
+            }
+        }
+
+        //ldd($arrayPrices);
         //ldd($session->get('filterSearch'));
         //ld($images);
 
@@ -212,8 +218,65 @@ class SearcherController extends Controller
         }
 
 		return $this->render('ReservableActivityBundle:Search:displayResults.html.twig', 
-			array("cities" => $cities, "filters" => $filters, "results" => $results, 'images' => $images));
+			array("cities" => $cities, "filters" => $filters, "results" => $resultsFromatted, 'arrayPrices' => $arrayPrices, 'images' => $images));
 	}
+
+    private function getPriceActivityByRange($propertyID, $arrayDates){
+
+        $prices = array();
+        $activity = $this->getDoctrine()->getRepository('ReservableActivityBundle:Activity')->findOneBy(array('id' => $propertyID));
+
+        if($activity->getTypeRent() == 'day') {
+            $seasons = $this->getDoctrine()
+                ->getManager()
+                ->createQuery("SELECT s.startSeason, s.endSeason, s.price
+                           FROM ReservableActivityBundle:Seasons s
+                           WHERE s.activityID = " . $propertyID . " AND s.endSeason >= '" . date('Ymd') . "'")
+                ->getResult();
+
+            if (!empty($seasons)) {
+                foreach ($arrayDates as $day) {
+
+                    $currentDay = (int)substr($day, 0, 8);
+
+                    foreach($seasons as $season){
+                        if((int)$season['startSeason'] <= $currentDay && $currentDay < (int)$season['endSeason']){
+                            $prices[$currentDay] = $season['price'];
+                        }
+                    }
+                }
+
+                $prices['totalPrice'] = array_sum($prices);
+                $prices['priceByDay'] = round($prices['totalPrice'] / count($arrayDates), 2);
+            }
+        }
+        else{
+            $seasons = $this->getDoctrine()
+                ->getManager()
+                ->createQuery("SELECT s.startSeason, s.endSeason, s.price
+                           FROM ReservableActivityBundle:Seasons s
+                           WHERE s.activityID = " . $propertyID)
+                ->getResult();
+
+            if (!empty($seasons)) {
+                foreach ($arrayDates as $day) {
+
+                    $currentHour = (int)substr($day, 8, 2);
+
+                    foreach($seasons as $season){
+                        if((int)$season['startSeason'] <= $currentHour && $currentHour < (int)$season['endSeason']){
+                            $prices[$currentHour . ':00'] = $season['price'];
+                        }
+                    }
+                }
+
+                $prices['totalPrice'] = array_sum($prices);
+                $prices['priceByDay'] = round($prices['totalPrice'] / count($arrayDates), 2);
+            }
+        }
+
+        return $prices;
+    }
 
     public function getFilters(){
         $arrayReturn = array();
