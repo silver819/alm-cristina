@@ -65,8 +65,14 @@ class ViewController extends Controller
 			}
 		}
 
+        $cities = $this->getDoctrine()->getRepository("ReservableActivityBundle:Zone")->findBy(array("type" => 5));
+        $cityNames = array();
+        foreach($cities as $city){
+            $cityNames[$city->getId()]['name'] = $city->getName();
+        }
+
 		return $this->render('ReservableActivityBundle:View:viewActivities.html.twig', 
-			array('properties' => $properties, 'pictures' => $arrayPictures, 'allOwners' => $allOwners));
+			array('properties' => $properties, 'pictures' => $arrayPictures, 'allOwners' => $allOwners, 'cityNames' => $cityNames));
 
     }
 

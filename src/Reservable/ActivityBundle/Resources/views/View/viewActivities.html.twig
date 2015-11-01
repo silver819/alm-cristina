@@ -94,6 +94,7 @@
                             <span class="contentSpan">
                                 {% if is_granted("ROLE_SUPER_ADMIN") %}
                                     <p><i class="fa fa-user" title="{% trans %}Propietario{% endtrans %}"></i>&nbsp;{{ allOwners[oneProperty.ownerID].email }}</p>
+                                    <p><i class="fa fa-map-pin" title="{% trans %}Ciudad{% endtrans %}"></i>&nbsp;{{ cityNames[oneProperty.zone].name }}</p>
                                 {% endif %}
                                 <p><i class="fa fa-file-text" title="{% trans %}Descripción{% endtrans %}"></i>&nbsp;{{ oneProperty.description }}</p>
                             </span>
