@@ -146,6 +146,7 @@
                                     {% set cont = cont + 1 %}
                                     <div class="item">
                                         <img alt="" width="100%" src="/images/properties/{{ onePicture }}" />
+                                        <input type="checkbox" name="deletePicture[{{ onePicture }}]">{% trans %}Eliminar{% endtrans %}
                                     </div>
                                     <br/>
                                 {% endfor %}

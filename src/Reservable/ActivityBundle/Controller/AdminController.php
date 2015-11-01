@@ -5,6 +5,7 @@ namespace Reservable\ActivityBundle\Controller;
 use Reservable\ActivityBundle\Entity\TypeActivity;
 use Reservable\ActivityBundle\Entity\TypeToFeature;
 use Reservable\ActivityBundle\Entity\Features;
+use Reservable\ActivityBundle\Entity\Picture;
 use Reservable\ActivityBundle\Entity\ActivityyToType;
 use Reservable\ActivityBundle\Entity\ActivityToFeature;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -219,6 +220,17 @@ class AdminController extends Controller
                     $activityFeatureEquivalence->setFeatureID($oneFeature);
 
                     $em->persist($activityFeatureEquivalence);
+                }
+            }
+
+            // Eliminar imagenes
+            if(isset($_POST['deletePicture']) && !empty($_POST['deletePicture'])){
+                foreach($_POST['deletePicture'] as $picture => $state){
+                    unlink(Picture::DIRECTORYIMAGES . '/' . $picture);
+
+                    $pictureObject = $this->getDoctrine()->getRepository('ReservableActivityBundle:Picture')->findOneBy(array('path' => $picture));
+                    $em->remove($pictureObject);
+                    $em->flush();
                 }
             }
 
