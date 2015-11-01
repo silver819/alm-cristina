@@ -8,7 +8,6 @@
   <component name="ChangeListManager">
     <list default="true" id="0ca3c09d-9b70-4edd-bbfb-2d0f972bbd20" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Reservable/ActivityBundle/Resources/views/Admin/modifDetailsProperty.html.twig" afterPath="$PROJECT_DIR$/src/Reservable/ActivityBundle/Resources/views/Admin/modifDetailsProperty.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="almacen.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -48,8 +47,8 @@
       <file leaf-file-name="modifDetailsProperty.html.twig" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Reservable/ActivityBundle/Resources/views/Admin/modifDetailsProperty.html.twig">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.48397976" vertical-offset="5167" max-vertical-offset="7308">
-              <caret line="303" column="60" selection-start-line="303" selection-start-column="60" selection-end-line="303" selection-end-column="60" />
+            <state vertical-scroll-proportion="0.24114671" vertical-offset="5923" max-vertical-offset="7308">
+              <caret line="337" column="115" selection-start-line="337" selection-start-column="115" selection-end-line="337" selection-end-column="115" />
               <folding>
                 <element signature="e#23227#23250#0#HTML" expanded="true" />
               </folding>
@@ -911,8 +910,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Reservable/ActivityBundle/Resources/views/Admin/modifDetailsProperty.html.twig">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.48397976" vertical-offset="5167" max-vertical-offset="7308">
-          <caret line="303" column="60" selection-start-line="303" selection-start-column="60" selection-end-line="303" selection-end-column="60" />
+        <state vertical-scroll-proportion="0.24114671" vertical-offset="5923" max-vertical-offset="7308">
+          <caret line="337" column="115" selection-start-line="337" selection-start-column="115" selection-end-line="337" selection-end-column="115" />
           <folding>
             <element signature="e#23227#23250#0#HTML" expanded="true" />
           </folding>
