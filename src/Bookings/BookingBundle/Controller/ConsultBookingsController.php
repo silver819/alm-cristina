@@ -606,6 +606,8 @@ echo "<br/>---------------------------------------------------------------------
 
         $return = array();
 
+        //$_POST['icalToUpdate'] = 3;
+
         if(isset($_POST['icalToUpdate']) && $_POST['icalToUpdate']){
             $data = $this->getDoctrine()
                 ->getRepository('ReservableActivityBundle:ActivityToIcal')
@@ -757,7 +759,6 @@ echo "<br/>---------------------------------------------------------------------
 
         // Limpiamos los eventos que tengamos guardados anteriormente para sincronizar
         $this->deleteBookingsFromIcalID($icalID);
-
         // Transformamos los eventos del ical en array
         $arrayEvents = $this->getEventsFromIcal($url);
 
@@ -766,7 +767,6 @@ echo "<br/>---------------------------------------------------------------------
 
         // Recorremos el array y hacemos las reservas de cada evento
         if (isset($arrayEvents['VEVENT']) && !empty($arrayEvents['VEVENT'])) {
-
 
             foreach ($arrayEvents['VEVENT'] as $event) {
 
@@ -813,7 +813,7 @@ echo "<br/>---------------------------------------------------------------------
                         $month = substr($currentDay, 4, 2);
                         $year = substr($currentDay, 0, 4);
 
-                        $currentDay = date('Ymd', mktime(0, 0, 0, $month, $day + 1, $year));
+                        $currentDay = date('Ymd', mktime(0, 0, 0, $month, $day + 1, $year)) . '00';
                     }
                 }
 
