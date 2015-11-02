@@ -156,6 +156,6 @@ class DefaultController extends Controller
             	->setBody($textClient);
         $this->get('mailer')->send($clientmsg);
 
-		return $this->render('BookingsBookingBundle:Default:bookingConfirmed.html.twig');
+		return $this->render('BookingsBookingBundle:Default:bookingConfirmed.html.twig', array('bookingID' => $thisBooking->getId()));
 	}
 }

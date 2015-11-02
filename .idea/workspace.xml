@@ -8,8 +8,7 @@
   <component name="ChangeListManager">
     <list default="true" id="0ca3c09d-9b70-4edd-bbfb-2d0f972bbd20" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Bookings/BookingBundle/Controller/DefaultController.php" afterPath="$PROJECT_DIR$/src/Bookings/BookingBundle/Controller/DefaultController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Bookings/BookingBundle/Resources/views/Default/book.html.twig" afterPath="$PROJECT_DIR$/src/Bookings/BookingBundle/Resources/views/Default/book.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Reservable/ActivityBundle/Resources/views/Search/displayResults.html.twig" afterPath="$PROJECT_DIR$/src/Reservable/ActivityBundle/Resources/views/Search/displayResults.html.twig" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Bookings/BookingBundle/Resources/views/Default/bookingConfirmed.html.twig" afterPath="$PROJECT_DIR$/src/Bookings/BookingBundle/Resources/views/Default/bookingConfirmed.html.twig" />
     </list>
     <ignored path="almacen.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -100,8 +99,8 @@
       <file leaf-file-name="book.html.twig" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Bookings/BookingBundle/Resources/views/Default/book.html.twig">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-5.3333335" vertical-offset="486" max-vertical-offset="1494">
-              <caret line="35" column="45" selection-start-line="35" selection-start-column="45" selection-end-line="35" selection-end-column="45" />
+            <state vertical-scroll-proportion="-11.925926" vertical-offset="902" max-vertical-offset="1494">
+              <caret line="68" column="0" selection-start-line="68" selection-start-column="0" selection-end-line="76" selection-end-column="14" />
               <folding>
                 <element signature="e#1949#1972#0#HTML" expanded="true" />
                 <element signature="e#3671#3690#0#HTML" expanded="true" />
@@ -110,21 +109,23 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="bookingConfirmed.html.twig" pinned="false" current-in-tab="false">
+      <file leaf-file-name="bookingConfirmed.html.twig" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Bookings/BookingBundle/Resources/views/Default/bookingConfirmed.html.twig">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-8.0" vertical-offset="0" max-vertical-offset="324">
-              <caret line="12" column="14" selection-start-line="12" selection-start-column="14" selection-end-line="12" selection-end-column="14" />
-              <folding />
+            <state vertical-scroll-proportion="0.6385135" vertical-offset="0" max-vertical-offset="792">
+              <caret line="21" column="102" selection-start-line="21" selection-start-column="102" selection-end-line="21" selection-end-column="102" />
+              <folding>
+                <element signature="e#778#816#0#HTML" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="DefaultController.php" pinned="false" current-in-tab="true">
+      <file leaf-file-name="DefaultController.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Bookings/BookingBundle/Controller/DefaultController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.4679054" vertical-offset="767" max-vertical-offset="2916">
-              <caret line="62" column="37" selection-start-line="62" selection-start-column="37" selection-end-line="62" selection-end-column="37" />
+            <state vertical-scroll-proportion="-16.666666" vertical-offset="2322" max-vertical-offset="2916">
+              <caret line="158" column="105" selection-start-line="158" selection-start-column="96" selection-end-line="158" selection-end-column="105" />
               <folding />
             </state>
           </provider>
@@ -149,7 +150,6 @@
         <option value="$PROJECT_DIR$/src/Reservable/ActivityBundle/Resources/views/Search/displayIndex.html.twig" />
         <option value="$PROJECT_DIR$/app/Resources/views/normal.html.twig" />
         <option value="$PROJECT_DIR$/app/Resources/FOSUserBundle/views/Security/login.html.twig" />
-        <option value="$PROJECT_DIR$/src/Bookings/BookingBundle/Resources/views/Default/bookingConfirmed.html.twig" />
         <option value="$PROJECT_DIR$/composer.json" />
         <option value="$PROJECT_DIR$/app/AppKernel.php" />
         <option value="$PROJECT_DIR$/src/Bookings/BookingBundle/Entity/DisponibilityBookingRepository.php" />
@@ -189,6 +189,7 @@
         <option value="$PROJECT_DIR$/src/Reservable/ActivityBundle/Resources/views/Search/displayResults.html.twig" />
         <option value="$PROJECT_DIR$/src/Bookings/BookingBundle/Resources/views/Default/book.html.twig" />
         <option value="$PROJECT_DIR$/src/Bookings/BookingBundle/Controller/DefaultController.php" />
+        <option value="$PROJECT_DIR$/src/Bookings/BookingBundle/Resources/views/Default/bookingConfirmed.html.twig" />
       </list>
     </option>
   </component>
@@ -850,6 +851,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-0.03171008" vertical-offset="28" max-vertical-offset="1800">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1035,8 +1037,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Bookings/BookingBundle/Resources/views/Default/book.html.twig">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-5.3333335" vertical-offset="486" max-vertical-offset="1494">
-          <caret line="35" column="45" selection-start-line="35" selection-start-column="45" selection-end-line="35" selection-end-column="45" />
+        <state vertical-scroll-proportion="-11.925926" vertical-offset="902" max-vertical-offset="1494">
+          <caret line="68" column="0" selection-start-line="68" selection-start-column="0" selection-end-line="76" selection-end-column="14" />
           <folding>
             <element signature="e#1949#1972#0#HTML" expanded="true" />
             <element signature="e#3671#3690#0#HTML" expanded="true" />
@@ -1044,19 +1046,21 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Bookings/BookingBundle/Resources/views/Default/bookingConfirmed.html.twig">
+    <entry file="file://$PROJECT_DIR$/src/Bookings/BookingBundle/Controller/DefaultController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-8.0" vertical-offset="0" max-vertical-offset="324">
-          <caret line="12" column="14" selection-start-line="12" selection-start-column="14" selection-end-line="12" selection-end-column="14" />
+        <state vertical-scroll-proportion="-16.666666" vertical-offset="2322" max-vertical-offset="2916">
+          <caret line="158" column="105" selection-start-line="158" selection-start-column="96" selection-end-line="158" selection-end-column="105" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Bookings/BookingBundle/Controller/DefaultController.php">
+    <entry file="file://$PROJECT_DIR$/src/Bookings/BookingBundle/Resources/views/Default/bookingConfirmed.html.twig">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.4679054" vertical-offset="767" max-vertical-offset="2916">
-          <caret line="62" column="37" selection-start-line="62" selection-start-column="37" selection-end-line="62" selection-end-column="37" />
-          <folding />
+        <state vertical-scroll-proportion="0.6385135" vertical-offset="0" max-vertical-offset="792">
+          <caret line="21" column="102" selection-start-line="21" selection-start-column="102" selection-end-line="21" selection-end-column="102" />
+          <folding>
+            <element signature="e#778#816#0#HTML" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

@@ -1,13 +1,39 @@
 {% extends '::base.html.twig' %}
 
 {% block results %}
+    <section class="content">
+        <section class="content-header">
+            <h2>{% trans %}Reserva gestionada{% endtrans %}</h2>
+        </section>
 
-	<h2>{% trans %}Reserva gestionada{% endtrans %}</h2>
-	<hr/>
+        <section class="content">
+            <div class="row">
+                <div class="col-md-2"></div>
+                <div class="col-md-8">
+                    <div class="box box-success">
+                        <div class="box-header with-border text-center">
+                            <h3>{% trans %}Su reserva ha sido gestionada correctamente{% endtrans %}</h3>
+                        </div><!-- /.box-header -->
+                        <div class="box-body">
+                            <div class="text-center">
+                                <span style="font-size: 2.5em;color: green;">{% trans %}Número de reserva{% endtrans %} {{ bookingID }}</span>
+                            </div>
+                            <br/>
+                            <p>{% trans %}En breve recibirá un email con toda la información necesaria. Recuerde que para poder disfrutar de esta instalación, el propietario se pondrá en contacto con usted lo antes posible.{% endtrans %}</p>
+                        </div><!-- /.box-body -->
+                        <div class="box-footer">
 
-	<div class="alert alert-success text-center">
-	<h4>{% trans %}Su reserva ha sido gestionada correctamente{% endtrans %}</h4>
-	<p>{% trans %}En breve recibirá un email con toda la información sobre ella. Recuerde que para poder disfrutar de esta instalación, el propietario se pondrá en contacto con usted lo antes posible.{% endtrans %}</p>
-	</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2"></div>
+            </div>
+        </section>
+    </section>
+
+
+
+
+
 
 {% endblock %}
