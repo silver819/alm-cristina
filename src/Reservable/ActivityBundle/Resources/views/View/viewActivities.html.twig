@@ -101,7 +101,20 @@
                                     <p><i class="fa fa-user" title="{% trans %}Propietario{% endtrans %}"></i>&nbsp;{{ allOwners[oneProperty.ownerID].email }}</p>
                                     <p><i class="fa fa-map-pin" title="{% trans %}Ciudad{% endtrans %}"></i>&nbsp;{{ cityNames[oneProperty.zone].name }}</p>
                                 {% endif %}
-                                <p><i class="fa fa-info" title="{% trans %}Modalidad{% endtrans %}"></i>&nbsp;{% if oneProperty.typeRent == 'hour' %}{% trans %}Modalidad por hora{% endtrans %}{% else %}{% trans %}Modalidad por día{% endtrans %}{% endif %}</p>
+                                <p>
+                                    <i class="fa fa-info" title="{% trans %}Modalidad{% endtrans %}"></i>&nbsp;{% if oneProperty.typeRent == 'hour' %}{% trans %}Modalidad por hora{% endtrans %}{% else %}{% trans %}Modalidad por día{% endtrans %}{% endif %}
+                                    <span>&nbsp;&nbsp;&nbsp;
+                                        {% if seasonsByProperty[oneProperty.id].date == 0 %}
+                                            <span style="color:red;"><i class="fa fa-exclamation"></i>&nbsp;{% trans %}Sin precios{% endtrans %}</span>
+                                        {% else %}
+                                            {% if oneProperty.typeRent == 'hour' %}
+                                                <span style="color:green;"><i class="fa fa-check"></i>&nbsp;{% trans %}Precios de{% endtrans %} {{ seasonsByProperty[oneProperty.id].start }} {% trans %}a{% endtrans %} {{ seasonsByProperty[oneProperty.id].end }}</span>
+                                            {% else %}
+                                                <span style="color:green;"><i class="fa fa-check"></i>&nbsp;{% trans %}Precios hasta{% endtrans %} {{ seasonsByProperty[oneProperty.id].twig }}</span>
+                                            {% endif %}
+                                        {% endif %}
+                                    </span>
+                                </p>
                                 <p><i class="fa fa-file-text" title="{% trans %}Descripción{% endtrans %}"></i>&nbsp;{{ oneProperty.description }}</p>
                             </span>
                         </div><!-- /.col -->

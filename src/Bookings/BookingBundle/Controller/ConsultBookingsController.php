@@ -768,6 +768,8 @@ echo "<br/>---------------------------------------------------------------------
         // Recorremos el array y hacemos las reservas de cada evento
         if (isset($arrayEvents['VEVENT']) && !empty($arrayEvents['VEVENT'])) {
 
+            $today = date('Ymd');
+
             foreach ($arrayEvents['VEVENT'] as $event) {
 
                 $dateStartYear = substr($event['DTSTART'], 0, 4);
@@ -777,99 +779,100 @@ echo "<br/>---------------------------------------------------------------------
                 $dateEndMonth = substr($event['DTEND'], 4, 2);
                 $dateEndDay = substr($event['DTEND'], 6, 2);
 
-                if($activity->getTypeRent()=='hour'){
-                    $dateStartHour = (int)substr($event['DTSTART'], 9, 2) + 1;
-                    $dateEndHour = (int)substr($event['DTEND'], 9, 2) + 1;
-                }
-                else{
-                    $dateStartHour = '00';
-                    $dateEndHour = '00';
-                }
+                if($today < (int)$dateEndYear.$dateEndMonth.$dateEndDay) {
 
-                $dateStart = (int)($dateStartYear . $dateStartMonth . $dateStartDay . $dateStartHour);
-                $dateEnd = (int)($dateEndYear . $dateEndMonth . $dateEndDay . $dateEndHour);
-
-                $arrayDays = array();
-                $currentDay = $dateStart;
-                if($activity->getTypeRent()=='hour') {
-                    // Horas entre el inicio y el final del evento
-                    while ($currentDay < $dateEnd) {
-                        $arrayDays[] = (int)$currentDay;
-
-                        $day = substr($currentDay, 6, 2);
-                        $month = substr($currentDay, 4, 2);
-                        $year = substr($currentDay, 0, 4);
-                        $hour = substr($currentDay, 8, 2);
-
-                        $currentDay = date('YmdH', mktime($hour + 1, 0, 0, $month, $day, $year));
+                    if ($activity->getTypeRent() == 'hour') {
+                        $dateStartHour = (int)substr($event['DTSTART'], 9, 2) + 1;
+                        $dateEndHour = (int)substr($event['DTEND'], 9, 2) + 1;
+                    } else {
+                        $dateStartHour = '00';
+                        $dateEndHour = '00';
                     }
-                }
-                else{
-                    // Dias entre el inicio y el final del evento
-                    while ($currentDay < $dateEnd) {
-                        $arrayDays[] = (int)$currentDay;
 
-                        $day = substr($currentDay, 6, 2);
-                        $month = substr($currentDay, 4, 2);
-                        $year = substr($currentDay, 0, 4);
+                    $dateStart = (int)($dateStartYear . $dateStartMonth . $dateStartDay . $dateStartHour);
+                    $dateEnd = (int)($dateEndYear . $dateEndMonth . $dateEndDay . $dateEndHour);
 
-                        $currentDay = date('Ymd', mktime(0, 0, 0, $month, $day + 1, $year)) . '00';
+                    $arrayDays = array();
+                    $currentDay = $dateStart;
+                    if ($activity->getTypeRent() == 'hour') {
+                        // Horas entre el inicio y el final del evento
+                        while ($currentDay < $dateEnd) {
+                            $arrayDays[] = (int)$currentDay;
+
+                            $day = substr($currentDay, 6, 2);
+                            $month = substr($currentDay, 4, 2);
+                            $year = substr($currentDay, 0, 4);
+                            $hour = substr($currentDay, 8, 2);
+
+                            $currentDay = date('YmdH', mktime($hour + 1, 0, 0, $month, $day, $year));
+                        }
+                    } else {
+                        // Dias entre el inicio y el final del evento
+                        while ($currentDay < $dateEnd) {
+                            $arrayDays[] = (int)$currentDay;
+
+                            $day = substr($currentDay, 6, 2);
+                            $month = substr($currentDay, 4, 2);
+                            $year = substr($currentDay, 0, 4);
+
+                            $currentDay = date('Ymd', mktime(0, 0, 0, $month, $day + 1, $year)) . '00';
+                        }
                     }
-                }
 
-                if(!empty($arrayDays)) {
+                    if (!empty($arrayDays)) {
 
-                    // Comprobamos disponibilidad
-                    $daysOcuppated = $this->getDoctrine()->getManager()
-                        ->createQuery('SELECT d.date, d.bookingID, b.id as propertyID
+                        // Comprobamos disponibilidad
+                        $daysOcuppated = $this->getDoctrine()->getManager()
+                            ->createQuery('SELECT d.date, d.bookingID, b.id as propertyID
                                    FROM BookingsBookingBundle:Booking b
                                    INNER JOIN BookingsBookingBundle:DisponibilityBooking d
                                    WHERE b.id = d.bookingID AND b.activityID = ' . $propID . ' AND d.date IN (' . implode(',', $arrayDays) . ')')
-                        ->getResult();
+                            ->getResult();
 
-                    if (empty($daysOcuppated)) {
-                        // Si hay disponibilidad, hacemos la reserva
-                        $thisBooking = new Booking();
-                        $thisBooking->setActivityID($propID)
-                            ->setClientID($this->get('security.context')->getToken()->getUser()->getId())
-                            ->setStartDate((string)($dateStart))
-                            ->setEndDate((string)($dateEnd))
-                            ->setPrice(-1)
-                            ->setStatus(0)
-                            ->setOwnerBooking(1)
-                            ->setOwnerConfirm(1)
-                            ->setFromIcalID($icalID);
+                        if (empty($daysOcuppated)) {
+                            // Si hay disponibilidad, hacemos la reserva
+                            $thisBooking = new Booking();
+                            $thisBooking->setActivityID($propID)
+                                ->setClientID($this->get('security.context')->getToken()->getUser()->getId())
+                                ->setStartDate((string)($dateStart))
+                                ->setEndDate((string)($dateEnd))
+                                ->setPrice(-1)
+                                ->setStatus(0)
+                                ->setOwnerBooking(1)
+                                ->setOwnerConfirm(1)
+                                ->setFromIcalID($icalID);
 
 
-                        $em->persist($thisBooking);
-                        $em->flush();
+                            $em->persist($thisBooking);
+                            $em->flush();
 
-                        foreach ($arrayDays as $oneDay) {
+                            foreach ($arrayDays as $oneDay) {
 
-                            $oneItem = new DisponibilityBooking();
-                            $oneItem->setBookingID($thisBooking->getId());
-                            $oneItem->setDate($oneDay);
+                                $oneItem = new DisponibilityBooking();
+                                $oneItem->setBookingID($thisBooking->getId());
+                                $oneItem->setDate($oneDay);
 
-                            $em->persist($oneItem);
-                        }
+                                $em->persist($oneItem);
+                            }
 
-                        $return['Done'][] = array('dateStart' => $dateStart, 'dateEnd' => $dateEnd);
+                            $return['Done'][] = array('dateStart' => $dateStart, 'dateEnd' => $dateEnd);
 
-                    } else {
-                        // Si no hay disponibilidad, comprobamos que sea un bloqueo de portal
-                        $arrayCoincidences = array();
-                        foreach ($daysOcuppated as $dayOcuppated) {
-                            $arrayCoincidences[$dayOcuppated['bookingID']] = 1;
-                        }
+                        } else {
+                            // Si no hay disponibilidad, comprobamos que sea un bloqueo de portal
+                            $arrayCoincidences = array();
+                            foreach ($daysOcuppated as $dayOcuppated) {
+                                $arrayCoincidences[$dayOcuppated['bookingID']] = 1;
+                            }
 
-                        foreach ($arrayCoincidences as $coincidence) {
+                            foreach ($arrayCoincidences as $coincidence) {
 
-                            $isIcalSync = $this->getDoctrine()->getRepository('BookingsBookingBundle:Booking')->isIcalSync($coincidence);
+                                $isIcalSync = $this->getDoctrine()->getRepository('BookingsBookingBundle:Booking')->isIcalSync($coincidence);
 
-                            if ($isIcalSync) {
-                                $return['AlreadySynced'][] = array('dateStart' => $dateStart, 'dateEnd' => $dateEnd, 'coincidences' => $coincidence);
-                            } else {
-                                $return['Error'][] = array('dateStart' => $dateStart, 'dateEnd' => $dateEnd, 'coincidences' => $coincidence);
+                                if ($isIcalSync) {
+                                    $return['AlreadySynced'][] = array('dateStart' => $dateStart, 'dateEnd' => $dateEnd, 'coincidences' => $coincidence);
+                                } else {
+                                    $return['Error'][] = array('dateStart' => $dateStart, 'dateEnd' => $dateEnd, 'coincidences' => $coincidence);
+                                }
                             }
                         }
                     }

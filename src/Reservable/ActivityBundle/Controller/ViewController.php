@@ -65,6 +65,7 @@ class ViewController extends Controller
 			}
 		}
 
+        // Ciudades
         $cities = $this->getDoctrine()->getRepository("ReservableActivityBundle:Zone")->findBy(array("type" => 5));
         $cityNames = array();
         foreach($cities as $city){
@@ -72,8 +73,47 @@ class ViewController extends Controller
             $cityNames[$city->getId()]['id'] = $city->getId();
         }
 
+        // Temporadas
+        $seasons = array();
+        $today = date('Ymd');
+        foreach($properties as $property){
+
+            $seasons[$property->getId()] = array('date' => 0, 'start' => 22, 'end' => 0);
+
+            $seasonsProperty = $this->getDoctrine()->getRepository('ReservableActivityBundle:Seasons')->findBy(array('activityID' => $property->getId()));
+
+            if(empty($seasonsProperty)){
+                continue;
+            }
+
+            if($property->getTypeRent() == 'hour'){
+
+                foreach($seasonsProperty as $season){
+
+                    $seasons[$property->getId()]['date'] = 1;
+
+                    if((int)$season->getStartSeason() < (int)$seasons[$property->getId()]['start']){
+                        $seasons[$property->getId()]['start'] = $season->getStartSeason();
+                    }
+                    if((int)$season->getEndSeason() > (int)$seasons[$property->getId()]['end']){
+                        $seasons[$property->getId()]['end'] = $season->getEndSeason();
+                    }
+                }
+            }
+            else{
+
+                foreach($seasonsProperty as $season){
+
+                    if((int)$season->getEndSeason() > $today && $seasons[$property->getId()]['date'] < $season->getEndSeason()){
+                        $seasons[$property->getId()] = array('date' => $season->getEndSeason(), 'twig' => substr($season->getEndSeason(), 6,2) . '/' . substr($season->getEndSeason(), 4,2) . '/' . substr($season->getEndSeason(), 0,4));
+                    }
+
+                }
+            }
+        }
+
 		return $this->render('ReservableActivityBundle:View:viewActivities.html.twig', 
-			array('properties' => $properties, 'pictures' => $arrayPictures, 'allOwners' => $allOwners, 'cityNames' => $cityNames));
+			array('properties' => $properties, 'pictures' => $arrayPictures, 'allOwners' => $allOwners, 'cityNames' => $cityNames, 'seasonsByProperty' => $seasons));
 
     }
 
