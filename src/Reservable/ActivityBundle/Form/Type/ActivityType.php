@@ -13,8 +13,6 @@ class ActivityType extends AbstractType
 	{
 		$builder->add('name', 			'text', 		['label' 		=> 'registerActivity.labels.name']);
 
-        $builder->add('price', 			'money', 		['label' 		=> 'registerActivity.labels.price']);
-
         $builder->add('typeRent', 		'choice', 		['label' 		=> 'registerActivity.labels.type',
         									 			 'choices' 		=> array('hour'	=> 'registerActivity.labels.hour', 
         									 			 					     'day' 	=> 'registerActivity.labels.day')]);

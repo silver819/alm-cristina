@@ -92,7 +92,6 @@ class RegistrationController extends Controller
             $mensaje = new \Swift_Message();
             $text = '<h1>Nueva actividad registrada</h1><br/><br/>';
             $text .= '<strong>Nombre</strong>: ' . $property->getName();
-            $text .= '<br/><strong>Precio</strong>: ' . $property->getPrice() . ' €';
             $text .= '<br/><br/><p><a href="http://almacen.dev/app_dev.php/view-instalations">Click aquí para ver sus instalaciones</a></p>';
             $userEmail = $this->get('security.context')->getToken()->getUser()->getEmail();;
             $mensaje->setContentType ('text/html')

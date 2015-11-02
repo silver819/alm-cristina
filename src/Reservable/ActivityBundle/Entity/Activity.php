@@ -37,13 +37,6 @@ class Activity
     private $zone;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="price", type="decimal")
-     */
-    private $price;
-
-    /**
      * @var integer
      *
      * @ORM\Column(name="ownerID", type="integer")
@@ -156,29 +149,6 @@ class Activity
     public function getZone()
     {
         return $this->zone;
-    }
-
-    /**
-     * Set price
-     *
-     * @param string $price
-     * @return Activity
-     */
-    public function setPrice($price)
-    {
-        $this->price = $price;
-    
-        return $this;
-    }
-
-    /**
-     * Get price
-     *
-     * @return string 
-     */
-    public function getPrice()
-    {
-        return $this->price;
     }
 
     /**

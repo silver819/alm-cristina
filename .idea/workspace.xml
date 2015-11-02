@@ -7,10 +7,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0ca3c09d-9b70-4edd-bbfb-2d0f972bbd20" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Bookings/BookingBundle/Controller/ConsultBookingsController.php" afterPath="$PROJECT_DIR$/src/Bookings/BookingBundle/Controller/ConsultBookingsController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Reservable/ActivityBundle/Controller/ViewController.php" afterPath="$PROJECT_DIR$/src/Reservable/ActivityBundle/Controller/ViewController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Reservable/ActivityBundle/Resources/views/View/viewActivities.html.twig" afterPath="$PROJECT_DIR$/src/Reservable/ActivityBundle/Resources/views/View/viewActivities.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Reservable/ActivityBundle/Entity/Activity.php" afterPath="$PROJECT_DIR$/src/Reservable/ActivityBundle/Entity/Activity.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Reservable/ActivityBundle/Form/Type/ActivityType.php" afterPath="$PROJECT_DIR$/src/Reservable/ActivityBundle/Form/Type/ActivityType.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Reservable/ActivityBundle/Controller/RegistrationController.php" afterPath="$PROJECT_DIR$/src/Reservable/ActivityBundle/Controller/RegistrationController.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Reservable/ActivityBundle/Resources/views/Registration/registerActivity.html.twig" afterPath="$PROJECT_DIR$/src/Reservable/ActivityBundle/Resources/views/Registration/registerActivity.html.twig" />
     </list>
     <ignored path="almacen.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -88,14 +88,56 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ViewController.php" pinned="false" current-in-tab="true">
+      <file leaf-file-name="ViewController.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Reservable/ActivityBundle/Controller/ViewController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.5962838" vertical-offset="1249" max-vertical-offset="4770">
-              <caret line="92" column="61" selection-start-line="92" selection-start-column="61" selection-end-line="92" selection-end-column="61" />
+            <state vertical-scroll-proportion="-9.740741" vertical-offset="1249" max-vertical-offset="4770">
+              <caret line="87" column="0" selection-start-line="87" selection-start-column="0" selection-end-line="87" selection-end-column="0" />
               <folding>
                 <marker date="1446454705120" expanded="true" signature="761:942" placeholder="SELECT u.ema..ReservableActivityBundle..." />
                 <marker date="1446454705120" expanded="true" signature="8228:8468" placeholder="SELECT f.id,..ReservableActivityBundle..." />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Activity.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Reservable/ActivityBundle/Entity/Activity.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-3.490909" vertical-offset="186" max-vertical-offset="5904">
+              <caret line="22" column="7" selection-start-line="22" selection-start-column="4" selection-end-line="22" selection-end-column="7" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ActivityType.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Reservable/ActivityBundle/Form/Type/ActivityType.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-4.0740743" vertical-offset="106" max-vertical-offset="1026">
+              <caret line="15" column="0" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="registerActivity.html.twig" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Reservable/ActivityBundle/Resources/views/Registration/registerActivity.html.twig">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-11.333333" vertical-offset="1908" max-vertical-offset="3150">
+              <caret line="123" column="0" selection-start-line="123" selection-start-column="0" selection-end-line="123" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="RegistrationController.php" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/Reservable/ActivityBundle/Controller/RegistrationController.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.74380165" vertical-offset="1170" max-vertical-offset="3078">
+              <caret line="94" column="0" selection-start-line="94" selection-start-column="0" selection-end-line="94" selection-end-column="0" />
+              <folding>
+                <marker date="1446454912925" expanded="true" signature="5540:5780" placeholder="SELECT f.id,..ReservableActivityBundle..." />
               </folding>
             </state>
           </provider>
@@ -165,17 +207,13 @@
         <option value="$PROJECT_DIR$/src/Reservable/ActivityBundle/Entity/ActivityToIcalRepository.php" />
         <option value="$PROJECT_DIR$/vendor/avanzu/admin-theme-bundle/Resources/views/layout/login-layout.html.twig" />
         <option value="$PROJECT_DIR$/vendor/avanzu/admin-theme-bundle/Resources/views/layout/base-layout.html.twig" />
-        <option value="$PROJECT_DIR$/src/Reservable/ActivityBundle/Entity/Activity.php" />
         <option value="$PROJECT_DIR$/src/Reservable/ActivityBundle/Resources/views/Registration/adminFeatures.html.twig" />
         <option value="$PROJECT_DIR$/src/Reservable/ActivityBundle/Resources/config/routing.yml" />
         <option value="$PROJECT_DIR$/src/Reservable/ActivityBundle/Resources/views/Zone/adminZone.html.twig" />
         <option value="$PROJECT_DIR$/src/Admin/AdminBundle/EventListener/SidebarNavigation.php" />
         <option value="$PROJECT_DIR$/src/Reservable/ActivityBundle/Resources/translations/messages.es.yml" />
         <option value="$PROJECT_DIR$/src/Reservable/ActivityBundle/Resources/translations/messages.en.yml" />
-        <option value="$PROJECT_DIR$/src/Reservable/ActivityBundle/Form/Type/ActivityType.php" />
-        <option value="$PROJECT_DIR$/src/Reservable/ActivityBundle/Resources/views/Registration/registerActivity.html.twig" />
         <option value="$PROJECT_DIR$/src/Reservable/ActivityBundle/Resources/views/Registration/registrationSuccess.html.twig" />
-        <option value="$PROJECT_DIR$/src/Reservable/ActivityBundle/Controller/RegistrationController.php" />
         <option value="$PROJECT_DIR$/src/Reservable/ActivityBundle/Controller/DefaultController.php" />
         <option value="$PROJECT_DIR$/src/Bookings/BookingBundle/Resources/views/Consult/see-bookings.html.twig" />
         <option value="$PROJECT_DIR$/src/Bookings/BookingBundle/Entity/Booking.php" />
@@ -194,6 +232,10 @@
         <option value="$PROJECT_DIR$/src/Reservable/ActivityBundle/Controller/AdminController.php" />
         <option value="$PROJECT_DIR$/src/Reservable/ActivityBundle/Resources/views/View/viewActivities.html.twig" />
         <option value="$PROJECT_DIR$/src/Reservable/ActivityBundle/Controller/ViewController.php" />
+        <option value="$PROJECT_DIR$/src/Reservable/ActivityBundle/Entity/Activity.php" />
+        <option value="$PROJECT_DIR$/src/Reservable/ActivityBundle/Form/Type/ActivityType.php" />
+        <option value="$PROJECT_DIR$/src/Reservable/ActivityBundle/Resources/views/Registration/registerActivity.html.twig" />
+        <option value="$PROJECT_DIR$/src/Reservable/ActivityBundle/Controller/RegistrationController.php" />
       </list>
     </option>
   </component>
@@ -345,7 +387,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="View" />
+              <option name="myItemId" value="Registration" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -374,12 +416,34 @@
               <option name="myItemId" value="Resources" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
+          </PATH>
+          <PATH>
             <PATH_ELEMENT>
-              <option name="myItemId" value="views" />
+              <option name="myItemId" value="almacen" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="almacen" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="Admin" />
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Reservable" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ActivityBundle" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Form" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Type" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -405,7 +469,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="Resources" />
+              <option name="myItemId" value="Controller" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -626,13 +690,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Reservable/ActivityBundle/Form/Type/ActivityType.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-28.407408" vertical-offset="0" max-vertical-offset="0">
-          <caret line="48" column="72" selection-start-line="48" selection-start-column="72" selection-end-line="48" selection-end-column="72" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Reservable/ActivityBundle/Resources/views/Registration/registrationSuccess.html.twig">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.21734358" vertical-offset="0" max-vertical-offset="0">
@@ -654,24 +711,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Reservable/ActivityBundle/Controller/RegistrationController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-44.0" vertical-offset="0" max-vertical-offset="0">
-          <caret line="70" column="32" selection-start-line="70" selection-start-column="32" selection-end-line="70" selection-end-column="32" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Reservable/ActivityBundle/Controller/DefaultController.php">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-6.2181816" vertical-offset="0" max-vertical-offset="0">
           <caret line="20" column="0" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Reservable/ActivityBundle/Resources/views/Registration/registerActivity.html.twig">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-1.3333334" vertical-offset="0" max-vertical-offset="0">
-          <caret line="2" column="0" selection-start-line="2" selection-start-column="0" selection-end-line="4" selection-end-column="14" />
         </state>
       </provider>
     </entry>
@@ -756,14 +799,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-20.0" vertical-offset="648" max-vertical-offset="2124">
           <caret line="66" column="19" selection-start-line="66" selection-start-column="19" selection-end-line="66" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Reservable/ActivityBundle/Entity/Activity.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-5.3454547" vertical-offset="426" max-vertical-offset="6444">
-          <caret line="41" column="30" selection-start-line="41" selection-start-column="25" selection-end-line="41" selection-end-column="30" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -910,11 +945,45 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Reservable/ActivityBundle/Controller/ViewController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.5962838" vertical-offset="1249" max-vertical-offset="4770">
-          <caret line="92" column="61" selection-start-line="92" selection-start-column="61" selection-end-line="92" selection-end-column="61" />
+        <state vertical-scroll-proportion="-9.740741" vertical-offset="1249" max-vertical-offset="4770">
+          <caret line="87" column="0" selection-start-line="87" selection-start-column="0" selection-end-line="87" selection-end-column="0" />
           <folding>
             <marker date="1446454705120" expanded="true" signature="761:942" placeholder="SELECT u.ema..ReservableActivityBundle..." />
             <marker date="1446454705120" expanded="true" signature="8228:8468" placeholder="SELECT f.id,..ReservableActivityBundle..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Reservable/ActivityBundle/Entity/Activity.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-3.490909" vertical-offset="186" max-vertical-offset="5904">
+          <caret line="22" column="7" selection-start-line="22" selection-start-column="4" selection-end-line="22" selection-end-column="7" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Reservable/ActivityBundle/Form/Type/ActivityType.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-4.0740743" vertical-offset="106" max-vertical-offset="1026">
+          <caret line="15" column="0" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Reservable/ActivityBundle/Resources/views/Registration/registerActivity.html.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-11.333333" vertical-offset="1908" max-vertical-offset="3150">
+          <caret line="123" column="0" selection-start-line="123" selection-start-column="0" selection-end-line="123" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Reservable/ActivityBundle/Controller/RegistrationController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.74380165" vertical-offset="1170" max-vertical-offset="3078">
+          <caret line="94" column="0" selection-start-line="94" selection-start-column="0" selection-end-line="94" selection-end-column="0" />
+          <folding>
+            <marker date="1446454912925" expanded="true" signature="5540:5780" placeholder="SELECT f.id,..ReservableActivityBundle..." />
           </folding>
         </state>
       </provider>
