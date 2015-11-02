@@ -7,8 +7,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0ca3c09d-9b70-4edd-bbfb-2d0f972bbd20" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Reservable/ActivityBundle/Resources/views/View/viewActivities.html.twig" afterPath="$PROJECT_DIR$/src/Reservable/ActivityBundle/Resources/views/View/viewActivities.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Bookings/BookingBundle/Controller/DefaultController.php" afterPath="$PROJECT_DIR$/src/Bookings/BookingBundle/Controller/DefaultController.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Bookings/BookingBundle/Resources/views/Default/book.html.twig" afterPath="$PROJECT_DIR$/src/Bookings/BookingBundle/Resources/views/Default/book.html.twig" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Reservable/ActivityBundle/Resources/views/Search/displayResults.html.twig" afterPath="$PROJECT_DIR$/src/Reservable/ActivityBundle/Resources/views/Search/displayResults.html.twig" />
     </list>
     <ignored path="almacen.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -86,48 +87,44 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ViewController.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Reservable/ActivityBundle/Controller/ViewController.php">
+      <file leaf-file-name="displayResults.html.twig" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Reservable/ActivityBundle/Resources/views/Search/displayResults.html.twig">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-3.418182" vertical-offset="1342" max-vertical-offset="4770">
-              <caret line="88" column="37" selection-start-line="88" selection-start-column="29" selection-end-line="88" selection-end-column="37" />
-              <folding>
-                <marker date="1446454705120" expanded="true" signature="761:942" placeholder="SELECT u.ema..ReservableActivityBundle..." />
-                <marker date="1446454705120" expanded="true" signature="8228:8468" placeholder="SELECT f.id,..ReservableActivityBundle..." />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="adminDetailsProperty.html.twig" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Reservable/ActivityBundle/Resources/views/Admin/adminDetailsProperty.html.twig">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-108.0" vertical-offset="0" max-vertical-offset="4572">
-              <caret line="162" column="49" selection-start-line="162" selection-start-column="49" selection-end-line="162" selection-end-column="49" />
+            <state vertical-scroll-proportion="-3.7454545" vertical-offset="1630" max-vertical-offset="2268">
+              <caret line="102" column="109" selection-start-line="102" selection-start-column="109" selection-end-line="102" selection-end-column="109" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="viewActivities.html.twig" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/Reservable/ActivityBundle/Resources/views/View/viewActivities.html.twig">
+      <file leaf-file-name="book.html.twig" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Bookings/BookingBundle/Resources/views/Default/book.html.twig">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.36524823" vertical-offset="4888" max-vertical-offset="5526">
-              <caret line="283" column="0" selection-start-line="283" selection-start-column="0" selection-end-line="283" selection-end-column="0" />
+            <state vertical-scroll-proportion="-5.3333335" vertical-offset="486" max-vertical-offset="1494">
+              <caret line="35" column="45" selection-start-line="35" selection-start-column="45" selection-end-line="35" selection-end-column="45" />
               <folding>
-                <element signature="e#6984#7002#0#HTML" expanded="true" />
-                <element signature="e#7275#7295#0#HTML" expanded="true" />
-                <element signature="e#7598#7618#0#HTML" expanded="true" />
+                <element signature="e#1949#1972#0#HTML" expanded="true" />
+                <element signature="e#3671#3690#0#HTML" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="modifDetailsProperty.html.twig" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Reservable/ActivityBundle/Resources/views/Admin/modifDetailsProperty.html.twig">
+      <file leaf-file-name="bookingConfirmed.html.twig" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Bookings/BookingBundle/Resources/views/Default/bookingConfirmed.html.twig">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-47.296295" vertical-offset="4789" max-vertical-offset="7308">
-              <caret line="337" column="115" selection-start-line="337" selection-start-column="115" selection-end-line="337" selection-end-column="115" />
+            <state vertical-scroll-proportion="-8.0" vertical-offset="0" max-vertical-offset="324">
+              <caret line="12" column="14" selection-start-line="12" selection-start-column="14" selection-end-line="12" selection-end-column="14" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="DefaultController.php" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/Bookings/BookingBundle/Controller/DefaultController.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.4679054" vertical-offset="767" max-vertical-offset="2916">
+              <caret line="62" column="37" selection-start-line="62" selection-start-column="37" selection-end-line="62" selection-end-column="37" />
               <folding />
             </state>
           </provider>
@@ -141,7 +138,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/Reservable/ActivityBundle/Entity/TypeActivity.php" />
         <option value="$PROJECT_DIR$/src/Reservable/ActivityBundle/Resources/views/Registration/newFeatureForm.html.twig" />
         <option value="$PROJECT_DIR$/src/Reservable/ActivityBundle/Entity/TypeActivityRepository.php" />
         <option value="$PROJECT_DIR$/src/Reservable/ActivityBundle/Resources/views/Registration/adminTypes.html.twig" />
@@ -153,7 +149,6 @@
         <option value="$PROJECT_DIR$/src/Reservable/ActivityBundle/Resources/views/Search/displayIndex.html.twig" />
         <option value="$PROJECT_DIR$/app/Resources/views/normal.html.twig" />
         <option value="$PROJECT_DIR$/app/Resources/FOSUserBundle/views/Security/login.html.twig" />
-        <option value="$PROJECT_DIR$/src/Bookings/BookingBundle/Resources/views/Default/book.html.twig" />
         <option value="$PROJECT_DIR$/src/Bookings/BookingBundle/Resources/views/Default/bookingConfirmed.html.twig" />
         <option value="$PROJECT_DIR$/composer.json" />
         <option value="$PROJECT_DIR$/app/AppKernel.php" />
@@ -182,7 +177,6 @@
         <option value="$PROJECT_DIR$/src/Reservable/ActivityBundle/Resources/views/Admin/modifDetailsProperty.html.twig" />
         <option value="$PROJECT_DIR$/web/css/main.css" />
         <option value="$PROJECT_DIR$/src/Reservable/ActivityBundle/Controller/SearcherController.php" />
-        <option value="$PROJECT_DIR$/src/Reservable/ActivityBundle/Resources/views/Search/displayResults.html.twig" />
         <option value="$PROJECT_DIR$/src/Reservable/ActivityBundle/Resources/views/Admin/adminDetailsProperty.html.twig" />
         <option value="$PROJECT_DIR$/src/Bookings/BookingBundle/Controller/ConsultBookingsController.php" />
         <option value="$PROJECT_DIR$/src/Reservable/ActivityBundle/Controller/AdminController.php" />
@@ -192,6 +186,9 @@
         <option value="$PROJECT_DIR$/src/Reservable/ActivityBundle/Resources/views/Registration/registerActivity.html.twig" />
         <option value="$PROJECT_DIR$/src/Reservable/ActivityBundle/Controller/RegistrationController.php" />
         <option value="$PROJECT_DIR$/src/Reservable/ActivityBundle/Resources/views/View/viewActivities.html.twig" />
+        <option value="$PROJECT_DIR$/src/Reservable/ActivityBundle/Resources/views/Search/displayResults.html.twig" />
+        <option value="$PROJECT_DIR$/src/Bookings/BookingBundle/Resources/views/Default/book.html.twig" />
+        <option value="$PROJECT_DIR$/src/Bookings/BookingBundle/Controller/DefaultController.php" />
       </list>
     </option>
   </component>
@@ -429,6 +426,118 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="almacen" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="almacen" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Bookings" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="BookingBundle" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="almacen" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="almacen" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Bookings" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="BookingBundle" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Resources" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="views" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Default" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="almacen" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="almacen" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Bookings" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="BookingBundle" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Resources" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="views" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="almacen" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="almacen" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Bookings" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="BookingBundle" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Resources" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
         </subPane>
       </pane>
       <pane id="Scope" />
@@ -534,20 +643,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/AppKernel.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.5914567" vertical-offset="0" max-vertical-offset="0">
-          <caret line="31" column="49" selection-start-line="31" selection-start-column="49" selection-end-line="31" selection-end-column="49" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/composer.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.6308872" vertical-offset="0" max-vertical-offset="0">
-          <caret line="62" column="8" selection-start-line="62" selection-start-column="8" selection-end-line="62" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Bookings/BookingBundle/Entity/BookingRepository.php">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-10.472727" vertical-offset="0" max-vertical-offset="0">
@@ -573,13 +668,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="0">
           <caret line="24" column="0" selection-start-line="24" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Bookings/BookingBundle/Controller/DefaultController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="0">
-          <caret line="71" column="0" selection-start-line="71" selection-start-column="0" selection-end-line="71" selection-end-column="0" />
         </state>
       </provider>
     </entry>
@@ -779,13 +867,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Reservable/ActivityBundle/Resources/views/Search/displayResults.html.twig">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-1.7454545" vertical-offset="1380" max-vertical-offset="2250">
-          <caret line="82" column="11" selection-start-line="82" selection-start-column="11" selection-end-line="82" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Reservable/ActivityBundle/Resources/views/View/detailsProperty.html.twig">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1764">
@@ -848,45 +929,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Reservable/ActivityBundle/Resources/views/Admin/adminDetailsProperty.html.twig">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-108.0" vertical-offset="0" max-vertical-offset="4572">
-          <caret line="162" column="49" selection-start-line="162" selection-start-column="49" selection-end-line="162" selection-end-column="49" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Reservable/ActivityBundle/Controller/AdminController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-12.62963" vertical-offset="6607" max-vertical-offset="14328">
-          <caret line="396" column="0" selection-start-line="396" selection-start-column="0" selection-end-line="396" selection-end-column="0" />
-          <folding>
-            <marker date="1446452427109" expanded="true" signature="4529:4769" placeholder="SELECT f.id,..ReservableActivityBundle..." />
-            <marker date="1446452427109" expanded="true" signature="5227:5451" placeholder="SELECT s.sta..ReservableActivityBundle..." />
-            <marker date="1446452427109" expanded="true" signature="6101:6260" placeholder="SELECT s.sta..ReservableActivityBundle..." />
-            <marker date="1446452427109" expanded="true" signature="6650:7065" placeholder="UPDATE Reser..." />
-            <marker date="1446452427109" expanded="true" signature="7355:7424" placeholder="DELETE FROM ..." />
-            <marker date="1446452427109" expanded="true" signature="8611:8730" placeholder="DELETE FROM ..." />
-            <marker date="1446452427109" expanded="true" signature="9187:9308" placeholder="DELETE FROM ..." />
-            <marker date="1446452427109" expanded="true" signature="11477:11633" placeholder="UPDATE Reser..." />
-            <marker date="1446452427109" expanded="true" signature="12535:12691" placeholder="UPDATE Reser..." />
-            <marker date="1446452427109" expanded="true" signature="14238:14418" placeholder="SELECT u.ema..ReservableActivityBundle..." />
-            <marker date="1446452427109" expanded="true" signature="16394:16697" placeholder="SELECT r.com..RagingsRatingBundle..." />
-            <marker date="1446452427109" expanded="true" signature="16913:17294" placeholder="SELECT r.ubi..RagingsRatingBundle..." />
-            <marker date="1446452427109" expanded="true" signature="24295:24445" placeholder="DELETE FROM ..." />
-            <marker date="1446452427109" expanded="true" signature="25066:25242" placeholder="SELECT ttf.t..ReservableActivityBundle..." />
-            <marker date="1446452427109" expanded="true" signature="26305:26410" placeholder="DELETE FROM ..." />
-            <marker date="1446452427109" expanded="true" signature="26574:26681" placeholder="DELETE FROM ..." />
-            <marker date="1446452427109" expanded="true" signature="26845:26945" placeholder="DELETE FROM ..." />
-            <marker date="1446452427109" expanded="true" signature="27390:27733" placeholder="UPDATE Reser..." />
-            <marker date="1446452427109" expanded="true" signature="29185:29293" placeholder="DELETE FROM ..." />
-            <marker date="1446452427109" expanded="true" signature="29457:29569" placeholder="DELETE FROM ..." />
-            <marker date="1446452427109" expanded="true" signature="29733:29829" placeholder="DELETE FROM ..." />
-            <marker date="1446452427109" expanded="true" signature="30926:31118" placeholder="UPDATE Reser..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Reservable/ActivityBundle/Controller/RegistrationController.php">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.74380165" vertical-offset="1170" max-vertical-offset="3078">
@@ -921,17 +963,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Reservable/ActivityBundle/Controller/ViewController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-3.418182" vertical-offset="1342" max-vertical-offset="4770">
-          <caret line="88" column="37" selection-start-line="88" selection-start-column="29" selection-end-line="88" selection-end-column="37" />
-          <folding>
-            <marker date="1446454705120" expanded="true" signature="761:942" placeholder="SELECT u.ema..ReservableActivityBundle..." />
-            <marker date="1446454705120" expanded="true" signature="8228:8468" placeholder="SELECT f.id,..ReservableActivityBundle..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Reservable/ActivityBundle/Resources/views/View/viewActivities.html.twig">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.36524823" vertical-offset="4888" max-vertical-offset="5526">
@@ -941,6 +972,91 @@
             <element signature="e#7275#7295#0#HTML" expanded="true" />
             <element signature="e#7598#7618#0#HTML" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Reservable/ActivityBundle/Resources/views/Admin/adminDetailsProperty.html.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="4.925676" vertical-offset="0" max-vertical-offset="4572">
+          <caret line="162" column="49" selection-start-line="162" selection-start-column="49" selection-end-line="162" selection-end-column="49" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Reservable/ActivityBundle/Controller/ViewController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.33333334" vertical-offset="1342" max-vertical-offset="4770">
+          <caret line="88" column="37" selection-start-line="88" selection-start-column="29" selection-end-line="88" selection-end-column="37" />
+          <folding>
+            <marker date="1446454705120" expanded="true" signature="-1:-1" placeholder="SELECT u.ema..ReservableActivityBundle..." />
+            <marker date="1446454705120" expanded="true" signature="-1:-1" placeholder="SELECT f.id,..ReservableActivityBundle..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Reservable/ActivityBundle/Controller/AdminController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-12.62963" vertical-offset="6607" max-vertical-offset="14328">
+          <caret line="396" column="0" selection-start-line="396" selection-start-column="0" selection-end-line="396" selection-end-column="0" />
+          <folding>
+            <marker date="1446452427109" expanded="true" signature="4529:4769" placeholder="SELECT f.id,..ReservableActivityBundle..." />
+            <marker date="1446452427109" expanded="true" signature="5227:5451" placeholder="SELECT s.sta..ReservableActivityBundle..." />
+            <marker date="1446452427109" expanded="true" signature="6101:6260" placeholder="SELECT s.sta..ReservableActivityBundle..." />
+            <marker date="1446452427109" expanded="true" signature="6650:7065" placeholder="UPDATE Reser..." />
+            <marker date="1446452427109" expanded="true" signature="7355:7424" placeholder="DELETE FROM ..." />
+            <marker date="1446452427109" expanded="true" signature="8611:8730" placeholder="DELETE FROM ..." />
+            <marker date="1446452427109" expanded="true" signature="9187:9308" placeholder="DELETE FROM ..." />
+            <marker date="1446452427109" expanded="true" signature="11477:11633" placeholder="UPDATE Reser..." />
+            <marker date="1446452427109" expanded="true" signature="12535:12691" placeholder="UPDATE Reser..." />
+            <marker date="1446452427109" expanded="true" signature="14238:14418" placeholder="SELECT u.ema..ReservableActivityBundle..." />
+            <marker date="1446452427109" expanded="true" signature="16394:16697" placeholder="SELECT r.com..RagingsRatingBundle..." />
+            <marker date="1446452427109" expanded="true" signature="16913:17294" placeholder="SELECT r.ubi..RagingsRatingBundle..." />
+            <marker date="1446452427109" expanded="true" signature="24295:24445" placeholder="DELETE FROM ..." />
+            <marker date="1446452427109" expanded="true" signature="25066:25242" placeholder="SELECT ttf.t..ReservableActivityBundle..." />
+            <marker date="1446452427109" expanded="true" signature="26305:26410" placeholder="DELETE FROM ..." />
+            <marker date="1446452427109" expanded="true" signature="26574:26681" placeholder="DELETE FROM ..." />
+            <marker date="1446452427109" expanded="true" signature="26845:26945" placeholder="DELETE FROM ..." />
+            <marker date="1446452427109" expanded="true" signature="27390:27733" placeholder="UPDATE Reser..." />
+            <marker date="1446452427109" expanded="true" signature="29185:29293" placeholder="DELETE FROM ..." />
+            <marker date="1446452427109" expanded="true" signature="29457:29569" placeholder="DELETE FROM ..." />
+            <marker date="1446452427109" expanded="true" signature="29733:29829" placeholder="DELETE FROM ..." />
+            <marker date="1446452427109" expanded="true" signature="30926:31118" placeholder="UPDATE Reser..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Reservable/ActivityBundle/Resources/views/Search/displayResults.html.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-3.7454545" vertical-offset="1630" max-vertical-offset="2268">
+          <caret line="102" column="109" selection-start-line="102" selection-start-column="109" selection-end-line="102" selection-end-column="109" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Bookings/BookingBundle/Resources/views/Default/book.html.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-5.3333335" vertical-offset="486" max-vertical-offset="1494">
+          <caret line="35" column="45" selection-start-line="35" selection-start-column="45" selection-end-line="35" selection-end-column="45" />
+          <folding>
+            <element signature="e#1949#1972#0#HTML" expanded="true" />
+            <element signature="e#3671#3690#0#HTML" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Bookings/BookingBundle/Resources/views/Default/bookingConfirmed.html.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-8.0" vertical-offset="0" max-vertical-offset="324">
+          <caret line="12" column="14" selection-start-line="12" selection-start-column="14" selection-end-line="12" selection-end-column="14" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Bookings/BookingBundle/Controller/DefaultController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.4679054" vertical-offset="767" max-vertical-offset="2916">
+          <caret line="62" column="37" selection-start-line="62" selection-start-column="37" selection-end-line="62" selection-end-column="37" />
+          <folding />
         </state>
       </provider>
     </entry>

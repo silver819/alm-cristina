@@ -100,6 +100,7 @@
                                         </h5>
                                         <span class="description-text">
                                             <input type="hidden" name="itemID" value="{{ oneResult.id }}">
+                                            <input type="hidden" name="propertyName" value="{{ oneResult.name }}">
                                             {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
                                                 <button type="submit" class="btn btn-primary" value="Send">{% trans %}Reservar{% endtrans %}</button>
                                             {% else %}

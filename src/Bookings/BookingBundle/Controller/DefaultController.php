@@ -60,6 +60,7 @@ class DefaultController extends Controller
 					->setEndDate($session->get('searchEndDateComplete'))
 					->setPrice($_POST['price'])
 					->setStatus(0)
+                    ->setFromIcalID(0)
 					->setOwnerBooking(0)
 					->setOwnerConfirm(0);
 

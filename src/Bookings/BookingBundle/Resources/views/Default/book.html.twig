@@ -2,53 +2,77 @@
 
 {% block results %}
 
-	<div class="col-md-2 column"></div>
-	<div class="col-md-8 column mainContent">
-		<h2>{% trans %}Resumen{% endtrans %}</h2>
-		<hr/>
-		<form action={{ path('confirmBooking') }} method='POST'>
-			<div class="col-md-5 column">
-				{% trans %}Nombre{% endtrans %}: {{ app.user.username }}
-				<br/>
-				{% trans %}Apellidos{% endtrans %}: {{ app.user.surname }}
-				<br/>
-				{% trans %}Email{% endtrans %}: {{ app.user.email }}
-				{% if app.user.telephone is not empty %}
-					<br/>
-					{% trans %}Telefono{% endtrans %}: {{ app.user.telephone }}
-				{% endif %}
-				{% if app.user.mobile is not empty %}
-					<br/>
-					{% trans %}Movil{% endtrans %}: {{ app.user.mobile }}
-				{% endif %}
-			</div>
-			<div class="col-md-2 column text-center" style="font-size: 3em;">
-				<i class="fa fa-angle-double-right"></i>
-			</div>
-			<div class="col-md-5 column">
-				{% trans %}Propiedad{% endtrans %}: {{ propertyData.propertyName }}
-				<input type="hidden" name="itemID" value="{{ propertyData.itemID }}">
-				<br/>
-				{% if app.session.get('searchType') == 'hour' %}
-					{% trans %}Día{% endtrans %}: {{ app.session.get('searchDate') }}
-					<br/>
-					{% trans %}De{% endtrans %} {{ app.session.get('searchHour') }}:00 {% trans %}a{% endtrans %} {{ app.session.get('searchHour') + 1 }}:00
-				{% else %}
-					{% trans %}Desde{% endtrans %}: {{ app.session.get('searchStartDate') }}
-					<br/>
-					{% trans %}Hasta{% endtrans %}: {{ app.session.get('searchEndDate') }}
-				{% endif %}
-				<br/>
-				<input type="hidden" name="price" value="{{ propertyData.totalPrice }}">
-				{% trans %}Precio{% endtrans %}: {{ propertyData.totalPrice }} &euro;
-			</div>
-			<div style="clear:both;"></div>
+    <section class="content">
 
-			<div class="text-center">
-				<button type="submit" class="btn btn-success" value="Send">{% trans %}Confirmar{% endtrans %}</button>
-			</div>
-		</form>
-	</div>
-	<div class="col-md-2 column"></div>
+        <section class="content-header">
+            <h1><i class="fa fa-thumbs-up"></i>&nbsp;{% trans %}Resumen{% endtrans %}</h1>
 
+        </section>
+
+        <section class="content">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="box box-success">
+                        <div class="box-header with-border text-center">
+                            <h3 class="box-title">Propiedad con muchas fotos</h3>
+                        </div><!-- /.box-header -->
+                        <div class="box-body no-padding">
+
+                            <form action={{ path('confirmBooking') }} method='POST'>
+                                <div class="col-md-5 column text-center">
+
+                                    <h4>{% trans %}Datos del cliente{% endtrans %}</h4>
+
+                                    <b>{% trans %}Nombre{% endtrans %}:</b> {{ app.user.username }}
+                                    <br/>
+                                    <b>{% trans %}Apellidos{% endtrans %}:</b> {{ app.user.surname }}
+                                    <br/>
+                                    <b>{% trans %}Email{% endtrans %}:</b> {{ app.user.email }}
+                                    {% if app.user.telephone is not empty %}
+                                        <br/>
+                                        <b>{% trans %}Telefono{% endtrans %}:</b> {{ app.user.telephone }}
+                                    {% endif %}
+                                    {% if app.user.mobile is not empty %}
+                                        <br/>
+                                        <b>{% trans %}Movil{% endtrans %}:</b> {{ app.user.mobile }}
+                                    {% endif %}
+                                </div>
+                                <div class="col-md-2 column text-center" style="font-size: 3em;">
+                                    <i class="fa fa-angle-double-right"></i>
+                                </div>
+                                <div class="col-md-5 column text-center">
+
+                                    <h4>{% trans %}Datos de la propiedad{% endtrans %}</h4>
+
+                                    <b>{% trans %}Propiedad{% endtrans %}:</b> {{ propertyData.propertyName }}
+                                    <input type="hidden" name="itemID" value="{{ propertyData.itemID }}">
+                                    <br/>
+                                    {% if app.session.get('searchType') == 'hour' %}
+                                        <b>{% trans %}Día{% endtrans %}:</b> {{ app.session.get('searchDate') }}
+                                        <br/>
+                                        <b>{% trans %}De{% endtrans %}</b> {{ app.session.get('searchHour') }}:00 <b>{% trans %}a{% endtrans %}</b> {{ app.session.get('searchHour') + 1 }}:00
+                                    {% else %}
+                                        <b>{% trans %}Desde{% endtrans %}:</b> {{ app.session.get('searchStartDate') }}
+                                        <br/>
+                                        <b>{% trans %}Hasta{% endtrans %}:</b> {{ app.session.get('searchEndDate') }}
+                                    {% endif %}
+                                    <br/>
+                                    <input type="hidden" name="price" value="{{ propertyData.totalPrice }}">
+                                    <b>{% trans %}Precio{% endtrans %}:</b> {{ propertyData.totalPrice }} &euro;
+                                </div>
+                                <div style="clear:both;"></div>
+
+                                <div class="text-center">
+                                    <button type="submit" class="btn btn-success" value="Send">{% trans %}Confirmar{% endtrans %}</button>
+                                </div>
+                            </form>
+                        </div><!-- /.box-body -->
+                        <div class="box-footer">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </section>
 {% endblock %}
