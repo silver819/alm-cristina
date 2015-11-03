@@ -9,7 +9,7 @@
     <meta name="author" content="">
     <meta name="keywords" content="">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>    Almacen</title>
+    <title>{% trans %}Almacen{% endtrans %}</title>
 
     <link rel="stylesheet" href="/bundles/avanzuadmintheme/static/dev/styles/admin-lte-all.css" />
     <link href="{{ asset('css/main.css') }}" filter="cssrewrite" type="text/css" rel="stylesheet">
@@ -31,10 +31,7 @@
 <div class="wrapper">
 
     <header class="main-header">
-        <a href="{{ path('homepage') }}" class="logo">
-            <!-- Add the class icon to your logo image or logo icon to add the margining -->
-            Almacen
-        </a>
+        <a href="{{ path('homepage') }}" class="logo">{% trans %}Almacen{% endtrans %}</a>
         <!-- Header Navbar: style can be found in header.less -->
         <nav class="navbar navbar-static-top" role="navigation">
             <!-- Sidebar toggle button-->
@@ -79,12 +76,12 @@
                                         {% set adminUrl = "/" ~ app.request.locale ~ "/superUserAdmin"  %}
                                     {% endif %}
 
-                                    <li class="adminLI">
+                                    {#<li class="adminLI">
                                         <a href="{{ adminUrl }}" target="_blank">
                                             <span class="glyphicon glyphicon-wrench"></span>
                                             &nbsp;&nbsp;{% trans %}Administración{% endtrans %}
                                         </a>
-                                    </li>
+                                    </li>#}
                                     <li class="divider"></li>
                                 {% endif %}
                                 <li>

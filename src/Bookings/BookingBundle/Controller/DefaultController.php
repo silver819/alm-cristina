@@ -17,9 +17,32 @@ class DefaultController extends Controller
 			throw new AccessDeniedException();
 		}
 
+        $filters = $this->getFilters();
+
+        $arrayCitiesQuery = $this->getDoctrine()->getRepository('ReservableActivityBundle:Zone')->findBy(array('type' => 5), array('name' => 'ASC'));
+        $cities = array();
+        foreach($arrayCitiesQuery as $city){
+            $cities[] = array('id' => $city->getId(), 'name' => $city->getName());
+        }
+
 		return $this->render('BookingsBookingBundle:Default:book.html.twig', 
-			array('propertyData' => $_POST));
+			array('propertyData' => $_POST, "filters" => $filters, "cities" => $cities));
 	}
+
+    public function getFilters(){
+        $arrayReturn = array();
+
+        $results = $this->getDoctrine()
+            ->getManager()
+            ->createQuery('SELECT t.id, t.name, t.mode FROM ReservableActivityBundle:TypeActivity t')
+            ->getResult();
+
+        foreach($results as $result){
+            $arrayReturn[$result['mode']][] = array('id' => $result['id'], 'name' => $result['name']);
+        }
+
+        return $arrayReturn;
+    }
 
 	public function confirmBookingAction(Request $request){
 		$session 		= $request->getSession();
