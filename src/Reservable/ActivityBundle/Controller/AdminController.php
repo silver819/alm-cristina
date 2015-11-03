@@ -441,18 +441,18 @@ class AdminController extends Controller
                 $cont++;
             }
 
-            $mean['ubicacion'] = $mean['ubicacion'] / $cont;
-            $mean['llegar'] = $mean['llegar'] / $cont;
-            $mean['limpieza'] = $mean['limpieza'] / $cont;
-            $mean['material'] = $mean['material'] / $cont;
-            $mean['caracteristicas'] = $mean['caracteristicas'] / $cont;
-            $mean['gestiones'] = $mean['gestiones'] / $cont;
-            $mean['usabilidad'] = $mean['usabilidad'] / $cont;
+            $mean['ubicacion'] = round($mean['ubicacion'] / $cont, 2);
+            $mean['llegar'] = round($mean['llegar'] / $cont, 2);
+            $mean['limpieza'] = round($mean['limpieza'] / $cont, 2);
+            $mean['material'] = round($mean['material'] / $cont, 2);
+            $mean['caracteristicas'] = round($mean['caracteristicas'] / $cont, 2);
+            $mean['gestiones'] = round($mean['gestiones'] / $cont, 2);
+            $mean['usabilidad'] = round($mean['usabilidad'] / $cont, 2);
 
             $total = $total / ($cont * count($mean));
         }
 
-        return array('ratings' => $mean, 'totalScore' => $total);
+        return array('ratings' => round($mean, 2), 'totalScore' => round($total, 2));
     }
 
     private function getDataLodging($property, Request $request)
