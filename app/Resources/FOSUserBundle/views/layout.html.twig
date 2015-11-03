@@ -1,4 +1,4 @@
-{% if 'es/login' in app.request.uri %}
+{% if ('es/login' in app.request.uri) or ('en/login' in app.request.uri) or ('es/register' in app.request.uri) or ('en/register' in app.request.uri) %}
     {% set template = '::base.html.twig' %}
 {% else %}
     {% set template = '::admin.html.twig' %}
