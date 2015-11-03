@@ -22,7 +22,6 @@ class DefaultControllerTest extends WebTestCase
 
         $crawler            = $client->submit($form);
 
-
         $this->assertTrue($crawler->filter('html:contains("Gestionar reservas")')->count() > 0);
     }
 
