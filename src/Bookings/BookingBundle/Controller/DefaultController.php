@@ -179,6 +179,20 @@ class DefaultController extends Controller
             	->setBody($textClient);
         $this->get('mailer')->send($clientmsg);
 
-		return $this->render('BookingsBookingBundle:Default:bookingConfirmed.html.twig', array('bookingID' => $thisBooking->getId()));
+        $filters = $this->getFilters();
+
+        $arrayCitiesQuery = $this->getDoctrine()->getRepository('ReservableActivityBundle:Zone')->findBy(array('type' => 5), array('name' => 'ASC'));
+        $cities = array();
+        foreach($arrayCitiesQuery as $city){
+            $cities[] = array('id' => $city->getId(), 'name' => $city->getName());
+        }
+
+		return $this->render('BookingsBookingBundle:Default:bookingConfirmed.html.twig',
+            array(
+                'bookingID' => $thisBooking->getId(),
+                "cities" => $cities,
+                "filters" => $filters
+            )
+        );
 	}
 }
