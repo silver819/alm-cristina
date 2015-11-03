@@ -59,3 +59,25 @@ security:
         - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/admin/, role: ROLE_ADMIN }
         - { path: ^/view-properties/, role: ROLE_USER }
+        - { path: ^/es/view-users, role: ROLE_USER }
+        - { path: ^/es/new-property, role: ROLE_USER }
+        - { path: ^/es/consult-bookings, role: ROLE_USER }
+        - { path: ^/es/calendar, role: ROLE_USER }
+        - { path: ^/es/history-bookings, role: ROLE_USER }
+        - { path: ^/es/admin-types, role: ROLE_ADMIN }
+        - { path: ^/es/admin-features, role: ROLE_ADMIN }
+        - { path: ^/es/new-features, role: ROLE_ADMIN }
+        - { path: ^/es/admin-zones, role: ROLE_ADMIN }
+        - { path: ^/es/statistics, role: ROLE_USER }
+        - { path: ^/en/view-users, role: ROLE_USER }
+        - { path: ^/en/new-property, role: ROLE_USER }
+        - { path: ^/en/consult-bookings, role: ROLE_USER }
+        - { path: ^/en/calendar, role: ROLE_USER }
+        - { path: ^/en/history-bookings, role: ROLE_USER }
+        - { path: ^/en/admin-types, role: ROLE_ADMIN }
+        - { path: ^/en/admin-features, role: ROLE_ADMIN }
+        - { path: ^/en/new-features, role: ROLE_ADMIN }
+        - { path: ^/en/admin-zones, role: ROLE_ADMIN }
+        - { path: ^/en/statistics, role: ROLE_USER }
+        - { path: ^/en/book/, role: ROLE_USER }
+        - { path: ^/es/book/, role: ROLE_USER }
