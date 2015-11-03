@@ -202,8 +202,11 @@ class SearcherController extends Controller
         // Resultados definitivos con precios
         $resultsFromatted = array();
         foreach($results as $result){
-            if(array_key_exists($result->getId(), $arrayPrices)){
-                $resultsFromatted[] = $result;
+            if(is_object($result)) {
+                $key = $result->getId();
+                if (array_key_exists($key, $arrayPrices)) {
+                    $resultsFromatted[] = $result;
+                }
             }
         }
 
