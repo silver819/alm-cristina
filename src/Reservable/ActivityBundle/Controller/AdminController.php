@@ -257,24 +257,6 @@ class AdminController extends Controller
             $em->flush();
 
             return $this->redirect($this->generateUrl('adminDetails', array('property' => $_POST['productID'])));
-
-            // ****   RECOPILO INFO   ****
-            //$result = $this->getDataLodging($_POST['productID'], $request);
-
-            /*return $this->render('ReservableActivityBundle:Admin:adminDetailsProperty.html.twig',
-                array(
-                    'details' => $result['details'],
-                    'pictures' => $result['arrayPictures'],
-                    'type' => $result['type'],
-                    'features' => $result['features'],
-                    'comments' => $result['comments'],
-                    'ratings' => $result['ratings'],
-                    'totalRating' => $result['totalRating'],
-                    'chart' => $result['ob'],
-                    'seasons' => $result['seasons'],
-                    'map' => $result['map']
-                )
-            );*/
         }
     }
 

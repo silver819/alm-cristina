@@ -73,16 +73,19 @@ class ViewController extends Controller
             $cityNames[$city->getId()]['id'] = $city->getId();
         }
 
-        // Temporadas
-        $seasons = array();
-        $today = date('Ymd');
+        // Temporadas y precio mínimo
+        $seasons    = array();
+        $today      = date('Ymd');
+        $arrayMinPriceByProperty = array();
         foreach($properties as $property){
 
             $seasons[$property->getId()] = array('date' => 0, 'start' => 22, 'end' => 0);
+            $arrayMinPriceByProperty[$property->getId()] = 999999;
 
             $seasonsProperty = $this->getDoctrine()->getRepository('ReservableActivityBundle:Seasons')->findBy(array('activityID' => $property->getId()));
 
             if(empty($seasonsProperty)){
+                $arrayMinPriceByProperty[$property->getId()] = '-';
                 continue;
             }
 
@@ -107,13 +110,25 @@ class ViewController extends Controller
                     if((int)$season->getEndSeason() > $today && $seasons[$property->getId()]['date'] < $season->getEndSeason()){
                         $seasons[$property->getId()] = array('date' => $season->getEndSeason(), 'twig' => substr($season->getEndSeason(), 6,2) . '/' . substr($season->getEndSeason(), 4,2) . '/' . substr($season->getEndSeason(), 0,4));
                     }
-
                 }
+            }
+
+            // Precio minimo
+            if($season->getPrice() < $arrayMinPriceByProperty[$property->getId()]){
+                $arrayMinPriceByProperty[$property->getId()] = $season->getPrice();
             }
         }
 
 		return $this->render('ReservableActivityBundle:View:viewActivities.html.twig', 
-			array('properties' => $properties, 'pictures' => $arrayPictures, 'allOwners' => $allOwners, 'cityNames' => $cityNames, 'seasonsByProperty' => $seasons));
+			array(
+                  'properties' => $properties,
+                  'pictures' => $arrayPictures,
+                  'allOwners' => $allOwners,
+                  'cityNames' => $cityNames,
+                  'seasonsByProperty' => $seasons,
+                  'arrayMinPriceByProperty' => $arrayMinPriceByProperty
+            )
+        );
 
     }
 

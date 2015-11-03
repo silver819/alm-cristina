@@ -124,8 +124,8 @@
                     <div class="row">
                         <div class="col-sm-3 col-xs-6">
                             <div class="description-block border-right">
-                                <h5 class="description-header">{% trans %}Precio{% endtrans %}</h5>
-                                <span class="description-text">&nbsp;{{ oneProperty.price }} &euro; / {% if oneProperty.typeRent == 'hour' %} {% trans %}hora{% endtrans %} {% else %} {% trans %}día{% endtrans %} {% endif %}</span>
+                                <h5 class="description-header">{% trans %}Desde{% endtrans %}</h5>
+                                <span class="description-text">&nbsp;{{ arrayMinPriceByProperty[oneProperty.id] }} &euro; / {% if oneProperty.typeRent == 'hour' %} {% trans %}hora{% endtrans %} {% else %} {% trans %}día{% endtrans %} {% endif %}</span>
                             </div><!-- /.description-block -->
                         </div><!-- /.col -->
                         <div class="col-sm-3 col-xs-6">

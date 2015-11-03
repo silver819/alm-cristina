@@ -69,12 +69,22 @@ class DefaultController extends Controller
 
                     $aux['propertyName']    = $property->getName();
                     $aux['numRatings']      = $one['numRatings'];
-                    $aux['priceSince']      = $this->getDoctrine()
-                        ->getManager()
-                        ->createQuery('SELECT MIN(s.price)
+                    if($property->getTypeRent() == 'day') {
+                        $aux['priceSince'] = $this->getDoctrine()
+                            ->getManager()
+                            ->createQuery('SELECT MIN(s.price)
                                FROM ReservableActivityBundle:Seasons s
                                WHERE s.activityID = ' . $one['activityID'] . ' AND s.endSeason > ' . date('Ymd'))
-                        ->getResult()[0][1];
+                            ->getResult()[0][1];
+                    }
+                    else{
+                        $aux['priceSince'] = $this->getDoctrine()
+                            ->getManager()
+                            ->createQuery('SELECT MIN(s.price)
+                               FROM ReservableActivityBundle:Seasons s
+                               WHERE s.activityID = ' . $one['activityID'])
+                            ->getResult()[0][1];
+                    }
                     $aux['numComments']     = $this->getDoctrine()
                         ->getManager()
                         ->createQuery('SELECT count(r.comentarios)
