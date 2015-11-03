@@ -118,11 +118,11 @@ class DefaultController extends Controller
         $yAxisHourlyRated = $yAxisDailyRated = array();
         foreach($top10clients['hour'] as $top10hourly){
             $xAxisHourlyRated[] = $top10hourly['name'] . ' ' . $top10hourly['surname'] . ' (' . $top10hourly['email'] . ')';
-            $yAxisHourlyRated[] = array($top10hourly['name'] . ' ' . $top10hourly['surname'] . ' (' . $top10hourly['email'] . ')', $top10hourly['numBookings']);
+            $yAxisHourlyRated[] = array($top10hourly['name'] . ' ' . $top10hourly['surname'] . ' (' . $top10hourly['email'] . ')', (int)$top10hourly['numBookings']);
         }
         foreach($top10clients['day'] as $top10daily){
             $xAxisDailyRated[] = $top10daily['name'] . ' ' . $top10daily['surname'] . ' (' . $top10daily['email'] . ')';
-            $yAxisDailyRated[] = array($top10daily['name'] . ' ' . $top10daily['surname'] . ' (' . $top10daily['email'] . ')', $top10daily['numBookings']);
+            $yAxisDailyRated[] = array($top10daily['name'] . ' ' . $top10daily['surname'] . ' (' . $top10daily['email'] . ')', (int)$top10daily['numBookings']);
         }
 
         $chartTop10hourlyClients = new Highchart();
