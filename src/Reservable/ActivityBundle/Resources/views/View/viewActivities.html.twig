@@ -8,10 +8,7 @@
 
 	{% if is_granted("ROLE_SUPER_ADMIN") %}
         <div class="row ownerFilter">
-            <div class="col-md-3">
-                &nbsp;
-            </div>
-            <div class="col-md-3">
+            <div class="col-md-4">
                 {%trans%}Ver{%endtrans%} <select name="filterByOwner" id="filterByOwner">
                     <option value="0">{% trans %}todos los propietarios{% endtrans %}</option>
                     {% for oneEmail in allOwners %}
@@ -19,12 +16,12 @@
                     {% endfor %}
                 </select>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-4">
                 {% trans %}Alquiler por{% endtrans %} &nbsp;
                 <input type="checkbox" name="typeRent" id="checkboxRentByHour" value="hour" checked>{% trans %}día{% endtrans %}
                 <input type="checkbox" name="typeRent" id="checkboxRentByDay" value="day" checked>{% trans %}hora{% endtrans %}
             </div>
-            <div class="col-md-3">
+            <div class="col-md-4">
                 {%trans%}Ver{%endtrans%} <select name="filterByZone" id="filterByZone">
                     <option value="0">{% trans %}todas las zonas{% endtrans %}</option>
                     {% for city in cityNames %}
