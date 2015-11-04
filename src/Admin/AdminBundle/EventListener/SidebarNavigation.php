@@ -43,13 +43,13 @@ class SidebarNavigation
         $rootItems[] = $bookings           = new MenuItemModel('bookings',         'Reservas',                 'consultBookings',  $menu, 'glyphicon glyphicon-check');
         if($this->context->isGranted('ROLE_ADMIN')) {
             $rootItems[] = $calendar = new MenuItemModel('calendarBookings', 'Calendario', 'calendarBookings', $menu, 'fa fa-calendar');
-            $rootItems[] = $history = new MenuItemModel('historyBookings', 'Historial de reservas', 'historyBookings', $menu, 'fa fa-calendar-check-o');
+            $rootItems[] = $history = new MenuItemModel('historyBookings', 'Historial de reservas', 'historyBookings', $menu, 'fa fa-clock-o');
         }
         if($this->context->isGranted('ROLE_SUPER_ADMIN')){
             $rootItems[] = $viewOwners      = new MenuItemModel('admin-types',     'Gestionar tipos',           'admin_types',      $menu, 'fa fa-text-width');
             $rootItems[] = $viewOwners      = new MenuItemModel('admin-features',  'Gestionar características', 'admin_features',   $menu, 'fa fa-list-alt');
             $rootItems[] = $viewOwners      = new MenuItemModel('types-features',  'Tipos y características',   'new_features',     $menu, 'fa fa-exchange');
-            $rootItems[] = $viewOwners      = new MenuItemModel('admin-zones',     'Gestionar zonas',           'admin_zones',      $menu, 'fa fa-map-o');
+            $rootItems[] = $viewOwners      = new MenuItemModel('admin-zones',     'Gestionar zonas',           'admin_zones',      $menu, 'fa fa-globe');
         }
         if($this->context->isGranted('ROLE_ADMIN')) {
             $rootItems[] = $statistics = new MenuItemModel('statistics', 'Estadísticas', 'statistics', $menu, 'fa fa-bar-chart');
