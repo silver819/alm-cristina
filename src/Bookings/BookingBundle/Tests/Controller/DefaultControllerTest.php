@@ -10,17 +10,17 @@ class DefaultControllerTest extends WebTestCase
     {
         fwrite(STDOUT, "*** TEST Calendar ***\n");
         // Login
-        $client             = static::createClient();
+        $client = static::createClient();
         $client->followRedirects(true);
-        $crawler            = $client->request('GET', '/es/login');
-        $form               = $crawler->selectButton('_submit')->form();
-        $form['_username']  = 'cristina';
-        $form['_password']  = 'cristina';
-        $crawler            = $client->submit($form);
+        $crawler = $client->request('GET', '/es/login');
+        $form = $crawler->selectButton('_submit')->form();
+        $form['_username'] = 'cristina';
+        $form['_password'] = 'cristina';
+        $crawler = $client->submit($form);
         $this->assertTrue($crawler->filter('html:contains("Gestionar reservas")')->count() > 0);
         fwrite(STDOUT, "\t- User logged\n");
 
-        $crawler            = $client->request('GET', '/es/calendar/');
+        $crawler = $client->request('GET', '/es/calendar/');
         fwrite(STDOUT, "\t- Clicked on the calendar link\n");
 
         $this->assertTrue($crawler->filter('html:contains("Calendario")')->count() > 0);

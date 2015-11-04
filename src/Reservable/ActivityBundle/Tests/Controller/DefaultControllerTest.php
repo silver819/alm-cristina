@@ -26,7 +26,6 @@ class DefaultControllerTest extends WebTestCase
 
         $form               = $crawler->selectButton('_registerActivity')->form();
         $form['activity[name]']        = 'Automatic lodging';
-        $form['activity[price]']       = '50';
         $form['activity[description]'] = 'Propiedad dada de alta automaticamente';
         $form['activity[address]']     = 'direccion automatic lodging';
         fwrite(STDOUT, "\t- Form completed\n");
