@@ -77,6 +77,8 @@ class ViewController extends Controller
         $seasons    = array();
         $today      = date('Ymd');
         $arrayMinPriceByProperty = array();
+        $arrayNumComments = array();
+        $arrayRatings = array();
         foreach($properties as $property){
 
             $seasons[$property->getId()] = array('date' => 0, 'start' => 22, 'end' => 0);
@@ -117,16 +119,28 @@ class ViewController extends Controller
             if($season->getPrice() < $arrayMinPriceByProperty[$property->getId()]){
                 $arrayMinPriceByProperty[$property->getId()] = $season->getPrice();
             }
+
+            // Comentarios
+            $comments       = $this->getComments($property->getId());
+            $arrayNumComments[$property->getId()] = '-';
+            if(count($comments) > 0) $arrayNumComments[$property->getId()] = count(($comments));
+
+            // Valoracion media
+            $arrayRatings[$property->getId()] = '-';
+            $resultRatings  = $this->getRatings($property->getId());
+            if($resultRatings['totalScore'] > 0) $arrayRatings[$property->getId()] = $resultRatings['totalScore'] . " / 5";
         }
 
 		return $this->render('ReservableActivityBundle:View:viewActivities.html.twig', 
 			array(
-                  'properties' => $properties,
-                  'pictures' => $arrayPictures,
-                  'allOwners' => $allOwners,
-                  'cityNames' => $cityNames,
-                  'seasonsByProperty' => $seasons,
-                  'arrayMinPriceByProperty' => $arrayMinPriceByProperty
+                  'properties'              => $properties,
+                  'pictures'                => $arrayPictures,
+                  'allOwners'               => $allOwners,
+                  'cityNames'               => $cityNames,
+                  'seasonsByProperty'       => $seasons,
+                  'arrayMinPriceByProperty' => $arrayMinPriceByProperty,
+                  'arrayNumComments'        => $arrayNumComments,
+                  'arrayRatings'            => $arrayRatings
             )
         );
 
@@ -274,5 +288,76 @@ class ViewController extends Controller
             ->getResult();
 
         return $features;
+    }
+
+    public function getComments($propertyID)
+    {
+
+        $resultQuery = $this->getDoctrine()
+            ->getManager()
+            ->createQuery("SELECT r.comentarios
+                           FROM RagingsRatingBundle:Rating r INNER JOIN BookingsBookingBundle:Booking b
+                           WHERE r.reservationNumber = b.id
+                           AND b.activityID = '" . $propertyID . "'
+                           AND r.comentarios != ''")
+            ->getResult();
+
+        return $resultQuery;
+    }
+
+    public function getRatings($propertyID)
+    {
+
+        $resultQuery = $this->getDoctrine()
+            ->getManager()
+            ->createQuery("SELECT r.ubicacion, r.llegar, r.limpieza, r.material, r.caracteristicas, r.gestiones, r.usabilidad
+                           FROM RagingsRatingBundle:Rating r INNER JOIN BookingsBookingBundle:Booking b
+                           WHERE r.reservationNumber = b.id
+                           AND b.activityID = '" . $propertyID . "'
+                           AND r.comentarios != ''")
+            ->getResult();
+
+        $mean = array();
+        $mean['ubicacion'] = 0;
+        $mean['llegar'] = 0;
+        $mean['limpieza'] = 0;
+        $mean['material'] = 0;
+        $mean['caracteristicas'] = 0;
+        $mean['gestiones'] = 0;
+        $mean['usabilidad'] = 0;
+        $total = 0;
+        $cont = 0;
+        if (!empty($resultQuery)) {
+            foreach ($resultQuery as $oneResult) {
+                $mean['ubicacion'] += $oneResult['ubicacion'];
+                $total += $oneResult['ubicacion'];
+                $mean['llegar'] += $oneResult['llegar'];
+                $total += $oneResult['llegar'];
+                $mean['limpieza'] += $oneResult['limpieza'];
+                $total += $oneResult['limpieza'];
+                $mean['material'] += $oneResult['material'];
+                $total += $oneResult['material'];
+                $mean['caracteristicas'] += $oneResult['caracteristicas'];
+                $total += $oneResult['caracteristicas'];
+                $mean['gestiones'] += $oneResult['gestiones'];
+                $total += $oneResult['gestiones'];
+                $mean['usabilidad'] += $oneResult['usabilidad'];
+                $total += $oneResult['usabilidad'];
+
+                $cont++;
+            }
+
+            $mean['ubicacion'] = round($mean['ubicacion'] / $cont, 2);
+            $mean['llegar'] = round($mean['llegar'] / $cont, 2);
+            $mean['limpieza'] = round($mean['limpieza'] / $cont, 2);
+            $mean['material'] = round($mean['material'] / $cont, 2);
+            $mean['caracteristicas'] = round($mean['caracteristicas'] / $cont, 2);
+            $mean['gestiones'] = round($mean['gestiones'] / $cont, 2);
+            $mean['usabilidad'] = round($mean['usabilidad'] / $cont, 2);
+
+            $total = $total / ($cont * count($mean));
+        }
+
+        return array('ratings' => $mean, 'totalScore' => round($total, 2));
     }
 }
