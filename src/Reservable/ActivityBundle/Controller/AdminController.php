@@ -452,7 +452,7 @@ class AdminController extends Controller
             $total = $total / ($cont * count($mean));
         }
 
-        return array('ratings' => round($mean, 2), 'totalScore' => round($total, 2));
+        return array('ratings' => $mean, 'totalScore' => round($total, 2));
     }
 
     private function getDataLodging($property, Request $request)
