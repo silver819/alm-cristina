@@ -201,16 +201,23 @@ class SearcherController extends Controller
 
         // Resultados definitivos con precios
         $resultsFromatted = array();
+        $arrayComments = array();
+        $arrayRatings = array();
         foreach($results as $result){
             if(is_object($result)) {
                 $key = $result->getId();
                 if (array_key_exists($key, $arrayPrices)) {
                     $resultsFromatted[] = $result;
                 }
+
+                // Comentarios y valoraciones
+                $comments       = $this->getComments($result->getId());
+                $resultRatings  = $this->getRatings($result->getId());
+                $arrayComments[$result->getId()] = count($comments);
+                $arrayRatings[$result->getId()]  = ($resultRatings['totalScore'] * 2) . " / 10";
             }
         }
 
-        //ldd($arrayPrices);
         //ldd($session->get('filterSearch'));
         //ld($images);
 
@@ -221,8 +228,87 @@ class SearcherController extends Controller
         }
 
 		return $this->render('ReservableActivityBundle:Search:displayResults.html.twig', 
-			array("cities" => $cities, "filters" => $filters, "results" => $resultsFromatted, 'arrayPrices' => $arrayPrices, 'images' => $images));
+			array(
+                  "cities" => $cities,
+                  "filters" => $filters,
+                  "results" => $resultsFromatted,
+                  'arrayPrices' => $arrayPrices,
+                  'images' => $images,
+                  'arrayComments' => $arrayComments,
+                  'arrayRatings' => $arrayRatings
+            )
+        );
 	}
+
+    public function getComments($propertyID){
+
+    $resultQuery = $this->getDoctrine()
+    ->getManager()
+    ->createQuery("SELECT r.comentarios
+                               FROM RagingsRatingBundle:Rating r INNER JOIN BookingsBookingBundle:Booking b
+                               WHERE r.reservationNumber = b.id
+                               AND b.activityID = '" . $propertyID . "'
+                               AND r.comentarios != ''")
+    ->getResult();
+
+    return $resultQuery;
+    }
+
+    public function getRatings($propertyID)
+    {
+
+        $resultQuery = $this->getDoctrine()
+            ->getManager()
+            ->createQuery("SELECT r.ubicacion, r.llegar, r.limpieza, r.material, r.caracteristicas, r.gestiones, r.usabilidad
+                               FROM RagingsRatingBundle:Rating r INNER JOIN BookingsBookingBundle:Booking b
+                               WHERE r.reservationNumber = b.id
+                               AND b.activityID = '" . $propertyID . "'
+                               AND r.comentarios != ''")
+            ->getResult();
+
+        $mean = array();
+        $mean['ubicacion'] = 0;
+        $mean['llegar'] = 0;
+        $mean['limpieza'] = 0;
+        $mean['material'] = 0;
+        $mean['caracteristicas'] = 0;
+        $mean['gestiones'] = 0;
+        $mean['usabilidad'] = 0;
+        $total = 0;
+        $cont = 0;
+        if (!empty($resultQuery)) {
+            foreach ($resultQuery as $oneResult) {
+                $mean['ubicacion'] += $oneResult['ubicacion'];
+                $total += $oneResult['ubicacion'];
+                $mean['llegar'] += $oneResult['llegar'];
+                $total += $oneResult['llegar'];
+                $mean['limpieza'] += $oneResult['limpieza'];
+                $total += $oneResult['limpieza'];
+                $mean['material'] += $oneResult['material'];
+                $total += $oneResult['material'];
+                $mean['caracteristicas'] += $oneResult['caracteristicas'];
+                $total += $oneResult['caracteristicas'];
+                $mean['gestiones'] += $oneResult['gestiones'];
+                $total += $oneResult['gestiones'];
+                $mean['usabilidad'] += $oneResult['usabilidad'];
+                $total += $oneResult['usabilidad'];
+
+                $cont++;
+            }
+
+            $mean['ubicacion'] = round($mean['ubicacion'] / $cont, 2);
+            $mean['llegar'] = round($mean['llegar'] / $cont, 2);
+            $mean['limpieza'] = round($mean['limpieza'] / $cont, 2);
+            $mean['material'] = round($mean['material'] / $cont, 2);
+            $mean['caracteristicas'] = round($mean['caracteristicas'] / $cont, 2);
+            $mean['gestiones'] = round($mean['gestiones'] / $cont, 2);
+            $mean['usabilidad'] = round($mean['usabilidad'] / $cont, 2);
+
+            $total = $total / ($cont * count($mean));
+        }
+
+        return array('ratings' => $mean, 'totalScore' => round($total, 2));
+    }
 
     private function getPriceActivityByRange($propertyID, $arrayDates){
 
