@@ -7,7 +7,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0ca3c09d-9b70-4edd-bbfb-2d0f972bbd20" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Reservable/ActivityBundle/Controller/SearcherController.php" afterPath="$PROJECT_DIR$/src/Reservable/ActivityBundle/Controller/SearcherController.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Resources/views/base.html.twig" afterPath="$PROJECT_DIR$/app/Resources/views/base.html.twig" />
     </list>
     <ignored path="almacen.iws" />
@@ -125,8 +124,8 @@
       <file leaf-file-name="base.html.twig" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/Resources/views/base.html.twig">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.33333334" vertical-offset="2050" max-vertical-offset="8550">
-              <caret line="130" column="42" selection-start-line="130" selection-start-column="42" selection-end-line="130" selection-end-column="42" />
+            <state vertical-scroll-proportion="0.51954025" vertical-offset="2050" max-vertical-offset="8550">
+              <caret line="139" column="106" selection-start-line="139" selection-start-column="106" selection-end-line="139" selection-end-column="106" />
               <folding>
                 <element signature="n#style#0;n#select#0;n#div#0;n#form#0;n#section#0;n#aside#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#select#0;n#div#1;n#form#0;n#section#0;n#aside#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
@@ -1001,8 +1000,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/Resources/views/base.html.twig">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.33333334" vertical-offset="2050" max-vertical-offset="8550">
-          <caret line="130" column="42" selection-start-line="130" selection-start-column="42" selection-end-line="130" selection-end-column="42" />
+        <state vertical-scroll-proportion="0.51954025" vertical-offset="2050" max-vertical-offset="8550">
+          <caret line="139" column="106" selection-start-line="139" selection-start-column="106" selection-end-line="139" selection-end-column="106" />
           <folding>
             <element signature="n#style#0;n#select#0;n#div#0;n#form#0;n#section#0;n#aside#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#select#0;n#div#1;n#form#0;n#section#0;n#aside#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
