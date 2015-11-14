@@ -137,7 +137,7 @@
                 </div>
                 <br/>
                 <div class="input-group">
-                    <select name="city" id="selectCity" class="form-control" style="width:210px;">
+                    <select name="city" id="selectCity" class="form-control" style="width:210px;" size="15">
                         <option value="0" disabled="disabled" selected>{% trans %}Ciudad{% endtrans %}</option>
                         {% for city in cities %}
                             {% for children in city.childrens %}
