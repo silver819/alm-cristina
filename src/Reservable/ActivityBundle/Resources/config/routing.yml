@@ -32,6 +32,14 @@ add_features:
     options:
         expose: true
 
+changeCity:
+    path: /change_city
+    defaults: { _controller: ReservableActivityBundle:Default:changeCity }
+    requirements:
+        _method:  GET|POST
+    options:
+        expose: true
+
 admin_types:
     path: /admin-types
     defaults: { _controller: ReservableActivityBundle:Registration:adminTypes }
