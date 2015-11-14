@@ -128,10 +128,21 @@
 
                 <div class="input-group">
                     {#<input class="thisInput form-control" type="text" name="city" value="{{ app.session.get('searchCity') }}" placeholder="{% trans %}Lugar{% endtrans %}">#}
-                    <select name="city" class="form-control" style="width:210px;">
-                        <option value="0" disabled="disabled" selected>{% trans %}Elige tu ciudad{% endtrans %}</option>
+                    <select name="city" id="selectProvince" class="form-control" style="width:210px;">
+                        <option value="0" disabled="disabled" selected>{% trans %}Provincia{% endtrans %}</option>
                         {% for city in cities %}
-                            <option value="{{ city.id }}" {% if app.session.get('searchCity') == city.id%}selected{% endif %}>{{ city.name }}</option>
+                            <option value="{{ city.id }}" {% if app.session.get('searchCity') == city.id %}selected{% endif %}>{{ city.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <br/>
+                <div class="input-group">
+                    <select name="city" id="selectCity" class="form-control" style="width:210px;">
+                        <option value="0" disabled="disabled" selected>{% trans %}Ciudad{% endtrans %}</option>
+                        {% for city in cities %}
+                            {% for children in city.childrens %}
+                                <option value="{{ children.id }}" {% if app.session.get('searchCity') == children.id %}selected{% endif %}>{{ children.name }}</option>
+                            {% endfor %}
                         {% endfor %}
                     </select>
                 </div>
@@ -434,6 +445,23 @@
         $("#byDay").click(function() {
             $("#byHourDiv").hide("slow");
             $("#byDayDiv").show("slow");
+        });
+
+        // Selects provincia y ciudad
+        $("#selectProvince").change(function(){
+           var proviceID = $(this).val();
+            $.ajax({
+                url: '{{ path('changeCity') }}',
+                data: { 'provinceID': proviceID},
+                type: "post",
+                success: function(response) {
+                    var options = '';
+                    $.each(response['childrens'], function(i, item){
+                        options += '<option value="' + item.id + '">' + item.name + '</option>';
+                    });
+                    $("#selectCity").empty().append(options);
+                }
+            });
         });
     });
 </script>

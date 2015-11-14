@@ -4,6 +4,7 @@ namespace Reservable\ActivityBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Reservable\ActivityBundle\Entity\Activity;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 class DefaultController extends Controller
 {
@@ -13,14 +14,41 @@ class DefaultController extends Controller
         $filters    = $this->getFilters();
         $top5       = $this->getTop5Ratings();
 
-        $arrayCitiesQuery = $this->getDoctrine()->getRepository('ReservableActivityBundle:Zone')->findBy(array('type' => 5), array('name' => 'ASC'));
+        $arrayCitiesQuery = $this->getDoctrine()->getRepository('ReservableActivityBundle:Zone')->findBy(array('type' => 4), array('name' => 'ASC'));
         $cities = array();
         foreach($arrayCitiesQuery as $city){
-            $cities[] = array('id' => $city->getId(), 'name' => $city->getName());
+            $childrens = $this->getDoctrine()->getRepository('ReservableActivityBundle:Zone')->findBy(array('type' => 5, 'fatherZone' => $city->getId()), array('name' => 'ASC'));
+            $arrayChildrens = array();
+            if($childrens) {
+                foreach ($childrens as $children) {
+                    $arrayChildrens[] = array('id' => $children->getId(), 'name' => $children->getName());
+                }
+            }
+            $cities[] = array('id' => $city->getId(), 'name' => $city->getName(), 'childrens' => $arrayChildrens);
         }
+
+        //ldd($cities);
 
 		return $this->render('ReservableActivityBundle:Search:displayIndex.html.twig', array('cities' => $cities, 'filters'=> $filters, 'top5' => $top5));
 	}
+
+    public function changeCityAction(){
+        //$_POST['provinceID'] = 4;
+        //ld($_POST);
+        if (isset($_POST['provinceID'])) {
+            $childrens = $this->getDoctrine()->getRepository('ReservableActivityBundle:Zone')->findBy(array('type' => 5, 'fatherZone' => $_POST['provinceID']), array('name' => 'ASC'));
+            $arrayChildrens = array();
+            if($childrens) {
+                foreach ($childrens as $children) {
+                    $arrayChildrens[] = array('id' => $children->getId(), 'name' => $children->getName());
+                }
+            }
+            //ldd($arrayChildrens);
+            return new JsonResponse(array('childrens' => $arrayChildrens));
+        }
+        else
+            return new JsonResponse(array());
+    }
 
     public function getFilters(){
         $arrayReturn = array();

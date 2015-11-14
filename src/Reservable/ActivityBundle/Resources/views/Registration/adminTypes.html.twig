@@ -45,7 +45,7 @@
                         <tr id="{{ type.id }}" class="pointerSelect {{ type.mode }}">
                             <td></td>
                             <td class="typeName">{{ type.name }}</td>
-                            <td class="typeModality">{{ type.mode }}</td>
+                            <td class="typeModality">{% if type.mode == 'hour' %}{% trans %}Por hora{% endtrans %}{% else %}{% trans %}Por día{% endtrans %}{% endif %}</td>
                             <td class="text-center typeIcon">{% if type.icon is defined %}<i class="{{ type.icon }}"></i>{% endif %}</td>
                             <td class="text-center modifyItem" typeID="{{ type.id }}" typeName="{{ type.name }}" typeModality="{{ type.mode }}" typeIcon="{{ type.icon }}" style="color:green;"><i class="fa fa-pencil"></i></td>
                             <td class="text-center deleteType" style="color:red;" typeID="{{ type.id }}" typeName="{{ type.name }}"><i class="fa fa-minus-circle"></i></td>
