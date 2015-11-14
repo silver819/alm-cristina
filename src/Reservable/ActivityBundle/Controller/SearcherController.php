@@ -17,6 +17,7 @@ class SearcherController extends Controller
         //ladybug_dump($_POST);die();
 
         // Borramos datos que tengamos anteriormente en la sesion
+        $session->remove('searchProvince');
         $session->remove('searchCity');
         $session->remove('searchName');
         $session->remove('searchHour');
@@ -47,7 +48,7 @@ class SearcherController extends Controller
         $filters = $this->getFilters();
 
 		$where = "1=1";
-		$relevantFields = array("city", "name", "type", "hour");
+		$relevantFields = array("province", "city", "name", "type", "hour");
 
 		foreach($_POST as $field => $value){
 			if($value != '' && in_array($field, $relevantFields)){
@@ -57,6 +58,11 @@ class SearcherController extends Controller
 						$session->set('searchCity', $value);
 
 						break;
+                    case "province":
+
+                        $session->set('searchProvince', $value);
+
+                        break;
 
                     case "name":
 						$where .= " AND p.name LIKE '%" . $value . "%'";
@@ -221,10 +227,17 @@ class SearcherController extends Controller
         //ldd($session->get('filterSearch'));
         //ld($images);
 
-        $arrayCitiesQuery = $this->getDoctrine()->getRepository('ReservableActivityBundle:Zone')->findBy(array('type' => 5), array('name' => 'ASC'));
+        $arrayCitiesQuery = $this->getDoctrine()->getRepository('ReservableActivityBundle:Zone')->findBy(array('type' => 4), array('name' => 'ASC'));
         $cities = array();
         foreach($arrayCitiesQuery as $city){
-            $cities[] = array('id' => $city->getId(), 'name' => $city->getName());
+            $childrens = $this->getDoctrine()->getRepository('ReservableActivityBundle:Zone')->findBy(array('type' => 5, 'fatherZone' => $city->getId()), array('name' => 'ASC'));
+            $arrayChildrens = array();
+            if($childrens) {
+                foreach ($childrens as $children) {
+                    $arrayChildrens[] = array('id' => $children->getId(), 'name' => $children->getName());
+                }
+            }
+            $cities[] = array('id' => $city->getId(), 'name' => $city->getName(), 'childrens' => $arrayChildrens);
         }
 
 		return $this->render('ReservableActivityBundle:Search:displayResults.html.twig', 

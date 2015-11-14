@@ -128,10 +128,10 @@
 
                 <div class="input-group">
                     {#<input class="thisInput form-control" type="text" name="city" value="{{ app.session.get('searchCity') }}" placeholder="{% trans %}Lugar{% endtrans %}">#}
-                    <select name="city" id="selectProvince" class="form-control" style="width:210px;">
+                    <select name="province" id="selectProvince" class="form-control" style="width:210px;">
                         <option value="0" disabled="disabled" selected>{% trans %}Provincia{% endtrans %}</option>
                         {% for city in cities %}
-                            <option value="{{ city.id }}" {% if app.session.get('searchCity') == city.id %}selected{% endif %}>{{ city.name }}</option>
+                            <option value="{{ city.id }}" {% if app.session.get('searchProvince') == city.id %}selected{% endif %}>{{ city.name }}</option>
                         {% endfor %}
                     </select>
                 </div>
