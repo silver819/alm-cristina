@@ -52,14 +52,25 @@ class AdminController extends Controller
         $lat        = $details->getLat();
         $lng        = $details->getLng();
 
-        $marker = $this->get('ivory_google_map.marker');
-        $marker->setPosition($lat, $lng);
-        //ldd($marker);
-
         $map = $this->get('ivory_google_map.map');
+
+        if(!$lat && ! $lng){
+            $lat = '37.3164332';
+            $lng = '-6.8257187';
+
+            $zoom = 6;
+        }
+        else{
+            $marker = $this->get('ivory_google_map.marker');
+            $marker->setPosition($lat, $lng);
+            //ldd($marker);
+
+            $map->addMarker($marker);
+            $zoom = 13;
+        }
+
         $map->setCenter($lat, $lng);
-        $map->addMarker($marker);
-        $map->setMapOptions(array('zoom' => 13));
+        $map->setMapOptions(array('zoom' => $zoom));
         $map->setStylesheetOptions(array('width' => '100%'));
         //ldd($map);
 

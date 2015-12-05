@@ -14,6 +14,8 @@ class DefaultControllerTest extends WebTestCase
         $client->followRedirects(true);
         $crawler            = $client->request('GET', '/es/login');
 
+        usleep(500000);
+
         $form               = $crawler->selectButton('_submit')->form();
         $form['_username']   = 'cristina';
         $form['_password']   = 'cristina';
@@ -33,6 +35,8 @@ class DefaultControllerTest extends WebTestCase
         $client->followRedirects(true);
         $crawler            = $client->request('GET', '/es/login');
 
+        usleep(500000);
+
         $form               = $crawler->selectButton('_submit')->form();
         $form['_username']   = 'cristina';
         $form['_password']   = 'wrongPassword';
@@ -47,7 +51,7 @@ class DefaultControllerTest extends WebTestCase
         $this->assertTrue($crawler->filter('html:contains("Entrar")')->count() > 0);
     }
 
-    /*
+
     // Registrar usuario
     public function testNewUser()
     {
@@ -65,6 +69,8 @@ class DefaultControllerTest extends WebTestCase
         $form['fos_user_registration_form[plainPassword][second]'] = 'testintUserBundle';
         $form['fos_user_registration_form[name]']                  = 'Cristina Test';
         fwrite(STDOUT, "\t- Data filled\n");
+
+        usleep(500000);
 
         $crawler            = $client->submit($form);
         fwrite(STDOUT, "\t- Form sended\n");
@@ -94,6 +100,8 @@ class DefaultControllerTest extends WebTestCase
         $crawler            = $client->submit($form);
         fwrite(STDOUT, "\t- Form sended\n");
         $this->assertTrue($crawler->filter('html:contains("Cristina Changed")')->count() > 0);
+
+        usleep(500000);
 
         $crawler            = $client->request('GET', '/es/profile/edit');
         fwrite(STDOUT, "\t- Click on the link to edit profile\n");
@@ -129,10 +137,12 @@ class DefaultControllerTest extends WebTestCase
         $crawler = $client->click($link);
         fwrite(STDOUT, "\t- Click on the user to delete\n");
 
+        usleep(500000);
+
         $link = $crawler->selectLink('Eliminar')->link();
         $crawler = $client->click($link);
         fwrite(STDOUT, "\t- Clicked on the delete user link\n");
         $this->assertTrue($crawler->filter('html:contains("Ver usuarios")')->count() > 0);
         fwrite(STDOUT, "\t- Correct deletion\n");
-    }*/
+    }
 }
