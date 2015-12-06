@@ -25,7 +25,7 @@ class DefaultControllerTest extends WebTestCase
 
         $this->assertTrue($crawler->filter('html:contains("Calendario")')->count() > 0);
         fwrite(STDOUT, "\t- Correct calendar\n");
-
+        usleep(500000);
         // tearDown
     }
 
@@ -48,7 +48,7 @@ class DefaultControllerTest extends WebTestCase
 
         $this->assertTrue($crawler->filter('html:contains("Gestionar reservas")')->count() > 0);
         fwrite(STDOUT, "\t- Correct calendar\n");
-
+        usleep(500000);
         // tearDown
     }
 
@@ -71,7 +71,7 @@ class DefaultControllerTest extends WebTestCase
 
         $this->assertTrue($crawler->filter('html:contains("Historial de reservas")')->count() > 0);
         fwrite(STDOUT, "\t- Correct calendar\n");
-
+        usleep(500000);
         // tearDown
     }
 }
