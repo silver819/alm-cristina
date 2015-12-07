@@ -134,13 +134,13 @@
                         <div class="col-sm-3 col-xs-6">
                             <div class="description-block border-right">
                                 <h5 class="description-header">Comentarios</h5>
-                                <span class="description-text">{{ arrayNumComments[oneProperty.id] }}</span>
+                                <span class="description-text">{% if arrayNumComments[oneProperty.id] is defined %}{{ arrayNumComments[oneProperty.id] }}{% endif %}</span>
                             </div><!-- /.description-block -->
                         </div><!-- /.col -->
                         <div class="col-sm-3 col-xs-6">
                             <div class="description-block">
                                 <h5 class="description-header">Valoración</h5>
-                                <span class="description-text">{{ arrayRatings[oneProperty.id] }}</span>
+                                <span class="description-text">{% if arrayRatings[oneProperty.id] is defined %}{{ arrayRatings[oneProperty.id] }}{% endif %}</span>
                             </div><!-- /.description-block -->
                         </div>
                     </div><!-- /.row -->
@@ -210,7 +210,7 @@
                                 <input type="hidden" name="productID" class="productID" value="{{ oneProperty.id }}">
                                 <table style="width: 100%;">
                                 <tr><td>{% trans %}Nombre{% endtrans %}:</td><td><input type="text" name="name" value="{{ oneProperty.name }}" style="width: 100%;"></td></tr>
-                                <tr><td>{% trans %}Precio{% endtrans %}:</td><td><input type="text" name="price" value="{{ oneProperty.price }}" style="width: 100%;"></td></tr>
+                                <tr><td>{% trans %}Precio{% endtrans %}:</td><td><input type="text" name="price" value="{% if oneProperty.price is defined %}{{ oneProperty.price }}{% endif %}" style="width: 100%;"></td></tr>
                                 <tr><td>{% trans %}Descripciín{% endtrans %}:</td><td><textarea rows="3" name="description" style="width: 100%;">{{ oneProperty.description }}</textarea></td></tr>
                                 <tr><td>{% trans %}Dirección{% endtrans %}:</td><td><input type="text" name="address" value="{{ oneProperty.address }}" style="width: 100%;"></td></tr>
                                 </table>

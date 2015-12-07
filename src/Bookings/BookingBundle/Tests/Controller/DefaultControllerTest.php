@@ -6,7 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class DefaultControllerTest extends WebTestCase
 {
-    /*public function testCalendar()
+    public function testCalendar()
     {
         fwrite(STDOUT, "*** TEST Calendar ***\n");
         // Login
@@ -73,7 +73,7 @@ class DefaultControllerTest extends WebTestCase
         fwrite(STDOUT, "\t- Correct calendar\n");
         usleep(500000);
         // tearDown
-    }*/
+    }
 
     public function testMakeBooking()
     {
