@@ -13,6 +13,7 @@
     {% endif %}
 
     {% set role = 'Desconcido' %}
+    {% set class = '' %}
     {% if oneUser.role == "ROLE_SUPER_ADMIN" %}
         {% set role = 'Administrador' %}
         {% set class = 'alert-danger' %}
@@ -24,7 +25,7 @@
         {% set class = 'alert-success' %}
     {% endif %}
 
-    <div class="alert {{ class }} userDiv {{ oneUser.userID }}">
+    <div class="alert {{ class }} userDiv">
 
         <div style="float:right">
             <a href="{{ baseUrl }}/delete">{% trans %}Eliminar{% endtrans %}</a>

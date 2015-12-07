@@ -51,8 +51,8 @@ class AppKernel extends Kernel
         parent::init();
     }*/
 
-    public function __construct($enviroment, $debug){
+    /*public function __construct($enviroment, $debug){
         parent::__construct($enviroment, $debug);
         date_default_timezone_set('Europe/Madrid');
-    }
+    }*/
 }

@@ -29,7 +29,8 @@ class DefaultController extends Controller
 
         //ldd($cities);
 
-		return $this->render('ReservableActivityBundle:Search:displayIndex.html.twig', array('cities' => $cities, 'filters'=> $filters, 'top5' => $top5));
+		return $this->render('ReservableActivityBundle:Search:displayIndex.html.twig',
+            array('cities' => $cities, 'filters'=> $filters, 'top5' => $top5));
 	}
 
     public function changeCityAction(){

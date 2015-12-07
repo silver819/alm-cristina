@@ -9,10 +9,9 @@
 /vendor/
 /bin/
 /composer.phar
-/.idea
+/.idea/*
 .gitignore~
 bower_components/
 elalmacendelocio.es-access.log
-.idea/workspace.xml
-.idea/workspace.xml~
+
 

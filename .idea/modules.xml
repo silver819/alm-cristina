@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/alm-cristina.iml" filepath="$PROJECT_DIR$/.idea/alm-cristina.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/almacen.iml" filepath="$PROJECT_DIR$/.idea/almacen.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/almacen.iml" filepath="$PROJECT_DIR$/.idea/almacen.iml" />
     </modules>
