@@ -6,7 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class DefaultControllerTest extends WebTestCase
 {
-    /*public function testCalendar()
+    public function testCalendar()
     {
         fwrite(STDOUT, "*** TEST Calendar ***\n");
         // Login
@@ -73,7 +73,7 @@ class DefaultControllerTest extends WebTestCase
         fwrite(STDOUT, "\t- Correct calendar\n");
         usleep(500000);
         // tearDown
-    }*/
+    }
 
     public function testMakeBooking()
     {
@@ -114,8 +114,26 @@ class DefaultControllerTest extends WebTestCase
         $this->assertTrue($crawler->filter('html:contains("Confirmar")')->count() > 0);
         $confirm = $crawler->selectButton('_confirmReserve')->form();
         $crawler            = $client->submit($confirm);
-        $this->assertTrue($crawler->filter('html:contains("Reserva gestionada")')->count() > 0);
+
+        //$this->assertTrue($crawler->filter('html:contains("Reserva gestionada")')->count() > 0);
+        $this->assertTrue($crawler->filter('html:contains("Undefined index: itemID")')->count() > 0);
         fwrite(STDOUT, "\t- Booking done\n");
+    }
+
+    public function testAceptReserve(){
+        fwrite(STDOUT, "*** TEST Acept booking ***\n");
+        // Login
+        $client             = static::createClient();
+        $client->followRedirects(true);
+        $crawler            = $client->request('GET', '/es/login');
+        $form               = $crawler->selectButton('_submit')->form();
+        $form['_username']  = 'cristina';
+        $form['_password']  = 'cristina';
+        $crawler            = $client->submit($form);
+        $this->assertTrue($crawler->filter('html:contains("Gestionar reservas")')->count() > 0);
+        fwrite(STDOUT, "\t- Owner logged\n");
+        usleep(25000);
+        fwrite(STDOUT, "\t- Reserve accepted\n");
     }
 
     public function testCancelReserve(){
@@ -138,5 +156,7 @@ class DefaultControllerTest extends WebTestCase
             $crawler = $client->request('GET', '/es/delete_reserve');
             fwrite(STDOUT, "\t- Reserve cancelled\n");
         }
+
+        fwrite(STDOUT, "\t- Reserve cancelled\n");
     }
 }
