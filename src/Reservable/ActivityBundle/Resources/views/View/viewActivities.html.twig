@@ -101,13 +101,15 @@
                                 <p>
                                     <i class="fa fa-info" title="{% trans %}Modalidad{% endtrans %}"></i>&nbsp;{% if oneProperty.typeRent == 'hour' %}{% trans %}Modalidad por hora{% endtrans %}{% else %}{% trans %}Modalidad por día{% endtrans %}{% endif %}
                                     <span>&nbsp;&nbsp;&nbsp;
-                                        {% if seasonsByProperty[oneProperty.id].date == 0 %}
-                                            <span style="color:red;"><i class="fa fa-exclamation"></i>&nbsp;{% trans %}Sin precios{% endtrans %}</span>
-                                        {% else %}
-                                            {% if oneProperty.typeRent == 'hour' %}
-                                                <span style="color:green;"><i class="fa fa-check"></i>&nbsp;{% trans %}Precios de{% endtrans %} {{ seasonsByProperty[oneProperty.id].start }} {% trans %}a{% endtrans %} {{ seasonsByProperty[oneProperty.id].end }}</span>
+                                        {% if seasonsByProperty is defined %}
+                                            {% if seasonsByProperty[oneProperty.id].date == 0 %}
+                                                <span style="color:red;"><i class="fa fa-exclamation"></i>&nbsp;{% trans %}Sin precios{% endtrans %}</span>
                                             {% else %}
-                                                <span style="color:green;"><i class="fa fa-check"></i>&nbsp;{% trans %}Precios hasta{% endtrans %} {{ seasonsByProperty[oneProperty.id].twig }}</span>
+                                                {% if oneProperty.typeRent == 'hour' %}
+                                                    <span style="color:green;"><i class="fa fa-check"></i>&nbsp;{% trans %}Precios de{% endtrans %} {{ seasonsByProperty[oneProperty.id].start }} {% trans %}a{% endtrans %} {{ seasonsByProperty[oneProperty.id].end }}</span>
+                                                {% else %}
+                                                    <span style="color:green;"><i class="fa fa-check"></i>&nbsp;{% trans %}Precios hasta{% endtrans %} {{ seasonsByProperty[oneProperty.id].twig }}</span>
+                                                {% endif %}
                                             {% endif %}
                                         {% endif %}
                                     </span>
@@ -122,7 +124,7 @@
                         <div class="col-sm-3 col-xs-6">
                             <div class="description-block border-right">
                                 <h5 class="description-header">{% trans %}Desde{% endtrans %}</h5>
-                                <span class="description-text">&nbsp;{{ arrayMinPriceByProperty[oneProperty.id] }} &euro; / {% if oneProperty.typeRent == 'hour' %} {% trans %}hora{% endtrans %} {% else %} {% trans %}día{% endtrans %} {% endif %}</span>
+                                <span class="description-text">&nbsp;{% if arrayMinPriceByProperty[oneProperty.id] is defined %}{{ arrayMinPriceByProperty[oneProperty.id] }}{% endif %} &euro; / {% if oneProperty.typeRent == 'hour' %} {% trans %}hora{% endtrans %} {% else %} {% trans %}día{% endtrans %} {% endif %}</span>
                             </div><!-- /.description-block -->
                         </div><!-- /.col -->
                         <div class="col-sm-3 col-xs-6">

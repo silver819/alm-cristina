@@ -57,6 +57,7 @@
             {% for oneUser in allUsers %}
 
                 {% set role = 'Desconcido' %}
+                {% set class = '' %}
 
                 {% if oneUser.role == "ROLE_SUPER_ADMIN" %}
                     {% set role = 'Administrador' %}
@@ -69,11 +70,16 @@
                     {% set class = 'box-success' %}
                 {% endif %}
 
-                <div class="box {{ class }} userDiv {{ oneUser.userID }} {{ oneUser.email | replace({'@':'', '.':''}) }} active-{{ oneUser.active }}">
+                {% set activeUser = 0 %}
+                {% if oneUser.active is defined %}
+                    {% set activeUser = oneUser.active %}
+                {% endif %}
+
+                <div class="box {{ class }} userDiv {% if oneUser.userID is defined %}{{ oneUser.userID }}{% endif %} {% if oneUser.email is defined %}{{ oneUser.email | replace({'@':'', '.':''}) }}{% endif %} active-{{ activeUser }}">
                     <div class="box-header with-border">
-                        <h3 class="box-title"><a href="view-users/{{ oneUser.userID }}">{{ oneUser.name }} {{ oneUser.surname }}</a> ( {{ oneUser.email }} )</h3>
+                        <h3 class="box-title"><a href="view-users/{{ oneUser.userID }}">{{ oneUser.name }} {{ oneUser.surname }}</a> ( {% if oneUser.email is defined %}{{ oneUser.email }}{% endif %} )</h3>
                         <div class="box-tools pull-right">
-                            {% if oneUser.active %}
+                            {% if activeUser == 1 %}
                                 <span class="label label-success">{% trans %}Activo{% endtrans %}</span>
                             {% else %}
                                 <span class="label label-danger">{% trans %}Inactivo{% endtrans %}</span>
@@ -86,8 +92,8 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <ul class="list-unstyled">
-                                    <li><i class="fa fa-phone"></i> {{ oneUser.phone }}</li>
-                                    <li><i class="fa fa-mobile"></i> {{ oneUser.mobile }}</li>
+                                    <li><i class="fa fa-phone"></i> {% if oneUser.phone is defined %}{{ oneUser.phone }}{% endif %}</li>
+                                    <li><i class="fa fa-mobile"></i> {% if oneUser.mobile is defined %}{{ oneUser.mobile }}{% endif %}</li>
                                 </ul>
                             </div><!-- /.col -->
                             <div class="col-md-6">

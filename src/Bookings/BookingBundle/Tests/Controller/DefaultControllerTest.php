@@ -6,7 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class DefaultControllerTest extends WebTestCase
 {
-    public function testCalendar()
+    /*public function testCalendar()
     {
         fwrite(STDOUT, "*** TEST Calendar ***\n");
         // Login
@@ -73,7 +73,7 @@ class DefaultControllerTest extends WebTestCase
         fwrite(STDOUT, "\t- Correct calendar\n");
         usleep(500000);
         // tearDown
-    }
+    }*/
 
     public function testMakeBooking()
     {
@@ -91,7 +91,6 @@ class DefaultControllerTest extends WebTestCase
 
         $crawler            = $client->request('GET', '/es/');
         fwrite(STDOUT, "\t- Clicked on the main page\n");
-        usleep(500000);
         $this->assertTrue($crawler->filter('html:contains("Te recomendamos")')->count() > 0);
         fwrite(STDOUT, "\t- Fill search parameters\n");
 
@@ -111,12 +110,10 @@ class DefaultControllerTest extends WebTestCase
         $search = $crawler->selectButton('_sendSelected')->form();
         $crawler            = $client->submit($search);
         fwrite(STDOUT, "\t- Click on the booking button\n");
-        usleep(500000);
-        $this->assertTrue($crawler->filter('html:contains("Confirmar")')->count() > 0);
 
+        $this->assertTrue($crawler->filter('html:contains("Confirmar")')->count() > 0);
         $confirm = $crawler->selectButton('_confirmReserve')->form();
         $crawler            = $client->submit($confirm);
-
         $this->assertTrue($crawler->filter('html:contains("Reserva gestionada")')->count() > 0);
         fwrite(STDOUT, "\t- Booking done\n");
     }

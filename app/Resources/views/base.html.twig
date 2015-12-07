@@ -143,9 +143,11 @@
                         <option value="0" disabled="disabled" selected>{% trans %}Ciudad{% endtrans %}</option>
                         {% if cities is defined %}
                             {% for city in cities %}
-                                {% for children in city.childrens %}
-                                    <option value="{{ children.id }}" {% if app.session.get('searchCity') == children.id %}selected{% endif %}>{{ children.name }}</option>
-                                {% endfor %}
+                                {% if city.childrens is defined %}
+                                    {% for children in city.childrens %}
+                                        <option value="{{ children.id }}" {% if app.session.get('searchCity') == children.id %}selected{% endif %}>{{ children.name }}</option>
+                                    {% endfor %}
+                                {% endif %}
                             {% endfor %}
                         {% endif %}
                     </select>

@@ -28,11 +28,11 @@
                                     <b>{% trans %}Apellidos{% endtrans %}:</b> {{ app.user.surname }}
                                     <br/>
                                     <b>{% trans %}Email{% endtrans %}:</b> {{ app.user.email }}
-                                    {% if app.user.telephone is not empty %}
+                                    {% if app.user.telephone is defined and app.user.telephone is not empty %}
                                         <br/>
                                         <b>{% trans %}Telefono{% endtrans %}:</b> {{ app.user.telephone }}
                                     {% endif %}
-                                    {% if app.user.mobile is not empty %}
+                                    {% if app.user.mobile is defined and app.user.mobile is not empty %}
                                         <br/>
                                         <b>{% trans %}Movil{% endtrans %}:</b> {{ app.user.mobile }}
                                     {% endif %}
@@ -44,8 +44,8 @@
 
                                     <h4>{% trans %}Datos de la propiedad{% endtrans %}</h4>
 
-                                    <b>{% trans %}Propiedad{% endtrans %}:</b> {{ propertyData.propertyName }}
-                                    <input type="hidden" name="itemID" value="{{ propertyData.itemID }}">
+                                    <b>{% trans %}Propiedad{% endtrans %}:</b> {% if propertyData.propertyName is defined %}{{ propertyData.propertyName }}{% endif %}
+                                    <input type="hidden" name="itemID" value="{% if propertyData.itemID is defined %}{{ propertyData.itemID }}{% endif %}">
                                     <br/>
                                     {% if app.session.get('searchType') == 'hour' %}
                                         <b>{% trans %}Día{% endtrans %}:</b> {{ app.session.get('searchDate') }}
@@ -57,8 +57,8 @@
                                         <b>{% trans %}Hasta{% endtrans %}:</b> {{ app.session.get('searchEndDate') }}
                                     {% endif %}
                                     <br/>
-                                    <input type="hidden" name="price" value="{{ propertyData.totalPrice }}">
-                                    <b>{% trans %}Precio{% endtrans %}:</b> {{ propertyData.totalPrice }} &euro;
+                                    <input type="hidden" name="price" value="{% if propertyData.totalPrice is defined %}{{ propertyData.totalPrice }}{% endif %}">
+                                    <b>{% trans %}Precio{% endtrans %}:</b> {% if propertyData.totalPrice is defined %}{{ propertyData.totalPrice }}{% endif %} &euro;
                                 </div>
                                 <div style="clear:both;"></div>
 

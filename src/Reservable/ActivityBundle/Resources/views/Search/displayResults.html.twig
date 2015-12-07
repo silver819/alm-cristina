@@ -22,7 +22,7 @@
 
 			{% for oneResult in results %}
 				<form method="POST" action="{{ path('book') }}">
-                    <div class="box ownerEmail {{ oneProperty.ownerID }}">
+                    <div class="box ownerEmail {% if oneProperty.ownerID is defined %}{{ oneProperty.ownerID }}{% endif %}">
                         <div class="box-header with-border">
                             <h3 class="box-title">{{ oneResult.name }}</h3>
                             <div class="box-tools pull-right">
@@ -71,7 +71,10 @@
                                 <div class="col-sm-3 col-xs-6">
                                     <div class="description-block border-right">
                                         <h5 class="description-header">{% trans %}Precio{% endtrans %}</h5>
-                                        {%  set price = oneResult.price %}
+                                        {%  set price = 0 %}
+                                        {% if oneResult.price is defined %}
+                                            {%  set price = oneResult.price %}
+                                        {% endif %}
                                         {% if oneResult.typeRent == 'hour' %}
                                             {% set modality = 'hora' %}
                                         {% else %}

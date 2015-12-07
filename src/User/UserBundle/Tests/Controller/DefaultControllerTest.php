@@ -70,8 +70,6 @@ class DefaultControllerTest extends WebTestCase
         $form['fos_user_registration_form[name]']                  = 'Cristina Test';
         fwrite(STDOUT, "\t- Data filled\n");
 
-        usleep(500000);
-
         $crawler            = $client->submit($form);
         fwrite(STDOUT, "\t- Form sended\n");
         fwrite(STDOUT, "\t- User registered\n");
@@ -100,8 +98,6 @@ class DefaultControllerTest extends WebTestCase
         $crawler            = $client->submit($form);
         fwrite(STDOUT, "\t- Form sended\n");
         $this->assertTrue($crawler->filter('html:contains("Cristina Changed")')->count() > 0);
-
-        usleep(500000);
 
         $crawler            = $client->request('GET', '/es/profile/edit');
         fwrite(STDOUT, "\t- Click on the link to edit profile\n");
@@ -136,8 +132,6 @@ class DefaultControllerTest extends WebTestCase
         $link = $crawler->selectLink('Cristina Test')->link();
         $crawler = $client->click($link);
         fwrite(STDOUT, "\t- Click on the user to delete\n");
-
-        usleep(500000);
 
         $link = $crawler->selectLink('Eliminar')->link();
         $crawler = $client->click($link);

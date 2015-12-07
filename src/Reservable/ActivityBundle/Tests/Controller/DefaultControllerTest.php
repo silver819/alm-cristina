@@ -20,8 +20,6 @@ class DefaultControllerTest extends WebTestCase
         $this->assertTrue($crawler->filter('html:contains("Gestionar reservas")')->count() > 0);
         fwrite(STDOUT, "\t- User logged\n");
 
-        usleep(500000);
-
         // Ir a la página de actividades y registrar una propiedad
         $crawler            = $client->request('GET', '/es/new-property');
         fwrite(STDOUT, "\t- Clicked on the link to register the lodging\n");
@@ -32,8 +30,6 @@ class DefaultControllerTest extends WebTestCase
         $form['activity[address]']     = 'direccion automatic lodging';
         fwrite(STDOUT, "\t- Form completed\n");
         $crawler            = $client->submit($form);
-
-        usleep(500000);
 
         fwrite(STDOUT, "\t- Form sended\n");
         $this->assertTrue($crawler->filter('html:contains("¡La propiedad ha sido registrada con exito!")')->count() > 0);
