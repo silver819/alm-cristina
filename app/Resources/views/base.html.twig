@@ -40,7 +40,7 @@
             </a>
             <div class="navbar-custom-menu">
                 <ul class="nav navbar-nav">
-                    {% if app.user is defined %}
+                    {% if app.user.username is defined %}
                         <li class="headerUserName"><a href="{{ path('fos_user_profile_show') }}">{{ app.user.username }}</a></li>
                     {% endif %}
 
@@ -130,20 +130,24 @@
                     {#<input class="thisInput form-control" type="text" name="city" value="{{ app.session.get('searchCity') }}" placeholder="{% trans %}Lugar{% endtrans %}">#}
                     <select name="province" id="selectProvince" class="form-control" style="width:210px;">
                         <option value="0" disabled="disabled" selected>{% trans %}Provincia{% endtrans %}</option>
-                        {% for city in cities %}
-                            <option value="{{ city.id }}" {% if app.session.get('searchProvince') == city.id %}selected{% endif %}>{{ city.name }}</option>
-                        {% endfor %}
+                        {% if cities is defined %}
+                            {% for city in cities %}
+                                <option value="{{ city.id }}" {% if app.session.get('searchProvince') == city.id %}selected{% endif %}>{{ city.name }}</option>
+                            {% endfor %}
+                        {% endif %}
                     </select>
                 </div>
                 <br/>
                 <div class="input-group">
                     <select name="city" id="selectCity" class="form-control" style="width:210px;">
                         <option value="0" disabled="disabled" selected>{% trans %}Ciudad{% endtrans %}</option>
-                        {% for city in cities %}
-                            {% for children in city.childrens %}
-                                <option value="{{ children.id }}" {% if app.session.get('searchCity') == children.id %}selected{% endif %}>{{ children.name }}</option>
+                        {% if cities is defined %}
+                            {% for city in cities %}
+                                {% for children in city.childrens %}
+                                    <option value="{{ children.id }}" {% if app.session.get('searchCity') == children.id %}selected{% endif %}>{{ children.name }}</option>
+                                {% endfor %}
                             {% endfor %}
-                        {% endfor %}
+                        {% endif %}
                     </select>
                 </div>
 
@@ -264,17 +268,19 @@
                                 <td>
                                     <div class="input-group">
                                         <div class="checkbox">
-                                            {% for filter in filters.hour %}
+                                            {% if filters is defined %}
+                                                {% for filter in filters.hour %}
 
-                                                {% set checked = '' %}
-                                                {% for filterSelected in app.session.get('filterSearch') %}
-                                                    {% if filter.id == filterSelected %}
-                                                        {% set checked = 'checked' %}
-                                                    {% endif %}
+                                                    {% set checked = '' %}
+                                                    {% for filterSelected in app.session.get('filterSearch') %}
+                                                        {% if filter.id == filterSelected %}
+                                                            {% set checked = 'checked' %}
+                                                        {% endif %}
+                                                    {% endfor %}
+
+                                                    &nbsp;<input type="checkbox" class="checkboxSearch" name="filterSearch[]" value="{{ filter.id }}" {{ checked }}>{{ filter.name }}<br/>
                                                 {% endfor %}
-
-                                                &nbsp;<input type="checkbox" class="checkboxSearch" name="filterSearch[]" value="{{ filter.id }}" {{ checked }}>{{ filter.name }}<br/>
-                                            {% endfor %}
+                                            {% endif %}
                                         </div>
                                     </div>
                                 </td>
@@ -292,16 +298,18 @@
                         <br/>
                         <label>{% trans %}Filtros{% endtrans %}</label>
                         <br/>
-                        {% for filter in filters.day %}
-                            {% set checked = '' %}
-                            {% for filterSelected in app.session.get('filterSearch') %}
-                                {% if filter.id == filterSelected %}
-                                    {% set checked = 'checked' %}
-                                {% endif %}
-                            {% endfor %}
+                        {% if filters is defined %}
+                            {% for filter in filters.day %}
+                                {% set checked = '' %}
+                                {% for filterSelected in app.session.get('filterSearch') %}
+                                    {% if filter.id == filterSelected %}
+                                        {% set checked = 'checked' %}
+                                    {% endif %}
+                                {% endfor %}
 
-                            &nbsp;<input type="checkbox" class="checkboxSearch" name="filterSearch[]" value="{{ filter.id }}" {{ checked }}>{{ filter.name }}<br/>
-                        {% endfor %}
+                                &nbsp;<input type="checkbox" class="checkboxSearch" name="filterSearch[]" value="{{ filter.id }}" {{ checked }}>{{ filter.name }}<br/>
+                            {% endfor %}
+                        {% endif %}
                     </div>
                 {% endif %}
 
