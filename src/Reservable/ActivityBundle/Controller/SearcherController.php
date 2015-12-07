@@ -14,8 +14,6 @@ class SearcherController extends Controller
 
 		$session = $request->getSession();
 
-        //ladybug_dump($_POST);die();
-
         // Borramos datos que tengamos anteriormente en la sesion
         $session->remove('searchProvince');
         $session->remove('searchCity');
@@ -178,6 +176,10 @@ class SearcherController extends Controller
 				$bookings = $this->getDoctrine()
 								 ->getRepository('BookingsBookingBundle:Booking')
 								 ->findBookingsFromPropertyID($oneResult->getId());
+
+                if(!isset($thisRange)){
+                    $thisRange[] = date('Ymd', strtotime('+2 days')) . '09';
+                }
 
 				$dispo = $this->getDoctrine()
 							  ->getRepository('BookingsBookingBundle:DisponibilityBooking')

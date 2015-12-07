@@ -108,7 +108,7 @@
                                 </div><!-- /.col -->
                                 <div class="col-md-6 column">
                                     <input type="hidden" name="bookingID" value="{{ oneBooking.bookingID }}">
-                                    <button value="Send" class="btn btn-danger btnMargin pull-left cancelReserve" type="button" reservationID="{{ oneBooking.bookingID }}">
+                                    <button value="Send" class="btn btn-danger btnMargin pull-left cancelReserve" name="_cancelReserve" type="button" reservationID="{{ oneBooking.bookingID }}">
                                         <i class="glyphicon glyphicon-remove"></i>&nbsp;{% trans %}Cancelar reserva{% endtrans %}
                                     </button>
                                 </div><!-- /.col -->
