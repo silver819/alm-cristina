@@ -6,51 +6,6 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class DefaultControllerTest extends WebTestCase
 {
-    // Logueo correcto
-    public function testLoginOK()
-    {
-        fwrite(STDOUT, "*** TEST Login OK ***\n");
-        $client             = static::createClient();
-        $client->followRedirects(true);
-        $crawler            = $client->request('GET', '/es/login');
-
-        usleep(500000);
-
-        $form               = $crawler->selectButton('_submit')->form();
-        $form['_username']   = 'cristina';
-        $form['_password']   = 'cristina';
-
-        fwrite(STDOUT, "\t- Form completed\n");
-
-        $crawler            = $client->submit($form);
-
-        $this->assertTrue($crawler->filter('html:contains("Gestionar reservas")')->count() > 0);
-    }
-
-    // Logueo incorrecto
-    public function testLoginWRONG()
-    {
-        fwrite(STDOUT, "*** TEST Login WRONG ***\n");
-        $client             = static::createClient();
-        $client->followRedirects(true);
-        $crawler            = $client->request('GET', '/es/login');
-
-        usleep(500000);
-
-        $form               = $crawler->selectButton('_submit')->form();
-        $form['_username']   = 'cristina';
-        $form['_password']   = 'wrongPassword';
-
-        fwrite(STDOUT, "\t- Form completed\n");
-
-        $crawler            = $client->submit($form);
-        fwrite(STDOUT, "\t- User not logged\n");
-
-        // tearDown
-
-        $this->assertTrue($crawler->filter('html:contains("Entrar")')->count() > 0);
-    }
-
 
     // Registrar usuario
     public function testNewUser()
@@ -74,6 +29,47 @@ class DefaultControllerTest extends WebTestCase
         fwrite(STDOUT, "\t- Form sended\n");
         fwrite(STDOUT, "\t- User registered\n");
         $this->assertTrue($crawler->filter('html:contains("Solo queda un paso...")')->count() > 0);
+    }
+
+    // Logueo correcto
+    public function testLoginOK()
+    {
+        fwrite(STDOUT, "*** TEST Login OK ***\n");
+        $client             = static::createClient();
+        $client->followRedirects(true);
+        $crawler            = $client->request('GET', '/es/login');
+
+        $form               = $crawler->selectButton('_submit')->form();
+        $form['_username']   = 'cristina';
+        $form['_password']   = 'cristina';
+
+        fwrite(STDOUT, "\t- Form completed\n");
+
+        $crawler            = $client->submit($form);
+
+        $this->assertTrue($crawler->filter('html:contains("Gestionar reservas")')->count() > 0);
+    }
+
+    // Logueo incorrecto
+    public function testLoginWRONG()
+    {
+        fwrite(STDOUT, "*** TEST Login WRONG ***\n");
+        $client             = static::createClient();
+        $client->followRedirects(true);
+        $crawler            = $client->request('GET', '/es/login');
+
+        $form               = $crawler->selectButton('_submit')->form();
+        $form['_username']   = 'cristina';
+        $form['_password']   = 'wrongPassword';
+
+        fwrite(STDOUT, "\t- Form completed\n");
+
+        $crawler            = $client->submit($form);
+        fwrite(STDOUT, "\t- User not logged\n");
+
+        // tearDown
+
+        $this->assertTrue($crawler->filter('html:contains("Entrar")')->count() > 0);
     }
 
     // Modificar usuario
