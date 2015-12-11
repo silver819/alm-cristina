@@ -9,15 +9,15 @@
 	{% if is_granted("ROLE_SUPER_ADMIN") %}
 
         <div class="row bookingsFilter">
-            <div class="col-md-3">
+            <div class="col-md-2">
                 &nbsp;
             </div>
-            <div class="col-md-3">
+            <div class="col-md-4">
                 {% trans %}Nº reserva{% endtrans %}
                 <input name="reservationID" id="filterByResInput" type="text" size="5" maxlength="6" style="width: 80px;text-align: center;">
                 <button type="submit" id="filterByRes" class="btn" value="Send" style="height:28px;padding-top:3px;">OK</button>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-4">
                 <div class="col-md-2">
                     {%trans%}Ver{%endtrans%}
                 </div>
@@ -30,7 +30,7 @@
                     </select>
                 </div>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-2">
                 &nbsp;
             </div>
         </div>
@@ -49,7 +49,7 @@
                                 <h4><i class="fa fa-exclamation-triangle" style="color:red;"></i>&nbsp;&nbsp;{% trans %}No tiene reservas en este momento{%  endtrans %}</h4>
                             </div>
                             <div class="box-body">
-                                <p style="text-align: left;padding: 15px;margin: 5px;"><i class="fa fa-lightbulb-o" style="color: orange;font-size:50px;float:left;"></i>&nbsp;&nbsp;{% trans %}Comprueba que tus alojamientos están activos y tienes definidos precios y temporadas en tus alojamientos, sin precios no podrá aparecer en las búsquedas.{% endtrans %}</p>
+                                <p style="text-align: left;padding: 15px;margin: 5px;"><i class="fa fa-lightbulb-o" style="color: orange;font-size:50px;float:left;"></i>&nbsp;&nbsp;{% trans %}Comprueba que tus alojamientos están activos y tienes definidos precios y temporadas en tus alojamientos. Sin precios no podrá aparecer en las búsquedas.{% endtrans %}</p>
                                 <br/>
                                 <p><span style="font-weight: bold;">TIP:</span>{% trans %}Prueba a modificar los precios de sus alojamientos para que la oferta sea más competitiva{% endtrans %}</p>
                             </div>

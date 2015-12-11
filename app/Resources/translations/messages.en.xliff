@@ -74,6 +74,34 @@
                 <source>Día</source>
                 <target>Day</target>
             </trans-unit>
+            <trans-unit id="19">
+                <source>Provincia</source>
+                <target>Province</target>
+            </trans-unit>
+            <trans-unit id="20">
+                <source>Ciudad</source>
+                <target>City</target>
+            </trans-unit>
+            <trans-unit id="21">
+                <source>Filtros</source>
+                <target>Filters</target>
+            </trans-unit>
+            <trans-unit id="22">
+                <source>Te recomendamos</source>
+                <target>Suggestions</target>
+            </trans-unit>
+            <trans-unit id="23">
+                <source></source>
+                <target></target>
+            </trans-unit>
+            <trans-unit id="24">
+                <source></source>
+                <target></target>
+            </trans-unit>
+            <trans-unit id="25">
+                <source></source>
+                <target></target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

@@ -18,6 +18,22 @@
                 <source>Modificar datos</source>
                 <target>Change personal data</target>
             </trans-unit>
+            <trans-unit id="5">
+                <source>Registro</source>
+                <target>Register</target>
+            </trans-unit>
+            <trans-unit id="6">
+                <source>Iniciar sesión</source>
+                <target>Sign in</target>
+            </trans-unit>
+            <trans-unit id="7">
+                <source>Olvidé contraseña</source>
+                <target>Forgot password</target>
+            </trans-unit>
+            <trans-unit id="8">
+                <source>Registrarse</source>
+                <target>Register</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

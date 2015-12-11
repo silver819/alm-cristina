@@ -219,24 +219,28 @@
                 <target>Confirm</target>
             </trans-unit>
             <trans-unit id="55">
-                <source></source>
-                <target></target>
+                <source>Nº reserva</source>
+                <target>Booking number</target>
             </trans-unit>
             <trans-unit id="56">
-                <source></source>
-                <target></target>
+                <source>Ver</source>
+                <target>Filter</target>
             </trans-unit>
             <trans-unit id="57">
-                <source></source>
-                <target></target>
+                <source>todos los propietarios</source>
+                <target>all owners</target>
             </trans-unit>
             <trans-unit id="58">
-                <source></source>
-                <target></target>
+                <source>No tiene reservas en este momento</source>
+                <target>No bookings to manage</target>
             </trans-unit>
             <trans-unit id="59">
-                <source></source>
-                <target></target>
+                <source>Comprueba que tus alojamientos están activos y tienes definidos precios y temporadas en tus alojamientos. Sin precios no podrá aparecer en las búsquedas.</source>
+                <target>You can check if your lodgings are active and have definec prices and seasons. If your lodgings dont have prices they could not appear in searches.</target>
+            </trans-unit>
+            <trans-unit id="60">
+                <source>Prueba a modificar los precios de sus alojamientos para que la oferta sea más competitiva</source>
+                <target>Try to modify the prices of your lodging in order to have more competitive prices.</target>
             </trans-unit>
         </body>
     </file>
