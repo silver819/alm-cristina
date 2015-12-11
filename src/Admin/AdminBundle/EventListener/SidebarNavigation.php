@@ -29,30 +29,47 @@ class SidebarNavigation
     {
         $menu      = array();
         $rootItems = array();
+
+        $arrayTexts = array();
+        $arrayTexts['profile']          = array('es' => 'Mi perfil',    'en' => 'Profile');
+        $arrayTexts['viewUsers']        = array('es' => 'Ver usuarios', 'en' => 'View users');
+        $arrayTexts['viewProperties']   = array('es' => 'Ver propiedades', 'en' => 'View lodgings');
+        $arrayTexts['newProperty']      = array('es' => 'Nueva propiedad', 'en' => 'New lodging');
+        $arrayTexts['bookings']         = array('es' => 'Reservas', 'en' => 'Bookings');
+        $arrayTexts['calendar']         = array('es' => 'Calendario', 'en' => 'Calendar');
+        $arrayTexts['historical']       = array('es' => 'Historial de reservas', 'en' => 'Bookings history');
+        $arrayTexts['types']            = array('es' => 'Tipos', 'en' => 'Types');
+        $arrayTexts['features']         = array('es' => 'Características', 'en' => 'Features');
+        $arrayTexts['typesFeatures']    = array('es' => 'Tipos y características', 'en' => 'Types & features');
+        $arrayTexts['zones']            = array('es' => 'Zonas', 'en' => 'Zones');
+        $arrayTexts['statistics']         = array('es' => 'estadísticas', 'en' => 'Statistics');
+
+        $thisLang  = $request->getLocale();
         if(!$this->context->isGranted('ROLE_SUPER_ADMIN')) {
-            $rootItems[] = $viewUsers      = new MenuItemModel('fos_user_profile_show',        'Mi perfil',             'fos_user_profile_show',       $menu, 'glyphicon glyphicon-user');
+
+            $rootItems[] = $viewUsers      = new MenuItemModel('fos_user_profile_show',$arrayTexts['profile'][$thisLang],'fos_user_profile_show',$menu,'glyphicon glyphicon-user');
         }
         if($this->context->isGranted('ROLE_SUPER_ADMIN')){
-            $rootItems[] = $viewUsers      = new MenuItemModel('view-users',        'Ver usuarios',             'view_users',       $menu, 'fa fa-users');
+            $rootItems[] = $viewUsers      = new MenuItemModel('view-users',$arrayTexts['viewUsers'][$thisLang],'view_users',$menu,'fa fa-users');
         }
 
         if($this->context->isGranted('ROLE_ADMIN')) {
-            $rootItems[] = $viewProperties = new MenuItemModel('view-activities', 'Ver propiedades', 'view_activities', $menu, 'fa fa-home');
+            $rootItems[] = $viewProperties = new MenuItemModel('view-activities',$arrayTexts['viewProperties'][$thisLang], 'view_activities', $menu, 'fa fa-home');
         }
-        $rootItems[] = $addProperty        = new MenuItemModel('add-property',     'Nueva propiedad',           'new_activity',    $menu, 'glyphicon glyphicon-plus');
-        $rootItems[] = $bookings           = new MenuItemModel('bookings',         'Reservas',                 'consultBookings',  $menu, 'glyphicon glyphicon-check');
+        $rootItems[] = $addProperty        = new MenuItemModel('add-property',$arrayTexts['newProperty'][$thisLang],           'new_activity',    $menu, 'glyphicon glyphicon-plus');
+        $rootItems[] = $bookings           = new MenuItemModel('bookings',$arrayTexts['bookings'][$thisLang],                 'consultBookings',  $menu, 'glyphicon glyphicon-check');
         if($this->context->isGranted('ROLE_ADMIN')) {
-            $rootItems[] = $calendar = new MenuItemModel('calendarBookings', 'Calendario', 'calendarBookings', $menu, 'fa fa-calendar');
-            $rootItems[] = $history = new MenuItemModel('historyBookings', 'Historial de reservas', 'historyBookings', $menu, 'fa fa-clock-o');
+            $rootItems[] = $calendar = new MenuItemModel('calendarBookings',$arrayTexts['calendar'][$thisLang], 'calendarBookings', $menu, 'fa fa-calendar');
+            $rootItems[] = $history = new MenuItemModel('historyBookings',$arrayTexts['historical'][$thisLang], 'historyBookings', $menu, 'fa fa-clock-o');
         }
         if($this->context->isGranted('ROLE_SUPER_ADMIN')){
-            $rootItems[] = $viewOwners      = new MenuItemModel('admin-types',     'Gestionar tipos',           'admin_types',      $menu, 'fa fa-text-width');
-            $rootItems[] = $viewOwners      = new MenuItemModel('admin-features',  'Gestionar características', 'admin_features',   $menu, 'fa fa-list-alt');
-            $rootItems[] = $viewOwners      = new MenuItemModel('types-features',  'Tipos y características',   'new_features',     $menu, 'fa fa-exchange');
-            $rootItems[] = $viewOwners      = new MenuItemModel('admin-zones',     'Gestionar zonas',           'admin_zones',      $menu, 'fa fa-globe');
+            $rootItems[] = $viewOwners      = new MenuItemModel('admin-types',$arrayTexts['types'][$thisLang],           'admin_types',      $menu, 'fa fa-text-width');
+            $rootItems[] = $viewOwners      = new MenuItemModel('admin-features',$arrayTexts['features'][$thisLang], 'admin_features',   $menu, 'fa fa-list-alt');
+            $rootItems[] = $viewOwners      = new MenuItemModel('types-features',$arrayTexts['typesFeatures'][$thisLang],   'new_features',     $menu, 'fa fa-exchange');
+            $rootItems[] = $viewOwners      = new MenuItemModel('admin-zones',$arrayTexts['zones'][$thisLang],           'admin_zones',      $menu, 'fa fa-globe');
         }
         if($this->context->isGranted('ROLE_ADMIN')) {
-            $rootItems[] = $statistics = new MenuItemModel('statistics', 'Estadísticas', 'statistics', $menu, 'fa fa-bar-chart');
+            $rootItems[] = $statistics = new MenuItemModel('statistics',$arrayTexts['statistics'][$thisLang], 'statistics', $menu, 'fa fa-bar-chart');
         }
 
         //$statistics->addChild(new MenuItemModel('ui-elements-general', 'General', 'avanzu_admin_ui_gen_demo', $earg))

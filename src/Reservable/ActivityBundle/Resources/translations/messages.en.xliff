@@ -242,6 +242,82 @@
                 <source>Prueba a modificar los precios de sus alojamientos para que la oferta sea más competitiva</source>
                 <target>Try to modify the prices of your lodging in order to have more competitive prices.</target>
             </trans-unit>
+            <trans-unit id="61">
+                <source>Ver usuarios</source>
+                <target>View users</target>
+            </trans-unit>
+            <trans-unit id="62">
+                <source>Email (autocompletado)</source>
+                <target>Email (autocomplete)</target>
+            </trans-unit>
+            <trans-unit id="63">
+                <source>Todos</source>
+                <target>All</target>
+            </trans-unit>
+            <trans-unit id="64">
+                <source>Tipo de usuario</source>
+                <target>User type</target>
+            </trans-unit>
+            <trans-unit id="65">
+                <source>Si</source>
+                <target>Yes</target>
+            </trans-unit>
+            <trans-unit id="66">
+                <source>Administradores</source>
+                <target>Administrators</target>
+            </trans-unit>
+            <trans-unit id="67">
+                <source>Propietarios</source>
+                <target>Owners</target>
+            </trans-unit>
+            <trans-unit id="68">
+                <source>Usuarios</source>
+                <target>Users</target>
+            </trans-unit>
+            <trans-unit id="69">
+                <source>Alquiler por</source>
+                <target>Rent by</target>
+            </trans-unit>
+            <trans-unit id="70">
+                <source>todas las zonas</source>
+                <target>all zones</target>
+            </trans-unit>
+            <trans-unit id="71">
+                <source>Descarga tu calendario .ics para exportar</source>
+                <target>Download .ics calendar to export</target>
+            </trans-unit>
+            <trans-unit id="72">
+                <source>Importa tu calencario .ics</source>
+                <target>Import your .ics calendar</target>
+            </trans-unit>
+            <trans-unit id="73">
+                <source>Importar</source>
+                <target>Import</target>
+            </trans-unit>
+            <trans-unit id="74">
+                <source>Eliminar importación</source>
+                <target>Delete import</target>
+            </trans-unit>
+            <trans-unit id="75">
+                <source>¿Estas seguro de querer eliminar este calendario?</source>
+                <target>Are you sure to delete this calendar?</target>
+            </trans-unit>
+            <trans-unit id="76">
+                <source>Si elimina este calendario, también se eliminarán todos los bloqueos importados.</source>
+                <target>Si you delete this calendar, all bookings synchronise this this will disappear</target>
+            </trans-unit>
+            <trans-unit id="77">
+                <source>Calendario sincronizado</source>
+                <target>Calendar synchronised</target>
+            </trans-unit>
+            <trans-unit id="78">
+                <source>Este iCal ya está sincronizado con tu calendario, para actualizarlo, pulsa sobre el icono de actualizar.</source>
+                <target>This iCal is already synchronise in your calendar, to update ir, click on the update button.</target>
+            </trans-unit>
+            <trans-unit id="79">
+                <source>Entendido</source>
+                <target>Understood</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>
