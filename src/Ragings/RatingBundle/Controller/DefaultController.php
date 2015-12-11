@@ -48,10 +48,18 @@ class DefaultController extends Controller
 
     }
 
-    public function statisticsAction(){
+    public function statisticsAction(Request $request){
 
         ## Propiedades más reservados (por día y por hora)
         $top5bookings = $this->getTop5Bookings();
+
+        $thisLang = $request->getLocale();
+        $arrayTexts = array();
+        $arrayTexts['byDay'] = array('es' => 'Por día', 'en' => 'By day');
+        $arrayTexts['byHour'] = array('es' => 'Por hora', 'en' => 'By hour');
+        $arrayTexts['byDayUpTo5'] = array('es' => 'Por día (sobre 5 puntos)', 'en' => 'By day (up to 5 points)');
+        $arrayTexts['byHourUpTo5'] = array('es' => 'Por hora (sobre 5 puntos)', 'en' => 'By hour (up to 5 points)');
+        $arrayTexts['meanVal'] = array('es' => 'Valoración media', 'en' => 'Mean valoration');
         //ldd($top5bookings);
 
         // Chart
@@ -64,12 +72,12 @@ class DefaultController extends Controller
 
         $chartTop5hourlyBooked = new Highchart();
         $chartTop5hourlyBooked->chart->renderTo('top5hourlyBookingsProperties');
-        $chartTop5hourlyBooked->title->text('Por hora');
+        $chartTop5hourlyBooked->title->text($arrayTexts['byHour'][$thisLang]);
         $chartTop5hourlyBooked->plotOptions->pie($chartOptions);
 
         $chartTop5dailyBooked = new Highchart();
         $chartTop5dailyBooked->chart->renderTo('top5dailyBookingsProperties');
-        $chartTop5dailyBooked->title->text('Por día');
+        $chartTop5dailyBooked->title->text($arrayTexts['byDay'][$thisLang]);
         $chartTop5dailyBooked->plotOptions->pie($chartOptions);
 
         $data1 = array();
@@ -98,18 +106,18 @@ class DefaultController extends Controller
         $chartTop5hourlyRated = new Highchart();
         $chartTop5hourlyRated->chart->renderTo('top5hourlyRatedProperties');
         $chartTop5hourlyRated->chart->type('column');
-        $chartTop5hourlyRated->title->text('Por hora, resultados sobre 5 puntos');
+        $chartTop5hourlyRated->title->text($arrayTexts['byHourUpTo5'][$thisLang]);
         $chartTop5hourlyRated->plotOptions->pie($chartOptions);
         $chartTop5hourlyRated->xAxis->categories($xAxisHourlyRated);
-        $chartTop5hourlyRated->series(array(array('type' => 'column', 'name' => 'Valoración media', 'data' => $yAxisHourlyRated)));
+        $chartTop5hourlyRated->series(array(array('type' => 'column', 'name' => $arrayTexts['meanVal'][$thisLang], 'data' => $yAxisHourlyRated)));
 
         $chartTop5dailyRated = new Highchart();
         $chartTop5dailyRated->chart->renderTo('top5dailyRatedProperties');
         $chartTop5dailyRated->chart->type('column');
-        $chartTop5dailyRated->title->text('Por día, resultados sobre 5 puntos');
+        $chartTop5dailyRated->title->text($arrayTexts['byDayUpTo5'][$thisLang]);
         $chartTop5dailyRated->plotOptions->pie($chartOptions);
         $chartTop5dailyRated->xAxis->categories($xAxisDailyRated);
-        $chartTop5dailyRated->series(array(array('type' => 'column', 'name' => 'Valoración media', 'data' => $yAxisDailyRated)));
+        $chartTop5dailyRated->series(array(array('type' => 'column', 'name' => $arrayTexts['meanVal'][$thisLang], 'data' => $yAxisDailyRated)));
 
         ## Clientes más activos
         $top10clients = $this->getTop10Clients();
@@ -128,18 +136,18 @@ class DefaultController extends Controller
         $chartTop10hourlyClients = new Highchart();
         $chartTop10hourlyClients->chart->renderTo('top10hourlyClients');
         $chartTop10hourlyClients->chart->type('column');
-        $chartTop10hourlyClients->title->text('Por hora');
+        $chartTop10hourlyClients->title->text($arrayTexts['byHour'][$thisLang]);
         $chartTop10hourlyClients->plotOptions->pie($chartOptions);
         $chartTop10hourlyClients->xAxis->categories($xAxisHourlyRated);
-        $chartTop10hourlyClients->series(array(array('type' => 'column', 'name' => 'Valoración media', 'data' => $yAxisHourlyRated)));
+        $chartTop10hourlyClients->series(array(array('type' => 'column', 'name' => $arrayTexts['meanVal'][$thisLang], 'data' => $yAxisHourlyRated)));
 
         $chartTop10dailyClients = new Highchart();
         $chartTop10dailyClients->chart->renderTo('top10dailyClients');
         $chartTop10dailyClients->chart->type('column');
-        $chartTop10dailyClients->title->text('Por día');
+        $chartTop10dailyClients->title->text($arrayTexts['byDay'][$thisLang]);
         $chartTop10dailyClients->plotOptions->pie($chartOptions);
         $chartTop10dailyClients->xAxis->categories($xAxisDailyRated);
-        $chartTop10dailyClients->series(array(array('type' => 'column', 'name' => 'Valoración media', 'data' => $yAxisDailyRated)));
+        $chartTop10dailyClients->series(array(array('type' => 'column', 'name' => $arrayTexts['meanVal'][$thisLang], 'data' => $yAxisDailyRated)));
 
         return $this->render(
             'RagingsRatingBundle:Statistics:index.html.twig',

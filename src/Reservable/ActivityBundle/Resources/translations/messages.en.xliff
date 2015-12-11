@@ -92,7 +92,7 @@
             </trans-unit>
             <trans-unit id="23">
                 <source>Características</source>
-                <target>Properties</target>
+                <target>Features</target>
             </trans-unit>
             <trans-unit id="24">
                 <source>Actualizar</source>
@@ -317,6 +317,126 @@
             <trans-unit id="79">
                 <source>Entendido</source>
                 <target>Understood</target>
+            </trans-unit>
+            <trans-unit id="80">
+                <source>Gestionar tipos</source>
+                <target>Manage types</target>
+            </trans-unit>
+            <trans-unit id="81">
+                <source>Tipos</source>
+                <target>Types</target>
+            </trans-unit>
+            <trans-unit id="82">
+                <source>Tipo</source>
+                <target>Type</target>
+            </trans-unit>
+            <trans-unit id="83">
+                <source>Modalidad</source>
+                <target>Modality</target>
+            </trans-unit>
+            <trans-unit id="84">
+                <source>Icono</source>
+                <target>Icon</target>
+            </trans-unit>
+            <trans-unit id="85">
+                <source>Modificar</source>
+                <target>Update</target>
+            </trans-unit>
+            <trans-unit id="86">
+                <source>Mostrar modalidad hora</source>
+                <target>Show hour modality</target>
+            </trans-unit>
+            <trans-unit id="87">
+                <source>Mostrar modalidad dia</source>
+                <target>Show day modality</target>
+            </trans-unit>
+            <trans-unit id="88">
+                <source>Mostrar todos</source>
+                <target>Show all</target>
+            </trans-unit>
+            <trans-unit id="89">
+                <source>Nuevo</source>
+                <target>New</target>
+            </trans-unit>
+            <trans-unit id="90">
+                <source>Gestionar características</source>
+                <target>Manage features</target>
+            </trans-unit>
+            <trans-unit id="91">
+                <source>Característica</source>
+                <target>Feature</target>
+            </trans-unit>
+            <trans-unit id="92">
+                <source>Asociar tipos y características</source>
+                <target>Associate types and features</target>
+            </trans-unit>
+            <trans-unit id="93">
+                <source>Gestionar zonas</source>
+                <target>Manage zones</target>
+            </trans-unit>
+            <trans-unit id="94">
+                <source>Nuevo país</source>
+                <target>New country</target>
+            </trans-unit>
+            <trans-unit id="95">
+                <source>Nueva comunidad</source>
+                <target>New comunity</target>
+            </trans-unit>
+            <trans-unit id="96">
+                <source>Nueva provincia</source>
+                <target>New province</target>
+            </trans-unit>
+            <trans-unit id="97">
+                <source>Nueva ciudad</source>
+                <target>New city</target>
+            </trans-unit>
+            <trans-unit id="98">
+                <source>Estadísticas</source>
+                <target>Statistics</target>
+            </trans-unit>
+            <trans-unit id="99">
+                <source>Top 10 propiedades más reservadas</source>
+                <target>Top 10 most booked properties</target>
+            </trans-unit>
+            <trans-unit id="100">
+                <source>Top 10 propiedades mejor valoradas</source>
+                <target>Top 10 best rated properties </target>
+            </trans-unit>
+            <trans-unit id="101">
+                <source>Top 10 clientes más activos</source>
+                <target>Top 10 most active users</target>
+            </trans-unit>
+            <trans-unit id="102">
+                <source></source>
+                <target></target>
+            </trans-unit>
+            <trans-unit id="103">
+                <source></source>
+                <target></target>
+            </trans-unit>
+            <trans-unit id="104">
+                <source></source>
+                <target></target>
+            </trans-unit>
+            <trans-unit id="105">
+                <source></source>
+                <target></target>
+            </trans-unit>
+            <trans-unit id="106">
+                <source></source>
+                <target></target>
+            </trans-unit>
+            <trans-unit id="107">
+                <source></source>
+                <target></target>
+            </trans-unit>
+            <trans-unit id="108">
+                <source></source>
+                <target></target>
+            </trans-unit>
+            <trans-unit id="109">
+                <source></source>
+                <target></target>
             </trans-unit>
         </body>
     </file>
