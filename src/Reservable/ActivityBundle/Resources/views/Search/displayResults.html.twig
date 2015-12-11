@@ -76,28 +76,36 @@
                                             {%  set price = oneResult.price %}
                                         {% endif %}
                                         {% if oneResult.typeRent == 'hour' %}
-                                            {% set modality = 'hora' %}
+                                            {% if app.request.locale == 'es' %}
+                                                {% set modality = 'hora' %}
+                                            {% else %}
+                                                {% set modality = 'hour' %}
+                                            {% endif %}
                                         {% else %}
-                                            {% set modality = 'día' %}
+                                            {% if app.request.locale == 'es' %}
+                                                {% set modality = 'día' %}
+                                            {% else %}
+                                                {% set modality = 'day' %}
+                                            {% endif %}
                                         {% endif %}
                                         <span class="description-text">&nbsp;{{ arrayPrices[oneResult.id].priceByDay }} &euro; / {{ modality }}</span>
                                     </div><!-- /.description-block -->
                                 </div><!-- /.col -->
                                 <div class="col-sm-3 col-xs-6">
                                     <div class="description-block border-right">
-                                        <h5 class="description-header">Comentarios</h5>
+                                        <h5 class="description-header">{% trans %}Comentarios{% endtrans %}</h5>
                                         <span class="description-text">{{ arrayComments[oneResult.id] }}</span>
                                     </div><!-- /.description-block -->
                                 </div><!-- /.col -->
                                 <div class="col-sm-3 col-xs-6">
                                     <div class="description-block border-right">
-                                        <h5 class="description-header">Valoración</h5>
+                                        <h5 class="description-header">{% trans %}Nota{% endtrans %}</h5>
                                         <span class="description-text">{{ arrayRatings[oneResult.id] }}</span>
                                     </div><!-- /.description-block -->
                                 </div>
                                 <div class="col-sm-3 col-xs-6">
                                     <div class="description-block">
-                                        <h5 class="description-header">Total
+                                        <h5 class="description-header">{% trans %}Total{% endtrans %}
                                             <input type="hidden" name="totalPrice" value="{{ arrayPrices[oneResult.id].totalPrice }}">
                                             {{ arrayPrices[oneResult.id].totalPrice }} &euro;
                                         </h5>

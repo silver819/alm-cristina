@@ -56,6 +56,7 @@
                                 {% set adminUrl = "/" ~ app.request.locale ~ "/superUserAdmin"  %}
                             {% endif %}
 
+                            {#
                             <li class="adminLI">
                                 <a href="{{ adminUrl }}" target="_blank">
                                     <span class="glyphicon glyphicon-wrench"></span>
@@ -63,6 +64,7 @@
                                 </a>
                             </li>
                             <li class="divider"></li>
+                            #}
                         {% endif %}
                         <li>
                             <a href="{{ path('consultBookings') }}"><span class="glyphicon glyphicon-th-list"></span>&nbsp;&nbsp;{% trans %}Menu{% endtrans %}</a>
@@ -104,7 +106,7 @@
         });
 
         $('.logo').attr("href", "{{ path('homepage') }}");
-        setTimeout(function(){$('.main-footer').html('<div class="pull-right hidden-xs"><b>PFC Ingeniería Informática</b> Universidad de Cádiz </div> <strong>Cristina Sánchez García</strong> &copy; 2014-2015');}, 100);
+        setTimeout(function(){$('.main-footer').html('<div class="pull-right hidden-xs"><b>PFC Ingeniería Informática</b> Universidad de Cádiz </div> <strong>Cristina Sánchez García</strong> &copy; 2015-2016');}, 100);
     </script>
 {% endblock %}
 

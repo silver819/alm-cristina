@@ -156,7 +156,7 @@
             </trans-unit>
             <trans-unit id="39">
                 <source>Desde</source>
-                <target>Check in</target>
+                <target>From</target>
             </trans-unit>
             <trans-unit id="40">
                 <source>Hasta</source>
@@ -407,36 +407,36 @@
                 <target>Top 10 most active users</target>
             </trans-unit>
             <trans-unit id="102">
-                <source></source>
-                <target></target>
+                <source>Comentarios</source>
+                <target>Comments</target>
             </trans-unit>
             <trans-unit id="103">
-                <source></source>
-                <target></target>
+                <source>Valoración</source>
+                <target>Ratings</target>
             </trans-unit>
             <trans-unit id="104">
-                <source></source>
-                <target></target>
+                <source>Nota</source>
+                <target>Mark</target>
             </trans-unit>
             <trans-unit id="105">
-                <source></source>
-                <target></target>
+                <source>COMENTARIOS</source>
+                <target>Comments</target>
             </trans-unit>
             <trans-unit id="106">
-                <source></source>
-                <target></target>
+                <source>VALORACIONES</source>
+                <target>Ratings</target>
             </trans-unit>
             <trans-unit id="107">
-                <source></source>
-                <target></target>
+                <source>NOTA</source>
+                <target>Mark</target>
             </trans-unit>
             <trans-unit id="108">
-                <source></source>
-                <target></target>
+                <source>por día</source>
+                <target>by day</target>
             </trans-unit>
             <trans-unit id="109">
-                <source></source>
-                <target></target>
+                <source>por hora</source>
+                <target>by hour</target>
             </trans-unit>
         </body>
     </file>
