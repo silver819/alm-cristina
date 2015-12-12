@@ -27,6 +27,24 @@
 
 
 </head>
+
+<style>
+    .wrapper{background-color:#ecf0f5;}
+    .sidebar{
+        background-color: #222d32;
+        padding: 10px 3px 10px 3px;
+        margin: 10px;
+        border-radius: 15px;
+    }
+    .main-sidebar{background-color:#ecf0f5 !important;width:260px;}
+    .content-wrapper{margin-left: 260px;}
+    .clearFooter{clear:both;height: 55px;background-color: #ecf0f5}
+    .main-footer{margin-left: 0px;}
+    @media (max-width: 750px) {
+        .content-wrapper{margin-left: 0px;}
+    }
+</style>
+
 <body class="skin-blue">
 <div class="wrapper">
 
@@ -116,7 +134,7 @@
 
     <!-- Left side column. contains the logo and sidebar -->
     <aside class="mainSearch main-sidebar sidebar-offcanvas">
-        <section class="sidebar" style="height: auto;">
+        <section class="sidebar">
             <form action="{{ path('search') }}" method="POST" class="sidebar-form searcherForm">
 
                 {# <div class="input-group">
@@ -342,16 +360,16 @@
     </div>
     <!-- /.content-wrapper -->
 
-    <footer class="main-footer">
-        <div class="pull-right hidden-xs">
-            <b>PFC Ingeniería Informática</b> Universidad de Cádiz
-        </div>
-        <strong>Cristina Sánchez García</strong> &copy; 2015-2016
-    </footer>
-
 </div>
 <!-- ./wrapper -->
 
+<div class="clearFooter"></div>
+<footer class="main-footer">
+    <div class="pull-right hidden-xs">
+        <b>PFC Ingeniería Informática</b> Universidad de Cádiz
+    </div>
+    <strong>Cristina Sánchez García</strong> &copy; 2015-2016
+</footer>
 
 <script src="/bundles/avanzuadmintheme/static/dev/scripts/admin-lte-all.js"></script>
 
