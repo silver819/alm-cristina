@@ -42,7 +42,7 @@ class SidebarNavigation
         $arrayTexts['features']         = array('es' => 'Características', 'en' => 'Features');
         $arrayTexts['typesFeatures']    = array('es' => 'Tipos y características', 'en' => 'Types & features');
         $arrayTexts['zones']            = array('es' => 'Zonas', 'en' => 'Zones');
-        $arrayTexts['statistics']         = array('es' => 'estadísticas', 'en' => 'Statistics');
+        $arrayTexts['statistics']         = array('es' => 'Estadísticas', 'en' => 'Statistics');
 
         $thisLang  = $request->getLocale();
         if(!$this->context->isGranted('ROLE_SUPER_ADMIN')) {
