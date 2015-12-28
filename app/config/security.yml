@@ -81,3 +81,5 @@ security:
         - { path: ^/en/statistics, role: ROLE_USER }
         - { path: ^/en/book/, role: ROLE_USER }
         - { path: ^/es/book/, role: ROLE_USER }
+        - { path: ^/es/make-rating, role: ROLE_USER }
+        - { path: ^/en/make-rating, role: ROLE_USER }
