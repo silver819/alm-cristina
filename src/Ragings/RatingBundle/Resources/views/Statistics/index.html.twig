@@ -74,31 +74,33 @@
                 </div>
 
                 {# Top 10 clientes más activos #}
-                <div class="box box-warning">
-                    <div class="box-header with-border">
-                        <h3 class="box-title">{% trans %}Top 10 clientes más activos{% endtrans %}</h3>
-                        <div class="box-tools pull-right">
-                            <button data-widget="collapse" class="btn btn-box-tool"><i class="fa fa-minus"></i></button>
-                            <button data-widget="remove" class="btn btn-box-tool"><i class="fa fa-times"></i></button>
+                {% if showClients == 1 %}
+                    <div class="box box-warning">
+                        <div class="box-header with-border">
+                            <h3 class="box-title">{% trans %}Top 10 clientes más activos{% endtrans %}</h3>
+                            <div class="box-tools pull-right">
+                                <button data-widget="collapse" class="btn btn-box-tool"><i class="fa fa-minus"></i></button>
+                                <button data-widget="remove" class="btn btn-box-tool"><i class="fa fa-times"></i></button>
+                            </div>
                         </div>
+
+                        <div class="box-body">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="chart">
+                                        <div id="top10hourlyClients" style="min-width: 400px; height: 400px; margin: 0 auto"></div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="chart">
+                                        <div id="top10dailyClients" style="min-width: 400px; height: 400px; margin: 0 auto"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div><!-- /.box-body -->
                     </div>
-
-                    <div class="box-body">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="chart">
-                                    <div id="top10hourlyClients" style="min-width: 400px; height: 400px; margin: 0 auto"></div>
-                                </div>
-                            </div>
-
-                            <div class="col-md-6">
-                                <div class="chart">
-                                    <div id="top10dailyClients" style="min-width: 400px; height: 400px; margin: 0 auto"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div><!-- /.box-body -->
-                </div>
+                {% endif %}
 
             </section><!-- /.Left col -->
 

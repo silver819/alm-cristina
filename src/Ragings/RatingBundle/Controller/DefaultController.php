@@ -50,6 +50,8 @@ class DefaultController extends Controller
 
     public function statisticsAction(Request $request){
 
+        $results = array();
+
         ## Propiedades más reservados (por día y por hora)
         $top5bookings = $this->getTop5Bookings();
 
@@ -89,6 +91,9 @@ class DefaultController extends Controller
         $chartTop5hourlyBooked->series(array(array('type' => 'pie','name' => 'Reservas', 'data' => $data1)));
         $chartTop5dailyBooked->series(array(array('type' => 'pie','name' => 'Reservas', 'data' => $data2)));
 
+        $results['chartTop5hourlyBooked'] = $chartTop5hourlyBooked;
+        $results['chartTop5dailyBooked']  = $chartTop5dailyBooked;
+
         ## Alojamientos mejor valorados (por día y por hora)
         $top5ratings = $this->getTop5Ratings();
 
@@ -118,6 +123,9 @@ class DefaultController extends Controller
         $chartTop5dailyRated->plotOptions->pie($chartOptions);
         $chartTop5dailyRated->xAxis->categories($xAxisDailyRated);
         $chartTop5dailyRated->series(array(array('type' => 'column', 'name' => $arrayTexts['meanVal'][$thisLang], 'data' => $yAxisDailyRated)));
+
+        $results['chartTop5hourlyRated'] = $chartTop5hourlyRated;
+        $results['chartTop5dailyRated']  = $chartTop5dailyRated;
 
         ## Clientes más activos
         $top10clients = $this->getTop10Clients();
@@ -149,16 +157,12 @@ class DefaultController extends Controller
         $chartTop10dailyClients->xAxis->categories($xAxisDailyRated);
         $chartTop10dailyClients->series(array(array('type' => 'column', 'name' => $arrayTexts['meanVal'][$thisLang], 'data' => $yAxisDailyRated)));
 
+        $results['chartTop10hourlyClients'] = $chartTop10hourlyClients;
+        $results['chartTop10dailyClients']  = $chartTop10dailyClients;
+        $results['showClients'] = ($this->get('security.context')->isGranted('ROLE_SUPER_ADMIN'))? 1 : 0 ;
+
         return $this->render(
-            'RagingsRatingBundle:Statistics:index.html.twig',
-            array(
-                'chartTop5hourlyBooked'     => $chartTop5hourlyBooked,
-                'chartTop5dailyBooked'      => $chartTop5dailyBooked,
-                'chartTop5hourlyRated'      => $chartTop5hourlyRated,
-                'chartTop5dailyRated'       => $chartTop5dailyRated,
-                'chartTop10hourlyClients'   => $chartTop10hourlyClients,
-                'chartTop10dailyClients'    => $chartTop10dailyClients
-            ));
+            'RagingsRatingBundle:Statistics:index.html.twig', $results);
 
     }
 
@@ -166,7 +170,8 @@ class DefaultController extends Controller
 
         $arrayReturn = array();
 
-        $results = $this->getDoctrine()
+        if($this->get('security.context')->isGranted('ROLE_SUPER_ADMIN')) {
+            $results = $this->getDoctrine()
                 ->getManager()
                 ->createQuery('SELECT count(b.id) as numBookings, a.id, a.name, a.typeRent, a.ownerID
                                FROM BookingsBookingBundle:Booking b
@@ -175,6 +180,19 @@ class DefaultController extends Controller
                                GROUP BY b.activityID
                                ORDER BY numBookings DESC')
                 ->getResult();
+        }
+        else{
+            $results = $this->getDoctrine()
+                ->getManager()
+                ->createQuery('SELECT count(b.id) as numBookings, a.id, a.name, a.typeRent, a.ownerID
+                               FROM BookingsBookingBundle:Booking b
+                               INNER JOIN ReservableActivityBundle:Activity a
+                               WHERE b.activityID = a.id
+                               AND a.ownerID = ' . $this->get('security.context')->getToken()->getUser()->getId() . '
+                               GROUP BY b.activityID
+                               ORDER BY numBookings DESC')
+                ->getResult();
+        }
 
         //ldd($results);
 
@@ -211,19 +229,20 @@ class DefaultController extends Controller
         $arrayReturn = array();
 
         $results = $this->getDoctrine()
-                ->getManager()
-                ->createQuery('SELECT count(r.id) as numRatings, SUM(r.ubicacion) as ubicacionCount,
-                               SUM(r.llegar) as llegarCount, SUM(r.limpieza) as limpiezaCount,
-                               SUM(r.material) as materialCount, SUM(r.caracteristicas) as caracteristicasCount,
-                               SUM(r.gestiones) as gestionesCount, SUM(r.usabilidad) as usabilidadCount,
-                               b.activityID
-                               FROM RagingsRatingBundle:Rating r
-                               INNER JOIN BookingsBookingBundle:Booking b
-                               WHERE b.id = r.reservationNumber
-                               GROUP BY b.activityID')
-                ->getResult();
+            ->getManager()
+            ->createQuery('SELECT count(r.id) as numRatings, SUM(r.ubicacion) as ubicacionCount,
+                           SUM(r.llegar) as llegarCount, SUM(r.limpieza) as limpiezaCount,
+                           SUM(r.material) as materialCount, SUM(r.caracteristicas) as caracteristicasCount,
+                           SUM(r.gestiones) as gestionesCount, SUM(r.usabilidad) as usabilidadCount,
+                           b.activityID
+                           FROM RagingsRatingBundle:Rating r
+                           INNER JOIN BookingsBookingBundle:Booking b
+                           WHERE b.id = r.reservationNumber
+                           GROUP BY b.activityID')
+            ->getResult();
 
-        //ldd($results);
+
+        //ld($results);
 
         if(!empty($results)){
             foreach($results as $one){
@@ -233,14 +252,15 @@ class DefaultController extends Controller
                     ->findByPropertyID($one['activityID']);
 
                 if(!isset($arrayReturn[$property->getTypeRent()]) || count($arrayReturn[$property->getTypeRent()]) <= 10) {
+                    if ($this->get('security.context')->isGranted('ROLE_SUPER_ADMIN') || ($this->get('security.context')->isGranted('ROLE_ADMIN') && $this->get('security.context')->getToken()->getUser()->getId() == $property->getOwnerID()) ) {
+                        $aux = array();
 
-                    $aux = array();
+                        $aux['propertyName'] = $property->getName();
+                        $aux['numRatings'] = $one['numRatings'];
+                        $aux['meanRating'] = round(($one['ubicacionCount'] + $one['llegarCount'] + $one['limpiezaCount'] + $one['materialCount'] + $one['caracteristicasCount'] + $one['gestionesCount'] + $one['usabilidadCount']) / (7 * $one['numRatings']), 2);
 
-                    $aux['propertyName']    = $property->getName();
-                    $aux['numRatings']      = $one['numRatings'];
-                    $aux['meanRating']      = round(($one['ubicacionCount'] + $one['llegarCount'] + $one['limpiezaCount'] + $one['materialCount'] + $one['caracteristicasCount'] + $one['gestionesCount'] + $one['usabilidadCount']) / (7 * $one['numRatings']), 2);
-
-                    $arrayReturn[$property->getTypeRent()][] = $aux;
+                        $arrayReturn[$property->getTypeRent()][] = $aux;
+                    }
                 }
             }
         }
