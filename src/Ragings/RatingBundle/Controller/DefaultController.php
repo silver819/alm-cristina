@@ -59,9 +59,9 @@ class DefaultController extends Controller
         $arrayTexts = array();
         $arrayTexts['byDay'] = array('es' => 'Por día', 'en' => 'By day');
         $arrayTexts['byHour'] = array('es' => 'Por hora', 'en' => 'By hour');
-        $arrayTexts['byDayUpTo5'] = array('es' => 'Por día (sobre 5 puntos)', 'en' => 'By day (up to 5 points)');
-        $arrayTexts['byHourUpTo5'] = array('es' => 'Por hora (sobre 5 puntos)', 'en' => 'By hour (up to 5 points)');
-        $arrayTexts['meanVal'] = array('es' => 'Valoración media', 'en' => 'Mean valoration');
+        $arrayTexts['byDayUpTo5'] = array('es' => 'Por día (sobre 10 puntos)', 'en' => 'By day (up to 10 points)');
+        $arrayTexts['byHourUpTo5'] = array('es' => 'Por hora (sobre 10 puntos)', 'en' => 'By hour (up to 10 points)');
+        $arrayTexts['meanVal'] = array('es' => 'Número de reservas', 'en' => 'Number of bookings');
         //ldd($top5bookings);
 
         // Chart
@@ -257,7 +257,7 @@ class DefaultController extends Controller
 
                         $aux['propertyName'] = $property->getName();
                         $aux['numRatings'] = $one['numRatings'];
-                        $aux['meanRating'] = round(($one['ubicacionCount'] + $one['llegarCount'] + $one['limpiezaCount'] + $one['materialCount'] + $one['caracteristicasCount'] + $one['gestionesCount'] + $one['usabilidadCount']) / (7 * $one['numRatings']), 2);
+                        $aux['meanRating'] = round(($one['ubicacionCount'] + $one['llegarCount'] + $one['limpiezaCount'] + $one['materialCount'] + $one['caracteristicasCount'] + $one['gestionesCount'] + $one['usabilidadCount']) / (7 * $one['numRatings']), 2) * 2;
 
                         $arrayReturn[$property->getTypeRent()][] = $aux;
                     }
