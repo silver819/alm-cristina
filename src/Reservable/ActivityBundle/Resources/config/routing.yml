@@ -176,6 +176,14 @@ view_users_delete:
     path: /view-users/{userId}/delete
     defaults: { _controller: UserUserBundle:Consult:deleteUser }
 
+view_users_active:
+    path: /view-users/{userId}/active
+    defaults: { _controller: UserUserBundle:Consult:activeUser }
+
+view_users_deactive:
+    path: /view-users/{userId}/deactive
+    defaults: { _controller: UserUserBundle:Consult:deactiveUser }
+
 checkUser:
     pattern: /checkUser
     defaults: { _controller: UserUserBundle:Consult:checkUser }

@@ -79,6 +79,7 @@ class ConsultController extends Controller
         $thisUserData['id']         = $thisUser->getId();
         $thisUserData['role']       = $thisUser->getRole();
         $thisUserData['surname']    = $thisUser->getSurname();
+        $thisUserData['activeUser']     = ( $thisUser->isEnabled() ) ? 1 : 0 ;
 
         switch($thisUserData['role'][0]){
             case 'ROLE_USER':
@@ -120,29 +121,33 @@ class ConsultController extends Controller
             ->createQuery("DELETE FROM UserUserBundle:Users u WHERE u.id = " . $userId)
             ->getResult();
 
-        // Datos para plantilla twig
-        $allUsers = array();
+        return $this->redirect($this->generateUrl('view_users'));
+    }
 
-        $users = $this->getDoctrine()
-            ->getRepository('UserUserBundle:Users')
-            ->findAllUsers();
-
-        foreach($users as $oneUser){
-            $aux['userID']		= ucwords($oneUser->getID());
-            $aux['name']		= ucwords($oneUser->getName());
-            $aux['surname']		= ucwords($oneUser->getSurname());
-            $role				= $oneUser->getRole();
-            $aux['role']		= $role[0];
-
-            $allUsers[] = $aux;
-
-            $auxEmail['ownerID']	= $oneUser->getID();
-            $auxEmail['email']		= $oneUser->getEmail();
-            $allEmails[] 			= $auxEmail;
+    public function activeUserAction($userId){
+        if(!$this->get('security.context')->isGranted('ROLE_USER')) {
+            throw new AccessDeniedException();
         }
 
-        return $this->render('UserUserBundle:Consult:viewUsers.html.twig',
-            array('allUsers' => $allUsers, 'allEmails' => $allEmails));
+        // Activar usuario
+        $activeOwner = $this->getDoctrine()->getManager()
+            ->createQuery("UPDATE UserUserBundle:Users u SET u.enabled = 1 WHERE u.id = " . $userId)
+            ->getResult();
+
+        return $this->redirect($this->generateUrl('view_users'));
+    }
+
+    public function deactiveUserAction($userId){
+        if(!$this->get('security.context')->isGranted('ROLE_USER')) {
+            throw new AccessDeniedException();
+        }
+
+        // Activar usuario
+        $deactiveOwner = $this->getDoctrine()->getManager()
+            ->createQuery("UPDATE UserUserBundle:Users u SET u.enabled = 0 WHERE u.id = " . $userId)
+            ->getResult();
+
+        return $this->redirect($this->generateUrl('view_users'));
     }
 
 	public function checkUserAction(){

@@ -32,6 +32,16 @@
                 <div class="box-header with-border">
                     <h3 class="box-title">{{ oneUser.name }} {{ oneUser.surname }}</h3>
                     <div class="box-tools pull-right">
+                        {# Activo / inactivo #}
+                        {% if oneUser.activeUser == 1 %}
+                            <span class="label label-success">{% trans %}Activo{% endtrans %}</span>
+                            <a href="{{ baseUrl }}/deactive">{% trans %}Desactivar{% endtrans %}</a>
+                        {% else %}
+                            <span class="label label-danger">{% trans %}Inactivo{% endtrans %}</span>
+                            <a href="{{ baseUrl }}/active">{% trans %}Activar{% endtrans %}</a>
+                        {% endif %}
+
+                        {# Eliminar #}
                         <a href="{{ baseUrl }}/delete">{% trans %}Eliminar{% endtrans %}</a>
                     </div><!-- /.box-tools -->
                 </div>
