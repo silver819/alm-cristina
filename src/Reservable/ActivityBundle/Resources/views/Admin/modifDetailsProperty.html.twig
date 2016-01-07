@@ -168,11 +168,11 @@
                 </section>
                 <section class="col-lg-9 connectedSortable ui-sortable">
 
-                    {# Cambiar de propietario #}
+                    {# Propietario #}
                     {% if is_granted('ROLE_SUPER_ADMIN') %}
                         <div class="box">
                             <div class="box-header with-border">
-                                <h3 class="box-title">{% trans %}Cambiar propietario{% endtrans %}</h3>
+                                <h3 class="box-title">{% trans %}Propietario{% endtrans %}</h3>
                                 <div class="box-tools pull-right">
                                     <button data-widget="collapse" class="btn btn-box-tool"><i class="fa fa-minus"></i></button>
                                     <button data-widget="remove" class="btn btn-box-tool"><i class="fa fa-times"></i></button>
@@ -182,7 +182,7 @@
 
                                 <div class="input-group">
                                     <div class="input-group-addon"><i class="fa fa-user"></i></div>
-                                    <select class="form-control" id="hourpickerTo-8" name="Seasons[8][To]">
+                                    <select class="form-control" id="ownerSelect" name="ownerSelect">
                                         {% for owner in arrayOwners %}
                                             <option value="{{ owner.id }}" {% if details.ownerID == owner.id %}selected{% endif %}>{{ owner.email }}</option>
                                         {% endfor %}

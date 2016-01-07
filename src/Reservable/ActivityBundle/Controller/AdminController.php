@@ -21,6 +21,9 @@ class AdminController extends Controller
 
         $result = $this->getDataLodging($property, $request);
 
+        // Propietarios
+        $arrayOwners = $this->getAllUsers();
+
         return $this->render('ReservableActivityBundle:Admin:adminDetailsProperty.html.twig',
             array(
                 'details' => $result['details'],
@@ -33,7 +36,8 @@ class AdminController extends Controller
                 'chart' => $result['ob'],
                 'seasons' => $result['seasons'],
                 'map' => $result['map'],
-                'cityName' => $result['cityName']
+                'cityName' => $result['cityName'],
+                'arrayOwners' => $arrayOwners
             )
         );
     }
@@ -208,9 +212,12 @@ class AdminController extends Controller
                                SET   a.description = '" . $_POST['description'] . "',
                                a.address = '" . $_POST['address'] . "',
                                a.lat = '" . $_POST['latAddress'] . "',
-                               a.lng = '" . $_POST['lngAddress'] . "'
+                               a.lng = '" . $_POST['lngAddress'] . "',
+                               a.ownerID = '" . $_POST['ownerSelect'] . "'
                                WHERE a.id = '" . $_POST['productID'] . "'")
                 ->getResult();
+
+            // Comprobación de que el propietario indicado realmente tiene el rol correcto
 
             // Temporadas
             if( isset($_POST['Seasons']) && !empty($_POST['Seasons'])) {

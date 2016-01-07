@@ -171,6 +171,29 @@
             <!-- right col (We are only adding the ID to make the widgets sortable)-->
             <section class="col-lg-5 connectedSortable ui-sortable">
 
+                {# Propietario #}
+                {% if is_granted('ROLE_SUPER_ADMIN') %}
+                    <div class="box">
+                        <div class="box-header with-border">
+                            <h3 class="box-title">{% trans %}Propietario{% endtrans %}</h3>
+                            <div class="box-tools pull-right">
+                                <button data-widget="collapse" class="btn btn-box-tool"><i class="fa fa-minus"></i></button>
+                                <button data-widget="remove" class="btn btn-box-tool"><i class="fa fa-times"></i></button>
+                            </div>
+                        </div>
+                        <div class="box-body" style="display: block;">
+
+                            <div class="input-group">
+                                {% for owner in arrayOwners %}
+                                    {% if details.ownerID == owner.id %}
+                                        <i class="fa fa-user"></i> &nbsp; {{ owner.email }}
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+
                 {# Descripcion #}
                 <div class="box box-primary">
                     <div class="box-header with-border">
