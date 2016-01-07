@@ -122,6 +122,9 @@ class AdminController extends Controller
         // Precios y temporadas
         $seasons = $this->getAllSeasonsByPropertyId($property);
 
+        // Propietarios
+        $arrayOwners = $this->getAllUsers();
+
         return $this->render('ReservableActivityBundle:Admin:modifDetailsProperty.html.twig',
             array('details' => $details,
                 'map' => $map,
@@ -129,7 +132,19 @@ class AdminController extends Controller
                 'pictures' => $arrayPictures,
                 'types' => $types,
                 'features' => $features,
-                'seasons' => $seasons));
+                'seasons' => $seasons,
+                'arrayOwners' => $arrayOwners));
+    }
+
+    private function getAllUsers(){
+        $users = $this->getDoctrine()
+            ->getManager()
+            ->createQuery("SELECT u.id, u.email
+                           FROM UserUserBundle:Users u
+                           WHERE u.enabled = 1 ORDER BY u.email ASC")
+            ->getResult();
+
+        return $users;
     }
 
     private function getAllFeaturesByType($type)
