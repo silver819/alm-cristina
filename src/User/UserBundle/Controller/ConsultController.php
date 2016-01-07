@@ -80,6 +80,23 @@ class ConsultController extends Controller
         $thisUserData['role']       = $thisUser->getRole();
         $thisUserData['surname']    = $thisUser->getSurname();
 
+        switch($thisUserData['role'][0]){
+            case 'ROLE_USER':
+
+
+                break;
+            case 'ROLE_ADMIN':
+                $thisUserData['properties'] = $this->getUserProperties($thisUserData['id']);
+
+                break;
+            case 'ROLE_SUPER_ADMIN':
+
+
+                break;
+        }
+
+        //ldd($thisUserData);
+
         return $this->render('UserUserBundle:Consult:viewUsersModif.html.twig',
             array('oneUser' => $thisUserData));
     }

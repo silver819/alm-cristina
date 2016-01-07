@@ -6,36 +6,60 @@
 
 {% block page_content %}
 
-    {% if app.environment == "dev" %}
-        {% set baseUrl = "/app_dev.php/" ~ app.request.locale ~ "/view-users/" ~ oneUser.id %}
-    {% else %}
-        {% set baseUrl = "/" ~ app.request.locale ~ "/view-users/" ~ oneUser.id %}
-    {% endif %}
+    <div class="row">
+        <div class="col-md-12">
 
-    {% set role = 'Desconcido' %}
-    {% set class = '' %}
-    {% if oneUser.role == "ROLE_SUPER_ADMIN" %}
-        {% set role = 'Administrador' %}
-        {% set class = 'alert-danger' %}
-    {% elseif oneUser.role == "ROLE_ADMIN" %}
-        {% set role = 'Propietario' %}
-        {% set class = 'alert-warning' %}
-    {% elseif oneUser.role == "ROLE_USER" %}
-        {% set role = 'Usuario' %}
-        {% set class = 'alert-success' %}
-    {% endif %}
+            {% if app.environment == "dev" %}
+                {% set baseUrl = "/app_dev.php/" ~ app.request.locale ~ "/view-users/" ~ oneUser.id %}
+            {% else %}
+                {% set baseUrl = "/" ~ app.request.locale ~ "/view-users/" ~ oneUser.id %}
+            {% endif %}
 
-    <div class="alert {{ class }} userDiv">
+            {% set role = 'Desconcido' %}
+            {% set class = '' %}
+            {% if oneUser.role.0 == "ROLE_SUPER_ADMIN" %}
+                {% set role = 'Administrador' %}
+                {% set class = 'box-danger' %}
+            {% elseif oneUser.role.0 == "ROLE_ADMIN" %}
+                {% set role = 'Propietario' %}
+                {% set class = 'box-warning' %}
+            {% elseif oneUser.role.0 == "ROLE_USER" %}
+                {% set role = 'Usuario' %}
+                {% set class = 'box-success' %}
+            {% endif %}
 
-        <div style="float:right">
-            <a href="{{ baseUrl }}/delete">{% trans %}Eliminar{% endtrans %}</a>
-        </div>
+            <div class="box {{ class }} userDiv">
+                <div class="box-header with-border">
+                    <h3 class="box-title">{{ oneUser.name }} {{ oneUser.surname }}</h3>
+                    <div class="box-tools pull-right">
+                        <a href="{{ baseUrl }}/delete">{% trans %}Eliminar{% endtrans %}</a>
+                    </div><!-- /.box-tools -->
+                </div>
 
-        <span class="contentSpan">
-			<div class="nameDiv">
-                <h4><strong>{{ oneUser.name }} {{ oneUser.surname }}</strong></h4>
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <ul class="list-unstyled">
+                                <li><i class="fa fa-phone"></i> {% if oneUser.phone is defined %}{{ oneUser.phone }}{% endif %}</li>
+                                <li><i class="fa fa-mobile"></i> {% if oneUser.mobile is defined %}{{ oneUser.mobile }}{% endif %}</li>
+                            </ul>
+                        </div><!-- /.col -->
+                        <div class="col-md-6">
+                            {% if oneUser.properties is defined %}
+                                <ul class="list-unstyled">
+                                    {% for property in oneUser.properties %}
+                                        <li><a href="{{ path('adminDetails', {'property':property.id}) }}">{{ property.name }}</a> ( {{ property.numBookings }} )</li>
+                                    {% endfor %}
+                                </ul>
+                            {% endif %}
+                        </div><!-- /.col -->
+                    </div>
+                </div>
+
+                <div class="box-footer">
+                    <p>{{ role }}</p>
+                </div><!-- box-footer -->
             </div>
-			<p>{{ role }}</p>
-		</span>
+        </div>
     </div>
 {% endblock %}
