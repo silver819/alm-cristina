@@ -42,7 +42,7 @@
         {
             $(".datepickerClass").datepicker({dateFormat: "dd/mm/yy"});
 
-            $('#dropboxContainerTest').click(function(){
+            $('#dropboxContainer').click(function(){
                 imagePath='http://img4.wikia.nocookie.net/__cb20150313181403/clash-of-clans/es/images/thumb/4/4e/MPB-Defense.png/150px-MPB-Defense.png';
 
                 $.ajax({
@@ -116,7 +116,7 @@
                 extensions: ['.jpg', '.jpeg', '.JPG']
             };
             var button = Dropbox.createChooseButton(options);
-            console.log(button);
+            //console.log(button);
             document.getElementById("dropboxContainer").appendChild(button);
         });
     </script>
@@ -153,13 +153,11 @@
                             {% endif %}
                         </div><!-- /.col -->
                         <div class="box-footer">
-                            {% if cont is defined %}
-                                {% if cont < 10 %}
-                                    <div class="item">
-                                        <span id="dropboxContainer"></span>
-                                        {#<input type="button" id="dropboxContainerTest" value="Test">#}
-                                    </div>
-                                {% endif %}
+                            {% if cont is not defined or cont < 10%}
+                                <div class="item">
+                                    <span id="dropboxContainer"></span>
+                                    {#<input type="button" id="dropboxContainerTest" value="Test">#}
+                                </div>
                             {% endif %}
                         </div>
                     </div>
