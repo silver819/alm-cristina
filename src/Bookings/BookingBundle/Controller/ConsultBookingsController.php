@@ -544,7 +544,7 @@ echo "<br/>---------------------------------------------------------------------
             $activityToIcal->setIcalUrl($_POST['pathICS']);
             $em->persist($activityToIcal);
             $em->flush();
-            $activityToIcal = $icalFounded;
+            //$activityToIcal = $icalFounded;
 
             // Actualizamos el calendario
             $return['results'] = $this->updateIcalCalendar($_POST['pathICS'], $_POST['propID'], $activityToIcal->getId());
