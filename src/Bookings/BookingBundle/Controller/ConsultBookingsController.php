@@ -236,9 +236,16 @@ class ConsultBookingsController extends Controller
 
         $ownerID = $this->get('security.context')->getToken()->getUser()->getId();
 
-        $ownerProperties = $this->getDoctrine()
-                           ->getRepository('ReservableActivityBundle:Activity')
-                           ->findAllByOwnerID($ownerID);
+        if(!$this->get('security.context')->isGranted('ROLE_ADMIN')) {
+            $ownerProperties = $this->getDoctrine()
+                ->getRepository('ReservableActivityBundle:Activity')
+                ->findAllByOwnerID($ownerID);
+        }
+        else{
+            $ownerProperties = $this->getDoctrine()
+                ->getRepository('ReservableActivityBundle:Activity')
+                ->findAll();
+        }
 
         $arrayProperties = array();
         foreach($ownerProperties as $oneResult){$arrayProperties[] = $oneResult->getId();}
