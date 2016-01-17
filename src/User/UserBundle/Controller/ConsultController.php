@@ -134,7 +134,11 @@ class ConsultController extends Controller
             ->createQuery("UPDATE UserUserBundle:Users u SET u.enabled = 1 WHERE u.id = " . $userId)
             ->getResult();
 
-        return $this->redirect($this->generateUrl('view_users', array(), 'prod'));
+        $request = $this->getRequest();
+        $env = ($this->get('kernel')->getEnvironment() == 'dev')? 'app_dev.php' : 'app.php' ;
+        $url = $request->getScheme() . '://' . $request->getHttpHost() . $request->getBasePath() . '/' . $env . '/' . $request->getLocale() . '/view-users';
+
+        return $this->redirect($url);
     }
 
     public function deactiveUserAction($userId){
@@ -147,7 +151,11 @@ class ConsultController extends Controller
             ->createQuery("UPDATE UserUserBundle:Users u SET u.enabled = 0 WHERE u.id = " . $userId)
             ->getResult();
 
-        return $this->redirect($this->generateUrl('view_users'));
+        $request = $this->getRequest();
+        $env = ($this->get('kernel')->getEnvironment() == 'dev')? 'app_dev.php' : 'app.php' ;
+        $url = $request->getScheme() . '://' . $request->getHttpHost() . $request->getBasePath() . '/' . $env . '/' . $request->getLocale() . '/view-users';
+
+        return $this->redirect($url);
     }
 
 	public function checkUserAction(){
