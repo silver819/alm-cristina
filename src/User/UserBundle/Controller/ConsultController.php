@@ -121,7 +121,7 @@ class ConsultController extends Controller
             ->createQuery("DELETE FROM UserUserBundle:Users u WHERE u.id = " . $userId)
             ->getResult();
 
-        return $this->redirect($this->generateUrl('view_users'));
+        return $this->redirect($this->generateUrl('view_users', array(), 'prod'));
     }
 
     public function activeUserAction($userId){
@@ -134,7 +134,7 @@ class ConsultController extends Controller
             ->createQuery("UPDATE UserUserBundle:Users u SET u.enabled = 1 WHERE u.id = " . $userId)
             ->getResult();
 
-        return $this->redirect($this->generateUrl('view_users'));
+        return $this->redirect($this->generateUrl('view_users', array(), 'prod'));
     }
 
     public function deactiveUserAction($userId){
