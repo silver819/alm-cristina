@@ -56,11 +56,13 @@ class AdminController extends Controller
         $lat        = $details->getLat();
         $lng        = $details->getLng();
         $zoom = 13;
+        $marker = 1;
 
         if($lat == null && $lng == null){
             $lat = 40.4381307;
             $lng = -3.8199653;
             $zoom = 6;
+            $marker = 0;
         }
 
         /*$map = $this->get('ivory_google_map.map');
@@ -141,6 +143,7 @@ class AdminController extends Controller
                 'lat' => $lat,
                 'lng' => $lng,
                 'zoom' => $zoom,
+                'marker' => $marker,
                 //'map' => $map,
                 'zoneName' => $zoneName,
                 'pictures' => $arrayPictures,
