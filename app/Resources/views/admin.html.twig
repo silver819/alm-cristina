@@ -121,7 +121,9 @@
 
     <script src="//code.highcharts.com/4.0.1/highcharts.js"></script>
     <script src="//code.highcharts.com/4.0.1/modules/exporting.js"></script>
-    <script>{{ chart(chart) }}</script>
+    {% if app.environment != 'test' %}
+        <script>{{ chart(chart) }}</script>
+    {% endif %}
 {% endblock %}
 
 {% block javascripts_head %}
