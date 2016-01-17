@@ -55,8 +55,15 @@ class AdminController extends Controller
         $zoneName   = $zone->getName();
         $lat        = $details->getLat();
         $lng        = $details->getLng();
+        $zoom = 13;
 
-        $map = $this->get('ivory_google_map.map');
+        if($lat == null && $lng == null){
+            $lat = 40.4381307;
+            $lng = -3.8199653;
+            $zoom = 6;
+        }
+
+        /*$map = $this->get('ivory_google_map.map');
 
         if(!$lat && ! $lng){
             $lat = '37.3164332';
@@ -75,7 +82,7 @@ class AdminController extends Controller
 
         $map->setCenter($lat, $lng);
         $map->setMapOptions(array('zoom' => $zoom));
-        $map->setStylesheetOptions(array('width' => '100%'));
+        $map->setStylesheetOptions(array('width' => '100%'));*/
         //ldd($map);
 
         // Imagenes
@@ -131,7 +138,10 @@ class AdminController extends Controller
 
         return $this->render('ReservableActivityBundle:Admin:modifDetailsProperty.html.twig',
             array('details' => $details,
-                'map' => $map,
+                'lat' => $lat,
+                'lng' => $lng,
+                'zoom' => $zoom,
+                //'map' => $map,
                 'zoneName' => $zoneName,
                 'pictures' => $arrayPictures,
                 'types' => $types,
