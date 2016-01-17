@@ -42,6 +42,20 @@ class TypeActivity
      */
     private $icon;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="es", type="string", length=255)
+     */
+    private $es;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="en", type="string", length=255)
+     */
+    private $en;
+
 
     /**
      * Get id

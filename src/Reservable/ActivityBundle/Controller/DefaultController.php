@@ -54,13 +54,15 @@ class DefaultController extends Controller
     public function getFilters(){
         $arrayReturn = array();
 
+        $locale = $this->get('request')->getLocale();
+
         $results = $this->getDoctrine()
             ->getManager()
-            ->createQuery('SELECT t.id, t.name, t.mode FROM ReservableActivityBundle:TypeActivity t')
+            ->createQuery('SELECT t.id, t.name, t.mode, t.' . $locale . ' FROM ReservableActivityBundle:TypeActivity t')
             ->getResult();
 
         foreach($results as $result){
-            $arrayReturn[$result['mode']][] = array('id' => $result['id'], 'name' => $result['name']);
+            $arrayReturn[$result['mode']][] = array('id' => $result['id'], 'name' => $result[$locale]);
         }
 
         return $arrayReturn;
