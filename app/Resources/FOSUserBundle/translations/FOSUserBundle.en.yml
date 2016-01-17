@@ -1,0 +1,11 @@
+# Profile
+profile:
+    show:
+        username: Nombre de usuario
+        email: Email
+        name: Name
+        surname: Surname
+    edit:
+        submit: Actualizar usuario
+    flash:
+        updated: El perfil ha sido actualizado

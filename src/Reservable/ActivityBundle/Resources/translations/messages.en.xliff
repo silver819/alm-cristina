@@ -438,6 +438,26 @@
                 <source>por hora</source>
                 <target>by hour</target>
             </trans-unit>
+            <trans-unit id="110">
+                <source>Propietario</source>
+                <target>Owner</target>
+            </trans-unit>
+           <trans-unit id="111">
+                <source>Cliente</source>
+                <target>Client</target>
+            </trans-unit>
+            <trans-unit id="112">
+                <source>a las</source>
+                <target>at</target>
+            </trans-unit>
+            <trans-unit id="113">
+                <source>Entrada</source>
+                <target>Check in</target>
+            </trans-unit>
+            <trans-unit id="114">
+                <source>Salida</source>
+                <target>Check out</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

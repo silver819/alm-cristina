@@ -265,6 +265,11 @@ class ConsultBookingsController extends Controller
                     ->getRepository('UserUserBundle:Users')
                     ->getUserByUserID($oneBooking->getClientID());
 
+                $ownerData = $this->getDoctrine()
+                    ->getRepository('UserUserBundle:Users')
+                    ->getUserByUserID($propertyData->getOwnerID());
+
+                $aux['ownerEmail'] = $ownerData->getEmail();
                 $aux['bookingID'] = $oneBooking->getId();
                 $aux['propertyID'] = $oneBooking->getActivityID();
                 $aux['clientID'] = $oneBooking->getClientID();

@@ -34,6 +34,10 @@
                 <source>Registrarse</source>
                 <target>Register</target>
             </trans-unit>
+            <trans-unit id="9">
+                <source>Nombre</source>
+                <target>Name</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>
