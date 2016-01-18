@@ -129,4 +129,38 @@ class TypeActivity
     {
         return $this->icon;
     }
+
+    public function setEs($es)
+    {
+        $this->es = $es;
+
+        return $this;
+    }
+
+    /**
+     * Get mode
+     *
+     * @return string
+     */
+    public function getEs()
+    {
+        return $this->es;
+    }
+
+    public function setEn($en)
+    {
+        $this->en = $en;
+
+        return $this;
+    }
+
+    /**
+     * Get mode
+     *
+     * @return string
+     */
+    public function getEn()
+    {
+        return $this->en;
+    }
 }

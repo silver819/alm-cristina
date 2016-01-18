@@ -744,6 +744,8 @@ class AdminController extends Controller
             $newType->setName($_POST['typeName']);
             $newType->setMode($_POST['typeModality']);
             $newType->setIcon($_POST['typeIcon']);
+            $newType->setEs($_POST['typeName']);
+            $newType->setEn($_POST['typeName']);
 
             $em = $this->getDoctrine()->getManager();
             $em->persist($newType);

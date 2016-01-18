@@ -35,7 +35,7 @@
             geocoder.geocode( { 'address': address}, function(results, status) {
 
                 if (status == google.maps.GeocoderStatus.OK) {
-                    
+
                     document.getElementById('latAddress').value = results[0].geometry.location.lat();
                     document.getElementById('lngAddress').value = results[0].geometry.location.lng();
 
