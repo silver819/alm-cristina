@@ -34,8 +34,8 @@
                     {% endif %}
                     &nbsp;<strong class="caret"></strong></a>
                 <ul class="dropdown-menu">
-                    <li><a href="{{ path('homepage', {'_locale':'es'}) }}"><img src="{{ asset('images/flags/ES.png') }}" alt="Español" title="Español">&nbsp;&nbsp;Español</a></li>
-                    <li><a href="{{ path('homepage', {'_locale':'en'}) }}"><img src="{{ asset('images/flags/GB.png') }}" alt="English" title="English">&nbsp;&nbsp;English</a></li>
+                    <li><a href="{{ app.request.getRequestUri() | replace({'/en/': '/es/'}) }}"><img src="{{ asset('images/flags/ES.png') }}" alt="Español" title="Español">&nbsp;&nbsp;Español</a></li>
+                    <li><a href="{{ app.request.getRequestUri() | replace({'/es/': '/en/'}) }}"><img src="{{ asset('images/flags/GB.png') }}" alt="English" title="English">&nbsp;&nbsp;English</a></li>
                 </ul>
             </li>
 
