@@ -16,14 +16,14 @@ class TypeActivityRepository extends EntityRepository
 
         if($mode) {
             $types = $this->getEntityManager()
-                ->createQuery("SELECT t.name, t.id, t.icon
+                ->createQuery("SELECT t.name, t.id, t.icon, t.es, t.en
                 		   FROM ReservableActivityBundle:TypeActivity t
                 		   WHERE t.mode LIKE '" . $mode . "'")
                 ->getResult();
         }
         else{
             $types = $this->getEntityManager()
-                ->createQuery("SELECT t.name, t.id, t.mode, t.icon
+                ->createQuery("SELECT t.name, t.id, t.mode, t.icon, t.es, t.en
                 		   FROM ReservableActivityBundle:TypeActivity t")
                 ->getResult();
         }

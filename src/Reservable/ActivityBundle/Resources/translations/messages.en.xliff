@@ -458,6 +458,14 @@
                 <source>Salida</source>
                 <target>Check out</target>
             </trans-unit>
+            <trans-unit id="115">
+                <source>Por hora</source>
+                <target>By hour</target>
+            </trans-unit>
+            <trans-unit id="116">
+                <source>Por día</source>
+                <target>By day</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>
