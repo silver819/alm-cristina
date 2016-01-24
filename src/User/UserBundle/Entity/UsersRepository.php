@@ -34,7 +34,7 @@ class UsersRepository extends EntityRepository
                                       WHERE u.id = ' . $userID)
                         ->getResult();
 
-        return $result[0]['email'];
+        return (isset($result[0]['email']))?$result[0]['email']:'';
     }
 
     function findAllUsers(){
