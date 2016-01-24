@@ -55,6 +55,8 @@ class PictureController extends Controller
             ->getRepository('ReservableActivityBundle:Picture')
             ->findLastIDimage($activityID);
 
+        $arrayImagesNames = array();
+
         foreach($images as $image) {
             $lastPicture = $lastPicture + 1;
             $imageID     = $lastPicture;
@@ -75,13 +77,15 @@ class PictureController extends Controller
             $picture->setActivityID($activityID);
             //$picture->upload($nameFile);
 
+            $arrayImagesNames[] = $nameFile;
+
             $em = $this->getDoctrine()->getManager();
             $em->persist($picture);
         }
 
         $em->flush();
 
-        return new JsonResponse(array('response'=>$image, 'id'=>$activityID));
+        return new JsonResponse(array('response'=>$image, 'id'=>$activityID, 'imagesNames' => $arrayImagesNames));
     }
 
 }

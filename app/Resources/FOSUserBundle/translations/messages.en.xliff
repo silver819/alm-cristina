@@ -38,6 +38,10 @@
                 <source>Nombre</source>
                 <target>Name</target>
             </trans-unit>
+            <trans-unit id="10">
+                <source>Olvidé contraseña</source>
+                <target>Forgot password</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

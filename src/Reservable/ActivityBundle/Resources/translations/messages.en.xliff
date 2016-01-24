@@ -482,6 +482,10 @@
                 <source>Mostrar provincias</source>
                 <target>Show provinces</target>
             </trans-unit>
+            <trans-unit id="13'">
+                <source>Olvidé contraseña</source>
+                <target>Forgot password</target>
+            </trans-unit>
 
         </body>
     </file>

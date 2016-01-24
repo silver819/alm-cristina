@@ -108,8 +108,16 @@
                         url: '{{ path('loadImages') }}',
                         data: {'images':files, 'activityID':{{ details.id }}},
                         type: "post",
-                        success: function($response) {
-                            alert("Imagenes descargadas con exito.");
+                        success: function(response) {
+                            console.log(response);
+                            //alert("Imagenes descargadas con exito.");
+
+                            var images = response.imagesNames;
+                            console.log(images);
+                            $.each(images, function(key, nameImg){
+                                html = '<div class="item"><img alt="" width="100%" src="/images/properties/' + nameImg + '"><input type="checkbox" name="deletePicture[' + nameImg + ']">Eliminar</div>';
+                                $("#imagesBox").append(html);
+                            });
                         }
                     });
                     /*var reader = new FileReader();
@@ -156,7 +164,7 @@
                                 <button data-widget="remove" class="btn btn-box-tool"><i class="fa fa-times"></i></button>
                             </div>
                         </div>
-                        <div class="box-body" style="display: block;">
+                        <div class="box-body" style="display: block;" id="imagesBox">
                             {% if pictures is defined %}
                                 {% for onePicture in pictures %}
                                     {% set cont = cont + 1 %}

@@ -95,10 +95,14 @@
                 <target>Paddle</target>
             </trans-unit>
             <trans-unit id="24">
+                <source>Olvidé contraseña</source>
+                <target>Forgot password</target>
+            </trans-unit>
+            <trans-unit id="25">
                 <source></source>
                 <target></target>
             </trans-unit>
-            <trans-unit id="25">
+            <trans-unit id="26">
                 <source></source>
                 <target></target>
             </trans-unit>
