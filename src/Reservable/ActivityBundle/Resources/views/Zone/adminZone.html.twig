@@ -42,7 +42,7 @@
                         <ul class="list-group noMarginButton" id="countryID-{{ country.id }}">
                             {# Comunidades #}
                             {% for comunity in country.comunities %}
-                                <li class="list-group-item list-group-item-warning classComunity" id="{{ comunity.name }}-3">
+                                <li class="list-group-item list-group-item-warning classComunity" id="{{ comunity.name }}-3" style="cursor:pointer;">
                                     <i class="fa fa-level-up fa-rotate-90"></i>&nbsp;{{ comunity.name }}
                                     <div class="box-tools pull-right">
                                         {% if comunity.numProperties == 0 %}
@@ -55,7 +55,7 @@
                                 <ul class="list-group noMarginButton" id="comunity-{{ comunity.id }}">
                                     {# Provincias #}
                                     {% for province in comunity.provinces %}
-                                        <li class="list-group-item list-group-item-danger classProvince" id="{{ province.name }}-4" style="cursor:pointer;">
+                                        <li class="list-group-item list-group-item-danger classProvince" id="{{ province.name }}-4" nameList="{{ comunity.name }}-3-list" style="cursor:pointer;">
                                             <i class="fa fa-level-up fa-rotate-90"></i>&nbsp;{{ province.name }}
                                             <div class="box-tools pull-right">
                                                 {% if province.numProperties == 0 %}
@@ -427,7 +427,7 @@
             $("#modalDelete").modal("show");
         });
 
-        // Recoger pueblos y ciudades de una provincia
+        // Ocultar pueblos y ciudades de una provincia
         $(".classProvince").live('click', function(){
             var id = $(this).attr('id') + '-list';
             var list = $("[nameList=" + id + "]");
@@ -445,6 +445,30 @@
         // Mostrar todos los pueblos y ciudades
         $("#showAllCountries").live('click', function(){
             $(".countryList").show();
+        });
+        // Ocultar una provincia con sus pueblos
+        $(".classComunity").live('click', function(){
+            var id = $(this).attr("id");
+            var lists = $("[nameList=" + id + "-list]");
+
+            lists.each(function(){
+                var id2 = $(this).attr("id") + '-list';
+                var list2 = $("[nameList=" + id2 + "]");
+
+                if(list2.is(":visible")) {
+                    list2.hide();
+                }
+                else{
+                    list2.show();
+                }
+
+                if($(this).is(":visible")) {
+                    $(this).hide();
+                }
+                else{
+                    $(this).show();
+                }
+            });
         });
         // Ocultar todas las provincias
         $("#hideAllProvinces").live('click', function(){
