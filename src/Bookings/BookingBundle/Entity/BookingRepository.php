@@ -72,7 +72,8 @@ class BookingRepository extends EntityRepository
             return $this->getEntityManager()
                 ->createQuery('SELECT b
                                    FROM BookingsBookingBundle:Booking b
-                                   WHERE b.activityID IN (' . implode(',', $arrayProperties) . ')')
+                                   WHERE b.activityID IN (' . implode(',', $arrayProperties) . ')
+                                   ORDER BY b.id DESC')
                 ->getResult();
         }
         else return false;
