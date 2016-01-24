@@ -117,6 +117,25 @@ class RegistrationController extends Controller
             ->getRepository('ReservableActivityBundle:TypeActivity')
             ->getAllTypes();
 
+        foreach($types as &$type){
+            if($type['mode'] == 'day'){
+                if($request = $this->get('request')->getLocale() == 'es') {
+                    $type['mode'] = 'Por día';
+                }
+                else{
+                    $type['mode'] = 'By day';
+                }
+            }
+            else {
+                if($request = $this->get('request')->getLocale() == 'es') {
+                    $type['mode'] = 'Por hora';
+                }
+                else{
+                    $type['mode'] = 'By hour';
+                }
+            }
+        }
+
         // features
         $typesFeatures = array();
         foreach($types as $oneType) {
@@ -125,6 +144,7 @@ class RegistrationController extends Controller
 
         $allFeatures = $this->getDoctrine()->getRepository('ReservableActivityBundle:Features')->getAllFeatures();
 
+        //ldd($types);
         //ldd($typesFeatures);
 
         return $this->render('ReservableActivityBundle:Registration:newFeatureForm.html.twig',
