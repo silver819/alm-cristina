@@ -7,6 +7,12 @@
 {% block page_content %}
     <div class="row">
         <div class="col-md-12">
+            <button type="button" class="btn btn-success" id="hideAllCountries">Ocultar pueblos y ciudades</button>
+            <button type="button" class="btn btn-success" id="showAllCountries">Mostrar pueblos y ciudades</button>
+            <button type="button" class="btn btn-success" id="hideAllProvinces">Ocultar provincias</button>
+            <button type="button" class="btn btn-success" id="showAllProvinces">Mostrar provincias</button>
+        </div>
+        <div class="col-md-12">
             {# Continentes #}
             <ul class="list-group">
             {% for continent in zonesTree %}
@@ -59,7 +65,7 @@
                                                 <span class="badge" title="{% trans %}Número de propiedades registradas{% endtrans %}">{{ province.numProperties }}</span>
                                             </div>
                                         </li>
-                                        <ul class="list-group noMarginButton" id="province-{{ province.id }}" nameList="{{ province.name }}-4-list">
+                                        <ul class="list-group noMarginButton countryList" id="province-{{ province.id }}" nameList="{{ province.name }}-4-list">
                                             {# Ciudades #}
                                             {% for city in province.cities %}
                                                 <li class="list-group-item list-group-item-success classCity" id="{{ city.name }}-5">
@@ -421,7 +427,7 @@
             $("#modalDelete").modal("show");
         });
 
-        // Recoger pueblos y ciudades
+        // Recoger pueblos y ciudades de una provincia
         $(".classProvince").live('click', function(){
             var id = $(this).attr('id') + '-list';
             var list = $("[nameList=" + id + "]");
@@ -432,5 +438,24 @@
                 list.show();
             }
         });
+        // Ocultar todos los pueblos y ciudades
+        $("#hideAllCountries").live('click', function(){
+            $(".countryList").hide();
+        });
+        // Mostrar todos los pueblos y ciudades
+        $("#showAllCountries").live('click', function(){
+            $(".countryList").show();
+        });
+        // Ocultar todas las provincias
+        $("#hideAllProvinces").live('click', function(){
+            $(".countryList").hide();
+            $(".classProvince").hide();
+        });
+        // Mostrar todas las provincias
+        $("#showAllProvinces").live('click', function(){
+            $(".countryList").show();
+            $(".classProvince").show();
+        });
+
     </script>
 {% endblock %}
