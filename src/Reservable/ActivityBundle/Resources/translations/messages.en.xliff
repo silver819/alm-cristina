@@ -466,6 +466,23 @@
                 <source>Por día</source>
                 <target>By day</target>
             </trans-unit>
+            <trans-unit id="117">
+                <source>Ocultar pueblos</source>
+                <target>Hide town</target>
+            </trans-unit>
+            <trans-unit id="118">
+                <source>Mostrar pueblos</source>
+                <target>Show town</target>
+            </trans-unit>
+            <trans-unit id="119">
+                <source>Ocultar provincias</source>
+                <target>Hide provinces</target>
+            </trans-unit>
+            <trans-unit id="12'">
+                <source>Mostrar provincias</source>
+                <target>Show provinces</target>
+            </trans-unit>
+
         </body>
     </file>
 </xliff>

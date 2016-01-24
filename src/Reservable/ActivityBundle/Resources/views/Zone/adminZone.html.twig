@@ -7,11 +7,24 @@
 {% block page_content %}
     <div class="row">
         <div class="col-md-12">
-            <button type="button" class="btn btn-success" id="hideAllCountries">Ocultar pueblos y ciudades</button>
-            <button type="button" class="btn btn-success" id="showAllCountries">Mostrar pueblos y ciudades</button>
-            <button type="button" class="btn btn-success" id="hideAllProvinces">Ocultar provincias</button>
-            <button type="button" class="btn btn-success" id="showAllProvinces">Mostrar provincias</button>
+            <div class="row">
+                <div class="col-md-3 text-center">
+                    <button type="button" class="btn btn-success" id="hideAllCountries">{% trans %}Ocultar pueblos{% endtrans %}</button>
+                </div>
+                <div class="col-md-3 text-center">
+                    <button type="button" class="btn btn-success" id="showAllCountries">{% trans %}Mostrar pueblos{% endtrans %}</button>
+                </div>
+                <div class="col-md-3 text-center">
+                    <button type="button" class="btn btn-success" id="hideAllProvinces">{% trans %}Ocultar provincias{% endtrans %}</button>
+                </div>
+                <div class="col-md-3 text-center">
+                    <button type="button" class="btn btn-success" id="showAllProvinces">{% trans %}Mostrar provincias{% endtrans %}</button>
+                </div>
+            </div>
         </div>
+    </div>
+    <div style="margin-top:20px;"></div>
+    <div class="row">
         <div class="col-md-12">
             {# Continentes #}
             <ul class="list-group">
