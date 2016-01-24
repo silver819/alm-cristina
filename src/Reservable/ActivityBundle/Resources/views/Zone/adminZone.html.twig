@@ -49,7 +49,7 @@
                                 <ul class="list-group noMarginButton" id="comunity-{{ comunity.id }}">
                                     {# Provincias #}
                                     {% for province in comunity.provinces %}
-                                        <li class="list-group-item list-group-item-danger classProvince" id="{{ province.name }}-4">
+                                        <li class="list-group-item list-group-item-danger classProvince" id="{{ province.name }}-4" style="cursor:pointer;">
                                             <i class="fa fa-level-up fa-rotate-90"></i>&nbsp;{{ province.name }}
                                             <div class="box-tools pull-right">
                                                 {% if province.numProperties == 0 %}
@@ -59,7 +59,7 @@
                                                 <span class="badge" title="{% trans %}Número de propiedades registradas{% endtrans %}">{{ province.numProperties }}</span>
                                             </div>
                                         </li>
-                                        <ul class="list-group noMarginButton" id="province-{{ province.id }}">
+                                        <ul class="list-group noMarginButton" id="province-{{ province.id }}" nameList="{{ province.name }}-4-list">
                                             {# Ciudades #}
                                             {% for city in province.cities %}
                                                 <li class="list-group-item list-group-item-success classCity" id="{{ city.name }}-5">
@@ -419,6 +419,18 @@
             $("#deleteCityButton").attr('nameDelete', cityName);
             $("#deleteCityButton").attr('typeDelete', typeDelete);
             $("#modalDelete").modal("show");
+        });
+
+        // Recoger pueblos y ciudades
+        $(".classProvince").live('click', function(){
+            var id = $(this).attr('id') + '-list';
+            var list = $("[nameList=" + id + "]");
+            if(list.is(":visible")) {
+                list.hide();
+            }
+            else{
+                list.show();
+            }
         });
     </script>
 {% endblock %}
