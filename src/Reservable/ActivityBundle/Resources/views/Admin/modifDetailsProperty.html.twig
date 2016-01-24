@@ -104,6 +104,8 @@
 
                 // Required. Called when a user selects an item in the Chooser.
                 success: function (files) {
+                    $('#myModal').modal();
+
                     $.ajax({
                         url: '{{ path('loadImages') }}',
                         data: {'images':files, 'activityID':{{ details.id }}},
@@ -118,6 +120,8 @@
                                 html = '<div class="item"><img alt="" width="100%" src="/images/properties/' + nameImg + '"><input type="checkbox" name="deletePicture[' + nameImg + ']">Eliminar</div>';
                                 $("#imagesBox").append(html);
                             });
+
+                            $('#myModal').modal('hide');
                         }
                     });
                     /*var reader = new FileReader();
@@ -447,4 +451,21 @@
             </form>
         </div><!-- /.row (main row) -->
     </section>
+
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header text-center">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h4 class="modal-title" id="myModalLabel">{% trans %}Un momento por favor{% endtrans %}</h4>
+                </div>
+                <div class="modal-body center-block text-center">
+                    <i class="fa fa-spinner fa-spin" style="font-size: 3em;"></i>
+                </div>
+                <div class="modal-footer">
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
 {% endblock %}

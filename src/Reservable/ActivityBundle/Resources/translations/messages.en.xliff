@@ -486,6 +486,10 @@
                 <source>Olvidé contraseña</source>
                 <target>Forgot password</target>
             </trans-unit>
+            <trans-unit id="14'">
+                <source>Un momento por favor{</source>
+                <target>One moment please</target>
+            </trans-unit>
 
         </body>
     </file>
