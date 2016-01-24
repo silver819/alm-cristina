@@ -753,7 +753,22 @@ class AdminController extends Controller
 
             $response = array();
             $response['name'] = $_POST['typeName'];
-            $response['modality'] = $_POST['typeModality'];
+            if($_POST['typeModality'] == 'day'){
+                if($request = $this->get('request')->getLocale() == 'es') {
+                    $response['modality'] = 'Por día';
+                }
+                else{
+                    $response['modality'] = 'By day';
+                }
+            }
+            else {
+                if($request = $this->get('request')->getLocale() == 'es') {
+                    $response['modality'] = 'Por hora';
+                }
+                else{
+                    $response['modality'] = 'By hour';
+                }
+            }
             $response['icon'] = $_POST['typeIcon'];
             $response['id'] = $this->getDoctrine()->getRepository('ReservableActivityBundle:TypeActivity')->getIdByName($_POST['typeName']);
 
