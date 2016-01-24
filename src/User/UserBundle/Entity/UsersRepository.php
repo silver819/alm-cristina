@@ -22,7 +22,7 @@ class UsersRepository extends EntityRepository
                                   WHERE u.id = ' . $userID)
                     ->getResult();
 
-        if($result[0]) $user = $result[0];
+        if(isset($result[0])) $user = $result[0];
 
         return $user;
 	}
