@@ -6,4 +6,5 @@ use Symfony\Component\HttpKernel\Bundle\Bundle;
 
 class UserUserBundle extends Bundle
 {
+	//comentando por aqui
 }
