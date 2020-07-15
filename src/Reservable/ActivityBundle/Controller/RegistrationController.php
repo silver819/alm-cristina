@@ -12,6 +12,8 @@ class RegistrationController extends Controller
 {
     public function newAction()
 	{
+        // asjdfjasdlkja ñklj
+
 
         $arrayCitiesQuery = $this->getDoctrine()->getRepository('ReservableActivityBundle:Zone')->findBy(array('type' => 5));
         $arrayCities = array();
